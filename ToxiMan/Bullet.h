@@ -2,6 +2,8 @@
 #include "System.h"
 #include "World.h"
 #include "GameStates.h"
+
+
 class Bullet{
 
 private:
@@ -13,7 +15,8 @@ private:
 	b2CircleShape m_circle;
 	b2Body* m_circlebody;
 
-	//b2Vec2 m_mouse;
+	b2Vec2 m_mouse;
+	b2Vec2 m_mouse2;
 	float m_massa;
 
 	int		magic;
@@ -21,18 +24,23 @@ private:
 	float	dx;
 	float	sizeGun;
 	
+	float len;
+	float x, y;
 
 	bool	is_shoot;
 public:
-
-	//static int ammo_counter;
+	//  всё под корнем (x2-x1)2+(y2-y1)2
+	//	static int ammo_counter;
 	Bullet(v2f pos, b2Vec2 &mouse, PlayerDir &dir) {
 		// круглая пуля
 		m_massa = 0.5;
-		magic = 30;
+		magic = 20;
 		radius = 20;
 		sizeGun = 5;
 		is_shoot = false;
+
+		m_mouse.Set((mouse.x ) / magic, (mouse.y - magic) / magic);
+
 		switch (dir)
 		{
 		case PlayerDir::RIGHT:
@@ -47,7 +55,7 @@ public:
 				m_circlebody->CreateFixture(&m_circle, m_massa);
 				m_circlebody->SetBullet(false);
 				m_circlebody->SetAngularDamping(10);
-				m_circlebody->ApplyLinearImpulseToCenter(mouse, true);
+				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
 			}			
 			break;
 		case PlayerDir::LEFT:
@@ -61,7 +69,7 @@ public:
 				m_circlebody->CreateFixture(&m_circle, m_massa);
 				m_circlebody->SetBullet(false);
 				m_circlebody->SetAngularDamping(10);
-				m_circlebody->ApplyLinearImpulseToCenter(mouse, true);
+				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
 			}			
 			break;
 		default:
