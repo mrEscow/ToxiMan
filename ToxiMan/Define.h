@@ -2,6 +2,7 @@
 #pragma once
 // Скрывает окно консоли при запуске программы
 // #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 // Русификатор для GitHub
 #pragma execution_character_set("utf-8")
 
