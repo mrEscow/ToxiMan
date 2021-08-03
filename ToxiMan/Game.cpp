@@ -28,9 +28,9 @@ Game::Game()
 
 	//---GAME-----------------------------------
 	System::resources.texture.LoadLevel_0();
+	m_background = System::CreateShape(v2f(0, 0), v2f(System::scr_w, System::scr_h), System::resources.texture.background);
 	m_player = new Player();
 
-	m_background = System::CreateShape(v2f(0, 0), v2f(System::scr_w, System::scr_h), System::resources.texture.background);
 	//---ARCHITECT------------------------------
 	System::resources.texture.LoadForArhitect();
 	m_arhitevt = new Architect();
