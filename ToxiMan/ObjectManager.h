@@ -11,8 +11,8 @@ private:
 
 public:
 	
-	void CreateStaticBox64();
 	static uint GetObjectID();
+	void CreateStaticBox64();
 	void Action();
 	void Update();
 	void Draw();
