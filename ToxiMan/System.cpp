@@ -18,7 +18,7 @@ float					System::time;		// Прошедшее время каждого тик�
 sf::Clock				System::clock;
 
 int						System::frameLimit; // Кадры в секунду
-
+//float					System::zoom;		// размер экрана
 
 
 
@@ -42,7 +42,7 @@ System::System(string init)
 		wnd.setFramerateLimit(frameLimit);
 		srand(::time(0));
 		clock.restart();
-
+		//zoom = 1;
 	}
 }
 
@@ -191,6 +191,15 @@ bool System::IsMouseWheelUp(const sf::Mouse::Wheel code)
 	if (event.mouseWheel.x == code) return true;
 	return false;
 }
+
+//void System::MouseScrol() {
+//	if (event.mouseWheelScroll.delta <= -1)
+//		zoom = std::min(2.f, zoom + .1f);
+//	if (event.mouseWheelScroll.delta >= 1)
+//		zoom = std::max(.5f, zoom - .1f);
+//	cam.zoom(zoom);
+//}
+
 
 const v2f System::GetNormalizedPosition(const v2f& pos, float dist, float angle)
 {

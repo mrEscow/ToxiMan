@@ -28,8 +28,16 @@ Player::Player()
 	MyFirstGun = new Gun(m_shape.getPosition(), m_dir);
 }
 
-void Player::Action()
+void Player::Action(StateGame& state_game)
 {
+	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+		state_game = StateGame::ON_ARCITECT;
+	}
+
+	if (System::IsKeyReleased(Key::F1) || System::IsKeyReleased(Key::F1)) {
+
+	}
+
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {		
 		dx = -m_speed;
 	}

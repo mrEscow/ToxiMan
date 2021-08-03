@@ -4,7 +4,8 @@
 enum class StateGame : uint
 {
 	ON_MAIN_MENU,
-	ON_GAME
+	ON_GAME,
+	ON_ARCITECT
 };
 
 

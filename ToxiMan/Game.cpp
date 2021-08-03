@@ -26,12 +26,14 @@ Game::Game()
 	m_wall6 = System::CreateShape(v2f(-200, 100), v2f(200, 100), 5, Color::Blue, Color::Black);
 	World::SetStaticBox(m_wall6);
 
-
+	//---GAME-----------------------------------
 	System::resources.texture.LoadLevel_0();
-
 	m_player = new Player();
 
 	m_background = System::CreateShape(v2f(0, 0), v2f(System::scr_w, System::scr_h), System::resources.texture.background);
+	//---ARCHITECT------------------------------
+	System::resources.texture.LoadForArhitect();
+	m_arhitevt = new Architect();
 }
 
 void Game::Update()
@@ -47,9 +49,27 @@ void Game::Update()
 	m_wall5.setPosition(m_body_wall->GetPosition().x * SCALE, m_body_wall->GetPosition().y * SCALE);
 	m_wall5.setRotation(m_body_wall->GetAngle() * DEG);
 
+	switch (m_state_game)
+	{
+	case StateGame::ON_MAIN_MENU:
+		break;
+	case StateGame::ON_GAME:
+		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
+		System::cam.setCenter(m_player->GetPosition());
+		System::wnd.setView(System::cam);
+
+		m_player->Update();
+		break;
+	case StateGame::ON_ARCITECT:
+		//System::cam.setCenter(m_player->GetPosition());
+		//System::wnd.setView(System::cam);
+		m_arhitevt->Update();
+		break;
+	default:
+		break;
+	}
 
 
-	m_player->Update();
 }
 
 void Game::Draw()
@@ -63,12 +83,38 @@ void Game::Draw()
 	System::wnd.draw(m_wall5);
 	System::wnd.draw(m_wall6);
 	m_player->Draw();
+	switch (m_state_game)
+	{
+	case StateGame::ON_MAIN_MENU:
+		break;
+	case StateGame::ON_GAME:
+		m_player->Draw();
+		m_arhitevt->Draw(m_state_game);
+		break;
+	case StateGame::ON_ARCITECT:
+		m_arhitevt->Draw(m_state_game);
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::Action()
 {
+	switch (m_state_game)
+	{
+	case StateGame::ON_MAIN_MENU:
+		break;
+	case StateGame::ON_GAME:
+		m_player->Action(m_state_game);
+		break;
+	case StateGame::ON_ARCITECT:
+		m_arhitevt->Action(m_state_game);
+		break;
+	default:
+		break;
+	}
 
-	m_player->Action();
 	System::CloseEvent();
 }
 
@@ -76,8 +122,6 @@ void Game::Play()
 {
 	while (System::wnd.isOpen())
 	{
-		System::cam.setCenter(m_player->GetPosition());
-		System::wnd.setView(System::cam);
 		System::SystemUpdate();
 		if (m_is_pause) System::time = 0.f;
 
@@ -100,4 +144,5 @@ void Game::Play()
 Game::~Game()
 {
 	delete m_player;
+	delete m_arhitevt;
 }

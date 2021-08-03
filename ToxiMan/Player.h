@@ -37,7 +37,7 @@ public:
 
 	Player();
 	v2f GetPosition();
-	void Action();
+	void Action(StateGame &state_game);
 	void Update();
 	void Draw();
 

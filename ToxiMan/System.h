@@ -20,7 +20,7 @@ public:
 	static float time;					// Прошедшее время каждого тика
 
 	static int frameLimit;				// Кадры в секунду
-
+	//static float zoom;
 
 
 	// Конструктор инициализатор
@@ -90,6 +90,8 @@ public:
 
 	// Возвращает результат прокрутки колесика мышки
 	static bool IsMouseWheelUp(const sf::Mouse::Wheel code);
+
+	static void MouseScrol();
 
 	// Возвращает позицию относительно pos на расстояние dist в направлении angle
 	static const v2f GetNormalizedPosition(const v2f& pos, float dist, float angle);

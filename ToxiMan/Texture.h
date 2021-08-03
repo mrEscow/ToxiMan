@@ -11,12 +11,14 @@ private:
 		IMG texture;
 		texture.loadFromFile("resources/images/" + file);
 		texture.setSmooth(isSmooth); // Применяйте сглаживание только для вращающихся объектов
+		
 		return texture;
 	}
 
 public:
 
 	IMG player;
+	IMG arhitectMouse;
 	IMG background;
 
 	vector<IMG> test_texture_set;
@@ -26,7 +28,17 @@ public:
 	{
 
 	}
+	// Загрузка для мышки архитектора
+	void LoadForArhitect() {
+		
+		sf::Image image;
+		image.loadFromFile("resources/images/arhitect/mouse.png");
+		
+		image.createMaskFromColor(Color::White);
 
+		arhitectMouse.loadFromImage(image);
+
+	}
 	// Загрузка текстур для тестового уровня 0
 	void LoadLevel_0()
 	{

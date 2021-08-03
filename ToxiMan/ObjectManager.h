@@ -12,6 +12,10 @@ private:
 public:
 	
 	void CreateStaticBox64();
-
-}OM;
+	static uint GetObjectID();
+	void Action();
+	void Update();
+	void Draw();
+	//~Architect();
+};
 

@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Player.h"
 #include "GameStates.h"
+#include "Architect.h"
 
 class Game
 {
@@ -12,9 +13,11 @@ private:
 
 
 	bool m_is_pause = false;
-	StateGame m_state_game = StateGame::ON_MAIN_MENU;
+	StateGame m_state_game = StateGame::ON_GAME;
 
 	Player* m_player;
+	Architect* m_arhitevt;
+
 	Shape m_background;
 	Shape m_wall;
 	Shape m_wall2;
@@ -24,6 +27,11 @@ private:
 	b2Body* m_body_wall;
 	Shape m_wall6;
 	int x;
+
+
+
+
+
 public:
 
 	Game();

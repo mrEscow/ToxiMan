@@ -48,6 +48,7 @@ using std::sinf;
 using std::atanf;
 using std::make_shared;
 using std::make_unique;
+using std::pair;
 
 using std::list;
 using std::vector;
@@ -63,7 +64,7 @@ typedef unsigned int			uint;
 typedef sf::Vector2i			v2i;
 typedef sf::Vector2f			v2f;
 typedef sf::Keyboard			Key;
-typedef sf::Mouse				Button;
+typedef sf::Mouse				Button, Wheel;
 typedef sf::RectangleShape		Shape;
 typedef sf::CircleShape			CircleShape;
 typedef sf::Texture				IMG, PNG, JPG;
