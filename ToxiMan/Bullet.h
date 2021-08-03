@@ -28,6 +28,7 @@ private:
 	float x, y;
 
 	bool	is_shoot;
+	bool	is_live;
 public:
 	//  всё под корнем (x2-x1)2+(y2-y1)2
 	//	static int ammo_counter;
@@ -47,6 +48,7 @@ public:
 			
 			if (mouse.x > 0) {
 				is_shoot = true;
+				is_live = true;
 				m_circleshape = System::CreateCircleShape(pos, radius, 30, -3, Color::Green, Color::Black);
 				m_bodyDef.position.Set((m_circleshape.getPosition().x + sizeGun) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
@@ -61,6 +63,7 @@ public:
 		case PlayerDir::LEFT:
 			if (mouse.x < 0) {
 				is_shoot = true;
+				is_live = true;
 				m_circleshape = System::CreateCircleShape(pos, radius, 30, -3, Color::Green, Color::Black);
 				m_bodyDef.position.Set((m_circleshape.getPosition().x - sizeGun) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
@@ -87,6 +90,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
+						is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -96,6 +100,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
+						is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -105,6 +110,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
+						is_live = false;
 						//m_mouse.Set(0, 0);
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -114,6 +120,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
+						is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f); 
@@ -130,8 +137,8 @@ public:
 			System::wnd.draw(m_circleshape);		
 			
 	}
-	bool Check_is_shoot() {
-		return is_shoot;
+	bool Check_is_live() {
+		return is_live;
 	}
 	void Action() {
 		
