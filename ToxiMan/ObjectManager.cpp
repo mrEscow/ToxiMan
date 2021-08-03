@@ -1,6 +1,6 @@
 #include "ObjectManager.h"
 
-static uint ObjectID{ 0 };
+uint  ObjectManager::ObjectID{ 0 };
 
 void ObjectManager::CreateStaticBox64() {
 	m_name = "object_" + ObjectID++;

@@ -142,6 +142,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Architect.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Boby.h" />
     <ClInclude Include="Bullet.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Architect.cpp" />
     <ClCompile Include="Boby.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
