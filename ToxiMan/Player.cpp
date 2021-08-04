@@ -31,6 +31,7 @@ Player::Player()
 void Player::Action(StateGame& state_game)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+		// GET OBJECT FIXIT
 		state_game = StateGame::ON_ARCITECT;
 	}
 

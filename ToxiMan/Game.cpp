@@ -33,7 +33,7 @@ Game::Game()
 
 	//---ARCHITECT------------------------------
 	System::resources.texture.LoadForArhitect();
-	m_arhitevt = new Architect();
+	m_arhitevt = new Architect(m_objectListBeck,m_objectListZero,m_objectListFront);
 }
 
 void Game::Update()

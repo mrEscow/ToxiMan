@@ -8,6 +8,13 @@ enum class StateGame : uint
 	ON_ARCITECT
 };
 
+enum class ArcitectVector : uint
+{
+	BECK,
+	ZERO,
+	FRONT
+};
+
 
 enum class PlayerDir : uint
 {

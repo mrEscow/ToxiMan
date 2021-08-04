@@ -28,7 +28,9 @@ private:
 	Shape m_wall6;
 	int x;
 
-
+	vector<ObjectManager> m_objectListBeck;
+	vector<ObjectManager> m_objectListZero;
+	vector<ObjectManager> m_objectListFront;
 
 
 

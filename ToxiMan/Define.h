@@ -70,6 +70,7 @@ typedef sf::CircleShape			CircleShape;
 typedef sf::Texture				IMG, PNG, JPG;
 typedef sf::Color				Color;
 typedef sf::IntRect				IR;
+typedef sf::Text				Text;
 
 
 

@@ -1,18 +1,23 @@
 #include "Architect.h"
 
-Architect::Architect()
+Architect::Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront)
 {
 	m_size_x = 64;
 	m_size_y = 64;
-	m_shape = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
-	m_shape.setOutlineColor(Color::Red);
-	m_shape.setOutlineThickness(-5);
+
+	m_mouse = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+	m_mouse.setOutlineColor(Color::Red);
+	m_mouse.setOutlineThickness(-5);
+
+	m_text = System::CreateText(v2f(0,System::scr_h/2),16,"ArchitectMode",System::resources.font.common,Color::White);
 
 }
 
 void Architect::Action(StateGame& state_game)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+		
+		// SAVE OBJECT FIXIT
 		state_game = StateGame::ON_GAME;
 	}
 
@@ -62,9 +67,27 @@ void Architect::Action(StateGame& state_game)
 	}
 
 	if (System::IsMouseReleased(Button::Left)) {
+
 		ObjectManager object;
-		object.CreateStaticBox(m_shape);
-		objectList.push_back(object);
+
+		switch (m_Z_vec)
+		{
+		case ArcitectVector::BECK:
+			object.CreateTextureBoxBeck(m_mouse);
+			m_objectListBeck.push_back(object);
+			break;
+		case ArcitectVector::ZERO:			
+			object.CreateStaticBox(m_mouse);
+			m_objectListZero.push_back(object);
+			break;
+		case ArcitectVector::FRONT:
+			object.CreateTextureBoxFront(m_mouse);
+			m_objectListFront.push_back(object);
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	if (System::IsMousePressed(Button::Right)) {
@@ -73,19 +96,54 @@ void Architect::Action(StateGame& state_game)
 
 	if (System::IsMouseReleased(Button::Right)) {
 		//cout << "MousePOS: " << System::cur_p.x << "  " << System::cur_p.y << endl;
+		switch (m_Z_vec)
+		{
+		case ArcitectVector::BECK:
+			for (auto object : m_objectListBeck)
+				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+					{
+						uint i = object.GetObjectID();
+						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
+						m_objectListBeck.erase(m_objectListBeck.begin() + i);
 
-		for (auto object : objectList) 
-			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-				{
-					uint i = object.GetObjectID();
-					//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
-					objectList.erase(objectList.begin() + i);
+						for (i; i < m_objectListBeck.size(); i++)
+							m_objectListBeck[i].SetNewID();
+						ObjectManager::ObjectBeckID--;
+					}
+			break;
+		case ArcitectVector::ZERO:
+			for (auto object : m_objectListZero)
+				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+					{
+						uint i = object.GetObjectID();
+						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
+						m_objectListZero.erase(m_objectListZero.begin() + i);
 
-					for (i; i < objectList.size(); i++)
-						objectList[i].SetNewID();
-					ObjectManager::ObjectID--;
-				}			
+						for (i; i < m_objectListZero.size(); i++)
+							m_objectListZero[i].SetNewID();
+						ObjectManager::ObjectZeroID--;
+					}
+			break;
+		case ArcitectVector::FRONT:
+			for (auto object : m_objectListFront)
+				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+					{
+						uint i = object.GetObjectID();
+						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
+						m_objectListFront.erase(m_objectListFront.begin() + i);
+
+						for (i; i < m_objectListFront.size(); i++)
+							m_objectListFront[i].SetNewID();
+						ObjectManager::ObjectFrontID--;
+					}
+			break;
+		default:
+			break;
+		}
+		
 		
 	}
 
@@ -99,6 +157,7 @@ void Architect::Action(StateGame& state_game)
 	{
 		System::cam.zoom(1.05f); // gameZoom -= 0.01f;
 	}
+
 	//-------------------------------------------------------------
 
 	if (System::IsKeyPressed(Key::Z)) {
@@ -118,6 +177,23 @@ void Architect::Action(StateGame& state_game)
 	if (System::IsKeyPressed(Key::V)) {
 		m_size_y += 32;
 	}
+
+	//-------------------------------------------------------------
+
+	if (System::IsKeyPressed(Key::Num1)) {
+		m_Z_vec = ArcitectVector::BECK;
+	}
+
+	if (System::IsKeyPressed(Key::Num2)) {
+		m_Z_vec = ArcitectVector::ZERO;
+	}
+
+	if (System::IsKeyPressed(Key::Num3)) {
+		m_Z_vec = ArcitectVector::FRONT;
+	}
+
+	//-------------------------------------------------------------
+
 }
 
 void Architect::DeleteObject()
@@ -126,13 +202,17 @@ void Architect::DeleteObject()
 
 void Architect::Update()
 {
-	for (auto object : objectList)
-		object.Update();
+	for (auto object : m_objectListBeck)
+		object.Update("objectListBeck");
+	for (auto object : m_objectListZero)
+		object.Update("objectListZero");
+	for (auto object : m_objectListFront)
+		object.Update("objectListFront");
 
 
-	m_shape.setSize(v2f(m_size_x, m_size_y));	
-	m_shape.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
-	m_shape.setPosition(System::cur_p);
+	m_mouse.setSize(v2f(m_size_x, m_size_y));
+	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
+	m_mouse.setPosition(System::cur_p);
 	
 	//System::wnd.setView(System::cam);
 	System::wnd.setView(System::cam);
@@ -142,8 +222,12 @@ void Architect::Update()
 
 void Architect::Draw(StateGame& state_game)
 {
-	for (auto object : objectList)
+	for (auto object : m_objectListBeck)
+		object.Draw();
+	for (auto object : m_objectListZero)
+		object.Draw();
+	for (auto object : m_objectListFront)
 		object.Draw();
 	if(state_game==StateGame::ON_ARCITECT)
-		System::wnd.draw(m_shape);
+		System::wnd.draw(m_mouse);
 }

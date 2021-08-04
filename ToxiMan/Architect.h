@@ -4,12 +4,18 @@
 #include "ObjectManager.h"
 #include "GameStates.h"
 /*
-		Управление:
+	Управление:
 	a d s w  - вверх.вниз
 	q e - приблизить отдалить 
 	ЛКМ - поставить объект
 	ПКМ - удалить объект
-		Параметры:
+
+	Выбор вектора объектов:
+	Num1 - Vector BECK  (Только для рисования)
+	Num2 - Vector ZERO  (Только для игровых объектов)
+	Num3 - Vector FRONT (Только для рисования)
+
+	Параметры:
 	Все объекты по одной оси кратны 32!
 	Z - уменьшить ось Х
 	X - увеличить ось Х
@@ -19,14 +25,20 @@
 */
 class Architect
 {
-	Shape m_shape;
-	vector<ObjectManager> objectList;
+	Shape m_mouse;
+	Text m_text;
+
+	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
+
+	vector<ObjectManager> m_objectListBeck;
+	vector<ObjectManager> m_objectListZero;
+	vector<ObjectManager> m_objectListFront;
 
 	uint m_size_x;
 	uint m_size_y;
 
 public:
-	Architect();
+	Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront);
 	void Action(StateGame& state_game);
 	void DeleteObject();
 	void Update();
