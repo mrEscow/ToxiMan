@@ -2,7 +2,9 @@
 
 Architect::Architect()
 {
-	m_shape = System::CreateShape(System::cur_p, v2f(64, 64), System::resources.texture.arhitectMouse);
+	m_size_x = 64;
+	m_size_y = 64;
+	m_shape = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
 	m_shape.setOutlineColor(Color::Red);
 	m_shape.setOutlineThickness(-5);
 
@@ -55,13 +57,13 @@ void Architect::Action(StateGame& state_game)
 	}
 
 	if (System::IsMousePressed(Button::Left)) {
-
+		
 
 	}
 
 	if (System::IsMouseReleased(Button::Left)) {
 		ObjectManager object;
-		object.CreateStaticBox64();
+		object.CreateStaticBox(m_shape);
 		objectList.push_back(object);
 	}
 
@@ -77,23 +79,17 @@ void Architect::Action(StateGame& state_game)
 				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
 				{
 					uint i = object.GetObjectID();
-
-
 					//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
 					objectList.erase(objectList.begin() + i);
 
 					for (i; i < objectList.size(); i++)
 						objectList[i].SetNewID();
-
-
 					ObjectManager::ObjectID--;
-				}
-
-			
+				}			
 		
 	}
 
-
+	//--------------------------------------------------------
 	
 	if (System::IsKeyPressed(Key::Q))
 	{
@@ -103,7 +99,25 @@ void Architect::Action(StateGame& state_game)
 	{
 		System::cam.zoom(1.05f); // gameZoom -= 0.01f;
 	}
+	//-------------------------------------------------------------
 
+	if (System::IsKeyPressed(Key::Z)) {
+		if (m_size_x >= 64)
+			m_size_x -= 32;
+	}
+
+	if (System::IsKeyPressed(Key::X)) {
+		m_size_x += 32;
+	}
+
+	if (System::IsKeyPressed(Key::C)) {
+		if (m_size_y >= 64)
+			m_size_y -= 32;
+	}
+
+	if (System::IsKeyPressed(Key::V)) {
+		m_size_y += 32;
+	}
 }
 
 void Architect::DeleteObject()
@@ -116,10 +130,14 @@ void Architect::Update()
 		object.Update();
 
 
-	System::wnd.setView(System::cam);
+	m_shape.setSize(v2f(m_size_x, m_size_y));	
+	m_shape.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
+	m_shape.setPosition(System::cur_p);
+	
+	//System::wnd.setView(System::cam);
 	System::wnd.setView(System::cam);
 	//cout << "System::MOUSE:  " << System::cur_p_wnd.x << "\t" << System::cur_p_wnd.y << endl;
-	m_shape.setPosition(System::cur_p);
+
 }
 
 void Architect::Draw(StateGame& state_game)

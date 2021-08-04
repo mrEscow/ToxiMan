@@ -18,7 +18,7 @@ public:
 	void SetNewID();
 	v2f GetObjectPosition();
 	v2f GetObjectSize();
-	void CreateStaticBox64();
+	void CreateStaticBox(Shape& shape);
 	void DeleteObject();
 	void Action();
 	void Update();

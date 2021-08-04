@@ -22,6 +22,9 @@ class Architect
 	Shape m_shape;
 	vector<ObjectManager> objectList;
 
+	uint m_size_x;
+	uint m_size_y;
+
 public:
 	Architect();
 	void Action(StateGame& state_game);
