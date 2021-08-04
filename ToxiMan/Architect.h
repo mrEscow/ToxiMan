@@ -11,6 +11,7 @@ class Architect
 public:
 	Architect();
 	void Action(StateGame& state_game);
+	void DeleteObject();
 	void Update();
 	void Draw(StateGame& state_game);
 	//~Architect();

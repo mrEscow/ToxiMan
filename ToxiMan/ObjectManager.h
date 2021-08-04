@@ -4,15 +4,22 @@
 class ObjectManager
 {
 private:
-	static uint ObjectID;
+
+	uint m_ID;
 	const char* m_name;
 	Shape m_shape;
 	b2Body *m_body;
 
 public:
-	
-	static uint GetObjectID();
+
+	static uint ObjectID;
+
+	uint GetObjectID();
+	void SetNewID();
+	v2f GetObjectPosition();
+	v2f GetObjectSize();
 	void CreateStaticBox64();
+	void DeleteObject();
 	void Action();
 	void Update();
 	void Draw();
