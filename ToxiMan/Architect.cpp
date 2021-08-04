@@ -70,7 +70,7 @@ void Architect::Action(StateGame& state_game)
 	}
 
 	if (System::IsMouseReleased(Button::Right)) {
-		cout << "MousePOS: " << System::cur_p.x << "  " << System::cur_p.y << endl;
+		//cout << "MousePOS: " << System::cur_p.x << "  " << System::cur_p.y << endl;
 
 		for (auto object : objectList) 
 			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
@@ -79,30 +79,21 @@ void Architect::Action(StateGame& state_game)
 					uint i = object.GetObjectID();
 
 
-					cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
+					//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
 					objectList.erase(objectList.begin() + i);
 
-					for(i;i< objectList.size();i++)
+					for (i; i < objectList.size(); i++)
 						objectList[i].SetNewID();
 
 
 					ObjectManager::ObjectID--;
 				}
+
 			
 		
 	}
 
-	for (auto object : objectList)
-		if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-			if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-			{
-				cout << "ObjectID:  " << object.GetObjectID() << endl;
-				//objectList.erase(objectList.begin() + object.GetObjectID());
-			}
-			else {
-				cout << "Not On Object " << endl;
-			}
-	//System::MouseScrol(); // Zoom
+
 	
 	if (System::IsKeyPressed(Key::Q))
 	{

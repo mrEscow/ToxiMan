@@ -29,7 +29,7 @@ void ObjectManager::CreateStaticBox64()
 	ObjectID++;
 	m_shape = System::CreateShape(System::cur_p, v2f(64, 64), -3, Color::Black, Color::Blue);
 	m_body = World::CreateBodyBox(m_shape, m_name);
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::DeleteObject()
