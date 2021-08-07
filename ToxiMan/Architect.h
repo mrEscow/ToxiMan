@@ -1,8 +1,10 @@
 #pragma once
-#include"System.h"
-#include"World.h"
+#include "System.h"
+#include "World.h"
 #include "ObjectManager.h"
 #include "GameStates.h"
+#include "Player.h"
+
 /*
 	”правление:
 	a d s w  - вверх.вниз
@@ -25,8 +27,11 @@
 */
 class Architect
 {
-	Shape m_mouse;
-	Text m_text;
+	Shape	m_mouse;
+	Text	m_main_text;
+	Text	m_name_vector_text;
+	v2f		m_zoom_for_text;
+	float	m_koef;
 
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
@@ -39,10 +44,10 @@ class Architect
 
 public:
 	Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront);
-	void Action(StateGame& state_game);
+	void Action(StateGame& state_game, bool& is_from_arhitetc);
 	void DeleteObject();
 	void Update();
-	void Draw(StateGame& state_game);
+	void Draw(StateGame& state_game, Player* player);
 	//~Architect();
 };
 

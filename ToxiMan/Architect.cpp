@@ -9,15 +9,93 @@ Architect::Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
 
-	m_text = System::CreateText(v2f(0,System::scr_h/2),16,"ArchitectMode",System::resources.font.common,Color::White);
-
+	m_main_text = System::CreateText(v2f(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - (System::scr_h / 2)),70,"ArchitectMode",System::resources.font.common,Color::White);
+	m_name_vector_text = System::CreateText(v2f(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - (System::scr_h / 2) + 100), 60, "Vector Zero", System::resources.font.common, Color::White);
+	m_zoom_for_text = v2f(1, 1);
+	m_koef = 1.f;
 }
 
-void Architect::Action(StateGame& state_game)
+void Architect::Action(StateGame& state_game,bool & is_from_arhitetc)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+		// SAVE OBJECT 
+		Json json_back;
+		Json json_zero;
+		Json json_front;
 		
-		// SAVE OBJECT FIXIT
+		for (auto obj : m_objectListBeck) {
+
+			json_back["ID"] = obj.m_ID;
+			json_back["Name"] = obj.m_name;
+
+			json_back["PosX"] = obj.m_shape.getPosition().x;
+			json_back["PosY"] = obj.m_shape.getPosition().y;
+
+			json_back["SizeX"] = obj.m_shape.getSize().x;
+			json_back["SizeY"] = obj.m_shape.getSize().y;
+
+			cout << "JSON: " << json_back << endl;
+
+			string serializedString = json_back.dump();
+
+			ofstream fout;
+			fout.open("file_beck.json", ofstream::app);
+			fout << serializedString << "\n";
+			fout.close(); 
+		 }
+
+		for (auto obj : m_objectListZero) {
+
+			json_zero["ID"] = obj.m_ID;
+			json_zero["Name"] = obj.m_name;
+
+			json_zero["PosX"] = obj.m_shape.getPosition().x;
+			json_zero["PosY"] = obj.m_shape.getPosition().y;
+
+			json_zero["SizeX"] = obj.m_shape.getSize().x;
+			json_zero["SizeY"] = obj.m_shape.getSize().y;
+
+			cout << "JSON: " << json_zero << endl;
+
+			string serializedString = json_zero.dump();
+
+			ofstream fout;
+			fout.open("file_zero.json", ofstream::app);
+			fout << serializedString << "\n";
+			fout.close();
+		}
+
+		for (auto obj : m_objectListFront) {
+
+			json_front["ID"] = obj.m_ID;
+			json_front["Name"] = obj.m_name;
+
+			json_front["PosX"] = obj.m_shape.getPosition().x;
+			json_front["PosY"] = obj.m_shape.getPosition().y;
+
+			json_front["SizeX"] = obj.m_shape.getSize().x;
+			json_front["SizeY"] = obj.m_shape.getSize().y;
+
+			cout << "JSON: " << json_front << endl;
+
+			string serializedString = json_front.dump();
+
+			ofstream fout;
+			fout.open("file_front.json", ofstream::app);
+			fout << serializedString << "\n";
+			fout.close();
+		}
+		// CLEAR VECTORS
+		m_objectListBeck.clear();
+		m_objectListZero.clear();
+		m_objectListFront.clear();
+		// clear ctatic
+		ObjectManager::ObjectBeckID = 0;
+		ObjectManager::ObjectZeroID = 0;
+		ObjectManager::ObjectFrontID = 0;
+		// is_from_arhitetc
+		is_from_arhitetc = true;
+		// GO IN GAME
 		state_game = StateGame::ON_GAME;
 	}
 
@@ -151,11 +229,18 @@ void Architect::Action(StateGame& state_game)
 	
 	if (System::IsKeyPressed(Key::Q))
 	{
+		m_koef *= 0.95f;
 		System::cam.zoom(0.95f);// gameZoom += 0.01f;
+		m_zoom_for_text *= 0.95f;
+		
 	}
 	if (System::IsKeyPressed(Key::E))
 	{
+		m_koef *= 1.05f;
 		System::cam.zoom(1.05f); // gameZoom -= 0.01f;
+		m_zoom_for_text *= 1.05f;
+		//m_main_text.
+		
 	}
 
 	//-------------------------------------------------------------
@@ -213,21 +298,52 @@ void Architect::Update()
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
 	m_mouse.setPosition(System::cur_p);
+
+
+	switch (m_Z_vec)
+	{
+	case ArcitectVector::BECK:
+		m_name_vector_text.setString("Vector Beck");
+		break;
+	case ArcitectVector::ZERO:
+		m_name_vector_text.setString("Vector Zero");
+		break;
+	case ArcitectVector::FRONT:
+		m_name_vector_text.setString("Vector Front");
+		break;
+	default:
+		break;
+	}
+	 
 	
+	//m_main_text.setPosition(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - System::scr_h / 2);
+	//m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w / 2), System::cam.getCenter().y- System::scr_h / 2);
+	m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w * m_koef / 2), System::cam.getCenter().y - System::scr_h * m_koef / 2);
+	m_main_text.setScale(m_zoom_for_text);
+	m_name_vector_text.setPosition(System::cam_p.x - (System::scr_w * m_koef / 2), System::cam_p.y - (System::scr_h * m_koef / 2) + (100 * m_koef));
+	m_name_vector_text.setScale(m_zoom_for_text);
+
+
+
 	//System::wnd.setView(System::cam);
 	System::wnd.setView(System::cam);
 	//cout << "System::MOUSE:  " << System::cur_p_wnd.x << "\t" << System::cur_p_wnd.y << endl;
 
 }
 
-void Architect::Draw(StateGame& state_game)
+void Architect::Draw(StateGame& state_game, Player* player)
 {
 	for (auto object : m_objectListBeck)
 		object.Draw();
 	for (auto object : m_objectListZero)
 		object.Draw();
+	player->Draw();
 	for (auto object : m_objectListFront)
 		object.Draw();
-	if(state_game==StateGame::ON_ARCITECT)
+	if (state_game == StateGame::ON_ARCITECT) {
+		System::wnd.draw(m_main_text);
+		System::wnd.draw(m_name_vector_text);
 		System::wnd.draw(m_mouse);
+	}
+		
 }

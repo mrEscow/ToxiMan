@@ -26,10 +26,26 @@ v2f ObjectManager::GetObjectSize() {
 
 void ObjectManager::CreateStaticBox(Shape& shape) 
 {
-	m_name = "object_" + ObjectZeroID;
+	m_name = "static_object";// +ObjectZeroID;
 	m_ID = ObjectZeroID;
 	ObjectZeroID++;
 	m_shape = System::CreateShape(System::cur_p, shape.getSize(), -3, Color::Black, Color::Blue);
+	m_body = World::CreateBodyBox(m_shape, m_name);
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+}
+
+void ObjectManager::CreateStaticBox(Json& json)
+{
+	m_name = "static_object";// +ObjectZeroID;
+	m_ID = json["ID"].get<uint>();
+	ObjectZeroID++;
+	m_shape = System::CreateShape(
+		v2f(json["PosX"].get<float>(), json["PosY"].get<float>()),
+		v2f(json["SizeX"].get<float>(), json["SizeX"].get<float>()),
+		-3,
+		Color::Black,
+		Color::Blue
+	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
 	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
@@ -64,21 +80,61 @@ void ObjectManager::Draw()
 	System::wnd.draw(m_shape);
 }
 
+Shape ObjectManager::GetShape()
+{
+	return m_shape;
+}
+
+//b2Body* ObjectManager::GetName()
+//{
+//	return m_body;
+//}
+
 void ObjectManager::CreateTextureBoxBeck(Shape& shape)
 {
-	m_name = "object_" + ObjectBeckID;
+	m_name = "beck_object";// + ObjectBeckID;
 	m_ID = ObjectBeckID;
 	ObjectBeckID++;
 	m_shape = System::CreateShape(System::cur_p, shape.getSize(), -3, Color::Yellow, Color::Blue);
-	//m_body = World::CreateBodyBox(m_shape, m_name);
+	//m_body = nullptr;
+}
+
+void ObjectManager::CreateTextureBoxBeck(Json& json)
+{
+	m_name = "beck_object";//json["Name"].get<string>();
+	m_ID = json["ID"].get<uint>();
+	ObjectBeckID++;
+	m_shape = System::CreateShape(
+		v2f(json["PosX"].get<float>(), json["PosY"].get<float>()),
+		v2f(json["SizeX"].get<float>(), json["SizeX"].get<float>()),
+		-3, 
+		Color::Yellow, 
+		Color::Blue
+	);
+	//m_body = nullptr;
 }
 
 void ObjectManager::CreateTextureBoxFront(Shape& shape)
 {
-	m_name = "object_" + ObjectFrontID;
+	m_name = "front_object";// +ObjectFrontID;
 	m_ID = ObjectFrontID;
 	ObjectFrontID++;
 	m_shape = System::CreateShape(System::cur_p, shape.getSize(), -3, Color::Green, Color::Blue);
-	//m_body = World::CreateBodyBox(m_shape, m_name);
+	//m_body = nullptr;
+}
+
+void ObjectManager::CreateTextureBoxFront(Json& json)
+{
+	m_name = "beck_object";//json["Name"].get<string>();
+	m_ID = json["ID"].get<uint>();
+	ObjectBeckID++;
+	m_shape = System::CreateShape(
+		v2f(json["PosX"].get<float>(), json["PosY"].get<float>()),
+		v2f(json["SizeX"].get<float>(), json["SizeX"].get<float>()),
+		-3,
+		Color::Green,
+		Color::Blue
+	);
+	//m_body = nullptr;
 }
 

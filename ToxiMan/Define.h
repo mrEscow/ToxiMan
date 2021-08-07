@@ -25,6 +25,9 @@
 // А так же библиотеку BOX2D
 #include <Box2D/box2d.h>
 
+// И не забудем про JSON
+#include <nlohmann/json.hpp>
+
 
 // Определяем супер важные константы для геометрических вычислений
 static constexpr auto PI = 3.141592;
@@ -61,6 +64,7 @@ using std::thread;
 
 // Деваем длинные название переменных и классов в более короткие
 typedef unsigned int			uint;
+
 typedef sf::Vector2i			v2i;
 typedef sf::Vector2f			v2f;
 typedef sf::Keyboard			Key;
@@ -72,5 +76,6 @@ typedef sf::Color				Color;
 typedef sf::IntRect				IR;
 typedef sf::Text				Text;
 
+typedef nlohmann::json			Json;
 
 

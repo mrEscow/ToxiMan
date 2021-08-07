@@ -26,14 +26,101 @@ Game::Game()
 	m_wall6 = System::CreateShape(v2f(-200, 100), v2f(200, 100), 5, Color::Blue, Color::Black);
 	World::SetStaticBox(m_wall6);
 
+
+	//---Vector from file----------------------
+	
+	Json json;
+	ifstream fin;
+
+	fin.open("file_beck.json");
+	if (!fin.is_open()) {
+		cout << "error: file_beck.json not open!" << endl;
+	}
+	else {
+		cout << "file_beck.json open!" << endl;
+		//char nil = '\0';
+		string line;
+		ObjectManager object;
+		while (std::getline(fin, line))
+		{
+			cout << "Line: " << line << endl;
+			json = Json::parse(line);
+			cout << "Json: " << json << endl;
+
+			object.CreateTextureBoxBeck(json);
+			m_objectListBeck.push_back(object);
+		}
+	
+	}
+	fin.close();
+	fin.open("file_zero.json");
+	if (!fin.is_open()) {
+		cout << "error: file_zero.json not open!" << endl;
+	}
+	else {
+		cout << "file_zero.json open!" << endl;
+		//char nil = '\0';
+		string line;
+		ObjectManager object;
+		while (std::getline(fin, line))
+		{
+			cout << "Line: " << line << endl;
+			json = Json::parse(line);
+			cout << "Json: " << json << endl;
+
+			object.CreateStaticBox(json);
+			m_objectListZero.push_back(object);
+		}
+
+	}
+	fin.close();
+	fin.open("file_front.json");
+	if (!fin.is_open()) {
+		cout << "error: file_front.json not open!" << endl;
+	}
+	else {
+		cout << "file_front.json open!" << endl;
+		//char nil = '\0';
+		string line;
+		ObjectManager object;
+		while (std::getline(fin, line))
+		{
+			cout << "Line: " << line << endl;
+			json = Json::parse(line);
+			cout << "Json: " << json << endl;
+
+			object.CreateTextureBoxFront(json);
+			m_objectListFront.push_back(object);
+		}
+
+	}
+	fin.close();
+
+	if (remove("file_beck.json") != 0)             // удаление файла 
+		cout << "error file_beck.json not delete" << endl;
+	else
+		cout << "file_beck.json delete" << endl;
+
+	if (remove("file_zero.json") != 0)             // удаление файла 
+		cout << "error file_zero.json not delete" << endl;
+	else
+		cout << "file_zero.json delete" << endl;
+
+	if (remove("file_front.json") != 0)             // удаление файла 
+		cout << "error file_front.json not delete" << endl;
+	else
+		cout << "file_front.json delete" << endl;
+	
 	//---GAME-----------------------------------
 	System::resources.texture.LoadLevel_0();
 	m_background = System::CreateShape(v2f(0, 0), v2f(System::scr_w, System::scr_h), System::resources.texture.background);
 	m_player = new Player();
 
+
 	//---ARCHITECT------------------------------
 	System::resources.texture.LoadForArhitect();
 	m_arhitevt = new Architect(m_objectListBeck,m_objectListZero,m_objectListFront);
+	is_from_arhitetc = false;
 }
 
 void Game::Update()
@@ -57,8 +144,13 @@ void Game::Update()
 		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 		System::cam.setCenter(m_player->GetPosition());
 		System::wnd.setView(System::cam);
-
+		for (auto object : m_objectListBeck)
+			object.Update("objectListBeck");
+		for (auto object : m_objectListZero)
+			object.Update("objectListZero");
 		m_player->Update();
+		for (auto object : m_objectListFront)
+			object.Update("objectListFront");
 		break;
 	case StateGame::ON_ARCITECT:
 		//System::cam.setCenter(m_player->GetPosition());
@@ -69,7 +161,93 @@ void Game::Update()
 		break;
 	}
 
+	if (is_from_arhitetc) {
+		Json json;
+		ifstream fin;
 
+		fin.open("file_beck.json");
+		if (!fin.is_open()) {
+			cout << "error: file_beck.json not open!" << endl;
+		}
+		else {
+			cout << "file_beck.json open!" << endl;
+			//char nil = '\0';
+			string line;
+			ObjectManager object;
+			while (std::getline(fin, line))
+			{
+				cout << "Line: " << line << endl;
+				json = Json::parse(line);
+				cout << "Json: " << json << endl;
+
+				object.CreateTextureBoxBeck(json);
+				m_objectListBeck.push_back(object);
+			}
+
+		}
+		fin.close();
+
+		fin.open("file_zero.json");
+		if (!fin.is_open()) {
+			cout << "error: file_zero.json not open!" << endl;
+		}
+		else {
+			cout << "file_zero.json open!" << endl;
+			//char nil = '\0';
+			string line;
+			ObjectManager object;
+			while (std::getline(fin, line))
+			{
+				cout << "Line: " << line << endl;
+				json = Json::parse(line);
+				cout << "Json: " << json << endl;
+
+				object.CreateStaticBox(json);
+				m_objectListZero.push_back(object);
+			}
+
+		}
+		fin.close();
+
+		fin.open("file_front.json");
+		if (!fin.is_open()) {
+			cout << "error: file_front.json not open!" << endl;
+		}
+		else {
+			cout << "file_front.json open!" << endl;
+			//char nil = '\0';
+			string line;
+			ObjectManager object;
+			while (std::getline(fin, line))
+			{
+				cout << "Line: " << line << endl;
+				json = Json::parse(line);
+				cout << "Json: " << json << endl;
+
+				object.CreateTextureBoxFront(json);
+				m_objectListFront.push_back(object);
+			}
+
+		}
+		fin.close();
+
+		//if (remove("file_beck.json") != 0)             // удаление файла 
+		//	cout << "error file_beck.json not delete" << endl;
+		//else
+		//	cout << "file_beck.json delete" << endl;
+
+		//if (remove("file_zero.json") != 0)             // удаление файла 
+		//	cout << "error file_zero.json not delete" << endl;
+		//else
+		//	cout << "file_zero.json delete" << endl;
+
+		//if (remove("file_front.json") != 0)             // удаление файла 
+		//	cout << "error file_front.json not delete" << endl;
+		//else
+		//	cout << "file_front.json delete" << endl;
+
+		is_from_arhitetc = false;
+	}
 }
 
 void Game::Draw()
@@ -88,11 +266,18 @@ void Game::Draw()
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
+		for (auto object : m_objectListBeck)
+			object.Draw();
+		for (auto object : m_objectListZero)
+			object.Draw();
 		m_player->Draw();
-		m_arhitevt->Draw(m_state_game);
+		for (auto object : m_objectListFront)
+			object.Draw();
+
+		//m_arhitevt->Draw(m_state_game);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_arhitevt->Draw(m_state_game);
+		m_arhitevt->Draw(m_state_game,m_player);
 		break;
 	default:
 		break;
@@ -106,10 +291,16 @@ void Game::Action()
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
+		//for (auto object : m_objectListBeck)
+		//	object.Action();
+		//for (auto object : m_objectListZero)
+		//	object.Action();
 		m_player->Action(m_state_game);
+		//for (auto object : m_objectListFront)
+		//	object.Action();
 		break;
 	case StateGame::ON_ARCITECT:
-		m_arhitevt->Action(m_state_game);
+		m_arhitevt->Action(m_state_game, is_from_arhitetc);
 		break;
 	default:
 		break;

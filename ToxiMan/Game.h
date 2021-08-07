@@ -27,12 +27,12 @@ private:
 	b2Body* m_body_wall;
 	Shape m_wall6;
 	int x;
-
+	
 	vector<ObjectManager> m_objectListBeck;
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;
 
-
+	bool is_from_arhitetc;
 
 public:
 
