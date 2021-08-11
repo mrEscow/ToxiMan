@@ -82,6 +82,15 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update()
 {
+
+	//cout << "************" << endl;
+	//cout << m_body->GetPosition().y << endl;
+	//cout << "************" << endl;
+
+	cout << "************" << endl;
+	cout << m_body->GetPosition().IsValid() << endl;
+	cout << "************" << endl;
+
 	if(is_onGround)
 		m_body->ApplyLinearImpulseToCenter(b2Vec2( dx * System::time, dy * System::time), true);
 	else

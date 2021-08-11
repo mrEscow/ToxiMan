@@ -41,7 +41,7 @@ void ObjectManager::CreateStaticBox(Json& json)
 	ObjectZeroID++;
 	m_shape = System::CreateShape(
 		v2f(json["PosX"].get<float>(), json["PosY"].get<float>()),
-		v2f(json["SizeX"].get<float>(), json["SizeX"].get<float>()),
+		v2f(json["SizeX"].get<float>(), json["SizeY"].get<float>()),
 		-3,
 		Color::Black,
 		Color::Blue
