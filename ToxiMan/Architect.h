@@ -42,6 +42,11 @@ class Architect
 	uint m_size_x;
 	uint m_size_y;
 
+	// Сетка
+	Shape m_cell;
+	vector<Shape> m_cell_vec;
+
+
 public:
 	Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront);
 	void Action(StateGame& state_game, bool& is_from_arhitetc);

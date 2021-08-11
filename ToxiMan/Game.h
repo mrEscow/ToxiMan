@@ -13,7 +13,8 @@ private:
 
 
 	bool m_is_pause = false;
-	StateGame m_state_game = StateGame::ON_GAME;
+	//StateGame m_state_game = StateGame::ON_GAME;
+	StateGame m_state_game = StateGame::ON_ARCITECT;
 
 	Player* m_player;
 	Architect* m_arhitevt;

@@ -13,6 +13,22 @@ Architect::Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager
 	m_name_vector_text = System::CreateText(v2f(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - (System::scr_h / 2) + 100), 60, "Vector Zero", System::resources.font.common, Color::White);
 	m_zoom_for_text = v2f(1, 1);
 	m_koef = 1.f;
+
+
+
+	
+	for (size_t i = 0; i < 256; i++)
+	{
+		for (size_t j = 0; j < 128; j++) {
+			m_cell = System::CreateShape(v2f(i* m_size_x, j* m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+			m_cell.setOutlineColor(Color::Green);
+			m_cell.setOutlineThickness(-2);
+
+			m_cell_vec.push_back(m_cell);
+		}
+
+	}
+
 }
 
 void Architect::Action(StateGame& state_game,bool & is_from_arhitetc)
@@ -287,6 +303,17 @@ void Architect::DeleteObject()
 
 void Architect::Update()
 {
+	m_mouse.setSize(v2f(m_size_x, m_size_y));
+	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
+
+	for (auto cell : m_cell_vec)		
+		if (System::cur_p.x > cell.getPosition().x - (cell.getSize().x / 2) && System::cur_p.x < cell.getPosition().x + (cell.getSize().x / 2))
+			if (System::cur_p.y > cell.getPosition().y - (cell.getSize().y / 2) && System::cur_p.y < cell.getPosition().y + (cell.getSize().y / 2))
+			{
+				m_mouse.setPosition(cell.getPosition());
+			}
+
+
 	for (auto object : m_objectListBeck)
 		object.Update("objectListBeck");
 	for (auto object : m_objectListZero)
@@ -295,9 +322,8 @@ void Architect::Update()
 		object.Update("objectListFront");
 
 
-	m_mouse.setSize(v2f(m_size_x, m_size_y));
-	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
-	m_mouse.setPosition(System::cur_p);
+
+	//m_mouse.setPosition(System::cur_p);
 
 
 	switch (m_Z_vec)
@@ -341,9 +367,15 @@ void Architect::Draw(StateGame& state_game, Player* player)
 	for (auto object : m_objectListFront)
 		object.Draw();
 	if (state_game == StateGame::ON_ARCITECT) {
+		for (auto cell : m_cell_vec)
+			//System::wnd.draw(cell);
+
+
+		System::wnd.draw(m_mouse);
+
 		System::wnd.draw(m_main_text);
 		System::wnd.draw(m_name_vector_text);
-		System::wnd.draw(m_mouse);
+
 	}
 		
 }

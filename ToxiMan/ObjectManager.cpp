@@ -29,7 +29,7 @@ void ObjectManager::CreateStaticBox(Shape& shape)
 	m_name = "static_object";// +ObjectZeroID;
 	m_ID = ObjectZeroID;
 	ObjectZeroID++;
-	m_shape = System::CreateShape(System::cur_p, shape.getSize(), -3, Color::Black, Color::Blue);
+	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Black, Color::Blue);
 	m_body = World::CreateBodyBox(m_shape, m_name);
 	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
