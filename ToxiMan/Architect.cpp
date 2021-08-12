@@ -1,6 +1,6 @@
 #include "Architect.h"
 
-Architect::Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront)
+Architect::Architect()
 {
 	m_size_x = 64;
 	m_size_y = 64;
@@ -15,12 +15,12 @@ Architect::Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager
 	m_koef = 1.f;
 
 
-
-	
-	for (size_t i = 0; i < 256; i++)
+	for (size_t i = 0; i < 19 * 2; i++)
 	{
-		for (size_t j = 0; j < 128; j++) {
-			m_cell = System::CreateShape(v2f(i* m_size_x, j* m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+		for (size_t j = 0; j < 10; j++) {
+			
+			m_cell = System::CreateShape(v2f(i * m_size_x, j * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+				
 			m_cell.setOutlineColor(Color::Green);
 			m_cell.setOutlineThickness(-2);
 
@@ -130,7 +130,7 @@ void Architect::Action(StateGame& state_game,bool & is_from_arhitetc)
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
 		//System::cam.setCenter(System::cam.getCenter().x + 10, (System::cam.getCenter().y));
-		System::cam.move(10, 0);
+		System::cam.move(10, 0); cout << "D" << endl;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
@@ -368,7 +368,7 @@ void Architect::Draw(StateGame& state_game, Player* player)
 		object.Draw();
 	if (state_game == StateGame::ON_ARCITECT) {
 		for (auto cell : m_cell_vec)
-			//System::wnd.draw(cell);
+			System::wnd.draw(cell);
 
 
 		System::wnd.draw(m_mouse);

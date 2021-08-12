@@ -151,6 +151,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="Gun.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourcesManager.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Boby.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />

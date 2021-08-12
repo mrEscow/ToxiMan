@@ -48,7 +48,7 @@ class Architect
 
 
 public:
-	Architect(vector<ObjectManager> &objectListBeck, vector<ObjectManager> &objectListZero, vector<ObjectManager> &objectListFront);
+	Architect();
 	void Action(StateGame& state_game, bool& is_from_arhitetc);
 	void DeleteObject();
 	void Update();

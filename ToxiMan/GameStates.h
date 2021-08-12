@@ -8,6 +8,11 @@ enum class StateGame : uint
 	ON_ARCITECT
 };
 
+enum class LevelNumber : uint
+{
+	zero, one, two, tree, four, five, six, seven, eight, nine, ten
+};
+
 enum class ArcitectVector : uint
 {
 	BECK,
