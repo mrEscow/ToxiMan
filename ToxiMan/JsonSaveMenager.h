@@ -1,12 +1,10 @@
 #pragma once
-#include "System.h"
-#include "World.h"
+//#include "System.h"
+//#include "World.h"
 
-#include "Player.h"
 #include "GameStates.h"
-#include "Architect.h"
+#include "ObjectManager.h"
 
-#include "Level.h"
 
 class JsonSaveMenager
 {
@@ -14,7 +12,9 @@ private:
 	Json m_json;
 	string m_serializedString;
 	ofstream m_fout;
+	ifstream m_fin;
 public:
-	void SaveObject(ObjectManager &obj, string name_file);
+	void SaveObject(ObjectManager &obj, string name_file, LevelNumber& number);
+	vector<ObjectManager> LoadVecObject(string name_file, LevelNumber& number);
 };
 

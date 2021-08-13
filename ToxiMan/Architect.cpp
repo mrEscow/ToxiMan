@@ -31,17 +31,17 @@ Architect::Architect()
 
 }
 
-void Architect::Action(StateGame& state_game,bool & is_from_arhitetc, JsonSaveMenager jsonSM)
+void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		// SAVE OBJECT 
-		Json json_back;
-		Json json_zero;
-		Json json_front;
+		//Json json_back;
+		//Json json_zero;
+		//Json json_front;
 		
 		for (auto obj : m_objectListBeck) {
 
-			jsonSM.SaveObject(obj, "file_beck.json");
+			jsonSM.SaveObject(obj, "file_beck.json",number);
 
 			//json_back["ID"] = obj.m_ID;
 			//json_back["Name"] = obj.m_name;
@@ -63,7 +63,7 @@ void Architect::Action(StateGame& state_game,bool & is_from_arhitetc, JsonSaveMe
 		 }
 
 		for (auto obj : m_objectListZero) {
-			jsonSM.SaveObject(obj, "file_zero.json");
+			jsonSM.SaveObject(obj, "file_zero.json", number);
 
 			//json_zero["ID"] = obj.m_ID;
 			//json_zero["Name"] = obj.m_name;
@@ -85,7 +85,7 @@ void Architect::Action(StateGame& state_game,bool & is_from_arhitetc, JsonSaveMe
 		}
 
 		for (auto obj : m_objectListFront) {
-			jsonSM.SaveObject(obj, "file_front.json");
+			jsonSM.SaveObject(obj, "file_front.json", number);
 
 			//json_front["ID"] = obj.m_ID;
 			//json_front["Name"] = obj.m_name;

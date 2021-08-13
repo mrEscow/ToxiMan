@@ -6,7 +6,7 @@
 Game::Game()
 {
 	m_lvl.LoadLevel(m_number);
-
+	//cout << "LoadLeval: "<< (int)m_number << endl;
 }
 
 void Game::Update()
@@ -19,10 +19,10 @@ void Game::Update()
 		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 		System::cam.setCenter(m_lvl.GetPositionPlayer());
 		System::wnd.setView(System::cam);
-		m_lvl.Update(m_state_game);
+		m_lvl.Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_lvl.Update(m_state_game);
+		m_lvl.Update(m_state_game, m_number);
 		break;
 	default:
 		break;
@@ -38,10 +38,10 @@ void Game::Draw()
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
-		m_lvl.Draw(m_state_game);
+		m_lvl.Draw(m_state_game, m_number);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_lvl.Draw(m_state_game);
+		m_lvl.Draw(m_state_game, m_number);
 		break;
 	default:
 		break;
@@ -55,10 +55,10 @@ void Game::Action()
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
-		m_lvl.Action(m_state_game);
+		m_lvl.Action(m_state_game, m_number);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_lvl.Action(m_state_game);
+		m_lvl.Action(m_state_game, m_number);
 		break;
 	default:
 		break;

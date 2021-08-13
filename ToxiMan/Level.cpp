@@ -6,92 +6,96 @@ v2f Level::GetPositionPlayer()
 }
 void Level::LoadLevel(LevelNumber& number)
 {
-	Json json;
-	ifstream fin;
+
+	//Json json;
+	//ifstream fin;
 
 	switch (number)
 	{
 	case LevelNumber::zero:
 
+		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
+		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
+		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
 
-		fin.open("file_beck.json");
-		if (!fin.is_open()) {
-			cout << "error: file_beck.json not open!" << endl;
-		}
-		else {
-			cout << "file_beck.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		//fin.open("file_beck.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_beck.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_beck.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
 
-				object.CreateTextureBoxBeck(json);
-				m_objectListBeck.push_back(object);
-			}
+		//		object.CreateTextureBoxBeck(json);
+		//		m_objectListBeck.push_back(object);
+		//	}
 
-		}
-		fin.close();
-		fin.open("file_zero.json");
-		if (!fin.is_open()) {
-			cout << "error: file_zero.json not open!" << endl;
-		}
-		else {
-			cout << "file_zero.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		//}
+		//fin.close();
+		//fin.open("file_zero.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_zero.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_zero.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
 
-				object.CreateStaticBox(json);
-				m_objectListZero.push_back(object);
-			}
+		//		object.CreateStaticBox(json);
+		//		m_objectListZero.push_back(object);
+		//	}
 
-		}
-		fin.close();
-		fin.open("file_front.json");
-		if (!fin.is_open()) {
-			cout << "error: file_front.json not open!" << endl;
-		}
-		else {
-			cout << "file_front.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		//}
+		//fin.close();
+		//fin.open("file_front.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_front.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_front.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
 
-				object.CreateTextureBoxFront(json);
-				m_objectListFront.push_back(object);
-			}
+		//		object.CreateTextureBoxFront(json);
+		//		m_objectListFront.push_back(object);
+		//	}
 
-		}
-		fin.close();
+		//}
+		//fin.close();
 
-		if (remove("file_beck.json") != 0)             // удаление файла 
-			cout << "error file_beck.json not delete" << endl;
-		else
-			cout << "file_beck.json delete" << endl;
+		//if (remove("file_beck.json") != 0)             // удаление файла 
+		//	cout << "error file_beck.json not delete" << endl;
+		//else
+		//	cout << "file_beck.json delete" << endl;
 
-		if (remove("file_zero.json") != 0)             // удаление файла 
-			cout << "error file_zero.json not delete" << endl;
-		else
-			cout << "file_zero.json delete" << endl;
+		//if (remove("file_zero.json") != 0)             // удаление файла 
+		//	cout << "error file_zero.json not delete" << endl;
+		//else
+		//	cout << "file_zero.json delete" << endl;
 
-		if (remove("file_front.json") != 0)             // удаление файла 
-			cout << "error file_front.json not delete" << endl;
-		else
-			cout << "file_front.json delete" << endl;
+		//if (remove("file_front.json") != 0)             // удаление файла 
+		//	cout << "error file_front.json not delete" << endl;
+		//else
+		//	cout << "file_front.json delete" << endl;
 
 
 		break;
@@ -120,19 +124,20 @@ void Level::LoadLevel(LevelNumber& number)
 	}
 }
 //----------------------------------------------------------------------
-Level::Level()
+Level::Level() //:m_jsonSM()
 {
 	System::resources.texture.LoadLevel_0();
 	System::resources.texture.LoadForArhitect();
 	
 	m_ptr_player = new Player();
 	m_ptr_arhitevt = new Architect();
+	//m_ptr_jsonSM = new JsonSaveMenager();
 	is_from_arhitetc = false;
 
-
+	
 }
 
-void Level::Action(StateGame& state_game)
+void Level::Action(StateGame& state_game, LevelNumber& number)
 {
 	switch (state_game)
 	{
@@ -142,7 +147,7 @@ void Level::Action(StateGame& state_game)
 		m_ptr_player->Action(state_game);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_arhitevt->Action(state_game, is_from_arhitetc);
+		m_ptr_arhitevt->Action(state_game, is_from_arhitetc, m_jsonSM, number);
 		break;
 	default:
 		break;
@@ -151,79 +156,85 @@ void Level::Action(StateGame& state_game)
 
 }
 
-void Level::Update(StateGame& state_game)
+void Level::Update(StateGame& state_game, LevelNumber& number)
 {
 
 
 	if (is_from_arhitetc) {
-		Json json;
-		ifstream fin;
 
-		fin.open("file_beck.json");
-		if (!fin.is_open()) {
-			cout << "error: file_beck.json not open!" << endl;
-		}
-		else {
-			cout << "file_beck.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
+		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
+		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
 
-				object.CreateTextureBoxBeck(json);
-				m_objectListBeck.push_back(object);
-			}
 
-		}
-		fin.close();
+		//Json json;
+		//ifstream fin;
 
-		fin.open("file_zero.json");
-		if (!fin.is_open()) {
-			cout << "error: file_zero.json not open!" << endl;
-		}
-		else {
-			cout << "file_zero.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		//fin.open("file_beck.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_beck.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_beck.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
 
-				object.CreateStaticBox(json);
-				m_objectListZero.push_back(object);
-			}
+		//		object.CreateTextureBoxBeck(json);
+		//		m_objectListBeck.push_back(object);
+		//	}
 
-		}
-		fin.close();
+		//}
+		//fin.close();
 
-		fin.open("file_front.json");
-		if (!fin.is_open()) {
-			cout << "error: file_front.json not open!" << endl;
-		}
-		else {
-			cout << "file_front.json open!" << endl;
-			//char nil = '\0';
-			string line;
-			ObjectManager object;
-			while (std::getline(fin, line))
-			{
-				cout << "Line: " << line << endl;
-				json = Json::parse(line);
-				cout << "Json: " << json << endl;
+		//fin.open("file_zero.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_zero.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_zero.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
 
-				object.CreateTextureBoxFront(json);
-				m_objectListFront.push_back(object);
-			}
+		//		object.CreateStaticBox(json);
+		//		m_objectListZero.push_back(object);
+		//	}
 
-		}
-		fin.close();
+		//}
+		//fin.close();
+
+		//fin.open("file_front.json");
+		//if (!fin.is_open()) {
+		//	cout << "error: file_front.json not open!" << endl;
+		//}
+		//else {
+		//	cout << "file_front.json open!" << endl;
+		//	//char nil = '\0';
+		//	string line;
+		//	ObjectManager object;
+		//	while (std::getline(fin, line))
+		//	{
+		//		cout << "Line: " << line << endl;
+		//		json = Json::parse(line);
+		//		cout << "Json: " << json << endl;
+
+		//		object.CreateTextureBoxFront(json);
+		//		m_objectListFront.push_back(object);
+		//	}
+
+		//}
+		//fin.close();
 
 		//if (remove("file_beck.json") != 0)             // удаление файла 
 		//	cout << "error file_beck.json not delete" << endl;
@@ -266,7 +277,7 @@ void Level::Update(StateGame& state_game)
 		object.Update("objectListFront");
 }
 
-void Level::Draw(StateGame& state_game)
+void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
 	for (auto object : m_objectListBeck)
 		object.Draw();
@@ -298,4 +309,5 @@ Level::~Level()
 {
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;
+	//delete m_ptr_jsonSM;
 }

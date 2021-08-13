@@ -50,7 +50,7 @@ class Architect
 
 public:
 	Architect();
-	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager jsonSM);
+	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 	void DeleteObject();
 	void Update();
 	void Draw(StateGame& state_game, Player* player);

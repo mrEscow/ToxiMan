@@ -4,12 +4,12 @@
 #include "System.h"
 #include "World.h"
 
-#include "Player.h"
-#include "GameStates.h"
-#include "Architect.h"
+//#include "Player.h"
+//#include "GameStates.h"
+//#include "Architect.h"
 
 #include "Level.h"
-#include "JsonSaveMenager.h"
+//#include "JsonSaveMenager.h"
 
 class Game
 {
@@ -23,7 +23,7 @@ private:
 
 	LevelNumber m_number = LevelNumber::zero;
 
-	JsonSaveMenager m_jsonSM;
+
 
 
 public:
