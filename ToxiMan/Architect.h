@@ -4,6 +4,7 @@
 #include "ObjectManager.h"
 #include "GameStates.h"
 #include "Player.h"
+#include "JsonSaveMenager.h"
 
 /*
 	”правление:
@@ -49,7 +50,7 @@ class Architect
 
 public:
 	Architect();
-	void Action(StateGame& state_game, bool& is_from_arhitetc);
+	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager jsonSM);
 	void DeleteObject();
 	void Update();
 	void Draw(StateGame& state_game, Player* player);

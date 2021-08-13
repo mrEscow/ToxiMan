@@ -151,6 +151,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="Gun.h" />
+    <ClInclude Include="JsonSaveMenager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Boby.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="JsonSaveMenager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />

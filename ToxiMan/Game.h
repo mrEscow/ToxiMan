@@ -9,6 +9,7 @@
 #include "Architect.h"
 
 #include "Level.h"
+#include "JsonSaveMenager.h"
 
 class Game
 {
@@ -21,6 +22,8 @@ private:
 	Level m_lvl;
 
 	LevelNumber m_number = LevelNumber::zero;
+
+	JsonSaveMenager m_jsonSM;
 
 
 public:

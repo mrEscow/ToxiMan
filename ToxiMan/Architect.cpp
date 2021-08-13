@@ -31,7 +31,7 @@ Architect::Architect()
 
 }
 
-void Architect::Action(StateGame& state_game,bool & is_from_arhitetc)
+void Architect::Action(StateGame& state_game,bool & is_from_arhitetc, JsonSaveMenager jsonSM)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		// SAVE OBJECT 
@@ -41,65 +41,69 @@ void Architect::Action(StateGame& state_game,bool & is_from_arhitetc)
 		
 		for (auto obj : m_objectListBeck) {
 
-			json_back["ID"] = obj.m_ID;
-			json_back["Name"] = obj.m_name;
+			jsonSM.SaveObject(obj, "file_beck.json");
 
-			json_back["PosX"] = obj.m_shape.getPosition().x;
-			json_back["PosY"] = obj.m_shape.getPosition().y;
+			//json_back["ID"] = obj.m_ID;
+			//json_back["Name"] = obj.m_name;
 
-			json_back["SizeX"] = obj.m_shape.getSize().x;
-			json_back["SizeY"] = obj.m_shape.getSize().y;
+			//json_back["PosX"] = obj.m_shape.getPosition().x;
+			//json_back["PosY"] = obj.m_shape.getPosition().y;
 
-			cout << "JSON: " << json_back << endl;
+			//json_back["SizeX"] = obj.m_shape.getSize().x;
+			//json_back["SizeY"] = obj.m_shape.getSize().y;
 
-			string serializedString = json_back.dump();
+			//cout << "JSON: " << json_back << endl;
 
-			ofstream fout;
-			fout.open("file_beck.json", ofstream::app);
-			fout << serializedString << "\n";
-			fout.close(); 
+			//string serializedString = json_back.dump();
+
+			//ofstream fout;
+			//fout.open("file_beck.json", ofstream::app);
+			//fout << serializedString << "\n";
+			//fout.close(); 
 		 }
 
 		for (auto obj : m_objectListZero) {
+			jsonSM.SaveObject(obj, "file_zero.json");
 
-			json_zero["ID"] = obj.m_ID;
-			json_zero["Name"] = obj.m_name;
+			//json_zero["ID"] = obj.m_ID;
+			//json_zero["Name"] = obj.m_name;
 
-			json_zero["PosX"] = obj.m_shape.getPosition().x;
-			json_zero["PosY"] = obj.m_shape.getPosition().y;
+			//json_zero["PosX"] = obj.m_shape.getPosition().x;
+			//json_zero["PosY"] = obj.m_shape.getPosition().y;
 
-			json_zero["SizeX"] = obj.m_shape.getSize().x;
-			json_zero["SizeY"] = obj.m_shape.getSize().y;
+			//json_zero["SizeX"] = obj.m_shape.getSize().x;
+			//json_zero["SizeY"] = obj.m_shape.getSize().y;
 
-			cout << "JSON: " << json_zero << endl;
+			//cout << "JSON: " << json_zero << endl;
 
-			string serializedString = json_zero.dump();
+			//string serializedString = json_zero.dump();
 
-			ofstream fout;
-			fout.open("file_zero.json", ofstream::app);
-			fout << serializedString << "\n";
-			fout.close();
+			//ofstream fout;
+			//fout.open("file_zero.json", ofstream::app);
+			//fout << serializedString << "\n";
+			//fout.close();
 		}
 
 		for (auto obj : m_objectListFront) {
+			jsonSM.SaveObject(obj, "file_front.json");
 
-			json_front["ID"] = obj.m_ID;
-			json_front["Name"] = obj.m_name;
+			//json_front["ID"] = obj.m_ID;
+			//json_front["Name"] = obj.m_name;
 
-			json_front["PosX"] = obj.m_shape.getPosition().x;
-			json_front["PosY"] = obj.m_shape.getPosition().y;
+			//json_front["PosX"] = obj.m_shape.getPosition().x;
+			//json_front["PosY"] = obj.m_shape.getPosition().y;
 
-			json_front["SizeX"] = obj.m_shape.getSize().x;
-			json_front["SizeY"] = obj.m_shape.getSize().y;
+			//json_front["SizeX"] = obj.m_shape.getSize().x;
+			//json_front["SizeY"] = obj.m_shape.getSize().y;
 
-			cout << "JSON: " << json_front << endl;
+			//cout << "JSON: " << json_front << endl;
 
-			string serializedString = json_front.dump();
+			//string serializedString = json_front.dump();
 
-			ofstream fout;
-			fout.open("file_front.json", ofstream::app);
-			fout << serializedString << "\n";
-			fout.close();
+			//ofstream fout;
+			//fout.open("file_front.json", ofstream::app);
+			//fout << serializedString << "\n";
+			//fout.close();
 		}
 		// CLEAR VECTORS
 		m_objectListBeck.clear();
