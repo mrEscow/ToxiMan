@@ -93,8 +93,7 @@ void Level::LoadLevel(LevelNumber& number)
 		else
 			cout << "file_front.json delete" << endl;
 
-		System::resources.texture.LoadLevel_0();
-		System::resources.texture.LoadForArhitect();
+
 		break;
 	case LevelNumber::one:
 		break;
@@ -123,8 +122,9 @@ void Level::LoadLevel(LevelNumber& number)
 //----------------------------------------------------------------------
 Level::Level()
 {
-
-
+	System::resources.texture.LoadLevel_0();
+	System::resources.texture.LoadForArhitect();
+	
 	m_ptr_player = new Player();
 	m_ptr_arhitevt = new Architect();
 	is_from_arhitetc = false;
