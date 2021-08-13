@@ -134,7 +134,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
 		//System::cam.setCenter(System::cam.getCenter().x + 10, (System::cam.getCenter().y));
-		System::cam.move(10, 0); cout << "D" << endl;
+		System::cam.move(10, 0); //cout << "D" << endl;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
