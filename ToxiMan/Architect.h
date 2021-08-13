@@ -36,9 +36,11 @@ class Architect
 
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
-	vector<ObjectManager> m_objectListBeck;
-	vector<ObjectManager> m_objectListZero;
-	vector<ObjectManager> m_objectListFront;
+	vector<ObjectManager>::iterator it;
+
+	vector<ObjectManager> *m_ptr_objectListBeck;
+	vector<ObjectManager> *m_ptr_objectListZero;
+	vector<ObjectManager> *m_ptr_objectListFront;
 
 	uint m_size_x;
 	uint m_size_y;
@@ -49,7 +51,7 @@ class Architect
 
 
 public:
-	Architect();
+	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront);
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 	void DeleteObject();
 	void Update();

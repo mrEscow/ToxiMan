@@ -1,25 +1,18 @@
 #pragma once
 
-//#include "System.h"
-//
-//#include "World.h"
-
 #include "GameStates.h"
-
 #include "ObjectManager.h"
-
 #include "JsonSaveMenager.h"
-
 #include "Player.h"
-
 #include "Architect.h"
 
 
 class Level
 {
 private:
-	 JsonSaveMenager  m_jsonSM;
+	LevelNumber *m_ptr_number;
 
+	JsonSaveMenager  m_jsonSM;
 
 	Player* m_ptr_player;
 	Architect* m_ptr_arhitevt;
@@ -37,7 +30,7 @@ public:
 	void LoadLevel(LevelNumber &number);
 
 
-	Level();
+	Level(LevelNumber& number);
 	void Action(StateGame& state_game, LevelNumber& number);
 	void Update(StateGame& state_game, LevelNumber& number);
 	void Draw(StateGame& state_game, LevelNumber& number);

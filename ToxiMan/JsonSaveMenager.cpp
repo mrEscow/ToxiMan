@@ -1,5 +1,7 @@
 #include "JsonSaveMenager.h"
 
+#pragma warning(disable : 4996)
+
 void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumber& number)
 {
 	m_json["ID"] = obj.m_ID;
@@ -13,7 +15,7 @@ void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumb
 
 	m_serializedString = m_json.dump();
 
-	m_fout.open("Resources/JsonSave/" + name_file, ofstream::app);
+	m_fout.open("Resources/JsonSave/" + to_string((int)number) + "/" + name_file, ofstream::app);
 	m_fout << m_serializedString << "\n";
 	m_fout.close();
 }
@@ -22,7 +24,7 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 {
 
 	vector<ObjectManager> vec;
-	m_fin.open("Resources/JsonSave/" + name_file);
+	m_fin.open("Resources/JsonSave/" + to_string((int)number) + "/" + name_file);
 	if (!m_fin.is_open()) {
 		cout << "error: file not open!" << endl;
 	}
@@ -48,5 +50,14 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 		}
 	}
 	m_fin.close();
+
+
+	string str_temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file; 
+	char* char_temp = new char[str_temp.size()];
+	strcpy(char_temp, str_temp.c_str());
+	if (remove(char_temp) != 0)             // удаление файла 
+		cout << "error file_beck.json not delete" << endl;
+	else
+		cout << "file_beck.json delete" << endl;
 	return vec;
 }

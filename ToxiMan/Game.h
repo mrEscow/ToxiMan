@@ -14,12 +14,9 @@ private:
 
 	StateGame m_state_game = StateGame::ON_ARCITECT;
 
-	Level m_lvl;
-
 	LevelNumber m_number = LevelNumber::zero;
 
-
-
+	Level *m_ptr_lvl;
 
 public:
 

@@ -1,7 +1,12 @@
 #include "Architect.h"
 
-Architect::Architect()
+Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront)
 {
+	
+	m_ptr_objectListBeck = &objectListBeck;
+	m_ptr_objectListZero = &objectListZero;
+	m_ptr_objectListFront = &objectListFront;
+
 	m_size_x = 64;
 	m_size_y = 64;
 
@@ -33,86 +38,26 @@ Architect::Architect()
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
 {
+	
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-		// SAVE OBJECT 
-		//Json json_back;
-		//Json json_zero;
-		//Json json_front;
-		
-		for (auto obj : m_objectListBeck) {
-
+		// SAVE OBJECT 		
+		for (auto obj : *m_ptr_objectListBeck) {
 			jsonSM.SaveObject(obj, "file_beck.json",number);
-
-			//json_back["ID"] = obj.m_ID;
-			//json_back["Name"] = obj.m_name;
-
-			//json_back["PosX"] = obj.m_shape.getPosition().x;
-			//json_back["PosY"] = obj.m_shape.getPosition().y;
-
-			//json_back["SizeX"] = obj.m_shape.getSize().x;
-			//json_back["SizeY"] = obj.m_shape.getSize().y;
-
-			//cout << "JSON: " << json_back << endl;
-
-			//string serializedString = json_back.dump();
-
-			//ofstream fout;
-			//fout.open("file_beck.json", ofstream::app);
-			//fout << serializedString << "\n";
-			//fout.close(); 
 		 }
-
-		for (auto obj : m_objectListZero) {
-			jsonSM.SaveObject(obj, "file_zero.json", number);
-
-			//json_zero["ID"] = obj.m_ID;
-			//json_zero["Name"] = obj.m_name;
-
-			//json_zero["PosX"] = obj.m_shape.getPosition().x;
-			//json_zero["PosY"] = obj.m_shape.getPosition().y;
-
-			//json_zero["SizeX"] = obj.m_shape.getSize().x;
-			//json_zero["SizeY"] = obj.m_shape.getSize().y;
-
-			//cout << "JSON: " << json_zero << endl;
-
-			//string serializedString = json_zero.dump();
-
-			//ofstream fout;
-			//fout.open("file_zero.json", ofstream::app);
-			//fout << serializedString << "\n";
-			//fout.close();
+		for (auto obj : *m_ptr_objectListZero) {
+			jsonSM.SaveObject(obj, "file_zero.json", number);	
 		}
-
-		for (auto obj : m_objectListFront) {
+		for (auto obj : *m_ptr_objectListFront) {
 			jsonSM.SaveObject(obj, "file_front.json", number);
-
-			//json_front["ID"] = obj.m_ID;
-			//json_front["Name"] = obj.m_name;
-
-			//json_front["PosX"] = obj.m_shape.getPosition().x;
-			//json_front["PosY"] = obj.m_shape.getPosition().y;
-
-			//json_front["SizeX"] = obj.m_shape.getSize().x;
-			//json_front["SizeY"] = obj.m_shape.getSize().y;
-
-			//cout << "JSON: " << json_front << endl;
-
-			//string serializedString = json_front.dump();
-
-			//ofstream fout;
-			//fout.open("file_front.json", ofstream::app);
-			//fout << serializedString << "\n";
-			//fout.close();
 		}
 		// CLEAR VECTORS
-		m_objectListBeck.clear();
-		m_objectListZero.clear();
-		m_objectListFront.clear();
+		//m_objectListBeck.clear();
+		//m_objectListZero.clear();
+		//m_objectListFront.clear();
 		// clear ctatic
-		ObjectManager::ObjectBeckID = 0;
-		ObjectManager::ObjectZeroID = 0;
-		ObjectManager::ObjectFrontID = 0;
+		//ObjectManager::ObjectBeckID = 0;
+		//ObjectManager::ObjectZeroID = 0;
+		//ObjectManager::ObjectFrontID = 0;
 		// is_from_arhitetc
 		is_from_arhitetc = true;
 		// GO IN GAME
@@ -172,15 +117,15 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 		{
 		case ArcitectVector::BECK:
 			object.CreateTextureBoxBeck(m_mouse);
-			m_objectListBeck.push_back(object);
+			m_ptr_objectListBeck->push_back(object);
 			break;
 		case ArcitectVector::ZERO:			
 			object.CreateStaticBox(m_mouse);
-			m_objectListZero.push_back(object);
+			m_ptr_objectListZero->push_back(object);
 			break;
 		case ArcitectVector::FRONT:
 			object.CreateTextureBoxFront(m_mouse);
-			m_objectListFront.push_back(object);
+			m_ptr_objectListFront->push_back(object);
 			break;
 		default:
 			break;
@@ -193,56 +138,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsMouseReleased(Button::Right)) {
-		//cout << "MousePOS: " << System::cur_p.x << "  " << System::cur_p.y << endl;
-		switch (m_Z_vec)
-		{
-		case ArcitectVector::BECK:
-			for (auto object : m_objectListBeck)
-				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-					{
-						uint i = object.GetObjectID();
-						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
-						m_objectListBeck.erase(m_objectListBeck.begin() + i);
-
-						for (i; i < m_objectListBeck.size(); i++)
-							m_objectListBeck[i].SetNewID();
-						ObjectManager::ObjectBeckID--;
-					}
-			break;
-		case ArcitectVector::ZERO:
-			for (auto object : m_objectListZero)
-				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-					{
-						uint i = object.GetObjectID();
-						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
-						m_objectListZero.erase(m_objectListZero.begin() + i);
-
-						for (i; i < m_objectListZero.size(); i++)
-							m_objectListZero[i].SetNewID();
-						ObjectManager::ObjectZeroID--;
-					}
-			break;
-		case ArcitectVector::FRONT:
-			for (auto object : m_objectListFront)
-				if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-					if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-					{
-						uint i = object.GetObjectID();
-						//cout << "ObjectID_delete:  " << object.GetObjectID() << endl;
-						m_objectListFront.erase(m_objectListFront.begin() + i);
-
-						for (i; i < m_objectListFront.size(); i++)
-							m_objectListFront[i].SetNewID();
-						ObjectManager::ObjectFrontID--;
-					}
-			break;
-		default:
-			break;
-		}
-		
-		
+		DeleteObject();
 	}
 
 	//--------------------------------------------------------
@@ -303,6 +199,60 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::DeleteObject()
 {
+	switch (m_Z_vec)
+	{
+	case ArcitectVector::BECK:
+		for (auto object : *m_ptr_objectListBeck)
+			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+				{
+					it = m_ptr_objectListBeck->begin() + object.GetObjectID();					
+
+					m_ptr_objectListBeck->erase(it);
+
+					for (it;it != m_ptr_objectListBeck->end(); it++)
+						it->SetNewID();
+
+					ObjectManager::ObjectBeckID--;
+				}
+		break;
+	case ArcitectVector::ZERO:
+		for (auto object : *m_ptr_objectListZero)
+			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+				{
+					it = m_ptr_objectListZero->begin() + object.GetObjectID();
+
+					object.DeleteObject();
+
+					m_ptr_objectListZero->erase(it);
+
+					for (it; it != m_ptr_objectListZero->end(); it++)
+						it->SetNewID();
+
+					ObjectManager::ObjectZeroID--;
+				}
+		break;
+	case ArcitectVector::FRONT:
+		for (auto object : *m_ptr_objectListFront)
+			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
+				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
+				{
+					it = m_ptr_objectListFront->begin() + object.GetObjectID();
+
+					m_ptr_objectListFront->erase(it);
+
+					for (it; it != m_ptr_objectListFront->end(); it++)
+						it->SetNewID();
+
+					ObjectManager::ObjectFrontID--;
+				}
+		break;
+	default:
+		break;
+	}
+
+
 }
 
 void Architect::Update()
@@ -318,16 +268,12 @@ void Architect::Update()
 			}
 
 
-	for (auto object : m_objectListBeck)
-		object.Update("objectListBeck");
-	for (auto object : m_objectListZero)
-		object.Update("objectListZero");
-	for (auto object : m_objectListFront)
-		object.Update("objectListFront");
-
-
-
-	//m_mouse.setPosition(System::cur_p);
+	//for (auto object : m_objectListBeck)
+	//	object.Update("objectListBeck");
+	//for (auto object : m_objectListZero)
+	//	object.Update("objectListZero");
+	//for (auto object : m_objectListFront)
+	//	object.Update("objectListFront");
 
 
 	switch (m_Z_vec)
@@ -346,29 +292,24 @@ void Architect::Update()
 	}
 	 
 	
-	//m_main_text.setPosition(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - System::scr_h / 2);
-	//m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w / 2), System::cam.getCenter().y- System::scr_h / 2);
 	m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w * m_koef / 2), System::cam.getCenter().y - System::scr_h * m_koef / 2);
 	m_main_text.setScale(m_zoom_for_text);
 	m_name_vector_text.setPosition(System::cam_p.x - (System::scr_w * m_koef / 2), System::cam_p.y - (System::scr_h * m_koef / 2) + (100 * m_koef));
 	m_name_vector_text.setScale(m_zoom_for_text);
 
 
-
-	//System::wnd.setView(System::cam);
 	System::wnd.setView(System::cam);
-	//cout << "System::MOUSE:  " << System::cur_p_wnd.x << "\t" << System::cur_p_wnd.y << endl;
 
 }
 
 void Architect::Draw(StateGame& state_game, Player* player)
 {
-	for (auto object : m_objectListBeck)
+	for (auto object : *m_ptr_objectListBeck)
 		object.Draw();
-	for (auto object : m_objectListZero)
+	for (auto object : *m_ptr_objectListZero)
 		object.Draw();
 	player->Draw();
-	for (auto object : m_objectListFront)
+	for (auto object : *m_ptr_objectListFront)
 		object.Draw();
 	if (state_game == StateGame::ON_ARCITECT) {
 		for (auto cell : m_cell_vec)
