@@ -106,24 +106,6 @@ void Player::Action(StateGame& state_game)
 void Player::Update()
 {
 
-	//cout << "************" << endl;
-	//cout << m_body->GetPosition().y << endl;
-	//cout << "************" << endl;
-
-	//cout << "************" << endl;
-	//cout << m_body->GetPosition().IsValid() << endl;
-	//cout << "************" << endl;
-
-	//cout << "************" << endl; // ÓÑÊÎÐÅÍÈÅ
-	//cout << m_body->GetLinearVelocity().x << endl;
-	//cout << "L: "<< (m_body->GetLinearVelocity().x < -10) << endl;
-	//cout << "R: " << (m_body->GetLinearVelocity().x > 10) << endl;
-	//cout << "************" << endl;
-
-	//cout << "************" << endl; // ÓÑÊÎÐÅÍÈÅ
-	//cout << m_body->GetLinearVelocity().y << endl;
-	//cout << "************" << endl;
-
 	if(m_body->GetLinearVelocity().y == 0)
 		is_onGround = true;
 	else
@@ -180,11 +162,6 @@ v2f Player::GetPosCam()
 		x = (System::scr_w - 64) / 2;
 	if (m_shape.getPosition().x > ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2))
 		x = ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2);
-
-	//cout << "************" << endl;
-	//cout << "m_shapeY: "<< m_shape.getPosition().y << endl;
-	//cout << (System::scr_h / 2) - 32 << endl;
-	//cout << "************" << endl;
 
 	if (m_shape.getPosition().y > ((System::scr_h + (64 * m_size_map.y)) / 2) - 128 - 16)
 		y = ((System::scr_h + (64 * m_size_map.y)) / 2) - 128 - 16;
