@@ -30,14 +30,16 @@ private:
 	float dy;
 	// начальная позиция
 	v2f m_firstPos;
+	v2f m_size_map;
 	// пушка
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
 
 public:
 
-	Player(v2f firstPos);
+	Player(v2f firstPos, v2f size_map);
 	v2f GetPosition();
+	v2f GetPosCam();
 	void Action(StateGame &state_game);
 	void Update();
 	void Draw();

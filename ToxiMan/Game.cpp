@@ -16,9 +16,6 @@ void Game::Update()
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
-		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
-		System::cam.setCenter(m_ptr_lvl->GetPositionPlayer());
-		System::wnd.setView(System::cam);
 		m_ptr_lvl->Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:

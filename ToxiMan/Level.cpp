@@ -8,7 +8,8 @@ void Level::LoadLevel(LevelNumber& number)
 {
 	System::resources.texture.LoadLevel_0();
 	System::resources.texture.LoadForArhitect();
-	m_firstPos = v2f(500, 2250);
+	m_firstPos = v2f(500, 1750);
+	m_size_map = v2f(30, 30);
 	m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
 	m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
@@ -19,8 +20,8 @@ Level::Level(LevelNumber& number)
 	m_ptr_number = &number;
 	LoadLevel(number);
 	
-	m_ptr_player = new Player(m_firstPos);
-	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront);
+	m_ptr_player = new Player(m_firstPos, m_size_map);
+	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront, m_size_map);
 
 	is_from_arhitetc = false;
 	
@@ -66,6 +67,9 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
+		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
+		System::cam.setCenter(m_ptr_player->GetPosCam());
+		System::wnd.setView(System::cam);
 		m_ptr_player->Update();
 		break;
 	case StateGame::ON_ARCITECT:

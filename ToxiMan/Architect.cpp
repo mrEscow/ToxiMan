@@ -1,6 +1,6 @@
 #include "Architect.h"
 
-Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront)
+Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map)
 {
 	
 	m_ptr_objectListBeck = &objectListBeck;
@@ -20,9 +20,9 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 	m_koef = 1.f;
 
 
-	for (size_t i = 0; i < 99 * 2; i++)
+	for (size_t i = 0; i < size_map.x; i++)
 	{
-		for (size_t j = 0; j < 50; j++) {
+		for (size_t j = 0; j < size_map.y; j++) {
 			
 			m_cell = System::CreateShape(v2f(i * m_size_x, j * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
 				

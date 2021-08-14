@@ -4,7 +4,7 @@
 
 
 
-Player::Player(v2f firstPos)
+Player::Player(v2f firstPos, v2f size_map)
 {
 	// параметры игрока
 	name = "player";
@@ -16,7 +16,8 @@ Player::Player(v2f firstPos)
 	dinamic = true;	
 	fixRotat = true;
 	m_firstPos = firstPos;
-
+	// для камеры
+	m_size_map = size_map;
 	// создание картинки игрока SFML
 	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
 	// создание тела игрока BOX2D
@@ -100,6 +101,8 @@ void Player::Action(StateGame& state_game)
 	MyFirstGun->Action();
 }
 
+
+
 void Player::Update()
 {
 
@@ -166,10 +169,37 @@ void Player::Draw()
 	System::wnd.draw(m_shape);
 }
 
+v2f Player::GetPosCam()
+{
+	v2f temp;
+	float
+		x = m_shape.getPosition().x,
+		y = m_shape.getPosition().y;
+
+	if (m_shape.getPosition().x < (System::scr_w - 64) / 2)
+		x = (System::scr_w - 64) / 2;
+	if (m_shape.getPosition().x > ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2))
+		x = ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2);
+
+	//cout << "************" << endl;
+	//cout << "m_shapeY: "<< m_shape.getPosition().y << endl;
+	//cout << (System::scr_h / 2) - 32 << endl;
+	//cout << "************" << endl;
+
+	if (m_shape.getPosition().y > ((System::scr_h + (64 * m_size_map.y)) / 2) - 128 - 16)
+		y = ((System::scr_h + (64 * m_size_map.y)) / 2) - 128 - 16;
+
+	if (m_shape.getPosition().y < (System::scr_h / 2) - 32)
+		y = (System::scr_h / 2) - 32;
+
+	temp = v2f(x, y);
+
+	return temp;
+}
 
 
 v2f Player::GetPosition()
-{	
+{
 	return m_shape.getPosition();
 }
 

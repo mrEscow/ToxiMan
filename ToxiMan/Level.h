@@ -16,6 +16,8 @@ private:
 	JsonSaveMenager  m_jsonSM;
 
 	v2f m_firstPos;
+	v2f m_size_map;
+	
 
 	Player* m_ptr_player;
 
