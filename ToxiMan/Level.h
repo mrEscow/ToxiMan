@@ -10,11 +10,15 @@
 class Level
 {
 private:
+
 	LevelNumber *m_ptr_number;
 
 	JsonSaveMenager  m_jsonSM;
 
+	v2f m_firstPos;
+
 	Player* m_ptr_player;
+
 	Architect* m_ptr_arhitevt;
 
 	bool is_from_arhitetc;

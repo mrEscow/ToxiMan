@@ -8,7 +8,7 @@ void Level::LoadLevel(LevelNumber& number)
 {
 	System::resources.texture.LoadLevel_0();
 	System::resources.texture.LoadForArhitect();
-
+	m_firstPos = v2f(500, 2250);
 	m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
 	m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
@@ -19,7 +19,7 @@ Level::Level(LevelNumber& number)
 	m_ptr_number = &number;
 	LoadLevel(number);
 	
-	m_ptr_player = new Player();
+	m_ptr_player = new Player(m_firstPos);
 	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront);
 
 	is_from_arhitetc = false;

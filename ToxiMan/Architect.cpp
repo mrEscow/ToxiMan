@@ -20,9 +20,9 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 	m_koef = 1.f;
 
 
-	for (size_t i = 0; i < 19 * 2; i++)
+	for (size_t i = 0; i < 99 * 2; i++)
 	{
-		for (size_t j = 0; j < 10; j++) {
+		for (size_t j = 0; j < 50; j++) {
 			
 			m_cell = System::CreateShape(v2f(i * m_size_x, j * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
 				
@@ -103,39 +103,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsMouseReleased(Button::Left)) {
-
-		ObjectManager object;
-		bool is_contact = false;
-		switch (m_Z_vec)
-		{
-		case ArcitectVector::BECK:
-			object.CreateTextureBoxBeck(m_mouse);
-			
-			m_ptr_objectListBeck->push_back(object);
-			break;
-		case ArcitectVector::ZERO:	
-
-			for (auto obj : *m_ptr_objectListZero)
-				if (System::IsContains(obj.m_shape, System::cur_p)) {
-					is_contact = true;
-					cout << "Contact " << endl;
-					break;
-				}
-			if (!is_contact) {
-				cout << "if not contact" << endl;
-				object.CreateStaticBox(m_mouse);
-				m_ptr_objectListZero->push_back(object);
-			}
-
-			break;
-		case ArcitectVector::FRONT:
-			object.CreateTextureBoxFront(m_mouse);
-			m_ptr_objectListFront->push_back(object);
-			break;
-		default:
-			break;
-		}
-		
+		CreateObject();		
 	}
 
 	if (System::IsMousePressed(Button::Right)) {
@@ -202,6 +170,56 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 }
 
+void Architect::CreateObject()
+{
+	ObjectManager object;
+	bool is_contact = false;
+	switch (m_Z_vec)
+	{
+	case ArcitectVector::BECK:
+		for (auto obj : *m_ptr_objectListBeck)
+			if (System::IsContains(obj.m_shape, System::cur_p)) {
+				is_contact = true;
+				//cout << "Contact " << endl;
+				break;
+			}
+		if (!is_contact) {
+			//cout << "if not contact" << endl;
+			object.CreateTextureBoxBeck(m_mouse);
+			m_ptr_objectListBeck->push_back(object);
+		}
+		break;
+	case ArcitectVector::ZERO:
+		for (auto obj : *m_ptr_objectListZero)
+			if (System::IsContains(obj.m_shape, System::cur_p)) {
+				is_contact = true;
+				//cout << "Contact " << endl;
+				break;
+			}
+		if (!is_contact) {
+			//cout << "if not contact" << endl;
+			object.CreateStaticBox(m_mouse);
+			m_ptr_objectListZero->push_back(object);
+		}
+		break;
+	case ArcitectVector::FRONT:
+		for (auto obj : *m_ptr_objectListFront)
+			if (System::IsContains(obj.m_shape, System::cur_p)) {
+				is_contact = true;
+				//cout << "Contact " << endl;
+				break;
+			}
+		if (!is_contact) {
+			//cout << "if not contact" << endl;
+			object.CreateTextureBoxFront(m_mouse);
+			m_ptr_objectListFront->push_back(object);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 void Architect::DeleteObject()
 {
 	switch (m_Z_vec)
@@ -243,6 +261,8 @@ void Architect::DeleteObject()
 		break;
 	}
 }
+
+
 
 void Architect::Update()
 {

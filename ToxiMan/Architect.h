@@ -52,9 +52,15 @@ class Architect
 
 public:
 	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront);
+
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
+
+	void CreateObject();
+
 	void DeleteObject();
+
 	void Update();
+
 	void Draw(StateGame& state_game, Player* player);
 	//~Architect();
 };

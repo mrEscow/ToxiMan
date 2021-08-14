@@ -36,7 +36,7 @@ private:
 
 public:
 
-	Player();
+	Player(v2f firstPos);
 	v2f GetPosition();
 	void Action(StateGame &state_game);
 	void Update();

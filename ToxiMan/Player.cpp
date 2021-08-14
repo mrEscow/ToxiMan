@@ -4,7 +4,7 @@
 
 
 
-Player::Player()
+Player::Player(v2f firstPos)
 {
 	// параметры игрока
 	name = "player";
@@ -14,9 +14,9 @@ Player::Player()
 	magic = 2;
 	width = m_size_w / magic; // Объем бокса влияет на скорость и импульс
 	dinamic = true;	
-	fixRotat = true;	
-	m_firstPos.x = 0;
-	m_firstPos.y = 0;
+	fixRotat = true;
+	m_firstPos = firstPos;
+
 	// создание картинки игрока
 	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
 	// создание тела игрока
@@ -87,8 +87,8 @@ void Player::Action(StateGame& state_game)
 	
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
 		if (is_onGround) {
-			//m_body->ApplyLinearImpulse(b2Vec2(dx , (-400 / magic) * System::time), m_body->GetPosition(), true);
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0 , (-185 / magic) * System::time), true);
+			//m_body->SetAwake(true);
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(10 * -dx * System::time, (-190 / magic) * System::time), true);
 			is_onGround = false;
 		}
 	}
@@ -125,7 +125,7 @@ void Player::Update()
 		//m_body->SetLinearVelocity(b2Vec2(dx * System::time, dy * System::time * World::gravity * 100));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2( dx * System::time, dy * System::time), true);
 	else
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / magic * 2 , dy * System::time), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / (magic * 2) , dy * System::time), true);
 	
 
 	b2Vec2 pos = m_body->GetPosition();
