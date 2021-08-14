@@ -118,14 +118,14 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	
 	if (System::IsKeyPressed(Key::Q))
 	{
-		m_koef *= 0.95f;
+		m_koef *= 0.90f;
 		System::cam.zoom(0.90f);// gameZoom += 0.01f;
 		m_zoom_for_text *= 0.90f;
 		
 	}
 	if (System::IsKeyPressed(Key::E))
 	{
-		m_koef *= 1.05f;
+		m_koef *= 1.1f;
 		System::cam.zoom(1.1f); // gameZoom -= 0.01f;
 		m_zoom_for_text *= 1.1f;
 		//m_main_text.
@@ -290,9 +290,9 @@ void Architect::Update()
 	}
 	 
 	
-	m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w * m_koef / 2), System::cam.getCenter().y - System::scr_h * m_koef / 2);
+	m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w * (m_koef) / 2), System::cam.getCenter().y - System::scr_h * (m_koef) / 2);
 	m_main_text.setScale(m_zoom_for_text);
-	m_name_vector_text.setPosition(System::cam_p.x - (System::scr_w * m_koef / 2), System::cam_p.y - (System::scr_h * m_koef / 2) + (100 * m_koef));
+	m_name_vector_text.setPosition(System::cam_p.x - (System::scr_w * m_koef / 2), (System::cam_p.y - (System::scr_h * m_koef  / 2)) + (100 * m_koef ));
 	m_name_vector_text.setScale(m_zoom_for_text);
 
 
