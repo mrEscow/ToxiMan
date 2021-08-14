@@ -67,7 +67,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {
 		//System::cam.setCenter(System::cam.getCenter().x - 10, (System::cam.getCenter().y));
-		System::cam.move( - 10, 0);
+		System::cam.move( - 10 * m_koef, 0);
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
@@ -76,7 +76,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
 		//System::cam.setCenter(System::cam.getCenter().x + 10, (System::cam.getCenter().y));
-		System::cam.move(10, 0); //cout << "D" << endl;
+		System::cam.move(10 * m_koef, 0); //cout << "D" << endl;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
@@ -85,7 +85,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
 		//System::cam.setCenter(System::cam.getCenter().x, (System::cam.getCenter().y - 10));
-		System::cam.move(0, -10);
+		System::cam.move(0, -10 * m_koef);
 	}
 
 	if ((System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W))) {
@@ -94,7 +94,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	if (System::IsKeyPressed(Key::Down) || System::IsKeyPressed(Key::S)) {
 		//System::cam.setCenter(System::cam.getCenter().x, (System::cam.getCenter().y + 10));
-		System::cam.move(0, 10);
+		System::cam.move(0, 10 * m_koef);
 	}
 
 	if ((System::IsKeyReleased(Key::Down) || System::IsKeyReleased(Key::S))) {
