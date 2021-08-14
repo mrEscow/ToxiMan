@@ -5,6 +5,8 @@
 
 Game::Game()
 {
+	m_ptr_thread = new sf::Thread(&Game::Thread, this);
+
 	m_ptr_lvl = new Level(m_number);
 }
 
@@ -29,6 +31,8 @@ void Game::Update()
 
 void Game::Draw()
 {
+	System::wnd.clear();
+
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
@@ -42,6 +46,8 @@ void Game::Draw()
 	default:
 		break;
 	}
+
+	System::wnd.display();
 }
 
 void Game::Action()
@@ -63,6 +69,13 @@ void Game::Action()
 	System::CloseEvent();
 }
 
+void Game::Thread()
+{
+	while (System::wnd.isOpen()){
+
+	}
+}
+
 void Game::Play()
 {
 	while (System::wnd.isOpen())
@@ -80,13 +93,14 @@ void Game::Play()
 
 		World::world->Step(1 / (float)System::frameLimit * 2, 8, 3);
 
-		System::wnd.clear();
+
 		Draw();
-		System::wnd.display();
+
 	}
 }
 
 Game::~Game()
 {
 	delete m_ptr_lvl;
+	delete m_ptr_thread;
 }
