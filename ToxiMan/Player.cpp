@@ -51,6 +51,7 @@ Player::Player(v2f firstPos, v2f size_map)
 	//m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
 	 
 	// движение
+	m_koeficent = 10;
 	m_speed = 0.4 * 5 / magic;
 	dx = 0; dy = 0;
 	is_onGround = false;
@@ -66,7 +67,7 @@ void Player::Action(StateGame& state_game)
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
-			dx = -m_speed;
+		dx = -m_speed;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
@@ -81,10 +82,10 @@ void Player::Action(StateGame& state_game)
 		dx = 0;
 	}
 	
-	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
+	if (System::IsKeyPressed(Key::Space)) {
 		if (is_onGround) {
 
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * System::time), true);
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
 		}
 	}
 		
@@ -117,10 +118,12 @@ void Player::Update()
 			m_body->SetLinearVelocity(b2Vec2(-10, 0));
 		if (m_body->GetLinearVelocity().x > 10)
 			m_body->SetLinearVelocity(b2Vec2(10, 0));
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time, dy * System::time), true);
+		if(m_body->GetLinearVelocity().x == 0)
+			m_body->SetLinearVelocity(b2Vec2(2 * dx, 0));
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent, dy * m_koeficent), true);
 	}
 	else {
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / (magic * 2), dy * System::time * World::gravity), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);
 	}
 
 	m_body->SetLinearDamping(0.1); // затухание 

@@ -19,7 +19,8 @@ private:
 	bool fixRotat;		// запретить повороты
 
 	// Объем бокса влияет на скорость и импульс
-	float magic;		
+	float magic;
+	float m_koeficent;
 
 	Shape m_shape;
 	b2Body* m_body;

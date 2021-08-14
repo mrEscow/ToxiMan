@@ -54,3 +54,6 @@
 {"ID":53,"Name":"static_object","PosX":1856.0,"PosY":1152.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":54,"Name":"static_object","PosX":1856.0,"PosY":1088.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":55,"Name":"static_object","PosX":1856.0,"PosY":1024.0,"SizeX":64.0,"SizeY":64.0}
+{"ID":56,"Name":"static_object","PosX":512.0,"PosY":1600.0,"SizeX":64.0,"SizeY":64.0}
+{"ID":57,"Name":"static_object","PosX":576.0,"PosY":1600.0,"SizeX":64.0,"SizeY":64.0}
+{"ID":58,"Name":"static_object","PosX":640.0,"PosY":1600.0,"SizeX":64.0,"SizeY":64.0}

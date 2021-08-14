@@ -17,6 +17,7 @@ public:
 			gravity = 9.8;
 			worldParam.Set(wind, gravity);
 			static b2World wrd(worldParam);
+			//wrd.DrawDebugData();
 			world = &wrd;
 			id = 0;
 		}
