@@ -50,7 +50,7 @@ Player::Player()
 	//m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
 	 
 	// движение
-	m_speed = 0.5 * 5 / magic;
+	m_speed = 0.4 * 5 / magic;
 	dx = 0; dy = 0;
 
 	is_onGround = false;
@@ -88,7 +88,7 @@ void Player::Action(StateGame& state_game)
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
 		if (is_onGround) {
 			//m_body->ApplyLinearImpulse(b2Vec2(dx , (-400 / magic) * System::time), m_body->GetPosition(), true);
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0 , (-400 / magic) * System::time), true);
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0 , (-185 / magic) * System::time), true);
 			is_onGround = false;
 		}
 	}
@@ -125,7 +125,7 @@ void Player::Update()
 		//m_body->SetLinearVelocity(b2Vec2(dx * System::time, dy * System::time * World::gravity * 100));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2( dx * System::time, dy * System::time), true);
 	else
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / magic, dy * System::time), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / magic * 2 , dy * System::time), true);
 	
 
 	b2Vec2 pos = m_body->GetPosition();
