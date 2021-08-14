@@ -11,8 +11,7 @@ void Level::LoadLevel(LevelNumber& number)
 	m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
 
-	//cout << World::world->GetBodyList()->GetUserData() << endl;
-	World::world->DrawDebugData();
+
 }
 //----------------------------------------------------------------------
 Level::Level(LevelNumber& number)
@@ -109,6 +108,8 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	for (auto object : m_objectListFront)
 	object.Draw();
 
+	
+	
 }
 
 v2f Level::GetPositionPlayer()

@@ -149,6 +149,7 @@ void Player::Draw()
 {
 	MyFirstGun->Draw();
 	System::wnd.draw(m_shape);
+
 }
 
 v2f Player::GetPosCam()
