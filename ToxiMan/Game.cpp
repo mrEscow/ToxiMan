@@ -6,7 +6,6 @@
 Game::Game()
 {
 	m_ptr_lvl = new Level(m_number);
-
 }
 
 void Game::Update()

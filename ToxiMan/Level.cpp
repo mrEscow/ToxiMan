@@ -1,9 +1,6 @@
 #include "Level.h"
 
-v2f Level::GetPositionPlayer()
-{
-	return m_ptr_player->GetPosition();
-}
+
 void Level::LoadLevel(LevelNumber& number)
 {
 	System::resources.texture.LoadLevel_0();
@@ -13,6 +10,9 @@ void Level::LoadLevel(LevelNumber& number)
 	m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
 	m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
+
+	//cout << World::world->GetBodyList()->GetUserData() << endl;
+	World::world->DrawDebugData();
 }
 //----------------------------------------------------------------------
 Level::Level(LevelNumber& number)
@@ -109,6 +109,11 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	for (auto object : m_objectListFront)
 	object.Draw();
 
+}
+
+v2f Level::GetPositionPlayer()
+{
+	return m_ptr_player->GetPosition();
 }
 
 Level::~Level()

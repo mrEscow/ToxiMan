@@ -98,12 +98,11 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsMousePressed(Button::Left)) {
-		
-
+		CreateObject();
 	}
 
 	if (System::IsMouseReleased(Button::Left)) {
-		CreateObject();		
+		CreateObject();
 	}
 
 	if (System::IsMousePressed(Button::Right)) {
@@ -134,23 +133,23 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	//-------------------------------------------------------------
 
-	if (System::IsKeyPressed(Key::Z)) {
-		if (m_size_x >= 128)
-			m_size_x -= 128;
-	}
+	//if (System::IsKeyPressed(Key::Z)) {
+	//	if (m_size_x >= 128)
+	//		m_size_x -= 128;
+	//}
 
-	if (System::IsKeyPressed(Key::X)) {
-		m_size_x += 128;
-	}
+	//if (System::IsKeyPressed(Key::X)) {
+	//	m_size_x += 128;
+	//}
 
-	if (System::IsKeyPressed(Key::C)) {
-		if (m_size_y >= 128)
-			m_size_y -= 128;
-	}
+	//if (System::IsKeyPressed(Key::C)) {
+	//	if (m_size_y >= 128)
+	//		m_size_y -= 128;
+	//}
 
-	if (System::IsKeyPressed(Key::V)) {
-		m_size_y += 128;
-	}
+	//if (System::IsKeyPressed(Key::V)) {
+	//	m_size_y += 128;
+	//}
 
 	//-------------------------------------------------------------
 
@@ -228,7 +227,7 @@ void Architect::DeleteObject()
 		for (auto object : *m_ptr_objectListBeck)
 			if (System::IsContains(object.m_shape, System::cur_p)){
 					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
-					World::world->DestroyBody(object.m_body);
+					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListBeck->erase(it);
 					for (it;it != m_ptr_objectListBeck->end(); it++)
 						it->SetNewID();
@@ -250,7 +249,7 @@ void Architect::DeleteObject()
 		for (auto object : *m_ptr_objectListFront)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 					it = m_ptr_objectListFront->begin() + object.GetObjectID();
-					World::world->DestroyBody(object.m_body);
+					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListFront->erase(it);
 					for (it; it != m_ptr_objectListFront->end(); it++)
 						it->SetNewID();
@@ -269,10 +268,16 @@ void Architect::Update()
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
 
-	for (auto cell : m_cell_vec)		
+	//for (auto cell : m_cell_vec)		
+	//	if (System::IsContains(cell, System::cur_p)) {
+	//			m_mouse.setPosition(cell.getPosition());
+	//	}
+	
+	for (auto cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
-				m_mouse.setPosition(cell.getPosition());
+			m_mouse.setPosition(cell.getPosition());
 		}
+
 
 	switch (m_Z_vec)
 	{
