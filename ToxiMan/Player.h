@@ -22,9 +22,11 @@ private:
 	float magic;
 	float m_koeficent;
 
+	// отрисовка и физика
 	Shape m_shape;
 	b2Body* m_body;
 
+	// перемещение
 	float m_speed;
 	bool is_onGround;
 	float dx;
