@@ -17,9 +17,9 @@ Player::Player(v2f firstPos)
 	fixRotat = true;
 	m_firstPos = firstPos;
 
-	// создание картинки игрока
+	// создание картинки игрока SFML
 	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
-	// создание тела игрока
+	// создание тела игрока BOX2D
 	b2PolygonShape box;
 	b2CircleShape circle;
 
@@ -52,9 +52,8 @@ Player::Player(v2f firstPos)
 	// движение
 	m_speed = 0.4 * 5 / magic;
 	dx = 0; dy = 0;
-
 	is_onGround = false;
-	
+	// оружие
 	MyFirstGun = new Gun(m_shape.getPosition(), m_dir);
 }
 
@@ -85,7 +84,6 @@ void Player::Action(StateGame& state_game)
 		if (is_onGround) {
 
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * System::time), true);
-			is_onGround = false;
 		}
 	}
 		
@@ -119,14 +117,15 @@ void Player::Update()
 	//cout << "R: " << (m_body->GetLinearVelocity().x > 10) << endl;
 	//cout << "************" << endl;
 
-	cout << "************" << endl; // УСКОРЕНИЕ
-	cout << m_body->GetLinearVelocity().y << endl;
-	//cout << "L: "<< (m_body->GetLinearVelocity().x < -10) << endl;
-	//cout << "R: " << (m_body->GetLinearVelocity().x > 10) << endl;
-	cout << "************" << endl;
+	//cout << "************" << endl; // УСКОРЕНИЕ
+	//cout << m_body->GetLinearVelocity().y << endl;
+	//cout << "************" << endl;
 
 	if(m_body->GetLinearVelocity().y == 0)
 		is_onGround = true;
+	else
+		is_onGround = false;
+
 
 	if (is_onGround) {
 		if (m_body->GetLinearVelocity().x < -10)
@@ -135,10 +134,11 @@ void Player::Update()
 			m_body->SetLinearVelocity(b2Vec2(10, 0));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time, dy * System::time), true);
 	}
+	else {
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / (magic * 2), dy * System::time * World::gravity), true);
+	}
 
-	else
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / (magic * 2) , dy * System::time), true);
-	
+	m_body->SetLinearDamping(0.1); // затухание 
 
 	m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
 	m_shape.setRotation(m_body->GetAngle() * DEG);
