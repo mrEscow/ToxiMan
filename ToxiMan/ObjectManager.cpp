@@ -20,7 +20,8 @@ v2f ObjectManager::GetObjectPosition()
 	return m_shape.getPosition();
 }
 
-v2f ObjectManager::GetObjectSize() {
+v2f ObjectManager::GetObjectSize() 
+{
 	return m_shape.getSize();
 }
 
@@ -61,10 +62,6 @@ void ObjectManager::DeleteObject()
 	cout << "Delete Object " << m_ID << endl;
 }
 
-void ObjectManager::Action()
-{
-}
-
 
 
 void ObjectManager::Update(string vecName)
@@ -85,6 +82,7 @@ void ObjectManager::Update(string vecName)
 void ObjectManager::Draw()
 {
 	System::wnd.draw(m_shape);
+	
 }
 
 Shape ObjectManager::GetShape()

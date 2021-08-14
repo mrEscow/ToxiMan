@@ -155,88 +155,18 @@ public:
 		if(dinamic)
 			bodyDef.type = b2_dynamicBody; // теперь на него влияют гравитация и ветер
 
+		b2FixtureDef fdef;
+		fdef.density = massa;	// плотность
+		fdef.restitution = 0;	// упругость (от 0 до 1)
+		fdef.friction = 0.3;		// трение
+		fdef.shape = &polygonShape;
+
 		b2Body* body = world->CreateBody(&bodyDef);
-		body->CreateFixture(&polygonShape, massa);
+		body->CreateFixture(&fdef);
 		body->SetUserData(const_cast<char*>(name)); // stackoverflow
 		//body->SetUserData(name); // stackoverflow
 		body->SetFixedRotation(fixRotat); // не крутися
 		return body;
 	}
 
-	// не получилось)
-	 
-	//static BodyBox GetBodyBox(Shape& box, float massa = 1.f,const char* name = "no_name", bool dinamic = false, bool fixRotat = false) {
-	//	BodyBox b;
-	//	b.m_polygonShape.SetAsBox((box.getSize().x / 2) / SCALE, (box.getSize().y / 2) / SCALE);
-
-	//	
-	//	b.m_bodyDef.position.Set(box.getPosition().x / SCALE, box.getPosition().y / SCALE);
-	//	if(dinamic)
-	//		b.m_bodyDef.type = b2_dynamicBody;
-
-
-	//	b.m_body = world->CreateBody(&b.m_bodyDef);
-	//	b.m_body->CreateFixture(&b.m_polygonShape, massa);
-	//	b.m_body->SetUserData(const_cast<char*>(name));
-	//	b.m_body->SetFixedRotation(fixRotat);
-
-	//	return b;
-	//}
-	//static void CheckParam(BodyBox& b) {
-	//	b.m_body = world->CreateBody(&b.m_bodyDef);
-	//}
 };
-
-
-
-
-
-
-
-
-
-// box2d
-//ptr_world = &World;
-
-// статическое тело
-//setWall(55, 438, 64, 60);
-//setWall(710, 435, 100, 60);
-
-//b2BodyDef groundBodyDef;
-//groundBodyDef.position.Set(0.0f, -10.0f);
-//b2Body* groundBody = World.CreateBody(&groundBodyDef);
-
-//b2PolygonShape groundBox;
-//groundBox.SetAsBox(50.0f, 10.0f);
-//groundBody->CreateFixture(&groundBox, 0.0f);
-
-	//// динамическое тело
-
-
-//b2BodyDef bodyDef;
-//bodyDef.type = b2_dynamicBody;
-//bodyDef.position.Set(0.0f, 4.0f);
-//b2Body* body = World.CreateBody(&bodyDef);
-
-//b2PolygonShape dynamicBox;
-//dynamicBox.SetAsBox(1.0f, 1.0f);
-
-//b2FixtureDef fixtureDef;
-//fixtureDef.shape = &dynamicBox;
-//fixtureDef.density = 1.0f;
-//fixtureDef.friction = 0.3f;
-
-//body->CreateFixture(&fixtureDef);
-//// моделирование мира
-//float timeStep = 1.0f / 60.0f;
-//int32 velocityIterations = 6;
-//int32 positionIterations = 2;
-
-//for (int32 i = 0; i < 60; ++i)
-//{
-//	World.Step(timeStep, velocityIterations, positionIterations);
-//	b2Vec2 position = body->GetPosition();
-//	float angle = body->GetAngle();
-//	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
-//}
-//----------------------------------------------

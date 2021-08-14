@@ -8,16 +8,46 @@ Player::Player()
 {
 	// параметры игрока
 	name = "player";
-	massa = 20.f;
+	massa = 10.f;
 	m_size_h = 96;
 	m_size_w = 96;
 	magic = 2;
 	width = m_size_w / magic; // Объем бокса влияет на скорость и импульс
 	dinamic = true;	
 	fixRotat = true;	
-	// сщздание игрока
-	m_shape = System::CreateShape(v2f(0, 0), v2f(96, m_size_h), System::resources.texture.player);	
-	m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
+	m_firstPos.x = 0;
+	m_firstPos.y = 0;
+	// создание картинки игрока
+	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
+	// создание тела игрока
+	b2PolygonShape box;
+	b2CircleShape circle;
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(m_firstPos.x / SCALE,m_firstPos.y / SCALE);
+
+	b2Body* body = World::world->CreateBody(&bodyDef);
+	b2FixtureDef fdef;
+	fdef.density = massa;		// плотность (масса)
+	fdef.restitution = 0; // упругость (от 0 до 1)
+	fdef.friction = 1;		// трение (от 0 до 1)
+
+	fdef.shape = &box;
+	box.SetAsBox((m_size_w - width - 2) / 2 / SCALE , m_size_h / 4 / SCALE);
+	body->CreateFixture(&fdef);
+
+	circle.m_radius = (m_size_w - width) / 2 / SCALE;
+	fdef.shape = &circle;
+	circle.m_p.Set(0, m_size_h / 4 / SCALE);
+	body->CreateFixture(&fdef);
+	circle.m_p.Set(0, -m_size_h / 4 / SCALE);
+	body->CreateFixture(&fdef);
+
+	body->SetFixedRotation(true);
+
+	m_body = body;
+	//m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
 	 
 	// движение
 	m_speed = 0.5 * 5 / magic;
@@ -91,7 +121,8 @@ void Player::Update()
 	//cout << m_body->GetPosition().IsValid() << endl;
 	//cout << "************" << endl;
 
-	if(is_onGround)
+	if (is_onGround)
+		//m_body->SetLinearVelocity(b2Vec2(dx * System::time, dy * System::time * World::gravity * 100));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2( dx * System::time, dy * System::time), true);
 	else
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / magic, dy * System::time), true);

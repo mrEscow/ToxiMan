@@ -12,7 +12,7 @@ private:
 
 	bool m_is_pause = false;
 
-	StateGame m_state_game = StateGame::ON_ARCITECT;
+	StateGame m_state_game = StateGame::ON_GAME;
 
 	LevelNumber m_number = LevelNumber::zero;
 

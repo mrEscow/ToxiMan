@@ -28,7 +28,8 @@ private:
 	bool is_onGround;
 	float dx;
 	float dy;
-
+	// 
+	v2f m_firstPos;
 	// пушка
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
