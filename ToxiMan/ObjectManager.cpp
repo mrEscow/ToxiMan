@@ -29,7 +29,12 @@ void ObjectManager::CreateStaticBox(Shape& shape)
 	m_name = "static_object";// +ObjectZeroID;
 	m_ID = ObjectZeroID;
 	ObjectZeroID++;
-	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Black, Color::Blue);
+	m_shape = System::CreateShape(
+		shape.getPosition(), 
+		shape.getSize(), 
+		-8, Color::Black, 
+		Color::Blue
+	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
 	cout << "Create Object S " << m_ID << endl;
 	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
@@ -43,7 +48,7 @@ void ObjectManager::CreateStaticBox(Json& json)
 	m_shape = System::CreateShape(
 		v2f(json["PosX"].get<float>(), json["PosY"].get<float>()),
 		v2f(json["SizeX"].get<float>(), json["SizeY"].get<float>()),
-		-3,
+		-8,
 		Color::Black,
 		Color::Blue
 	);

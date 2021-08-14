@@ -56,8 +56,8 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 	char* char_temp = new char[str_temp.size()];
 	strcpy(char_temp, str_temp.c_str());
 	if (remove(char_temp) != 0)             // удаление файла 
-		cout << "error file_beck.json not delete" << endl;
+		cout << "error "<< name_file << " not delete" << endl;
 	else
-		cout << "file_beck.json delete" << endl;
+		cout << name_file << " delete" << endl;
 	return vec;
 }

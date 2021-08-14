@@ -50,14 +50,11 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 		for (auto obj : *m_ptr_objectListFront) {
 			jsonSM.SaveObject(obj, "file_front.json", number);
 		}
-		// CLEAR VECTORS
-		//m_objectListBeck.clear();
-		//m_objectListZero.clear();
-		//m_objectListFront.clear();
+
 		// clear ctatic
-		//ObjectManager::ObjectBeckID = 0;
-		//ObjectManager::ObjectZeroID = 0;
-		//ObjectManager::ObjectFrontID = 0;
+		ObjectManager::ObjectBeckID = 0;
+		ObjectManager::ObjectZeroID = 0;
+		ObjectManager::ObjectFrontID = 0;
 		// is_from_arhitetc
 		is_from_arhitetc = true;
 		// GO IN GAME
@@ -112,16 +109,28 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	if (System::IsMouseReleased(Button::Left)) {
 
 		ObjectManager object;
-
+		bool is_contact = false;
 		switch (m_Z_vec)
 		{
 		case ArcitectVector::BECK:
 			object.CreateTextureBoxBeck(m_mouse);
+			
 			m_ptr_objectListBeck->push_back(object);
 			break;
-		case ArcitectVector::ZERO:			
-			object.CreateStaticBox(m_mouse);
-			m_ptr_objectListZero->push_back(object);
+		case ArcitectVector::ZERO:	
+
+			for (auto obj : *m_ptr_objectListZero)
+				if (System::IsContains(obj.m_shape, System::cur_p)) {
+					is_contact = true;
+					cout << "Contact " << endl;
+					break;
+				}
+			if (!is_contact) {
+				cout << "if not contact" << endl;
+				object.CreateStaticBox(m_mouse);
+				m_ptr_objectListZero->push_back(object);
+			}
+
 			break;
 		case ArcitectVector::FRONT:
 			object.CreateTextureBoxFront(m_mouse);
@@ -130,7 +139,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 		default:
 			break;
 		}
-
+		
 	}
 
 	if (System::IsMousePressed(Button::Right)) {
@@ -162,21 +171,21 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	//-------------------------------------------------------------
 
 	if (System::IsKeyPressed(Key::Z)) {
-		if (m_size_x >= 64)
-			m_size_x -= 32;
+		if (m_size_x >= 128)
+			m_size_x -= 128;
 	}
 
 	if (System::IsKeyPressed(Key::X)) {
-		m_size_x += 32;
+		m_size_x += 128;
 	}
 
 	if (System::IsKeyPressed(Key::C)) {
-		if (m_size_y >= 64)
-			m_size_y -= 32;
+		if (m_size_y >= 128)
+			m_size_y -= 128;
 	}
 
 	if (System::IsKeyPressed(Key::V)) {
-		m_size_y += 32;
+		m_size_y += 128;
 	}
 
 	//-------------------------------------------------------------
