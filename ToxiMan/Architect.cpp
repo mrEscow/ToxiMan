@@ -40,7 +40,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 {
 	
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-		// SAVE OBJECT 		
+		
 		for (auto obj : *m_ptr_objectListBeck) {
 			jsonSM.SaveObject(obj, "file_beck.json",number);
 		 }
@@ -51,13 +51,13 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 			jsonSM.SaveObject(obj, "file_front.json", number);
 		}
 
-		// clear ctatic
+
 		ObjectManager::ObjectBeckID = 0;
 		ObjectManager::ObjectZeroID = 0;
 		ObjectManager::ObjectFrontID = 0;
-		// is_from_arhitetc
+
 		is_from_arhitetc = true;
-		// GO IN GAME
+
 		state_game = StateGame::ON_GAME;
 	}
 
@@ -66,7 +66,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {
-		//System::cam.setCenter(System::cam.getCenter().x - 10, (System::cam.getCenter().y));
 		System::cam.move( - 10 * m_koef, 0);
 	}
 
@@ -75,7 +74,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
-		//System::cam.setCenter(System::cam.getCenter().x + 10, (System::cam.getCenter().y));
 		System::cam.move(10 * m_koef, 0); //cout << "D" << endl;
 	}
 
@@ -84,7 +82,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
-		//System::cam.setCenter(System::cam.getCenter().x, (System::cam.getCenter().y - 10));
 		System::cam.move(0, -10 * m_koef);
 	}
 
@@ -93,7 +90,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Down) || System::IsKeyPressed(Key::S)) {
-		//System::cam.setCenter(System::cam.getCenter().x, (System::cam.getCenter().y + 10));
 		System::cam.move(0, 10 * m_koef);
 	}
 
@@ -155,15 +151,15 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	if (System::IsKeyPressed(Key::Q))
 	{
 		m_koef *= 0.95f;
-		System::cam.zoom(0.95f);// gameZoom += 0.01f;
-		m_zoom_for_text *= 0.95f;
+		System::cam.zoom(0.90f);// gameZoom += 0.01f;
+		m_zoom_for_text *= 0.90f;
 		
 	}
 	if (System::IsKeyPressed(Key::E))
 	{
 		m_koef *= 1.05f;
-		System::cam.zoom(1.05f); // gameZoom -= 0.01f;
-		m_zoom_for_text *= 1.05f;
+		System::cam.zoom(1.1f); // gameZoom -= 0.01f;
+		m_zoom_for_text *= 1.1f;
 		//m_main_text.
 		
 	}
@@ -212,56 +208,40 @@ void Architect::DeleteObject()
 	{
 	case ArcitectVector::BECK:
 		for (auto object : *m_ptr_objectListBeck)
-			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-				{
-					it = m_ptr_objectListBeck->begin() + object.GetObjectID();					
-
+			if (System::IsContains(object.m_shape, System::cur_p)){
+					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
+					World::world->DestroyBody(object.m_body);
 					m_ptr_objectListBeck->erase(it);
-
 					for (it;it != m_ptr_objectListBeck->end(); it++)
 						it->SetNewID();
-
 					ObjectManager::ObjectBeckID--;
 				}
 		break;
 	case ArcitectVector::ZERO:
 		for (auto object : *m_ptr_objectListZero)
-			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-				{
-					it = m_ptr_objectListZero->begin() + object.GetObjectID();
-
-					object.DeleteObject();
-
+			if (System::IsContains(object.m_shape, System::cur_p)) {
+					it = m_ptr_objectListZero->begin() + object.GetObjectID();								
+					World::world->DestroyBody(it->m_body);
 					m_ptr_objectListZero->erase(it);
-
 					for (it; it != m_ptr_objectListZero->end(); it++)
 						it->SetNewID();
-
 					ObjectManager::ObjectZeroID--;
 				}
 		break;
 	case ArcitectVector::FRONT:
 		for (auto object : *m_ptr_objectListFront)
-			if (System::cur_p.x > object.GetObjectPosition().x - (object.GetObjectSize().x / 2) && System::cur_p.x < object.GetObjectPosition().x + (object.GetObjectSize().x / 2))
-				if (System::cur_p.y > object.GetObjectPosition().y - (object.GetObjectSize().y / 2) && System::cur_p.y < object.GetObjectPosition().y + (object.GetObjectSize().y / 2))
-				{
+			if (System::IsContains(object.m_shape, System::cur_p)) {
 					it = m_ptr_objectListFront->begin() + object.GetObjectID();
-
+					World::world->DestroyBody(object.m_body);
 					m_ptr_objectListFront->erase(it);
-
 					for (it; it != m_ptr_objectListFront->end(); it++)
 						it->SetNewID();
-
 					ObjectManager::ObjectFrontID--;
 				}
 		break;
 	default:
 		break;
 	}
-
-
 }
 
 void Architect::Update()
@@ -270,20 +250,9 @@ void Architect::Update()
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
 
 	for (auto cell : m_cell_vec)		
-		if (System::cur_p.x > cell.getPosition().x - (cell.getSize().x / 2) && System::cur_p.x < cell.getPosition().x + (cell.getSize().x / 2))
-			if (System::cur_p.y > cell.getPosition().y - (cell.getSize().y / 2) && System::cur_p.y < cell.getPosition().y + (cell.getSize().y / 2))
-			{
+		if (System::IsContains(cell, System::cur_p)) {
 				m_mouse.setPosition(cell.getPosition());
-			}
-
-
-	//for (auto object : m_objectListBeck)
-	//	object.Update("objectListBeck");
-	//for (auto object : m_objectListZero)
-	//	object.Update("objectListZero");
-	//for (auto object : m_objectListFront)
-	//	object.Update("objectListFront");
-
+		}
 
 	switch (m_Z_vec)
 	{
@@ -324,12 +293,8 @@ void Architect::Draw(StateGame& state_game, Player* player)
 		for (auto cell : m_cell_vec)
 			System::wnd.draw(cell);
 
-
 		System::wnd.draw(m_mouse);
-
 		System::wnd.draw(m_main_text);
 		System::wnd.draw(m_name_vector_text);
-
-	}
-		
+	}		
 }
