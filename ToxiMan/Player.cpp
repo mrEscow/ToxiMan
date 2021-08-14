@@ -65,19 +65,15 @@ void Player::Action(StateGame& state_game)
 		state_game = StateGame::ON_ARCITECT;
 	}
 
-	if (System::IsKeyReleased(Key::F1) || System::IsKeyReleased(Key::F1)) {
-
-	}
-
-	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {		
-		dx = -m_speed;
+	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
+			dx = -m_speed;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
 		dx = 0;
 	}
 
-	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {		
+	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {	
 		dx = m_speed;
 	}
 
@@ -87,16 +83,12 @@ void Player::Action(StateGame& state_game)
 	
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
 		if (is_onGround) {
-			//m_body->SetAwake(true);
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(10 * -dx * System::time, (-190 / magic) * System::time), true);
+
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * System::time), true);
 			is_onGround = false;
 		}
 	}
 		
-	if ((System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W))) {
-
-	}
-
 	if (System::IsMousePressed(Button::Left)){
 		MyFirstGun->shoot(m_shape.getPosition(), m_mouse, m_dir);
 
@@ -121,19 +113,32 @@ void Player::Update()
 	//cout << m_body->GetPosition().IsValid() << endl;
 	//cout << "************" << endl;
 
-	if (is_onGround)
-		//m_body->SetLinearVelocity(b2Vec2(dx * System::time, dy * System::time * World::gravity * 100));
-		m_body->ApplyLinearImpulseToCenter(b2Vec2( dx * System::time, dy * System::time), true);
+	//cout << "************" << endl; // ÓÑÊÎÐÅÍÈÅ
+	//cout << m_body->GetLinearVelocity().x << endl;
+	//cout << "L: "<< (m_body->GetLinearVelocity().x < -10) << endl;
+	//cout << "R: " << (m_body->GetLinearVelocity().x > 10) << endl;
+	//cout << "************" << endl;
+
+	cout << "************" << endl; // ÓÑÊÎÐÅÍÈÅ
+	cout << m_body->GetLinearVelocity().y << endl;
+	//cout << "L: "<< (m_body->GetLinearVelocity().x < -10) << endl;
+	//cout << "R: " << (m_body->GetLinearVelocity().x > 10) << endl;
+	cout << "************" << endl;
+
+	if(m_body->GetLinearVelocity().y == 0)
+		is_onGround = true;
+
+	if (is_onGround) {
+		if (m_body->GetLinearVelocity().x < -10)
+			m_body->SetLinearVelocity(b2Vec2(-10, 0));
+		if (m_body->GetLinearVelocity().x > 10)
+			m_body->SetLinearVelocity(b2Vec2(10, 0));
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time, dy * System::time), true);
+	}
+
 	else
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * System::time / (magic * 2) , dy * System::time), true);
 	
-
-	b2Vec2 pos = m_body->GetPosition();
-	pos.y += ((m_size_h + 1) / 2) / SCALE;
-	for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
-		for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
-			if (f->TestPoint(pos)) { is_onGround = true; }
-
 
 	m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
 	m_shape.setRotation(m_body->GetAngle() * DEG);

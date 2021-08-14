@@ -28,7 +28,7 @@ private:
 	bool is_onGround;
 	float dx;
 	float dy;
-	// 
+	// начальная позиция
 	v2f m_firstPos;
 	// пушка
 	Gun *MyFirstGun;

@@ -12,3 +12,9 @@
 {"ID":11,"Name":"static_object","PosX":1216.0,"PosY":1920.0,"SizeX":192.0,"SizeY":64.0}
 {"ID":12,"Name":"static_object","PosX":448.0,"PosY":1920.0,"SizeX":192.0,"SizeY":64.0}
 {"ID":13,"Name":"static_object","PosX":256.0,"PosY":2112.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":14,"Name":"static_object","PosX":1728.0,"PosY":1920.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":15,"Name":"static_object","PosX":2240.0,"PosY":1920.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":16,"Name":"static_object","PosX":2752.0,"PosY":1920.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":17,"Name":"static_object","PosX":2368.0,"PosY":2240.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":18,"Name":"static_object","PosX":2432.0,"PosY":2176.0,"SizeX":192.0,"SizeY":64.0}
+{"ID":19,"Name":"static_object","PosX":2496.0,"PosY":2112.0,"SizeX":192.0,"SizeY":64.0}
