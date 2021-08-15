@@ -41,13 +41,13 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		
-		for (auto obj : *m_ptr_objectListBeck) {
+		for (auto& obj : *m_ptr_objectListBeck) {
 			jsonSM.SaveObject(obj, "file_beck.json",number);
 		 }
-		for (auto obj : *m_ptr_objectListZero) {
+		for (auto& obj : *m_ptr_objectListZero) {
 			jsonSM.SaveObject(obj, "file_zero.json", number);	
 		}
-		for (auto obj : *m_ptr_objectListFront) {
+		for (auto& obj : *m_ptr_objectListFront) {
 			jsonSM.SaveObject(obj, "file_front.json", number);
 		}
 
@@ -176,7 +176,7 @@ void Architect::CreateObject()
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto obj : *m_ptr_objectListBeck)
+		for (auto &obj : *m_ptr_objectListBeck)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
 				//cout << "Contact " << endl;
@@ -189,7 +189,7 @@ void Architect::CreateObject()
 		}
 		break;
 	case ArcitectVector::ZERO:
-		for (auto obj : *m_ptr_objectListZero)
+		for (auto& obj : *m_ptr_objectListZero)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
 				//cout << "Contact " << endl;
@@ -202,7 +202,7 @@ void Architect::CreateObject()
 		}
 		break;
 	case ArcitectVector::FRONT:
-		for (auto obj : *m_ptr_objectListFront)
+		for (auto& obj : *m_ptr_objectListFront)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
 				//cout << "Contact " << endl;
@@ -224,7 +224,7 @@ void Architect::DeleteObject()
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto object : *m_ptr_objectListBeck)
+		for (auto& object : *m_ptr_objectListBeck)
 			if (System::IsContains(object.m_shape, System::cur_p)){
 					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
 					//World::world->DestroyBody(object.m_body);
@@ -235,7 +235,7 @@ void Architect::DeleteObject()
 				}
 		break;
 	case ArcitectVector::ZERO:
-		for (auto object : *m_ptr_objectListZero)
+		for (auto& object : *m_ptr_objectListZero)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 
 					it = m_ptr_objectListZero->begin() + object.GetObjectID();		
@@ -251,7 +251,7 @@ void Architect::DeleteObject()
 				}
 		break;
 	case ArcitectVector::FRONT:
-		for (auto object : *m_ptr_objectListFront)
+		for (auto& object : *m_ptr_objectListFront)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 					it = m_ptr_objectListFront->begin() + object.GetObjectID();
 					//World::world->DestroyBody(object.m_body);

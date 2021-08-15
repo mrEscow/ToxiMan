@@ -62,9 +62,9 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		is_from_arhitetc = false;
 	}
 
-	for (auto object : m_objectListBeck)
+	for (auto& object : m_objectListBeck)
 		object.Update("objectListBeck");
-	for (auto object : m_objectListZero)
+	for (auto& object : m_objectListZero)
 		object.Update("objectListZero");
 
 	switch (state_game)
@@ -84,17 +84,25 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		break;
 	}
 
-	for (auto object : m_objectListFront)
+	for (auto& object : m_objectListFront)
 		object.Update("objectListFront");
 }
 
 void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
-	for (auto object : m_objectListBeck)
-		object.Draw();
+	for (auto &object : m_objectListBeck) {
+		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
+			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
+			object.Draw();
+	}
 
-	for (auto object : m_objectListZero)
-		object.Draw();
+	for (auto &object : m_objectListZero) {
+		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
+			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
+				object.Draw();
+	}
+
+
 
 	switch (state_game)
 	{
@@ -111,11 +119,11 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		break;
 	}
 
-	for (auto object : m_objectListFront)
-	object.Draw();
-
-	
-	
+	for (auto &object : m_objectListFront) {
+		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
+			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
+			object.Draw();
+	}	
 }
 
 v2f Level::GetPositionPlayer()
@@ -125,13 +133,13 @@ v2f Level::GetPositionPlayer()
 
 Level::~Level()
 {
-	for (auto obj : m_objectListBeck) {
+	for (auto &obj : m_objectListBeck) {
 		m_jsonSM.SaveObject(obj, "file_beck.json", *m_ptr_number);
 	}
-	for (auto obj : m_objectListZero) {
+	for (auto &obj : m_objectListZero) {
 		m_jsonSM.SaveObject(obj, "file_zero.json", *m_ptr_number);
 	}
-	for (auto obj : m_objectListFront) {
+	for (auto &obj : m_objectListFront) {
 		m_jsonSM.SaveObject(obj, "file_front.json", *m_ptr_number);
 	}
 
@@ -140,13 +148,13 @@ Level::~Level()
 	m_jsonSM.DeleteJsonFile("Save/file_zero.json", *m_ptr_number);
 	m_jsonSM.DeleteJsonFile("Save/file_front.json", *m_ptr_number);
 
-	for (auto obj : m_objectListBeck) {
+	for (auto& obj : m_objectListBeck) {
 		m_jsonSM.SaveObject(obj, "Save/file_beck.json", *m_ptr_number);
 	}
-	for (auto obj : m_objectListZero) {
+	for (auto& obj : m_objectListZero) {
 		m_jsonSM.SaveObject(obj, "Save/file_zero.json", *m_ptr_number);
 	}
-	for (auto obj : m_objectListFront) {
+	for (auto& obj : m_objectListFront) {
 		m_jsonSM.SaveObject(obj, "Save/file_front.json", *m_ptr_number);
 	}
 
