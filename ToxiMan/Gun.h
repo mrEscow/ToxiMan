@@ -44,7 +44,10 @@ public:
 		for (auto it = vec_bullets.begin(); it != vec_bullets.end(); ) {
 			auto& object = it;
 			if (object->Check_is_live()) { object->Update(); it++; }
-			else { it = vec_bullets.erase(it); }				
+			else {
+				World::world->DestroyBody(it->m_circlebody);
+				it = vec_bullets.erase(it); 
+			}				
 		}
 
 

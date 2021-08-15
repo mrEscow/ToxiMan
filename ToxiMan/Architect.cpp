@@ -98,7 +98,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsMousePressed(Button::Left)) {
-		CreateObject();
+		//CreateObject();
 	}
 
 	if (System::IsMouseReleased(Button::Left)) {
@@ -229,7 +229,7 @@ void Architect::DeleteObject()
 					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
 					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListBeck->erase(it);
-					for (it;it != m_ptr_objectListBeck->end(); it++)
+					for (it = m_ptr_objectListBeck->begin() + object.GetObjectID();it != m_ptr_objectListBeck->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectBeckID--;
 				}
@@ -237,12 +237,17 @@ void Architect::DeleteObject()
 	case ArcitectVector::ZERO:
 		for (auto object : *m_ptr_objectListZero)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
-					it = m_ptr_objectListZero->begin() + object.GetObjectID();								
+
+					it = m_ptr_objectListZero->begin() + object.GetObjectID();		
+
 					World::world->DestroyBody(it->m_body);
 					m_ptr_objectListZero->erase(it);
-					for (it; it != m_ptr_objectListZero->end(); it++)
+
+					for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it != m_ptr_objectListZero->end(); it++)
 						it->SetNewID();
+
 					ObjectManager::ObjectZeroID--;
+
 				}
 		break;
 	case ArcitectVector::FRONT:
@@ -251,7 +256,7 @@ void Architect::DeleteObject()
 					it = m_ptr_objectListFront->begin() + object.GetObjectID();
 					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListFront->erase(it);
-					for (it; it != m_ptr_objectListFront->end(); it++)
+					for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it != m_ptr_objectListFront->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectFrontID--;
 				}
