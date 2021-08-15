@@ -82,7 +82,7 @@ void Player::Action(StateGame& state_game)
 		dx = 0;
 	}
 	
-	if (System::IsKeyPressed(Key::Space)) {
+	if (System::IsKeyPressed(Key::Up)|| System::IsKeyPressed(Key::W)) {
 		if (is_onGround) {
 
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
@@ -90,9 +90,13 @@ void Player::Action(StateGame& state_game)
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
-		MyFirstGun->shoot(m_dir);
-
+		//for (size_t i = 0; i < 3; i++)
+		{
+			MyFirstGun->shoot(m_dir);
+		}
+		
 	}
+
 
 	if (dx > 0)
 		m_dir = PlayerDir::RIGHT;
@@ -106,6 +110,11 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update()
 {
+
+
+
+	
+
 
 	if(m_body->GetLinearVelocity().y == 0)
 		is_onGround = true;

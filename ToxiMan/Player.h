@@ -35,6 +35,8 @@ private:
 	v2f m_firstPos;
 	v2f m_size_map;
 	// пушка
+	bool is_shoot;
+
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
 

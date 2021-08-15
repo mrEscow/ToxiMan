@@ -16,7 +16,6 @@ public:
 		m_shape = System::CreateShape(pos, v2f(80, 30),System::resources.texture.skaermbillede);
 	}
 	void shoot(PlayerDir dir) {
-		
 		vec_bullets.push_back(Bullet(m_shape,dir));
 	
 	}
@@ -43,7 +42,7 @@ public:
 
 		for (auto it = vec_bullets.begin(); it != vec_bullets.end(); ) {
 			auto& object = it;
-			if (object->Check_is_live()) { object->Update(); it++; }
+			if (object->Check_is_live()) { object->Update(dir); it++; }
 			else {
 				World::world->DestroyBody(it->m_circlebody);
 				it = vec_bullets.erase(it); 
