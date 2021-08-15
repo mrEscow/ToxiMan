@@ -312,13 +312,13 @@ void Architect::Update()
 
 void Architect::Draw(StateGame& state_game, Player* player)
 {
-	for (auto object : *m_ptr_objectListBeck)
-		object.Draw();
-	for (auto object : *m_ptr_objectListZero)
-		object.Draw();
+	//for (auto object : *m_ptr_objectListBeck)
+	//	object.Draw();
+	//for (auto object : *m_ptr_objectListZero)
+	//	object.Draw();
 	player->Draw();
-	for (auto object : *m_ptr_objectListFront)
-		object.Draw();
+	//for (auto object : *m_ptr_objectListFront)
+	//	object.Draw();
 	if (state_game == StateGame::ON_ARCITECT) {
 		for (auto cell : m_cell_vec)
 			System::wnd.draw(cell);

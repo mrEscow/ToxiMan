@@ -111,11 +111,6 @@ void Player::Action(StateGame& state_game)
 void Player::Update()
 {
 
-
-
-	
-
-
 	if(m_body->GetLinearVelocity().y == 0)
 		is_onGround = true;
 	else
