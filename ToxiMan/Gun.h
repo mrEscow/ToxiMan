@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "bullet.h"
 #include "GameStates.h"
 class Gun {
@@ -13,11 +13,11 @@ private:
 public:
 
 	Gun(v2f pos) {
-		m_shape = System::CreateShape(pos, v2f(80, 10), Color::Magenta);
+		m_shape = System::CreateShape(pos, v2f(80, 30),System::resources.texture.skaermbillede);
 	}
-	void shoot() {
+	void shoot(PlayerDir dir) {
 		
-		//vec_bullets.push_back(Bullet(pos, mouse, dir));
+		vec_bullets.push_back(Bullet(m_shape,dir));
 	
 	}
 	void Update(v2f playerPos, PlayerDir dir) {
@@ -26,10 +26,11 @@ public:
 		case PlayerDir::RIGHT:
 			m_shape.setPosition(v2f(playerPos.x + 15, playerPos.y + 15) );
 			m_shape.setRotation(1);
+			m_shape.setScale(1, 1);
 			break;
 		case PlayerDir::LEFT:
 			m_shape.setPosition(v2f(playerPos.x - 15, playerPos.y + 15));
-			m_shape.setRotation(-1);
+			m_shape.setScale(-1, 1);
 			break;
 		default:
 			break;

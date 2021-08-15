@@ -18,6 +18,8 @@ private:
 public:
 
 	IMG player;
+	IMG skaermbillede;
+
 	IMG arhitectMouse;
 	IMG background;
 
@@ -43,6 +45,7 @@ public:
 	void LoadLevel_0()
 	{
 		player = Load("player/player1.png");
+		skaermbillede = Load("Guns/skaermbillede.png");
 		background = Load("player/background.png");
 		//player = Load("player/hh.jpg", true);
 		cout << "Texture Loaded: [Level 0]\n";

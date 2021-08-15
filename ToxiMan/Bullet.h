@@ -12,6 +12,7 @@ private:
 
 	CircleShape m_circleshape;
 	b2BodyDef m_bodyDef;
+	b2FixtureDef m_fixDef;
 	b2CircleShape m_circle;
 	b2Body* m_circlebody;
 
@@ -32,7 +33,7 @@ private:
 public:
 	//  всё под корнем (x2-x1)2+(y2-y1)2
 	//	static int ammo_counter;
-	Bullet(v2f pos, b2Vec2 &mouse, PlayerDir &dir) {
+	Bullet(Shape &gunPos, PlayerDir &dir) {
 		// круглая пуля
 		m_massa = 0.5;
 		//magic = 10;
@@ -40,40 +41,57 @@ public:
 		sizeGun = 10;
 		is_shoot = false;
 
-		m_mouse.Set((mouse.x ), (mouse.y - 200));
+		//m_mouse.Set((mouse.x ), (mouse.y - 200));
 
 		switch (dir)
 		{
 		case PlayerDir::RIGHT:
 			
-			if (mouse.x > 0) {
+			//if (mouse.x > 0) {
 				is_shoot = true;
 				is_live = true;
-				m_circleshape = System::CreateCircleShape(v2f(pos.x,pos.y), radius, 30, -3, Color::Green, Color::Black);
-				m_bodyDef.position.Set((m_circleshape.getPosition().x + sizeGun) / SCALE, m_circleshape.getPosition().y / SCALE);
+				m_circleshape = System::CreateCircleShape(v2f(gunPos.getPosition().x + 5 + (gunPos.getSize().x / 2), gunPos.getPosition().y), radius, 20, -3, Color::Green, Color::Black);
+				m_bodyDef.position.Set((gunPos.getPosition().x + 5 + (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
+				
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
-				m_circlebody->CreateFixture(&m_circle, m_massa);
+
+				m_fixDef.density = m_massa;		// плотность (масса)
+				m_fixDef.restitution = 1; // упругость (от 0 до 1)
+				m_fixDef.friction = 1;		// трение (от 0 до 1)
+				m_fixDef.shape = &m_circle;
+
+
+				m_circlebody->CreateFixture(&m_fixDef);
+				m_circlebody->SetGravityScale(0);
 				m_circlebody->SetBullet(true);
-				m_circlebody->SetAngularDamping(10);
-				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
-			}			
+				m_circlebody->SetAngularDamping(1);
+
+				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(10,0), true);
+			//}			
 			break;
 		case PlayerDir::LEFT:
-			if (mouse.x < 0) {
+			//if (mouse.x < 0) {
 				is_shoot = true;
 				is_live = true;
-				m_circleshape = System::CreateCircleShape(pos, radius, 30, -3, Color::Green, Color::Black);
-				m_bodyDef.position.Set((m_circleshape.getPosition().x - sizeGun) / SCALE, m_circleshape.getPosition().y / SCALE);
+				m_circleshape = System::CreateCircleShape(v2f(gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2), gunPos.getPosition().y), radius, 20, -3, Color::Green, Color::Black);
+				m_bodyDef.position.Set((gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
-				m_circlebody->CreateFixture(&m_circle, m_massa);
+
+				m_fixDef.density = m_massa;		// плотность (масса)
+				m_fixDef.restitution = 1; // упругость (от 0 до 1)
+				m_fixDef.friction = 1;		// трение (от 0 до 1)
+				m_fixDef.shape = &m_circle;
+
+				m_circlebody->CreateFixture(&m_fixDef);
+				m_circlebody->SetGravityScale(0);
 				m_circlebody->SetBullet(true);
-				m_circlebody->SetAngularDamping(10);
-				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
-			}			
+				m_circlebody->SetAngularDamping(1);
+				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-10, 0), true);
+			//}			
 			break;
 		default:
 			

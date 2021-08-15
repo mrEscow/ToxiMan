@@ -90,7 +90,7 @@ void Player::Action(StateGame& state_game)
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
-		MyFirstGun->shoot();
+		MyFirstGun->shoot(m_dir);
 
 	}
 
