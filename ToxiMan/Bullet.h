@@ -35,12 +35,12 @@ public:
 	Bullet(v2f pos, b2Vec2 &mouse, PlayerDir &dir) {
 		// круглая пуля
 		m_massa = 0.5;
-		magic = 20;
+		//magic = 10;
 		radius = 20;
-		sizeGun = 5;
+		sizeGun = 10;
 		is_shoot = false;
 
-		m_mouse.Set((mouse.x ) / magic, (mouse.y - magic) / magic);
+		m_mouse.Set((mouse.x ), (mouse.y - 200));
 
 		switch (dir)
 		{
@@ -49,13 +49,13 @@ public:
 			if (mouse.x > 0) {
 				is_shoot = true;
 				is_live = true;
-				m_circleshape = System::CreateCircleShape(pos, radius, 30, -3, Color::Green, Color::Black);
+				m_circleshape = System::CreateCircleShape(v2f(pos.x,pos.y), radius, 30, -3, Color::Green, Color::Black);
 				m_bodyDef.position.Set((m_circleshape.getPosition().x + sizeGun) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
 				m_circlebody->CreateFixture(&m_circle, m_massa);
-				m_circlebody->SetBullet(false);
+				m_circlebody->SetBullet(true);
 				m_circlebody->SetAngularDamping(10);
 				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
 			}			
@@ -70,7 +70,7 @@ public:
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
 				m_circlebody->CreateFixture(&m_circle, m_massa);
-				m_circlebody->SetBullet(false);
+				m_circlebody->SetBullet(true);
 				m_circlebody->SetAngularDamping(10);
 				m_circlebody->ApplyLinearImpulseToCenter(m_mouse, true);
 			}			
@@ -80,9 +80,6 @@ public:
 			break;
 		}
 	}
-	~Bullet() {
-		
-	}
 	void Update() {
 		if (is_shoot) {
 			b2Vec2 b2pos = m_circlebody->GetPosition();
@@ -90,7 +87,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
-						is_live = false;
+						//is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -100,7 +97,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
-						is_live = false;
+						//is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -110,7 +107,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
-						is_live = false;
+						//is_live = false;
 						//m_mouse.Set(0, 0);
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f);
@@ -120,7 +117,7 @@ public:
 			for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
 				for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
 					if (f->TestPoint(b2pos)) {
-						is_live = false;
+						//is_live = false;
 						//m_mouse.Set(0, 0); 
 						//World::world->DestroyBody(m_circlebody);
 						//m_circlebody->DestroyFixture(f); 
@@ -142,6 +139,9 @@ public:
 	}
 	void Action() {
 		
+	}
+	~Bullet() {
+		//World::world->DestroyBody(m_circlebody);
 	}
 };
 

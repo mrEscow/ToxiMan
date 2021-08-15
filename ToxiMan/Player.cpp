@@ -56,7 +56,7 @@ Player::Player(v2f firstPos, v2f size_map)
 	dx = 0; dy = 0;
 	is_onGround = false;
 	// оружие
-	MyFirstGun = new Gun(m_shape.getPosition(), m_dir);
+	MyFirstGun = new Gun(m_shape.getPosition());
 }
 
 void Player::Action(StateGame& state_game)
@@ -90,7 +90,7 @@ void Player::Action(StateGame& state_game)
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
-		MyFirstGun->shoot(m_shape.getPosition(), m_mouse, m_dir);
+		MyFirstGun->shoot();
 
 	}
 
@@ -145,14 +145,14 @@ void Player::Update()
 
 	m_mouse.Set((System::cur_p_wnd.x - System::scr_w / 2) / magic, (System::cur_p_wnd.y - System::scr_h / 2) / magic);
 
-	MyFirstGun->Update(m_shape.getPosition(), System::cur_p_wnd);
+	MyFirstGun->Update(m_shape.getPosition(), m_dir);
 }
 
 void Player::Draw()
 {
-	MyFirstGun->Draw();
-	System::wnd.draw(m_shape);
 
+	System::wnd.draw(m_shape);
+	MyFirstGun->Draw();
 }
 
 v2f Player::GetPosCam()
@@ -186,4 +186,6 @@ v2f Player::GetPosition()
 
 Player::~Player()
 {
+	World::world->DestroyBody(m_body);
+	delete MyFirstGun;
 }

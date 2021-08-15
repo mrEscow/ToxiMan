@@ -12,7 +12,7 @@ private:
 
 	sf::Thread* m_ptr_thread;
 
-	bool m_is_pause = false;
+	//bool m_is_pause = false;
 
 	StateGame m_state_game = StateGame::ON_GAME;
 

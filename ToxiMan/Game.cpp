@@ -5,9 +5,12 @@
 
 Game::Game()
 {
-	m_ptr_thread = new sf::Thread(&Game::Thread, this);
+	
 
 	m_ptr_lvl = new Level(m_number);
+
+	m_ptr_thread = new sf::Thread(&Game::Thread, this);
+	m_ptr_thread->launch();
 }
 
 void Game::Update()
@@ -71,31 +74,23 @@ void Game::Action()
 
 void Game::Thread()
 {
-	while (System::wnd.isOpen()){
 
-	}
 }
 
 void Game::Play()
 {
+
 	while (System::wnd.isOpen())
 	{
-		System::SystemUpdate();
-		if (m_is_pause) System::time = 0.f;
 
+		System::SystemUpdate();
+		//if (m_is_pause) System::time = 0.f;
 		Update();
 
-		while (System::wnd.pollEvent(System::event))
-		{
-
-			Action();
-		}
+		while (System::wnd.pollEvent(System::event)) Action();
 
 		World::world->Step(1 / (float)System::frameLimit * 2, 8, 3);
-
-
 		Draw();
-
 	}
 }
 

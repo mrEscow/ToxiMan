@@ -54,6 +54,7 @@ void System::SystemUpdate()
 	cur_p = wnd.mapPixelToCoords(sf::Mouse::getPosition(wnd));
 	cur_p_wnd = v2f(sf::Mouse::getPosition(wnd));
 	cam_p = cam.getCenter();
+
 }
 
 void System::CloseEvent()
@@ -192,13 +193,6 @@ bool System::IsMouseWheelUp(const sf::Mouse::Wheel code)
 	return false;
 }
 
-//void System::MouseScrol() {
-//	if (event.mouseWheelScroll.delta <= -1)
-//		zoom = std::min(2.f, zoom + .1f);
-//	if (event.mouseWheelScroll.delta >= 1)
-//		zoom = std::max(.5f, zoom - .1f);
-//	cam.zoom(zoom);
-//}
 
 
 const v2f System::GetNormalizedPosition(const v2f& pos, float dist, float angle)

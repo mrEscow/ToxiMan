@@ -131,5 +131,6 @@ Level::~Level()
 
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;
+	//delete m_ptr_number;
 	//delete m_ptr_jsonSM;
 }
