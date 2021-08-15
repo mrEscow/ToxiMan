@@ -16,5 +16,6 @@ private:
 public:
 	void SaveObject(ObjectManager &obj, string name_file, LevelNumber& number);
 	vector<ObjectManager> LoadVecObject(string name_file, LevelNumber& number);
+	void DeleteJsonFile(string name_file, LevelNumber& number);
 };
 
