@@ -40,11 +40,15 @@ private:
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
 
+
+
 public:
 
 	Player(v2f firstPos, v2f size_map);
 	v2f GetPosition();
 	v2f GetPosCam();
+	float GetDx();
+	b2Body* GetBody();
 	void Action(StateGame &state_game);
 	void Update();
 	void Draw();

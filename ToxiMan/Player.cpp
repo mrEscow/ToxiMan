@@ -57,6 +57,8 @@ Player::Player(v2f firstPos, v2f size_map)
 	is_onGround = false;
 	// оружие
 	MyFirstGun = new Gun(m_shape.getPosition());
+
+
 }
 
 void Player::Action(StateGame& state_game)
@@ -192,4 +194,14 @@ Player::~Player()
 {
 	World::world->DestroyBody(m_body);
 	delete MyFirstGun;
+}
+
+float Player::GetDx()
+{
+	return dx;
+}
+
+b2Body* Player::GetBody()
+{
+	return m_body;
 }

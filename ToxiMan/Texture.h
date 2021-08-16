@@ -6,11 +6,14 @@ class Texture
 {
 private:
 
-	IMG Load(const string file, bool isSmooth = false) {
+	IMG Load(const string file, bool isSmooth = false, bool isRepeated = false) {
 
 		IMG texture;
 		texture.loadFromFile("resources/images/" + file);
+		
 		texture.setSmooth(isSmooth); // Применяйте сглаживание только для вращающихся объектов
+
+		texture.setRepeated(isRepeated); // если нужна прокрутка
 		
 		return texture;
 	}
@@ -21,7 +24,20 @@ public:
 	IMG skaermbillede;
 
 	IMG arhitectMouse;
+
 	IMG background;
+
+	IMG backOne;
+	IMG backTwo;
+	IMG backTree;
+
+	IMG bg5_a;
+	IMG bg5_b;
+	IMG bg5_c;
+	IMG bg5_d;
+	IMG bg5_e;
+
+	IMG bg5_g;
 
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
@@ -45,9 +61,23 @@ public:
 	void LoadLevel_0()
 	{
 		player = Load("player/player1.png");
+
 		skaermbillede = Load("Guns/skaermbillede.png");
-		background = Load("player/background.png");
-		//player = Load("player/hh.jpg", true);
+
+		background = Load("background/background.png");
+
+		backOne = Load("background/backOne.png", false, true);
+		backTwo = Load("background/backTwo.png");
+		backTree = Load("background/backTree.png");
+
+		bg5_a = Load("background/BG5/bg5_a.png", true);;
+		bg5_b = Load("background/BG5/bg5_b.png", true);;
+		bg5_c = Load("background/BG5/bg5_c.png", true);;
+		bg5_d = Load("background/BG5/bg5_d.png", true);;
+		bg5_e = Load("background/BG5/bg5_e.png", true);;
+
+		bg5_g = Load("background/BG5/bg5_g.png", true, true);;
+	
 		cout << "Texture Loaded: [Level 0]\n";
 		//for (int i = 0; i < NUM_TEST_TEXTURE_SET; i++) test_texture_set.push_back(Load("Map/Terrain/terrain" + to_string(i) + ".png"));
 	}

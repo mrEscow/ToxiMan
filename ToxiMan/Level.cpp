@@ -26,6 +26,141 @@ Level::Level(LevelNumber& number)
 
 	is_from_arhitetc = false;
 	
+
+	
+	// Shader
+	//shaderOne.loadFromMemory
+	//(
+	//	"uniform vec2 offset;"
+
+	//	"void main() {"
+	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+	//	"    gl_FrontColor = gl_Color;"
+	//	"}"
+	//	, sf::Shader::Vertex
+	//);
+	//shaderTwo.loadFromMemory
+	//(
+	//	"uniform vec2 offset;"
+
+	//	"void main() {"
+	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+	//	"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+	//	"    gl_FrontColor = gl_Color;"
+	//	"}"
+	//	, sf::Shader::Vertex
+	//);
+	//shaderTree.loadFromMemory
+	//(
+	//	"uniform vec2 offset;"
+
+	//	"void main() {"
+	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+	//	"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+	//	"    gl_FrontColor = gl_Color;"
+	//	"}"
+	//	, sf::Shader::Vertex
+	//);
+
+	//offsetOne = v2f(0, 0);
+	//offsetTwo = v2f(0, 0);
+	//offsetTree = v2f(0, 0);
+
+	// Shader2
+	shaderBg5_a.loadFromMemory
+	(
+		"uniform vec2 offset;"
+
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
+	shaderBg5_b.loadFromMemory
+	(
+		"uniform vec2 offset;"
+
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
+	shaderBg5_c.loadFromMemory
+	(
+		"uniform vec2 offset;"
+
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
+	shaderBg5_d.loadFromMemory
+	(
+		"uniform vec2 offset;"
+
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
+	shaderBg5_e.loadFromMemory
+	(
+		"uniform vec2 offset;"
+
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
+
+	offsetBg5_a = v2f(0, 0);;
+	offsetBg5_b = v2f(0, 0);;
+	offsetBg5_c = v2f(0, 0);;
+	offsetBg5_d = v2f(0, 0);;
+	offsetBg5_e = v2f(0, 0);;
+
+	// beckground
+	//m_beckground = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2)-32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.background);
+	//
+	//m_backOne = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backOne);
+	//m_backTwo = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTwo);
+	//m_backTree = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTree);
+
+	// beckground 2
+
+	m_bg5_a = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_a);
+	m_bg5_b = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_b);
+	m_bg5_c = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_c);
+	m_bg5_d = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_d);
+	m_bg5_e = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_e);
+
+	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_g);
 }
 
 void Level::Action(StateGame& state_game, LevelNumber& number)
@@ -49,6 +184,42 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
+	// Shader 
+	//offsetOne.x += System::time / 100000;
+	//shaderOne.setUniform("offset", offsetOne);
+
+
+	//offsetTwo.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 200000;
+	//offsetTwo.y += m_ptr_player->GetBody()->GetLinearVelocity().y / 200000;
+	//shaderTwo.setUniform("offset", offsetTwo);
+
+
+	//offsetTree.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 100000;
+	//offsetTree.y += m_ptr_player->GetBody()->GetLinearVelocity().y / 100000;
+	//shaderTree.setUniform("offset", offsetTree);
+	int test = 5;
+	// Shader 2
+
+	offsetBg5_a.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (30000 * test);
+	offsetBg5_a.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (30000 * test);
+	shaderBg5_a.setUniform("offset", offsetBg5_a);
+
+	offsetBg5_b.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (25000 * test);
+	offsetBg5_b.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (25000 * test);
+	shaderBg5_b.setUniform("offset", offsetBg5_b);
+
+	offsetBg5_c.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (20000 * test);
+	offsetBg5_c.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (20000 * test);
+	shaderBg5_c.setUniform("offset", offsetBg5_c);
+
+	offsetBg5_d.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (15000 * test);
+	offsetBg5_d.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (15000 * test);
+	shaderBg5_d.setUniform("offset", offsetBg5_d);
+
+	offsetBg5_e.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (10000 * test);
+	offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (10000 * test);
+	shaderBg5_e.setUniform("offset", offsetBg5_e);
+
 	if (is_from_arhitetc) {
 
 		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
@@ -90,6 +261,25 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 
 void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
+	// background
+	//System::wnd.draw(m_beckground, &parallaxShader);
+
+
+	//System::wnd.draw(m_backOne, &shaderOne);
+	//System::wnd.draw(m_backTwo, &shaderTwo);
+	//System::wnd.draw(m_backTree, &shaderTree);
+
+	// background 2
+	System::wnd.draw(m_bg5_g);
+
+	System::wnd.draw(m_bg5_a, &shaderBg5_a);
+	System::wnd.draw(m_bg5_b, &shaderBg5_b);
+	System::wnd.draw(m_bg5_c, &shaderBg5_c);
+	System::wnd.draw(m_bg5_d, &shaderBg5_d);
+	System::wnd.draw(m_bg5_e, &shaderBg5_e);
+
+
+
 	for (auto &object : m_objectListBeck) {
 		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
 			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))

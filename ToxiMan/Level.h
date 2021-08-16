@@ -29,6 +29,46 @@ private:
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;
 
+	// Shader	
+
+	//sf::Shader shaderOne;
+	//sf::Shader shaderTwo;
+	//sf::Shader shaderTree;
+
+	//sf::Glsl::Vec2 offsetOne;
+	//sf::Glsl::Vec2 offsetTwo;
+	//sf::Glsl::Vec2 offsetTree;
+
+	// Shader	
+
+	sf::Shader shaderBg5_a;
+	sf::Shader shaderBg5_b;
+	sf::Shader shaderBg5_c;
+	sf::Shader shaderBg5_d;
+	sf::Shader shaderBg5_e;
+
+	sf::Glsl::Vec2 offsetBg5_a;
+	sf::Glsl::Vec2 offsetBg5_b;
+	sf::Glsl::Vec2 offsetBg5_c;
+	sf::Glsl::Vec2 offsetBg5_d;
+	sf::Glsl::Vec2 offsetBg5_e;
+
+	// beckground
+	//Shape m_beckground;
+
+	//Shape m_backOne;
+	//Shape m_backTwo;
+	//Shape m_backTree;
+
+	// beckground2
+	Shape m_bg5_a;
+	Shape m_bg5_b;
+	Shape m_bg5_c;
+	Shape m_bg5_d;
+	Shape m_bg5_e;
+
+	Shape m_bg5_g;
+
 public:
 
 	v2f GetPositionPlayer();
