@@ -60,9 +60,9 @@ Player::Player(v2f firstPos, v2f size_map)
 
 
 	// состояния клавишь
-	m_button_Righr	= false;
-	m_button_Left	= false;
-	m_button_Up		= false;
+	is_button_Righr	= false;
+	is_button_Left	= false;
+	is_button_Up	= false;
 }
 
 void Player::Action(StateGame& state_game)
@@ -73,31 +73,31 @@ void Player::Action(StateGame& state_game)
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
-		m_button_Left = true;
+		is_button_Left = true;
 		//dx = -m_speed;
 		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
-		m_button_Left = false;
+		is_button_Left = false;
 		//dx = 0;
 		//return;
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {	
-		m_button_Righr = true;
+		is_button_Righr = true;
 		//dx = m_speed;
 		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
-		m_button_Righr = false;
+		is_button_Righr = false;
 		//dx = 0;
 		//return;
 	}
 
 	if (System::IsKeyPressed(Key::Up)|| System::IsKeyPressed(Key::W)) {
-		m_button_Up = true;
+		is_button_Up = true;
 		//if (is_onGround) {
 		//	m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
 		//	//return;
@@ -105,7 +105,7 @@ void Player::Action(StateGame& state_game)
 	}
 
 	if (System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W)) {
-		m_button_Up = false;
+		is_button_Up = false;
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
@@ -129,10 +129,10 @@ void Player::Action(StateGame& state_game)
 void Player::Update()
 {
 
-	if (m_button_Left) dx = -m_speed; 
-	if (m_button_Righr) dx = m_speed; 
-	if (!m_button_Left && !m_button_Righr) dx = 0;
-	if (m_button_Up) {
+	if (is_button_Left) dx = -m_speed;
+	if (is_button_Righr) dx = m_speed;
+	if (!is_button_Left && !is_button_Righr) dx = 0;
+	if (is_button_Up) {
 		if (is_onGround) {
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
 		}
