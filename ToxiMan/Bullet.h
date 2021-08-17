@@ -40,6 +40,8 @@ public:
 	//  всё под корнем (x2-x1)2+(y2-y1)2
 	//	static int ammo_counter;
 	Bullet(Shape &gunPos, PlayerDir &dir) {
+
+
 		m_dir = dir;
 		// круглая пуля
 		m_massa = 0.5;
@@ -62,7 +64,10 @@ public:
 				m_bodyDef.type = b2_dynamicBody;
 				
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
+
+
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
+
 
 				m_fixDef.density = m_massa;		// плотность (масса)
 				m_fixDef.restitution = 0; // упругость (от 0 до 1)
@@ -86,19 +91,29 @@ public:
 				m_bodyDef.position.Set((gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
-				m_circlebody = World::world->CreateBody(&m_bodyDef);
 
-				m_fixDef.density = m_massa;		// плотность (масса)
-				m_fixDef.restitution = 0; // упругость (от 0 до 1)
-				m_fixDef.friction = 0;		// трение (от 0 до 1)				
-				m_fixDef.shape = &m_circle;
 
-				m_circlebody->CreateFixture(&m_fixDef);
-				m_circlebody->SetGravityScale(0);
-				//m_circlebody->SetBullet(true);
-				m_circlebody->SetFixedRotation(true);
-				m_circlebody->SetAngularDamping(1);
-				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-15, 0), true);
+
+	
+				
+					
+
+					m_circlebody = World::world->CreateBody(&m_bodyDef);
+
+
+					m_fixDef.density = m_massa;		// плотность (масса)
+					m_fixDef.restitution = 0; // упругость (от 0 до 1)
+					m_fixDef.friction = 0;		// трение (от 0 до 1)				
+					m_fixDef.shape = &m_circle;
+
+					m_circlebody->CreateFixture(&m_fixDef);
+					m_circlebody->SetGravityScale(0);
+					//m_circlebody->SetBullet(true);
+					m_circlebody->SetFixedRotation(true);
+					m_circlebody->SetAngularDamping(1);
+					m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-15, 0), true);
+				
+
 			//}			
 			break;
 		default:
@@ -108,65 +123,28 @@ public:
 	}
 	void Update(PlayerDir& dir) {
 		
-		if( m_circlebody->GetLinearVelocity().y != 0)
-			is_shoot = false;
-		switch (m_dir)
-		{
-		case PlayerDir::RIGHT:
-			if (m_circlebody->GetLinearVelocity().x <= 0)
-				is_shoot = false;
-			break;
-		case PlayerDir::LEFT:
-			if (m_circlebody->GetLinearVelocity().x >= 0)
-				is_shoot = false;
-			break;
-		default:
-			break;
-		}
-		//if (m_circlebody->IsBullet()) {
-		//	cout << "m_circlebody->IsBullet()" << endl;
-		//	is_shoot = false;
-		//}
+
+
 
 		if (is_shoot) {
-			//b2Vec2 b2pos = m_circlebody->GetPosition();
-			////cout << "y1 " << b2pos.y << endl;
-			//b2pos.y += ((radius + 3)) / SCALE;
-			////cout << "y2 " << b2pos.y << endl;
-			//for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
-			//	for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
-			//		if (f->TestPoint(b2pos)) {
-			//			is_shoot = false;
-			//		}
-			//b2pos = m_circlebody->GetPosition();
-			//b2pos.y -= ((radius + 3)) / SCALE;
-			//for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
-			//	for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
-			//		if (f->TestPoint(b2pos)) {
-			//			is_shoot = false;
-			//		}
-			//b2pos = m_circlebody->GetPosition();
-			//b2pos.x += ((radius + 3)) / SCALE;
-			//for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
-			//	for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
-			//		if (f->TestPoint(b2pos)) {
-
-			//			is_shoot = false;
-
-			//		}
-			//b2pos = m_circlebody->GetPosition();
-			//b2pos.x -= ((radius + 3)) / SCALE;
-			//for (b2Body* it = World::world->GetBodyList(); it != 0; it = it->GetNext())
-			//	for (b2Fixture* f = it->GetFixtureList(); f != 0; f = f->GetNext())
-			//		if (f->TestPoint(b2pos)) {
-			//			is_shoot = false;
-			//		}
-
+			if (m_circlebody->GetLinearVelocity().y != 0)
+				is_shoot = false;
+			switch (m_dir)
+			{
+			case PlayerDir::RIGHT:
+				if (m_circlebody->GetLinearVelocity().x <= 0)
+					is_shoot = false;
+				break;
+			case PlayerDir::LEFT:
+				if (m_circlebody->GetLinearVelocity().x >= 0)
+					is_shoot = false;
+				break;
+			default:
+				break;
+			}
 
 			m_circleshape.setPosition(m_circlebody->GetPosition().x * SCALE, m_circlebody->GetPosition().y * SCALE);
-			//m_circleshape.setRotation(m_circlebody->GetAngle() * DEG);
-
-
+			
 		}
 		if(!is_shoot) {
 			m_bodyDef.type = b2_staticBody;

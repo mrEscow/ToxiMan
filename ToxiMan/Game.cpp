@@ -82,9 +82,9 @@ void Game::Thread()
 	{
 		System::SystemUpdate();
 
-		Update();
-
 		World::world->Step(1 / (float)System::frameLimit * 2, 8, 3);
+
+		Update();
 
 		Draw();
 	}
@@ -95,12 +95,7 @@ void Game::Play()
 	System::wnd.setActive(false);
 
 	while (System::wnd.isOpen())
-	{
-
-
-		while (System::wnd.pollEvent(System::event)) Action();
-
-	}
+		while (System::wnd.pollEvent(System::event)) Action();	
 }
 
 Game::~Game()

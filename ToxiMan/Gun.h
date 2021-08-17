@@ -16,7 +16,8 @@ public:
 		m_shape = System::CreateShape(pos, v2f(80, 30),System::resources.texture.skaermbillede);
 	}
 	void shoot(PlayerDir dir) {
-		vec_bullets.push_back(Bullet(m_shape,dir));
+		if(!World::world->IsLocked())
+			vec_bullets.push_back(Bullet(m_shape,dir));
 	
 	}
 	void Update(v2f playerPos, PlayerDir dir) {
@@ -44,19 +45,12 @@ public:
 			auto& object = it;
 			if (object->Check_is_live()) { object->Update(dir); it++; }
 			else {
-				World::world->DestroyBody(it->m_circlebody);
-				it = vec_bullets.erase(it); 
+					World::world->DestroyBody(it->m_circlebody);
+					it = vec_bullets.erase(it);
 			}				
 		}
-
-
-		//for (auto it = vec_bullets.begin(); it != vec_bullets.end(); it++) {
-		//	auto& object = it;
-		//	if (object->Check_is_live()) { object->Update(); it++; }
-		//	else { it = vec_bullets.erase(it); }
-		//}
-
 	}
+
 	void Draw() {
 		for (auto &bullet : vec_bullets) { bullet.Draw(); }
 		System::wnd.draw(m_shape);

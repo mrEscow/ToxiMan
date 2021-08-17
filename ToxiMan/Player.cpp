@@ -125,12 +125,14 @@ void Player::Update()
 			m_body->SetLinearVelocity(b2Vec2(-10, 0));
 		if (m_body->GetLinearVelocity().x > 10)
 			m_body->SetLinearVelocity(b2Vec2(10, 0));
-		//if(m_body->GetLinearVelocity().x == 0)
 			m_body->SetLinearVelocity(b2Vec2(7 * dx, 0));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent, dy * m_koeficent), true);
 	}
-	else 
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);	
+	else {
+		m_body->SetLinearVelocity(b2Vec2(4 * dx, 0));
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);
+	}
+
 
 	m_body->SetLinearDamping(0.1); // затухание 
 
