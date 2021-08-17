@@ -26,53 +26,6 @@ Level::Level(LevelNumber& number)
 
 	is_from_arhitetc = false;
 	
-
-	
-	// Shader
-	//shaderOne.loadFromMemory
-	//(
-	//	"uniform vec2 offset;"
-
-	//	"void main() {"
-	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
-	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
-	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
-	//	"    gl_FrontColor = gl_Color;"
-	//	"}"
-	//	, sf::Shader::Vertex
-	//);
-	//shaderTwo.loadFromMemory
-	//(
-	//	"uniform vec2 offset;"
-
-	//	"void main() {"
-	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
-	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
-	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
-	//	"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
-	//	"    gl_FrontColor = gl_Color;"
-	//	"}"
-	//	, sf::Shader::Vertex
-	//);
-	//shaderTree.loadFromMemory
-	//(
-	//	"uniform vec2 offset;"
-
-	//	"void main() {"
-	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
-	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
-	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
-	//	"    gl_TexCoord[0].y = gl_TexCoord[0].y + offset.y;"
-	//	"    gl_FrontColor = gl_Color;"
-	//	"}"
-	//	, sf::Shader::Vertex
-	//);
-
-	//offsetOne = v2f(0, 0);
-	//offsetTwo = v2f(0, 0);
-	//offsetTree = v2f(0, 0);
-
-	// Shader2
 	shaderBg5_a.loadFromMemory
 	(
 		"uniform vec2 offset;"
@@ -145,15 +98,6 @@ Level::Level(LevelNumber& number)
 	offsetBg5_d = v2f(0, 0);;
 	offsetBg5_e = v2f(0, 0);;
 
-	// beckground
-	//m_beckground = System::CreateShape(v2f(0,0), v2f(640,360), System::resources.texture.background);
-	//
-	//m_backOne = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backOne);
-	//m_backTwo = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTwo);
-	//m_backTree = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTree);
-
-	// beckground 2
-
 	m_bg5_a = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_a);
 	m_bg5_b = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_b);
 	m_bg5_c = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.bg5_c);
@@ -178,30 +122,10 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 	default:
 		break;
 	}
-
-
 }
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
-
-	//m_beckground.setPosition(System::cam.getCenter().x + 480, System::cam.getCenter().y - 270);
-	//// Shader 
-	//offsetOne.x += System::time / 10000;
-	//shaderOne.setUniform("offset", offsetOne);
-
-
-	//offsetTwo.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 200000;
-	//offsetTwo.y += m_ptr_player->GetBody()->GetLinearVelocity().y / 200000;
-	//shaderTwo.setUniform("offset", offsetTwo);
-
-
-	//offsetTree.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 100000;
-	//offsetTree.y += m_ptr_player->GetBody()->GetLinearVelocity().y / 100000;
-	//shaderTree.setUniform("offset", offsetTree);
-
-	// Shader 2
-
 	float value = 100000;
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2)) 
@@ -234,18 +158,11 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (1 * value);
 	shaderBg5_e.setUniform("offset", offsetBg5_e);
 
-
-	// Save objecks
 	if (is_from_arhitetc) {
 
 		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
 		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
-
-
-
-
-
 
 		m_jsonSM.DeleteJsonFile("file_beck.json", number);
 		m_jsonSM.DeleteJsonFile("file_zero.json", number);
@@ -282,15 +199,6 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 
 void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
-	// background
-	//System::wnd.draw(m_beckground,&shaderOne);
-
-
-	//System::wnd.draw(m_backOne, &shaderOne);
-	//System::wnd.draw(m_backTwo, &shaderTwo);
-	//System::wnd.draw(m_backTree, &shaderTree);
-
-	// background 2
 	System::wnd.draw(m_bg5_g);
 
 	System::wnd.draw(m_bg5_a, &shaderBg5_a);
@@ -299,20 +207,14 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	System::wnd.draw(m_bg5_d, &shaderBg5_d);
 	System::wnd.draw(m_bg5_e, &shaderBg5_e);
 
-
-
-	for (auto &object : m_objectListBeck) {
+	for (auto &object : m_objectListBeck) 
 		if (System::IsShapeInCamera(object.m_shape))
 			object.Draw();
-	}
-
-	for (auto &object : m_objectListZero) {
+	
+	for (auto &object : m_objectListZero) 
 		if(System::IsShapeInCamera(object.m_shape))
 			object.Draw();
-	}
-
-
-
+	
 	switch (state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
@@ -328,10 +230,10 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		break;
 	}
 
-	for (auto &object : m_objectListFront) {
+	for (auto &object : m_objectListFront) 
 		if (System::IsShapeInCamera(object.m_shape))
 			object.Draw();
-	}	
+		
 }
 
 v2f Level::GetPositionPlayer()
@@ -341,33 +243,28 @@ v2f Level::GetPositionPlayer()
 
 Level::~Level()
 {
-	for (auto &obj : m_objectListBeck) {
+	for (auto &obj : m_objectListBeck) 
 		m_jsonSM.SaveObject(obj, "file_beck.json", *m_ptr_number);
-	}
-	for (auto &obj : m_objectListZero) {
+	
+	for (auto &obj : m_objectListZero) 
 		m_jsonSM.SaveObject(obj, "file_zero.json", *m_ptr_number);
-	}
-	for (auto &obj : m_objectListFront) {
+	
+	for (auto &obj : m_objectListFront) 
 		m_jsonSM.SaveObject(obj, "file_front.json", *m_ptr_number);
-	}
-
-
+	
 	m_jsonSM.DeleteJsonFile("Save/file_beck.json", *m_ptr_number);
 	m_jsonSM.DeleteJsonFile("Save/file_zero.json", *m_ptr_number);
 	m_jsonSM.DeleteJsonFile("Save/file_front.json", *m_ptr_number);
 
-	for (auto& obj : m_objectListBeck) {
+	for (auto& obj : m_objectListBeck) 
 		m_jsonSM.SaveObject(obj, "Save/file_beck.json", *m_ptr_number);
-	}
-	for (auto& obj : m_objectListZero) {
+	
+	for (auto& obj : m_objectListZero) 
 		m_jsonSM.SaveObject(obj, "Save/file_zero.json", *m_ptr_number);
-	}
-	for (auto& obj : m_objectListFront) {
+	
+	for (auto& obj : m_objectListFront) 
 		m_jsonSM.SaveObject(obj, "Save/file_front.json", *m_ptr_number);
-	}
-
+	
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;
-	//delete m_ptr_number;
-	//delete m_ptr_jsonSM;
 }

@@ -18,7 +18,6 @@ private:
 	v2f m_firstPos;
 	v2f m_size_map;
 	
-
 	Player* m_ptr_player;
 
 	Architect* m_ptr_arhitevt;
@@ -28,16 +27,6 @@ private:
 	vector<ObjectManager> m_objectListBeck;
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;
-
-	// Shader	
-
-	//sf::Shader shaderOne;
-	//sf::Shader shaderTwo;
-	//sf::Shader shaderTree;
-
-	//sf::Glsl::Vec2 offsetOne;
-	//sf::Glsl::Vec2 offsetTwo;
-	//sf::Glsl::Vec2 offsetTree;
 
 	// Shader	
 
@@ -55,10 +44,6 @@ private:
 
 	// beckground
 	Shape m_beckground;
-
-	//Shape m_backOne;
-	//Shape m_backTwo;
-	//Shape m_backTree;
 
 	// beckground2
 	Shape m_bg5_a;

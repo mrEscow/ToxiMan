@@ -47,7 +47,7 @@ private:
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
 
-	// состояния клавишь
+	// состояния клавиш
 	bool is_button_Righr;
 	bool is_button_Left;
 	bool is_button_Up;

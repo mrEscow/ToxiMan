@@ -17,14 +17,14 @@ Player::Player(v2f firstPos, v2f size_map)
 	dinamic = true;	
 	fixRotat = true;
 	m_firstPos = firstPos;
+
 	// для камеры
 	m_size_map = size_map;
+
 	// создание картинки игрока SFML
 	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
+
 	// создание тела игрока BOX2D
-
-
-
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(m_firstPos.x / SCALE,m_firstPos.y / SCALE);
 
@@ -46,9 +46,6 @@ Player::Player(v2f firstPos, v2f size_map)
 	m_body->CreateFixture(&m_fdef);
 
 	m_body->SetFixedRotation(true);
-
-
-	//m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
 	 
 	// движение
 	m_koeficent = 10;
@@ -100,28 +97,19 @@ void Player::Action(StateGame& state_game)
 		MyFirstGun->shoot(m_dir);
 	}
 
-
-
-
-
-
 	MyFirstGun->Action();
 }
 
-
-
 void Player::Update()
 {
-
 	if (is_button_Left) dx = -m_speed;
 	if (is_button_Righr) dx = m_speed;
 	if (!is_button_Left && !is_button_Righr) dx = 0;
-	if (is_button_Up) {
-		if (is_onGround) {
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
-		}
-	}
 
+	if (is_button_Up) 
+		if (is_onGround) 
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
+		
 	if (dx > 0)
 		m_dir = PlayerDir::RIGHT;
 	if (dx < 0)
@@ -132,7 +120,6 @@ void Player::Update()
 	else
 		is_onGround = false;
 
-
 	if (is_onGround) {
 		if (m_body->GetLinearVelocity().x < -10)
 			m_body->SetLinearVelocity(b2Vec2(-10, 0));
@@ -142,28 +129,21 @@ void Player::Update()
 			m_body->SetLinearVelocity(b2Vec2(7 * dx, 0));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent, dy * m_koeficent), true);
 	}
-	else {
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);
-	}
-
-
-
+	else 
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);	
 
 	m_body->SetLinearDamping(0.1); // затухание 
 
 	m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
 	m_shape.setRotation(m_body->GetAngle() * DEG);
 
-
 	if (!System::IsShapeInCamera(m_shape))
 		is_dead = true;
-
 	 
 	if (is_dead) {
 		m_body->SetTransform(b2Vec2(m_firstPos.x / SCALE, m_firstPos.y / SCALE), m_body->GetAngle());
 		is_dead = false;
 	}
-
 
 	switch (m_dir) {
 	case PlayerDir::RIGHT:
@@ -176,16 +156,13 @@ void Player::Update()
 		break;
 	}
 
-
 	m_mouse.Set((System::cur_p_wnd.x - System::scr_w / 2) / magic, (System::cur_p_wnd.y - System::scr_h / 2) / magic);
 
-	MyFirstGun->Update(m_shape.getPosition(), m_dir);
-	
+	MyFirstGun->Update(m_shape.getPosition(), m_dir);	
 }
 
 void Player::Draw()
-{
-	
+{	
 	System::wnd.draw(m_shape);
 	MyFirstGun->Draw();
 }
