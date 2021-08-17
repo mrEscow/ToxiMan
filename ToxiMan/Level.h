@@ -31,11 +31,11 @@ private:
 
 	// Shader	
 
-	//sf::Shader shaderOne;
+	sf::Shader shaderOne;
 	//sf::Shader shaderTwo;
 	//sf::Shader shaderTree;
 
-	//sf::Glsl::Vec2 offsetOne;
+	sf::Glsl::Vec2 offsetOne;
 	//sf::Glsl::Vec2 offsetTwo;
 	//sf::Glsl::Vec2 offsetTree;
 
@@ -54,7 +54,7 @@ private:
 	sf::Glsl::Vec2 offsetBg5_e;
 
 	// beckground
-	//Shape m_beckground;
+	Shape m_beckground;
 
 	//Shape m_backOne;
 	//Shape m_backTwo;

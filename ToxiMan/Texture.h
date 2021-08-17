@@ -64,7 +64,7 @@ public:
 
 		skaermbillede = Load("Guns/skaermbillede.png");
 
-		background = Load("background/background.png");
+		background = Load("background/background.png", false, true);
 
 		backOne = Load("background/backOne.png", false, true);
 		backTwo = Load("background/backTwo.png");

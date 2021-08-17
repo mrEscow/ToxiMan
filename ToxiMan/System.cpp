@@ -77,6 +77,15 @@ const bool System::IsContains(Shape& shape, const v2f& pos)
 	return shape.getGlobalBounds().contains(pos);
 }
 
+const bool System::IsShapeInCamera(Shape& shape)
+{
+	if ((shape.getPosition().x - 32 < System::cam_p.x + (System::scr_w / 2) && shape.getPosition().x + 32 > System::cam_p.x - (System::scr_w / 2)) &&
+		(shape.getPosition().y - 32 < System::cam_p.y + (System::scr_h / 2) && shape.getPosition().y + 32 > System::cam_p.y - (System::scr_h / 2)))
+		return true;
+	else
+		return false;
+}
+
 const Shape System::CreateShape(v2f pos, v2f siz, IMG& png)
 {
 	Shape shp;

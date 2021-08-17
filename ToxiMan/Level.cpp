@@ -29,18 +29,18 @@ Level::Level(LevelNumber& number)
 
 	
 	// Shader
-	//shaderOne.loadFromMemory
-	//(
-	//	"uniform vec2 offset;"
+	shaderOne.loadFromMemory
+	(
+		"uniform vec2 offset;"
 
-	//	"void main() {"
-	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
-	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
-	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
-	//	"    gl_FrontColor = gl_Color;"
-	//	"}"
-	//	, sf::Shader::Vertex
-	//);
+		"void main() {"
+		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+		"    gl_FrontColor = gl_Color;"
+		"}"
+		, sf::Shader::Vertex
+	);
 	//shaderTwo.loadFromMemory
 	//(
 	//	"uniform vec2 offset;"
@@ -68,7 +68,7 @@ Level::Level(LevelNumber& number)
 	//	, sf::Shader::Vertex
 	//);
 
-	//offsetOne = v2f(0, 0);
+	offsetOne = v2f(0, 0);
 	//offsetTwo = v2f(0, 0);
 	//offsetTree = v2f(0, 0);
 
@@ -146,7 +146,7 @@ Level::Level(LevelNumber& number)
 	offsetBg5_e = v2f(0, 0);;
 
 	// beckground
-	//m_beckground = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2)-32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.background);
+	m_beckground = System::CreateShape(v2f(0,0), v2f(640,360), System::resources.texture.background);
 	//
 	//m_backOne = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backOne);
 	//m_backTwo = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTwo);
@@ -184,9 +184,11 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
+
+	m_beckground.setPosition(System::cam.getCenter().x + 480, System::cam.getCenter().y - 270);
 	// Shader 
-	//offsetOne.x += System::time / 100000;
-	//shaderOne.setUniform("offset", offsetOne);
+	offsetOne.x += System::time / 10000;
+	shaderOne.setUniform("offset", offsetOne);
 
 
 	//offsetTwo.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 200000;
@@ -262,7 +264,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
 	// background
-	//System::wnd.draw(m_beckground, &parallaxShader);
+	System::wnd.draw(m_beckground,&shaderOne);
 
 
 	//System::wnd.draw(m_backOne, &shaderOne);
@@ -270,26 +272,24 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	//System::wnd.draw(m_backTree, &shaderTree);
 
 	// background 2
-	System::wnd.draw(m_bg5_g);
+	//System::wnd.draw(m_bg5_g);
 
-	System::wnd.draw(m_bg5_a, &shaderBg5_a);
-	System::wnd.draw(m_bg5_b, &shaderBg5_b);
-	System::wnd.draw(m_bg5_c, &shaderBg5_c);
-	System::wnd.draw(m_bg5_d, &shaderBg5_d);
-	System::wnd.draw(m_bg5_e, &shaderBg5_e);
+	//System::wnd.draw(m_bg5_a, &shaderBg5_a);
+	//System::wnd.draw(m_bg5_b, &shaderBg5_b);
+	//System::wnd.draw(m_bg5_c, &shaderBg5_c);
+	//System::wnd.draw(m_bg5_d, &shaderBg5_d);
+	//System::wnd.draw(m_bg5_e, &shaderBg5_e);
 
 
 
 	for (auto &object : m_objectListBeck) {
-		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
-			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
+		if (System::IsShapeInCamera(object.m_shape))
 			object.Draw();
 	}
 
 	for (auto &object : m_objectListZero) {
-		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
-			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
-				object.Draw();
+		if(System::IsShapeInCamera(object.m_shape))
+			object.Draw();
 	}
 
 
@@ -310,8 +310,7 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	}
 
 	for (auto &object : m_objectListFront) {
-		if (object.m_shape.getPosition().x < System::cam_p.x + (System::scr_w / 2) && object.m_shape.getPosition().x > System::cam_p.x - (System::scr_w / 2))
-			if (object.m_shape.getPosition().y < System::cam_p.y + (System::scr_h / 2) && object.m_shape.getPosition().y > System::cam_p.y - (System::scr_h / 2))
+		if (System::IsShapeInCamera(object.m_shape))
 			object.Draw();
 	}	
 }

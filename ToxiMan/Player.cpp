@@ -8,6 +8,7 @@ Player::Player(v2f firstPos, v2f size_map)
 {
 	// параметры игрока
 	name = "player";
+	is_dead = false;
 	massa = 10.f;
 	m_size_h = 96;
 	m_size_w = 96;
@@ -21,33 +22,32 @@ Player::Player(v2f firstPos, v2f size_map)
 	// создание картинки игрока SFML
 	m_shape = System::CreateShape(m_firstPos, v2f(m_size_w, m_size_h), System::resources.texture.player);
 	// создание тела игрока BOX2D
-	b2PolygonShape box;
-	b2CircleShape circle;
 
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(m_firstPos.x / SCALE,m_firstPos.y / SCALE);
 
-	b2Body* body = World::world->CreateBody(&bodyDef);
-	b2FixtureDef fdef;
-	fdef.density = massa;		// плотность (масса)
-	fdef.restitution = 0; // упругость (от 0 до 1)
-	fdef.friction = 1;		// трение (от 0 до 1)
 
-	fdef.shape = &box;
-	box.SetAsBox((m_size_w - width - 2) / 2 / SCALE , m_size_h / 4 / SCALE);
-	body->CreateFixture(&fdef);
+	m_bodyDef.type = b2_dynamicBody;
+	m_bodyDef.position.Set(m_firstPos.x / SCALE,m_firstPos.y / SCALE);
 
-	circle.m_radius = (m_size_w - width) / 2 / SCALE;
-	fdef.shape = &circle;
-	circle.m_p.Set(0, m_size_h / 4 / SCALE);
-	body->CreateFixture(&fdef);
-	circle.m_p.Set(0, -m_size_h / 4 / SCALE);
-	body->CreateFixture(&fdef);
+	m_body  = World::world->CreateBody(&m_bodyDef);
 
-	body->SetFixedRotation(true);
+	m_fdef.density = massa;		// плотность (масса)
+	m_fdef.restitution = 0; // упругость (от 0 до 1)
+	m_fdef.friction = 1;		// трение (от 0 до 1)
 
-	m_body = body;
+	m_fdef.shape = &m_box;
+	m_box.SetAsBox((m_size_w - width - 2) / 2 / SCALE , m_size_h / 4 / SCALE);
+	m_body->CreateFixture(&m_fdef);
+
+	m_circle.m_radius = (m_size_w - width) / 2 / SCALE;
+	m_fdef.shape = &m_circle;
+	m_circle.m_p.Set(0, m_size_h / 4 / SCALE);
+	m_body->CreateFixture(&m_fdef);
+	m_circle.m_p.Set(0, -m_size_h / 4 / SCALE);
+	m_body->CreateFixture(&m_fdef);
+
+	m_body->SetFixedRotation(true);
+
+
 	//m_body = World::CreateBodyBox(m_shape, name, massa, width, true, true);
 	 
 	// движение
@@ -68,27 +68,39 @@ void Player::Action(StateGame& state_game)
 		state_game = StateGame::ON_ARCITECT;
 	}
 
+
+
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
 		dx = -m_speed;
+		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
 		dx = 0;
+		//return;
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {	
 		dx = m_speed;
+		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
 		dx = 0;
+		//return;
 	}
+
 	
 	if (System::IsKeyPressed(Key::Up)|| System::IsKeyPressed(Key::W)) {
+		cout << "IsKeyPressed(Key::Up)" << endl;
 		if (is_onGround) {
-
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
+			//return;
 		}
+	}
+	if (System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W)) {
+		cout << "IsKeyReleased(Key::Up)" << endl;
+
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
@@ -96,7 +108,7 @@ void Player::Action(StateGame& state_game)
 		{
 			MyFirstGun->shoot(m_dir);
 		}
-		
+		//return;
 	}
 
 
@@ -104,6 +116,8 @@ void Player::Action(StateGame& state_game)
 		m_dir = PlayerDir::RIGHT;
 	if (dx < 0)
 		m_dir = PlayerDir::LEFT;
+
+
 
 	MyFirstGun->Action();
 }
@@ -124,18 +138,32 @@ void Player::Update()
 			m_body->SetLinearVelocity(b2Vec2(-10, 0));
 		if (m_body->GetLinearVelocity().x > 10)
 			m_body->SetLinearVelocity(b2Vec2(10, 0));
-		if(m_body->GetLinearVelocity().x == 0)
-			m_body->SetLinearVelocity(b2Vec2(2 * dx, 0));
+		//if(m_body->GetLinearVelocity().x == 0)
+			m_body->SetLinearVelocity(b2Vec2(7 * dx, 0));
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent, dy * m_koeficent), true);
 	}
 	else {
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);
 	}
 
+
+
+
 	m_body->SetLinearDamping(0.1); // затухание 
 
 	m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
 	m_shape.setRotation(m_body->GetAngle() * DEG);
+
+
+	if (!System::IsShapeInCamera(m_shape))
+		is_dead = true;
+
+	 
+	if (is_dead) {
+		m_body->SetTransform(b2Vec2(m_firstPos.x / SCALE, m_firstPos.y / SCALE), m_body->GetAngle());
+		is_dead = false;
+	}
+
 
 	switch (m_dir) {
 	case PlayerDir::RIGHT:
@@ -152,11 +180,12 @@ void Player::Update()
 	m_mouse.Set((System::cur_p_wnd.x - System::scr_w / 2) / magic, (System::cur_p_wnd.y - System::scr_h / 2) / magic);
 
 	MyFirstGun->Update(m_shape.getPosition(), m_dir);
+	
 }
 
 void Player::Draw()
 {
-
+	
 	System::wnd.draw(m_shape);
 	MyFirstGun->Draw();
 }

@@ -18,12 +18,19 @@ private:
 	bool dinamic;		// динамический бокс
 	bool fixRotat;		// запретить повороты
 
+	bool is_dead;
+
 	// Объем бокса влияет на скорость и импульс
 	float magic;
 	float m_koeficent;
 
 	// отрисовка и физика
 	Shape m_shape;
+
+	b2PolygonShape m_box;
+	b2CircleShape m_circle;
+	b2BodyDef m_bodyDef;
+	b2FixtureDef m_fdef;
 	b2Body* m_body;
 
 	// перемещение

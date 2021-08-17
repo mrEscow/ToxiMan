@@ -41,6 +41,10 @@ public:
 	// Аналог ф-ии shape.getGlobalBounds.contains(pos);
 	static const bool IsContains(Shape& shape, const v2f& pos);
 
+
+	// Если фигура находиться внутри вида камеры 
+	static const bool IsShapeInCamera(Shape& shape);
+
 	// Вспомогательный метод-конструктор для объектов Shape
 	// Пример использования - Shape shape = CreateShape(v2f(0,0), v2f(10,10), texture.my_loaded_image);
 	static const Shape CreateShape(v2f pos, v2f siz, IMG& png);
