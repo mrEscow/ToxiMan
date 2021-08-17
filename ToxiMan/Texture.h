@@ -70,13 +70,13 @@ public:
 		backTwo = Load("background/backTwo.png");
 		backTree = Load("background/backTree.png");
 
-		bg5_a = Load("background/BG5/bg5_a.png", true);;
-		bg5_b = Load("background/BG5/bg5_b.png", true);;
-		bg5_c = Load("background/BG5/bg5_c.png", true);;
-		bg5_d = Load("background/BG5/bg5_d.png", true);;
-		bg5_e = Load("background/BG5/bg5_e.png", true);;
+		bg5_a = Load("background/BG5/bg5_a.png");
+		bg5_b = Load("background/BG5/bg5_b.png");
+		bg5_c = Load("background/BG5/bg5_c.png");
+		bg5_d = Load("background/BG5/bg5_d.png");
+		bg5_e = Load("background/BG5/bg5_e.png");
 
-		bg5_g = Load("background/BG5/bg5_g.png", true, true);;
+		bg5_g = Load("background/BG5/bg5_g.png", false, true);;
 	
 		cout << "Texture Loaded: [Level 0]\n";
 		//for (int i = 0; i < NUM_TEST_TEXTURE_SET; i++) test_texture_set.push_back(Load("Map/Terrain/terrain" + to_string(i) + ".png"));
