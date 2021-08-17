@@ -31,11 +31,11 @@ private:
 
 	// Shader	
 
-	sf::Shader shaderOne;
+	//sf::Shader shaderOne;
 	//sf::Shader shaderTwo;
 	//sf::Shader shaderTree;
 
-	sf::Glsl::Vec2 offsetOne;
+	//sf::Glsl::Vec2 offsetOne;
 	//sf::Glsl::Vec2 offsetTwo;
 	//sf::Glsl::Vec2 offsetTree;
 

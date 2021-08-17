@@ -10,7 +10,7 @@ class Game
 {
 private:
 
-	sf::Cursor curcor;
+
 
 	sf::Thread* m_ptr_thread;
 

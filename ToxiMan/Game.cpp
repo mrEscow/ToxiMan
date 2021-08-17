@@ -5,7 +5,7 @@
 
 Game::Game()
 {
-
+	sf::Cursor curcor;
 	curcor.loadFromSystem(sf::Cursor::Cross);
 	System::wnd.setMouseCursor(curcor);
 

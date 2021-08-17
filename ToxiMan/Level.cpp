@@ -29,18 +29,18 @@ Level::Level(LevelNumber& number)
 
 	
 	// Shader
-	shaderOne.loadFromMemory
-	(
-		"uniform vec2 offset;"
+	//shaderOne.loadFromMemory
+	//(
+	//	"uniform vec2 offset;"
 
-		"void main() {"
-		"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
-		"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
-		"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
-		"    gl_FrontColor = gl_Color;"
-		"}"
-		, sf::Shader::Vertex
-	);
+	//	"void main() {"
+	//	"    gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;"
+	//	"    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;"
+	//	"    gl_TexCoord[0].x = gl_TexCoord[0].x + offset.x;"
+	//	"    gl_FrontColor = gl_Color;"
+	//	"}"
+	//	, sf::Shader::Vertex
+	//);
 	//shaderTwo.loadFromMemory
 	//(
 	//	"uniform vec2 offset;"
@@ -68,7 +68,7 @@ Level::Level(LevelNumber& number)
 	//	, sf::Shader::Vertex
 	//);
 
-	offsetOne = v2f(0, 0);
+	//offsetOne = v2f(0, 0);
 	//offsetTwo = v2f(0, 0);
 	//offsetTree = v2f(0, 0);
 
@@ -146,7 +146,7 @@ Level::Level(LevelNumber& number)
 	offsetBg5_e = v2f(0, 0);;
 
 	// beckground
-	m_beckground = System::CreateShape(v2f(0,0), v2f(640,360), System::resources.texture.background);
+	//m_beckground = System::CreateShape(v2f(0,0), v2f(640,360), System::resources.texture.background);
 	//
 	//m_backOne = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backOne);
 	//m_backTwo = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x, 64 * m_size_map.y), System::resources.texture.backTwo);
@@ -185,10 +185,10 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
 
-	m_beckground.setPosition(System::cam.getCenter().x + 480, System::cam.getCenter().y - 270);
-	// Shader 
-	offsetOne.x += System::time / 10000;
-	shaderOne.setUniform("offset", offsetOne);
+	//m_beckground.setPosition(System::cam.getCenter().x + 480, System::cam.getCenter().y - 270);
+	//// Shader 
+	//offsetOne.x += System::time / 10000;
+	//shaderOne.setUniform("offset", offsetOne);
 
 
 	//offsetTwo.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 200000;
@@ -199,34 +199,53 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 	//offsetTree.x += m_ptr_player->GetBody()->GetLinearVelocity().x / 100000;
 	//offsetTree.y += m_ptr_player->GetBody()->GetLinearVelocity().y / 100000;
 	//shaderTree.setUniform("offset", offsetTree);
-	int test = 5;
+
 	// Shader 2
 
-	offsetBg5_a.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (30000 * test);
-	offsetBg5_a.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (30000 * test);
+	int test = 5;
+
+	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2)) 
+		offsetBg5_a.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (30000 * test);
+	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
+		offsetBg5_a.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (30000 * test);
 	shaderBg5_a.setUniform("offset", offsetBg5_a);
 
-	offsetBg5_b.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (25000 * test);
-	offsetBg5_b.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (25000 * test);
+	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
+		offsetBg5_b.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (25000 * test);
+	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
+		offsetBg5_b.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (25000 * test);
 	shaderBg5_b.setUniform("offset", offsetBg5_b);
 
-	offsetBg5_c.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (20000 * test);
-	offsetBg5_c.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (20000 * test);
+	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
+		offsetBg5_c.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (20000 * test);
+	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
+		offsetBg5_c.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (20000 * test);
 	shaderBg5_c.setUniform("offset", offsetBg5_c);
 
-	offsetBg5_d.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (15000 * test);
-	offsetBg5_d.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (15000 * test);
+	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
+		offsetBg5_d.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (15000 * test);
+	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
+		offsetBg5_d.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (15000 * test);
 	shaderBg5_d.setUniform("offset", offsetBg5_d);
 
-	offsetBg5_e.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (10000 * test);
-	offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (10000 * test);
+	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
+		offsetBg5_e.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (10000 * test);
+	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
+		offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (10000 * test);
 	shaderBg5_e.setUniform("offset", offsetBg5_e);
 
+
+	// Save objecks
 	if (is_from_arhitetc) {
 
 		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
 		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
+
+
+
+
+
 
 		m_jsonSM.DeleteJsonFile("file_beck.json", number);
 		m_jsonSM.DeleteJsonFile("file_zero.json", number);
@@ -264,7 +283,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 void Level::Draw(StateGame& state_game,LevelNumber& number)
 {
 	// background
-	System::wnd.draw(m_beckground,&shaderOne);
+	//System::wnd.draw(m_beckground,&shaderOne);
 
 
 	//System::wnd.draw(m_backOne, &shaderOne);
@@ -272,13 +291,13 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	//System::wnd.draw(m_backTree, &shaderTree);
 
 	// background 2
-	//System::wnd.draw(m_bg5_g);
+	System::wnd.draw(m_bg5_g);
 
-	//System::wnd.draw(m_bg5_a, &shaderBg5_a);
-	//System::wnd.draw(m_bg5_b, &shaderBg5_b);
-	//System::wnd.draw(m_bg5_c, &shaderBg5_c);
-	//System::wnd.draw(m_bg5_d, &shaderBg5_d);
-	//System::wnd.draw(m_bg5_e, &shaderBg5_e);
+	System::wnd.draw(m_bg5_a, &shaderBg5_a);
+	System::wnd.draw(m_bg5_b, &shaderBg5_b);
+	System::wnd.draw(m_bg5_c, &shaderBg5_c);
+	System::wnd.draw(m_bg5_d, &shaderBg5_d);
+	System::wnd.draw(m_bg5_e, &shaderBg5_e);
 
 
 

@@ -42,7 +42,6 @@ System::System(string init)
 		wnd.setFramerateLimit(frameLimit);
 		srand(::time(0));
 		clock.restart();
-		//zoom = 1;
 	}
 }
 
