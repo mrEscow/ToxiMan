@@ -10,6 +10,8 @@ class Game
 {
 private:
 
+	sf::Cursor curcor;
+
 	sf::Thread* m_ptr_thread;
 
 	//bool m_is_pause = false;

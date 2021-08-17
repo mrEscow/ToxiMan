@@ -5,7 +5,9 @@
 
 Game::Game()
 {
-	
+
+	curcor.loadFromSystem(sf::Cursor::Cross);
+	System::wnd.setMouseCursor(curcor);
 
 	m_ptr_lvl = new Level(m_number);
 

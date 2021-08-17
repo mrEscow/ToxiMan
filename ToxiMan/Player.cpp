@@ -68,40 +68,28 @@ Player::Player(v2f firstPos, v2f size_map)
 void Player::Action(StateGame& state_game)
 {
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-		// GET OBJECT FIXIT
 		state_game = StateGame::ON_ARCITECT;
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
 		is_button_Left = true;
-		//dx = -m_speed;
-		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
 		is_button_Left = false;
-		//dx = 0;
-		//return;
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {	
 		is_button_Righr = true;
-		//dx = m_speed;
-		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
 		is_button_Righr = false;
-		//dx = 0;
-		//return;
+
 	}
 
 	if (System::IsKeyPressed(Key::Up)|| System::IsKeyPressed(Key::W)) {
 		is_button_Up = true;
-		//if (is_onGround) {
-		//	m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
-		//	//return;
-		//}
 	}
 
 	if (System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W)) {
@@ -109,11 +97,7 @@ void Player::Action(StateGame& state_game)
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
-		//for (size_t i = 0; i < 3; i++)
-		{
-			MyFirstGun->shoot(m_dir);
-		}
-		//return;
+		MyFirstGun->shoot(m_dir);
 	}
 
 
