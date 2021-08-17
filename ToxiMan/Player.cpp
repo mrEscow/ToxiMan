@@ -59,6 +59,10 @@ Player::Player(v2f firstPos, v2f size_map)
 	MyFirstGun = new Gun(m_shape.getPosition());
 
 
+	// состояния клавишь
+	m_button_Righr	= false;
+	m_button_Left	= false;
+	m_button_Up		= false;
 }
 
 void Player::Action(StateGame& state_game)
@@ -68,39 +72,40 @@ void Player::Action(StateGame& state_game)
 		state_game = StateGame::ON_ARCITECT;
 	}
 
-
-
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
-		dx = -m_speed;
+		m_button_Left = true;
+		//dx = -m_speed;
 		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
-		dx = 0;
+		m_button_Left = false;
+		//dx = 0;
 		//return;
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {	
-		dx = m_speed;
+		m_button_Righr = true;
+		//dx = m_speed;
 		//return;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
-		dx = 0;
+		m_button_Righr = false;
+		//dx = 0;
 		//return;
 	}
 
-	
 	if (System::IsKeyPressed(Key::Up)|| System::IsKeyPressed(Key::W)) {
-		cout << "IsKeyPressed(Key::Up)" << endl;
-		if (is_onGround) {
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
-			//return;
-		}
+		m_button_Up = true;
+		//if (is_onGround) {
+		//	m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
+		//	//return;
+		//}
 	}
-	if (System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W)) {
-		cout << "IsKeyReleased(Key::Up)" << endl;
 
+	if (System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W)) {
+		m_button_Up = false;
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
@@ -112,10 +117,7 @@ void Player::Action(StateGame& state_game)
 	}
 
 
-	if (dx > 0)
-		m_dir = PlayerDir::RIGHT;
-	if (dx < 0)
-		m_dir = PlayerDir::LEFT;
+
 
 
 
@@ -126,6 +128,20 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update()
 {
+
+	if (m_button_Left) dx = -m_speed; 
+	if (m_button_Righr) dx = m_speed; 
+	if (!m_button_Left && !m_button_Righr) dx = 0;
+	if (m_button_Up) {
+		if (is_onGround) {
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
+		}
+	}
+
+	if (dx > 0)
+		m_dir = PlayerDir::RIGHT;
+	if (dx < 0)
+		m_dir = PlayerDir::LEFT;
 
 	if(m_body->GetLinearVelocity().y == 0)
 		is_onGround = true;
