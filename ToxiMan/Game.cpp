@@ -30,13 +30,13 @@ void Game::Update()
 	default:
 		break;
 	}
-
-
 }
 
 void Game::Draw()
 {
-	System::wnd.clear();
+	//System::wnd.clear();
+
+
 
 	switch (m_state_game)
 	{
@@ -76,23 +76,30 @@ void Game::Action()
 
 void Game::Thread()
 {
+	System::wnd.setActive(false);
 
+	while (System::wnd.isOpen())
+	{
+		System::SystemUpdate();
+
+		Update();
+
+		World::world->Step(1 / (float)System::frameLimit * 2, 8, 3);
+
+		Draw();
+	}
 }
 
 void Game::Play()
 {
+	System::wnd.setActive(false);
 
 	while (System::wnd.isOpen())
 	{
 
-		System::SystemUpdate();
-		//if (m_is_pause) System::time = 0.f;
-		Update();
 
 		while (System::wnd.pollEvent(System::event)) Action();
 
-		World::world->Step(1 / (float)System::frameLimit * 2, 8, 3);
-		Draw();
 	}
 }
 
