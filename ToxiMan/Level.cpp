@@ -202,36 +202,36 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 
 	// Shader 2
 
-	int test = 5;
+	float value = 100000;
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2)) 
-		offsetBg5_a.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (30000 * test);
+		offsetBg5_a.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (5 * value);
 	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
-		offsetBg5_a.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (30000 * test);
+		offsetBg5_a.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (5 * value);
 	shaderBg5_a.setUniform("offset", offsetBg5_a);
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
-		offsetBg5_b.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (25000 * test);
+		offsetBg5_b.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (4 * value);
 	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
-		offsetBg5_b.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (25000 * test);
+		offsetBg5_b.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (4 * value);
 	shaderBg5_b.setUniform("offset", offsetBg5_b);
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
-		offsetBg5_c.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (20000 * test);
+		offsetBg5_c.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (3 * value);
 	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
-		offsetBg5_c.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (20000 * test);
+		offsetBg5_c.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (3 * value);
 	shaderBg5_c.setUniform("offset", offsetBg5_c);
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
-		offsetBg5_d.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (15000 * test);
+		offsetBg5_d.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (2 * value);
 	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
-		offsetBg5_d.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (15000 * test);
+		offsetBg5_d.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (2 * value);
 	shaderBg5_d.setUniform("offset", offsetBg5_d);
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2))
-		offsetBg5_e.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (10000 * test);
+		offsetBg5_e.x += m_ptr_player->GetBody()->GetLinearVelocity().x / (1 * value);
 	if (System::cam.getCenter().y < 64 * m_size_map.y - 32 - (System::scr_h / 2) && System::cam.getCenter().y > System::scr_h / 2)
-		offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (10000 * test);
+		offsetBg5_e.y += m_ptr_player->GetBody()->GetLinearVelocity().y / (1 * value);
 	shaderBg5_e.setUniform("offset", offsetBg5_e);
 
 
