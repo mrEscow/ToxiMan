@@ -12,8 +12,9 @@ public:
 	CircleShape m_circleshape;
 	b2BodyDef m_bodyDef;
 	b2CircleShape m_circle;
-	b2Body* m_circlebody = nullptr;
+	b2Body* m_circlebody; 
 	b2FixtureDef m_fixDef;
+	
 
 	float m_massa;
 
@@ -41,6 +42,8 @@ public:
 		is_live = true;
 
 
+		
+
 		switch (dir)
 		{
 		case PlayerDir::RIGHT:
@@ -49,20 +52,27 @@ public:
 				m_bodyDef.position.Set((gunPos.getPosition().x + 5 + (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;				
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
+				if (World::world->IsLocked()) {
+					is_live = false;
+				}
+				else {
+					m_circlebody = World::world->CreateBody(&m_bodyDef);
 
-				m_circlebody = World::world->CreateBody(&m_bodyDef);
+					m_fixDef.density = m_massa;		// плотность (масса)
+					m_fixDef.restitution = 0; // упругость (от 0 до 1)
+					m_fixDef.friction = 0;		// трение (от 0 до 1)
+					m_fixDef.shape = &m_circle;
 
-				m_fixDef.density = m_massa;		// плотность (масса)
-				m_fixDef.restitution = 0; // упругость (от 0 до 1)
-				m_fixDef.friction = 0;		// трение (от 0 до 1)
-				m_fixDef.shape = &m_circle;
+					m_circlebody->CreateFixture(&m_fixDef);
+					m_circlebody->SetGravityScale(0);
+					//m_circlebody->SetBullet(true);
+					m_circlebody->SetFixedRotation(true);
+					m_circlebody->SetAngularDamping(1);
+					//m_circlebody->
+					//m_circlebody->ApplyLinearImpulse(b2Vec2(System::cur_p.x, System::cur_p.y), b2Vec2(15, 0),true);
+					m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(15, 0), true);
+				}
 
-				m_circlebody->CreateFixture(&m_fixDef);
-				m_circlebody->SetGravityScale(0);
-				//m_circlebody->SetBullet(true);
-				m_circlebody->SetFixedRotation(true);
-				m_circlebody->SetAngularDamping(1);
-				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(15,0), true);
 	
 			break;
 		case PlayerDir::LEFT:
@@ -71,7 +81,10 @@ public:
 				m_bodyDef.position.Set((gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;					
-
+				if (World::world->IsLocked()) {
+					is_live = false;
+				}
+				else {
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
 
 				m_fixDef.density = m_massa;		// плотность (масса)
@@ -85,6 +98,7 @@ public:
 				m_circlebody->SetFixedRotation(true);
 				m_circlebody->SetAngularDamping(1);
 				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-15, 0), true);
+				}
 					
 			break;
 		default:

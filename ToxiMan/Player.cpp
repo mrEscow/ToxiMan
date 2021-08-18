@@ -129,8 +129,8 @@ void Player::Update()
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent, dy * m_koeficent), true);
 	}
 	else {
-		m_body->SetLinearVelocity(b2Vec2(4 * dx, 0));
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / (magic * 2), dy * m_koeficent * World::gravity), true);
+		//m_body->SetLinearVelocity(b2Vec2(7 * dx, 5 * dy));
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(dx * m_koeficent / 5, dy * m_koeficent ), true);
 	}
 
 
