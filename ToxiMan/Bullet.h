@@ -6,18 +6,15 @@
 
 class Bullet{
 
-private:
-	//Shape m_shape;
-	//b2Body* m_body;
+public:
+	PlayerDir m_dir;
 
 	CircleShape m_circleshape;
 	b2BodyDef m_bodyDef;
-	//b2FixtureDef m_fixDef;
 	b2CircleShape m_circle;
+	b2Body* m_circlebody = nullptr;
+	b2FixtureDef m_fixDef;
 
-
-	b2Vec2 m_mouse;
-	b2Vec2 m_mouse2;
 	float m_massa;
 
 	int		magic;
@@ -31,49 +28,34 @@ private:
 	bool	is_shoot;
 	bool	is_live;
 	float	timer_live = 150; // 60000 минута
-	PlayerDir m_dir;
-	//float m_test;
-public:
 	
-	b2Body* m_circlebody;
-	b2FixtureDef m_fixDef;
-	//  всё под корнем (x2-x1)2+(y2-y1)2
-	//	static int ammo_counter;
+
 	Bullet(Shape &gunPos, PlayerDir &dir) {
 
-
 		m_dir = dir;
-		// круглая пуля
 		m_massa = 0.5;
-		//magic = 10;
 		radius = 20;
 		sizeGun = 10;
-		//is_shoot = false;
-		//m_test = -5;
-		//m_mouse.Set((mouse.x ), (mouse.y - 200));
+
+		is_shoot = true;
+		is_live = true;
+
 
 		switch (dir)
 		{
 		case PlayerDir::RIGHT:
 			
-			//if (mouse.x > 0) {
-				is_shoot = true;
-				is_live = true;
 				m_circleshape = System::CreateCircleShape(v2f(gunPos.getPosition().x + 5 + (gunPos.getSize().x / 2), gunPos.getPosition().y), radius, 30, -3, Color::Green, Color::Black);
 				m_bodyDef.position.Set((gunPos.getPosition().x + 5 + (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
-				m_bodyDef.type = b2_dynamicBody;
-				
+				m_bodyDef.type = b2_dynamicBody;				
 				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
 
-
 				m_circlebody = World::world->CreateBody(&m_bodyDef);
-
 
 				m_fixDef.density = m_massa;		// плотность (масса)
 				m_fixDef.restitution = 0; // упругость (от 0 до 1)
 				m_fixDef.friction = 0;		// трение (от 0 до 1)
 				m_fixDef.shape = &m_circle;
-
 
 				m_circlebody->CreateFixture(&m_fixDef);
 				m_circlebody->SetGravityScale(0);
@@ -81,50 +63,37 @@ public:
 				m_circlebody->SetFixedRotation(true);
 				m_circlebody->SetAngularDamping(1);
 				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(15,0), true);
-			//}			
+	
 			break;
 		case PlayerDir::LEFT:
-			//if (mouse.x < 0) {
-				is_shoot = true;
-				is_live = true;
+
 				m_circleshape = System::CreateCircleShape(v2f(gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2), gunPos.getPosition().y), radius, 30, -3, Color::Green, Color::Black);
 				m_bodyDef.position.Set((gunPos.getPosition().x - 5 - (gunPos.getSize().x / 2)) / SCALE, m_circleshape.getPosition().y / SCALE);
 				m_bodyDef.type = b2_dynamicBody;
-				m_circle.m_radius = m_circleshape.getRadius() / SCALE;
+				m_circle.m_radius = m_circleshape.getRadius() / SCALE;					
 
+				m_circlebody = World::world->CreateBody(&m_bodyDef);
 
+				m_fixDef.density = m_massa;		// плотность (масса)
+				m_fixDef.restitution = 0; // упругость (от 0 до 1)
+				m_fixDef.friction = 0;		// трение (от 0 до 1)				
+				m_fixDef.shape = &m_circle;
 
-	
-				
+				m_circlebody->CreateFixture(&m_fixDef);
+				m_circlebody->SetGravityScale(0);
+				//m_circlebody->SetBullet(true);
+				m_circlebody->SetFixedRotation(true);
+				m_circlebody->SetAngularDamping(1);
+				m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-15, 0), true);
 					
-
-					m_circlebody = World::world->CreateBody(&m_bodyDef);
-
-
-					m_fixDef.density = m_massa;		// плотность (масса)
-					m_fixDef.restitution = 0; // упругость (от 0 до 1)
-					m_fixDef.friction = 0;		// трение (от 0 до 1)				
-					m_fixDef.shape = &m_circle;
-
-					m_circlebody->CreateFixture(&m_fixDef);
-					m_circlebody->SetGravityScale(0);
-					//m_circlebody->SetBullet(true);
-					m_circlebody->SetFixedRotation(true);
-					m_circlebody->SetAngularDamping(1);
-					m_circlebody->ApplyLinearImpulseToCenter(b2Vec2(-15, 0), true);
-				
-
-			//}			
 			break;
 		default:
 			
 			break;
 		}
 	}
+
 	void Update(PlayerDir& dir) {
-		
-
-
 
 		if (is_shoot) {
 			if (m_circlebody->GetLinearVelocity().y != 0)
@@ -147,9 +116,7 @@ public:
 			
 		}
 		if(!is_shoot) {
-			m_bodyDef.type = b2_staticBody;
-			
-			//m_circlebody = World::world->CreateBody(&m_bodyDef);
+			//m_bodyDef.type = b2_staticBody;
 			m_circleshape.setScale(5, 5);
 			m_circleshape.setFillColor(Color::Red);
 			timer_live -= System::time;
@@ -158,27 +125,21 @@ public:
 				is_live = false;
 			}
 		}
-
 	}
+
 	void Draw() {
 			System::wnd.draw(m_circleshape);					
 	}
+
 	bool Check_is_live() {
 		return is_live;
 	}
-	void Action() {
-		//cout << "TEST" << m_test << endl;
-		//if (System::IsKeyPressed(Key::Z)) {
-		//	m_test+=0.5;
-		//}
 
-		//if (System::IsKeyPressed(Key::X)) {
-		//	m_test-= 0.5;
-		//}
+	void Action() {
+
 	}
 	~Bullet() {
-		//delete m_circlebody;
-		//World::world->DestroyBody();
+
 	}
 };
 

@@ -4,7 +4,6 @@
 class Gun {
 private:
 	Shape m_shape;
-	//b2Body* m_body;
 	vector<Bullet> vec_bullets;
 	
 	PlayerDir m_dir;
