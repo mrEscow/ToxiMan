@@ -144,7 +144,6 @@
   <ItemGroup>
     <ClInclude Include="Architect.h" />
     <ClInclude Include="Audio.h" />
-    <ClInclude Include="Boby.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Font.h" />
@@ -162,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Architect.cpp" />
-    <ClCompile Include="Boby.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="JsonSaveMenager.cpp" />

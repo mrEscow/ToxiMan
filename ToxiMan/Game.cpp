@@ -9,7 +9,7 @@ Game::Game()
 	curcor.loadFromSystem(sf::Cursor::Cross);
 	System::wnd.setMouseCursor(curcor);
 
-	System::speedGame = 2.5;
+	System::speedGame = 2;
 
 	m_ptr_lvl = new Level(m_number);
 
@@ -82,7 +82,7 @@ void Game::Thread()
 	{
 		System::SystemUpdate();
 
-		World::world->Step(1 / System::fps * System::speedGame, 8, 3);
+		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 
 		Update();
 

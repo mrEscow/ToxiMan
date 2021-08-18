@@ -1,7 +1,6 @@
 #pragma once
 #include "System.h"
 #include "World.h"
-#include "Boby.h"
 #include "Gun.h"
 #include "GameStates.h"
 

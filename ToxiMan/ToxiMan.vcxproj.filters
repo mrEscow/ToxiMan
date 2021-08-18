@@ -45,9 +45,6 @@
     <ClInclude Include="World.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Boby.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Boby.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
