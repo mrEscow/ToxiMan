@@ -19,8 +19,9 @@ public:
 	static v2f cur_p_wnd;				// Позиция курсора в оконной системе координат (Для обработки UI)
 	static float time;					// Прошедшее время каждого тика
 
-	static int frameLimit;				// Кадры в секунду
-	//static float zoom;
+	// Для работы с BOX2D
+	static float fps;					// Кадры в секунду
+	static float speedGame;				// Скорость игры 
 
 
 	// Конструктор инициализатор

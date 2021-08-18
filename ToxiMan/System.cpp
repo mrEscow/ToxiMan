@@ -17,8 +17,8 @@ v2f						System::cur_p_wnd;	// Позиция курсора в оконной �
 float					System::time;		// Прошедшее время каждого тика 
 sf::Clock				System::clock;
 
-int						System::frameLimit; // Кадры в секунду
-//float					System::zoom;		// размер экрана
+float					System::fps;		// Кадры в секунду
+float					System::speedGame;	// Скорость игры
 
 
 
@@ -38,8 +38,9 @@ System::System(string init)
 		cur_p_wnd = v2f(0, 0);
 		wnd.setView(cam);
 		wnd.setMouseCursorVisible(true);
-		frameLimit = 120;
-		wnd.setFramerateLimit(frameLimit);
+		fps = 120;
+		speedGame = 1;
+		wnd.setFramerateLimit(fps);
 		srand(::time(0));
 		clock.restart();
 	}

@@ -22,6 +22,8 @@ private:
 
 	Level *m_ptr_lvl;
 
+
+
 public:
 
 	Game();

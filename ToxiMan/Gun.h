@@ -36,10 +36,6 @@ public:
 		}
 
 
-
-		//m_shape.setRotation();
-		//for (auto &bullet : vec_bullets) { bullet.Update(); }
-
 		for (auto it = vec_bullets.begin(); it != vec_bullets.end(); ) {
 			auto& object = it;
 			
@@ -47,7 +43,7 @@ public:
 			else {
 				
 					World::world->DestroyBody(it->m_circlebody);
-					//if(it->m_circlebody->IsAwake())
+					if(it->m_circlebody != NULL)
 						it = vec_bullets.erase(it);
 			}				
 		}

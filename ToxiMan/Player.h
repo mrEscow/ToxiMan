@@ -35,18 +35,20 @@ private:
 
 	// перемещение
 	float m_speed;
-	bool is_onGround;
+
 	float dx;
 	float dy;
 	// начальная позиция
 	v2f m_firstPos;
 	v2f m_size_map;
-	// пушка
-	bool is_shoot;
+
 
 	Gun *MyFirstGun;
 	b2Vec2 m_mouse;
-
+	// на земле
+	bool is_onGround;
+	// пушка
+	bool is_shoot;
 	// состояния клавиш
 	bool is_button_Righr;
 	bool is_button_Left;

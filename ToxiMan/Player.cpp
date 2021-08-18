@@ -17,6 +17,7 @@ Player::Player(v2f firstPos, v2f size_map)
 	dinamic = true;	
 	fixRotat = true;
 	m_firstPos = firstPos;
+	is_shoot = false;
 
 	// для камеры
 	m_size_map = size_map;
@@ -94,7 +95,10 @@ void Player::Action(StateGame& state_game)
 	}
 		
 	if (System::IsMousePressed(Button::Left)){
-		MyFirstGun->shoot(m_dir);
+		is_shoot = true;
+	}
+	if (System::IsMouseReleased(Button::Left)) {
+		is_shoot = false;
 	}
 
 	MyFirstGun->Action();
@@ -159,6 +163,10 @@ void Player::Update()
 	}
 
 	m_mouse.Set((System::cur_p_wnd.x - System::scr_w / 2) / magic, (System::cur_p_wnd.y - System::scr_h / 2) / magic);
+
+	if (is_shoot) {
+		MyFirstGun->shoot(m_dir);
+	}
 
 	MyFirstGun->Update(m_shape.getPosition(), m_dir);	
 }
