@@ -232,6 +232,7 @@ void Architect::DeleteObject()
 					for (it = m_ptr_objectListBeck->begin() + object.GetObjectID();it != m_ptr_objectListBeck->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectBeckID--;
+					break;
 				}
 		break;
 	case ArcitectVector::ZERO:
@@ -248,6 +249,7 @@ void Architect::DeleteObject()
 
 					ObjectManager::ObjectZeroID--;
 
+					break;
 				}
 		break;
 	case ArcitectVector::FRONT:
@@ -259,6 +261,7 @@ void Architect::DeleteObject()
 					for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it != m_ptr_objectListFront->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectFrontID--;
+					break;
 				}
 		break;
 	default:

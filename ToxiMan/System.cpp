@@ -30,7 +30,7 @@ System::System(string init)
 		// Инициализируем поля базового класса
 		scr_h = sf::VideoMode::getDesktopMode().height;
 		scr_w = sf::VideoMode::getDesktopMode().width;
-		wnd.create(sf::VideoMode(scr_w, scr_h), "RPG Lesson", sf::Style::Default, sf::ContextSettings(0, 0, 8));
+		wnd.create(sf::VideoMode(scr_w, scr_h), "Toxi Man", sf::Style::Default, sf::ContextSettings(0, 0, 8));
 		cam.reset(sf::FloatRect(0, 0, scr_w, scr_h));
 		cam.setCenter(0, 0);
 		cam_p = cam.getCenter();
