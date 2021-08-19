@@ -30,14 +30,13 @@
 */
 class Architect
 {
+	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
+
 	ArchtectMenu m_menu;
 
 	Shape	m_mouse;
 
-	//v2f		m_zoom;
 	float	m_zoom;
-
-	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
 	vector<ObjectManager>::iterator it;
 
@@ -48,23 +47,22 @@ class Architect
 	uint m_size_x;
 	uint m_size_y;
 
-	// Сетка
 	Shape m_cell;
 	vector<Shape> m_cell_vec;
-
 
 public:
 	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map);
 
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 
+	void Update();
+
+	void Draw(StateGame& state_game, Player* player);
+
 	void CreateObject();
 
 	void DeleteObject();
 
-	void Update();
-
-	void Draw(StateGame& state_game, Player* player);
-	//~Architect();
+	~Architect();
 };
 

@@ -2,11 +2,6 @@
 
 Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map)
 {
-	//archMenu.setCenter(System::cam.getCenter() - v2f(System::wnd.getSize()));
-	//archMenu.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
-	
-
-
 	m_ptr_objectListBeck = &objectListBeck;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
@@ -18,10 +13,7 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
 
-
-	//m_zoom = v2f(1, 1);
 	m_zoom = 1.f;
-
 
 	for (size_t i = 0; i < size_map.x; i++)
 	{
@@ -34,9 +26,7 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 
 			m_cell_vec.push_back(m_cell);
 		}
-
 	}
-
 }
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
@@ -110,24 +100,18 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 			if (System::IsMouseReleased(Button::Right))
 				DeleteObject();
 		}
-
-
-	//--------------------------------------------------------
-	
+	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
 	{
 		m_zoom *= 0.90f;
-		System::cam.zoom(0.90f);// gameZoom += 0.01f;
-		//m_zoom *= 0.90f;
-		
+		System::cam.zoom(0.90f);
+	
 	}
+
 	if (System::IsKeyPressed(Key::E))
 	{
 		m_zoom *= 1.1f;
-		System::cam.zoom(1.1f); // gameZoom -= 0.01f;
-		//m_zoom *= 1.1f;
-		//m_main_text.
-		
+		System::cam.zoom(1.1f); 		
 	}
 
 	//-------------------------------------------------------------
@@ -163,20 +147,55 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	if (System::IsKeyPressed(Key::Num3)) {
 		m_Z_vec = ArcitectVector::FRONT;
 	}
-
 	//-------------------------------------------------------------
+}
 
+
+
+
+void Architect::Update()
+{
+	m_menu.Update(m_Z_vec);
+
+	m_mouse.setSize(v2f(m_size_x, m_size_y));
+	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
+	
+	for (auto &cell : m_cell_vec)
+		if (System::IsContains(cell, System::cur_p)) {
+			m_mouse.setPosition(cell.getPosition());
+		}
+
+}
+
+void Architect::Draw(StateGame& state_game, Player* player)
+{
+	if (state_game == StateGame::ON_ARCITECT) {
+
+		m_menu.Draw();
+		System::wnd.setView(System::cam);
+
+		player->Draw();
+
+		for (auto &cell : m_cell_vec)
+			System::wnd.draw(cell);
+
+
+		System::wnd.draw(m_mouse);
+
+
+	}		
 }
 
 void Architect::CreateObject()
 {
-
 	ObjectManager object;
+
 	bool is_contact = false;
+
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto &obj : *m_ptr_objectListBeck)
+		for (auto& obj : *m_ptr_objectListBeck)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
 				//cout << "Contact " << endl;
@@ -225,81 +244,50 @@ void Architect::DeleteObject()
 	{
 	case ArcitectVector::BECK:
 		for (auto& object : *m_ptr_objectListBeck)
-			if (System::IsContains(object.m_shape, System::cur_p)){
-					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
-					//World::world->DestroyBody(object.m_body);
-					m_ptr_objectListBeck->erase(it);
-					for (it = m_ptr_objectListBeck->begin() + object.GetObjectID();it >= m_ptr_objectListBeck->end(); it++)
-						it->SetNewID();
-					ObjectManager::ObjectBeckID--;
-					//break;
-				}
+			if (System::IsContains(object.m_shape, System::cur_p)) {
+				it = m_ptr_objectListBeck->begin() + object.GetObjectID();
+				//World::world->DestroyBody(object.m_body);
+				m_ptr_objectListBeck->erase(it);
+				for (it = m_ptr_objectListBeck->begin() + object.GetObjectID(); it >= m_ptr_objectListBeck->end(); it++)
+					it->SetNewID();
+				ObjectManager::ObjectBeckID--;
+				//break;
+			}
 		break;
 	case ArcitectVector::ZERO:
 		for (auto& object : *m_ptr_objectListZero)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 
-					it = m_ptr_objectListZero->begin() + object.GetObjectID();		
+				it = m_ptr_objectListZero->begin() + object.GetObjectID();
 
-					World::world->DestroyBody(it->m_body);
-					m_ptr_objectListZero->erase(it);
+				World::world->DestroyBody(it->m_body);
+				m_ptr_objectListZero->erase(it);
 
-					for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it >= m_ptr_objectListZero->end(); it++)
-						it->SetNewID();
+				for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it >= m_ptr_objectListZero->end(); it++)
+					it->SetNewID();
 
-					ObjectManager::ObjectZeroID--;
+				ObjectManager::ObjectZeroID--;
 
-					//break;
-				}
+				//break;
+			}
 		break;
 	case ArcitectVector::FRONT:
 		for (auto& object : *m_ptr_objectListFront)
 			if (System::IsContains(object.m_shape, System::cur_p)) {
-					it = m_ptr_objectListFront->begin() + object.GetObjectID();
-					//World::world->DestroyBody(object.m_body);
-					m_ptr_objectListFront->erase(it);
-					for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it >= m_ptr_objectListFront->end(); it++)
-						it->SetNewID();
-					ObjectManager::ObjectFrontID--;
-					break;
-				}
+				it = m_ptr_objectListFront->begin() + object.GetObjectID();
+				//World::world->DestroyBody(object.m_body);
+				m_ptr_objectListFront->erase(it);
+				for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it >= m_ptr_objectListFront->end(); it++)
+					it->SetNewID();
+				ObjectManager::ObjectFrontID--;
+				break;
+			}
 		break;
 	default:
 		break;
 	}
 }
 
-
-
-void Architect::Update()
+Architect::~Architect()
 {
-	m_menu.Update(m_Z_vec);
-
-	m_mouse.setSize(v2f(m_size_x, m_size_y));
-	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
-	
-	for (auto &cell : m_cell_vec)
-		if (System::IsContains(cell, System::cur_p)) {
-			m_mouse.setPosition(cell.getPosition());
-		}
-
-}
-
-void Architect::Draw(StateGame& state_game, Player* player)
-{
-	if (state_game == StateGame::ON_ARCITECT) {
-
-		m_menu.Draw();
-		System::wnd.setView(System::cam);
-
-		player->Draw();
-
-		for (auto &cell : m_cell_vec)
-			System::wnd.draw(cell);
-
-
-		System::wnd.draw(m_mouse);
-
-
-	}		
 }
