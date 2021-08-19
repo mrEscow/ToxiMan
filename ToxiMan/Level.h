@@ -24,6 +24,8 @@ private:
 
 	bool is_from_arhitetc;
 
+	bool is_reset;
+
 	vector<ObjectManager> m_objectListBeck;
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;

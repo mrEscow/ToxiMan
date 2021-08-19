@@ -62,7 +62,7 @@ public:
 	float GetDx();
 	b2Body* GetBody();
 	void Action(StateGame &state_game);
-	void Update();
+	void Update(bool & is_reset);
 	void Draw();
 
 	~Player();

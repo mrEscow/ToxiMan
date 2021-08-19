@@ -104,7 +104,7 @@ void Player::Action(StateGame& state_game)
 	MyFirstGun->Action();
 }
 
-void Player::Update()
+void Player::Update(bool & is_reset)
 {
 	if (is_button_Left) dx = -m_speed;
 	if (is_button_Righr) dx = m_speed;
@@ -147,6 +147,7 @@ void Player::Update()
 		is_dead = true;
 	 
 	if (is_dead) {
+		is_reset = true;
 		m_body->SetTransform(b2Vec2(m_firstPos.x / SCALE, m_firstPos.y / SCALE), m_body->GetAngle());
 		is_dead = false;
 	}

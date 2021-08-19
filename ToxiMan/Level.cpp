@@ -25,6 +25,7 @@ Level::Level(LevelNumber& number)
 	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront, m_size_map);
 
 	is_from_arhitetc = false;
+	is_reset = false;
 	
 	shaderBg5_a.loadFromMemory
 	(
@@ -126,6 +127,16 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
+	if (is_reset) {
+		cout << "DEAD" << endl;
+		offsetBg5_a = v2f(0, 0);
+		offsetBg5_b = v2f(0, 0);
+		offsetBg5_c = v2f(0, 0);
+		offsetBg5_d = v2f(0, 0);
+		offsetBg5_e = v2f(0, 0);
+		is_reset = false;
+	}
+
 	float value = 100000;
 
 	if (System::cam.getCenter().x > System::scr_w / 2 && System::cam.getCenter().x < 64 * m_size_map.x - 32 - (System::scr_w / 2)) 
@@ -184,7 +195,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 		System::cam.setCenter(m_ptr_player->GetPosCam());
 		System::wnd.setView(System::cam);
-		m_ptr_player->Update();
+		m_ptr_player->Update(is_reset);
 		break;
 	case StateGame::ON_ARCITECT:
 		m_ptr_arhitevt->Update();
