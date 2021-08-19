@@ -22,11 +22,14 @@ void Game::Update()
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
+		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		break;
 	case StateGame::ON_GAME:
+		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:
+		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game, m_number);
 		break;
 	default:
@@ -36,7 +39,7 @@ void Game::Update()
 
 void Game::Draw()
 {
-	//System::wnd.clear();
+	System::wnd.clear();
 
 	switch (m_state_game)
 	{

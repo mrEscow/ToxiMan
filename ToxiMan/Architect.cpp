@@ -2,7 +2,11 @@
 
 Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map)
 {
+	//archMenu.setCenter(System::cam.getCenter() - v2f(System::wnd.getSize()));
+	//archMenu.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
 	
+
+
 	m_ptr_objectListBeck = &objectListBeck;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
@@ -14,10 +18,9 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
 
-	m_main_text = System::CreateText(v2f(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - (System::scr_h / 2)),70,"ArchitectMode",System::resources.font.common,Color::White);
-	m_name_vector_text = System::CreateText(v2f(System::cam_p.x - (System::scr_w / 2), System::cam_p.y - (System::scr_h / 2) + 100), 60, "Vector Zero", System::resources.font.common, Color::White);
-	m_zoom_for_text = v2f(1, 1);
-	m_koef = 1.f;
+
+	//m_zoom = v2f(1, 1);
+	m_zoom = 1.f;
 
 
 	for (size_t i = 0; i < size_map.x; i++)
@@ -66,7 +69,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {
-		System::cam.move( - 10 * m_koef, 0);
+		System::cam.move( - 10 * m_zoom, 0);
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
@@ -74,7 +77,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
-		System::cam.move(10 * m_koef, 0); //cout << "D" << endl;
+		System::cam.move(10 * m_zoom, 0); //cout << "D" << endl;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
@@ -82,7 +85,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
-		System::cam.move(0, -10 * m_koef);
+		System::cam.move(0, -10 * m_zoom);
 	}
 
 	if ((System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W))) {
@@ -90,7 +93,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 
 	if (System::IsKeyPressed(Key::Down) || System::IsKeyPressed(Key::S)) {
-		System::cam.move(0, 10 * m_koef);
+		System::cam.move(0, 10 * m_zoom);
 	}
 
 	if ((System::IsKeyReleased(Key::Down) || System::IsKeyReleased(Key::S))) {
@@ -117,16 +120,16 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	
 	if (System::IsKeyPressed(Key::Q))
 	{
-		m_koef *= 0.90f;
+		m_zoom *= 0.90f;
 		System::cam.zoom(0.90f);// gameZoom += 0.01f;
-		m_zoom_for_text *= 0.90f;
+		//m_zoom *= 0.90f;
 		
 	}
 	if (System::IsKeyPressed(Key::E))
 	{
-		m_koef *= 1.1f;
+		m_zoom *= 1.1f;
 		System::cam.zoom(1.1f); // gameZoom -= 0.01f;
-		m_zoom_for_text *= 1.1f;
+		//m_zoom *= 1.1f;
 		//m_main_text.
 		
 	}
@@ -171,6 +174,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::CreateObject()
 {
+
 	ObjectManager object;
 	bool is_contact = false;
 	switch (m_Z_vec)
@@ -229,10 +233,10 @@ void Architect::DeleteObject()
 					it = m_ptr_objectListBeck->begin() + object.GetObjectID();	
 					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListBeck->erase(it);
-					for (it = m_ptr_objectListBeck->begin() + object.GetObjectID();it != m_ptr_objectListBeck->end(); it++)
+					for (it = m_ptr_objectListBeck->begin() + object.GetObjectID();it >= m_ptr_objectListBeck->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectBeckID--;
-					break;
+					//break;
 				}
 		break;
 	case ArcitectVector::ZERO:
@@ -244,12 +248,12 @@ void Architect::DeleteObject()
 					World::world->DestroyBody(it->m_body);
 					m_ptr_objectListZero->erase(it);
 
-					for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it != m_ptr_objectListZero->end(); it++)
+					for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it >= m_ptr_objectListZero->end(); it++)
 						it->SetNewID();
 
 					ObjectManager::ObjectZeroID--;
 
-					break;
+					//break;
 				}
 		break;
 	case ArcitectVector::FRONT:
@@ -258,7 +262,7 @@ void Architect::DeleteObject()
 					it = m_ptr_objectListFront->begin() + object.GetObjectID();
 					//World::world->DestroyBody(object.m_body);
 					m_ptr_objectListFront->erase(it);
-					for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it != m_ptr_objectListFront->end(); it++)
+					for (it = m_ptr_objectListFront->begin() + object.GetObjectID(); it >= m_ptr_objectListFront->end(); it++)
 						it->SetNewID();
 					ObjectManager::ObjectFrontID--;
 					break;
@@ -273,61 +277,33 @@ void Architect::DeleteObject()
 
 void Architect::Update()
 {
+	m_menu.Update(m_Z_vec);
+
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
-
-	//for (auto cell : m_cell_vec)		
-	//	if (System::IsContains(cell, System::cur_p)) {
-	//			m_mouse.setPosition(cell.getPosition());
-	//	}
 	
-	for (auto cell : m_cell_vec)
+	for (auto &cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
 			m_mouse.setPosition(cell.getPosition());
 		}
-
-
-	switch (m_Z_vec)
-	{
-	case ArcitectVector::BECK:
-		m_name_vector_text.setString("Vector Beck");
-		break;
-	case ArcitectVector::ZERO:
-		m_name_vector_text.setString("Vector Zero");
-		break;
-	case ArcitectVector::FRONT:
-		m_name_vector_text.setString("Vector Front");
-		break;
-	default:
-		break;
-	}
-	 
-	
-	m_main_text.setPosition(System::cam.getCenter().x - (System::scr_w * (m_koef) / 2), System::cam.getCenter().y - System::scr_h * (m_koef) / 2);
-	m_main_text.setScale(m_zoom_for_text);
-	m_name_vector_text.setPosition(System::cam_p.x - (System::scr_w * m_koef / 2), (System::cam_p.y - (System::scr_h * m_koef  / 2)) + (100 * m_koef ));
-	m_name_vector_text.setScale(m_zoom_for_text);
-
-
-	System::wnd.setView(System::cam);
 
 }
 
 void Architect::Draw(StateGame& state_game, Player* player)
 {
-	//for (auto object : *m_ptr_objectListBeck)
-	//	object.Draw();
-	//for (auto object : *m_ptr_objectListZero)
-	//	object.Draw();
-	player->Draw();
-	//for (auto object : *m_ptr_objectListFront)
-	//	object.Draw();
 	if (state_game == StateGame::ON_ARCITECT) {
-		for (auto cell : m_cell_vec)
+
+		m_menu.Draw();
+		System::wnd.setView(System::cam);
+
+		player->Draw();
+
+		for (auto &cell : m_cell_vec)
 			System::wnd.draw(cell);
 
+
 		System::wnd.draw(m_mouse);
-		System::wnd.draw(m_main_text);
-		System::wnd.draw(m_name_vector_text);
+
+
 	}		
 }

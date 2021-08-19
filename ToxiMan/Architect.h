@@ -5,6 +5,7 @@
 #include "GameStates.h"
 #include "Player.h"
 #include "JsonSaveMenager.h"
+#include "ArchtectMenu.h"
 
 /*
 	”правление:
@@ -29,11 +30,12 @@
 */
 class Architect
 {
+	ArchtectMenu m_menu;
+
 	Shape	m_mouse;
-	Text	m_main_text;
-	Text	m_name_vector_text;
-	v2f		m_zoom_for_text;
-	float	m_koef;
+
+	//v2f		m_zoom;
+	float	m_zoom;
 
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
