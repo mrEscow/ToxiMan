@@ -206,34 +206,35 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	System::wnd.draw(m_bg5_c, &shaderBg5_c);
 	System::wnd.draw(m_bg5_d, &shaderBg5_d);
 	System::wnd.draw(m_bg5_e, &shaderBg5_e);
-
-	for (auto &object : m_objectListBeck) 
-		if (System::IsShapeInCamera(object.m_shape))
-			object.Draw();
-	
-	for (auto &object : m_objectListZero) 
-		if(System::IsShapeInCamera(object.m_shape))
-			object.Draw();
 	
 	switch (state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
+		for (auto& object : m_objectListBeck)
+			if (System::IsShapeInCamera(object.m_shape))
+				object.Draw();
+		for (auto& object : m_objectListZero)
+			if (System::IsShapeInCamera(object.m_shape))
+				object.Draw();
 		m_ptr_player->Draw();
+		for (auto& object : m_objectListFront)
+			if (System::IsShapeInCamera(object.m_shape))
+				object.Draw();
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_player->Draw();
+		for (auto& object : m_objectListBeck)
+				object.Draw();
+		for (auto& object : m_objectListZero)
+				object.Draw();
+		for (auto& object : m_objectListFront)
+				object.Draw();
 		m_ptr_arhitevt->Draw(state_game, m_ptr_player);
 		break;
 	default:
 		break;
-	}
-
-	for (auto &object : m_objectListFront) 
-		if (System::IsShapeInCamera(object.m_shape))
-			object.Draw();
-		
+	}		
 }
 
 v2f Level::GetPositionPlayer()
