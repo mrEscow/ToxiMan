@@ -12,7 +12,7 @@ uint ObjectManager::GetObjectID()
 
 void ObjectManager::SetNewID()
 {
-	m_ID-=1;
+	m_ID--;
 }
 
 v2f ObjectManager::GetObjectPosition()
@@ -37,8 +37,8 @@ void ObjectManager::CreateStaticBox(Shape& shape)
 		Color::Blue
 	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
-	//cout << "Create Object S " << m_ID << endl;
-	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	cout << "Create Object S " << m_ID << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateStaticBox(Json& json)
@@ -54,7 +54,8 @@ void ObjectManager::CreateStaticBox(Json& json)
 		Color::Blue
 	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
-	//cout << "Create Object J " << m_ID  << endl;
+	cout << "Create Object J " << m_ID  << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::DeleteObject()
