@@ -29,11 +29,6 @@ void ArchtectMenu::Update(ArcitectVector &Z_vec)
 		break;
 	}
 
-	//m_main_text.setPosition(System::cam.getCenter().x + 10 - (System::scr_w * (m_koef) / 2), System::cam.getCenter().y - System::scr_h * (m_koef) / 2);
-	//m_main_text.setScale(m_zoom);
-	//m_name_vector_text.setPosition(System::cam_p.x + 10 - (System::scr_w * m_koef / 2), (System::cam_p.y - (System::scr_h * m_koef / 2)) + (100 * m_koef));
-	//m_name_vector_text.setScale(m_zoom);
-
 }
 
 void ArchtectMenu::Draw()

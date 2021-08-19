@@ -99,22 +99,18 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	if ((System::IsKeyReleased(Key::Down) || System::IsKeyReleased(Key::S))) {
 
 	}
+	//------------------------------------------------------
 
-	if (System::IsMousePressed(Button::Left)) {
-		//CreateObject();
-	}
+	for (auto& cell : m_cell_vec)
+		if (System::IsContains(cell, System::cur_p)) {
 
-	if (System::IsMouseReleased(Button::Left)) {
-		CreateObject();
-	}
+			if (System::IsMouseReleased(Button::Left))
+				CreateObject();
 
-	if (System::IsMousePressed(Button::Right)) {
-		
-	}
+			if (System::IsMouseReleased(Button::Right))
+				DeleteObject();
+		}
 
-	if (System::IsMouseReleased(Button::Right)) {
-		DeleteObject();
-	}
 
 	//--------------------------------------------------------
 	
