@@ -11,6 +11,8 @@ Game::Game()
 
 	System::speedGame = 2;
 
+	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
+
 	m_ptr_lvl = new Level(m_number);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
@@ -23,12 +25,15 @@ void Game::Update()
 	{
 	case StateGame::ON_MAIN_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+		m_main_menu->Update();
 		break;
 	case StateGame::ON_GAME:
+		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:
+		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game, m_number);
 		break;
@@ -44,6 +49,7 @@ void Game::Draw()
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
+		m_main_menu->Draw();
 		break;
 	case StateGame::ON_GAME:
 		m_ptr_lvl->Draw(m_state_game, m_number);
@@ -63,6 +69,7 @@ void Game::Action()
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
+		m_main_menu->Action();
 		break;
 	case StateGame::ON_GAME:
 		m_ptr_lvl->Action(m_state_game, m_number);

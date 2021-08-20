@@ -3,6 +3,7 @@
 
 #include "System.h"
 #include "World.h"
+#include "Menu.h"
 #include "Level.h"
 
 
@@ -16,7 +17,10 @@ private:
 
 	//bool m_is_pause = false;
 
-	StateGame m_state_game = StateGame::ON_GAME;
+	StateGame m_state_game = StateGame::ON_MAIN_MENU;
+
+	GameSettings m_game_settings;
+	unique_ptr<Menu> m_main_menu;
 
 	LevelNumber m_number = LevelNumber::zero;
 

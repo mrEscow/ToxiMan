@@ -60,7 +60,7 @@ void System::SystemUpdate()
 	cur_p = wnd.mapPixelToCoords(sf::Mouse::getPosition(wnd));
 	cur_p_wnd = v2f(sf::Mouse::getPosition(wnd));
 	cam_p = cam.getCenter();
-
+	
 }
 
 void System::CloseEvent()
