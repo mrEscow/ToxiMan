@@ -5,9 +5,17 @@ class Music
 {
 public:
 
+	OGG menu_music;
+
 	Music() {
 
 	}
+
+	void LoadMenuMusic()
+	{
+		menu_music.openFromFile("Resources/audio/music/music_menu.ogg");
+	}
+
 
 	void LoadLevel_0() {
 		// код загрузки файлов музыки
@@ -31,8 +39,15 @@ class Sound
 {
 public:
 
+	sf::SoundBuffer button_sound;
+
 	Sound() {
 
+	}
+
+	void LoadMenuSound()
+	{
+		button_sound.loadFromFile("Resources/audio/sounds/buttonMenu.ogg");
 	}
 
 	void LoadLevel_0() {

@@ -39,6 +39,14 @@ public:
 
 	IMG bg5_g;
 
+	PNG menu_background;
+	PNG menu_button;
+	PNG menu_checkbox_ON;
+	PNG menu_checkbox_OFF;
+	PNG menu_skrol_1;
+	PNG menu_skrol_2;
+
+
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
 
@@ -46,7 +54,19 @@ public:
 	{
 
 	}
-	// Загрузка для мышки архитектора
+
+	// Загрузка для мкню
+	void LoadMenu()
+	{
+		menu_background = Load("Menu/back_ground.png");
+		menu_button = Load("Menu/Button_1.png");
+		menu_checkbox_ON = Load("Menu/checkboxON.png");
+		menu_checkbox_OFF = Load("Menu/checkboxOFF.png");;
+		menu_skrol_1;
+		menu_skrol_2;
+	}
+
+	// Загрузка для архитектора
 	void LoadForArhitect() {
 		
 		sf::Image image;
