@@ -16,7 +16,7 @@ namespace UI {
 
 		GameSettings* m_game_settings_ptr;
 
-		sf::Text text_button;
+		Text text_button;
 		//sf::Sound s_button;
 
 		bool is_ON;

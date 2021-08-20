@@ -14,9 +14,9 @@ namespace UI {
 		Shape m_shape;
 		string m_name_id;
 
-		//GameSettings* m_game_settings_ptr;
+		GameSettings* m_game_settings_ptr;
 
-		sf::Text text_button;
+		Text text_button;
 		//sf::Sound s_button;
 
 		bool is_inside = false;
@@ -24,7 +24,7 @@ namespace UI {
 
 	public:
 
-		Button(Shape shape, string name_id/*,GameSettings& m_game_settings*/);
+		Button(Shape shape, string name_id,GameSettings& m_game_settings);
 		void Update();
 		void Draw();
 		bool IsAction();

@@ -1,10 +1,10 @@
 #include "Button.h"
 namespace UI{
-	Button::Button(Shape shape, string name_id /*,GameSettings& m_game_settings*/)
+	Button::Button(Shape shape, string name_id ,GameSettings& m_game_settings)
 	{
 		m_name_id = name_id;
 		m_shape = shape;
-		//m_game_settings_ptr = &m_game_settings;
+		m_game_settings_ptr = &m_game_settings;
 		//s_button.setBuffer(System::resources.audio.sound.button_sound);
 		text_button = System::CreateText(shape.getPosition(), shape.getSize().y / 2, name_id, System::resources.font.erica_type, Color::Yellow);
 		System::CenteringText(text_button);
@@ -47,7 +47,7 @@ namespace UI{
 		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
 			//s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
 			//if (m_game_settings_ptr->GetSoundOn())s_button.play();
-			//is_pressed = true;
+			is_pressed = true;
 		}
 
 		if (System::IsMouseReleased(sf::Mouse::Left))
