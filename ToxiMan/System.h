@@ -7,7 +7,7 @@
 class System
 {
 public:
-
+	
 	static sf::RenderWindow wnd;		// Окно
 	static ResourcesManager	resources;	// Набор текстур, шрифтов, звуков и музыки (audio.sound.my_sound | audio.music.my_music)
 	static sf::Event event;				// События SFML
@@ -96,7 +96,6 @@ public:
 	// Возвращает результат прокрутки колесика мышки
 	static bool IsMouseWheelUp(const sf::Mouse::Wheel code);
 
-	static void MouseScrol();
 
 	// Возвращает позицию относительно pos на расстояние dist в направлении angle
 	static const v2f GetNormalizedPosition(const v2f& pos, float dist, float angle);

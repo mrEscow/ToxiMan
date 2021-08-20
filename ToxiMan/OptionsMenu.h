@@ -12,9 +12,9 @@ class OptionsMenu
 {
 private:
 
-	vector<unique_ptr<Button>> vec_button;
-	vector<unique_ptr<CheckBox>> vec_checkbox;
-	vector<unique_ptr<Scroll>> vec_scroll;
+	vector<unique_ptr<UI::Button>> vec_button;
+	vector<unique_ptr<UI::CheckBox>> vec_checkbox;
+	vector<unique_ptr<UI::Scroll>> vec_scroll;
 
 	StateMainMenu* m_state_main_menu_ptr;		// ”казатель на основное состо€ние главного меню
 

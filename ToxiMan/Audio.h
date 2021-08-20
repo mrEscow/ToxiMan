@@ -5,7 +5,7 @@ class Music
 {
 public:
 
-	OGG menu_music;
+	//OGG menu_music;
 
 	Music() {
 
@@ -13,7 +13,7 @@ public:
 
 	void LoadMenuMusic()
 	{
-		menu_music.openFromFile("Resources/audio/music/music_menu.ogg");
+		//menu_music.openFromFile("Resources/audio/music/music_menu.ogg");
 	}
 
 
@@ -39,7 +39,7 @@ class Sound
 {
 public:
 
-	sf::SoundBuffer button_sound;
+	//sf::SoundBuffer button_sound;
 
 	Sound() {
 
@@ -47,7 +47,7 @@ public:
 
 	void LoadMenuSound()
 	{
-		button_sound.loadFromFile("Resources/audio/sounds/buttonMenu.ogg");
+		//button_sound.loadFromFile("Resources/audio/sounds/buttonMenu.ogg");
 	}
 
 	void LoadLevel_0() {

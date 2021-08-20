@@ -11,8 +11,8 @@ ExitMenu::ExitMenu(StateMainMenu& state_main_menu, GameSettings& game_settings)
 	text_exit = System::CreateText(v2f(0, -300), 40, "Are you sure you want to get out?", System::resources.font.erica_type, Color::Black);
 	System::CenteringText(text_exit);
 
-	vec_button.push_back(make_unique<Button>(System::CreateShape(v2f(0, -225), v2f(200, 50), t_button), "Yes", *m_game_settings_ptr));
-	vec_button.push_back(make_unique<Button>(System::CreateShape(v2f(0, -150), v2f(200, 50), t_button), "No", *m_game_settings_ptr));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -225), v2f(200, 50), t_button), "Yes"/*, *m_game_settings_ptr*/));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150), v2f(200, 50), t_button), "No"/*, *m_game_settings_ptr*/));
 }
 
 void ExitMenu::Update()

@@ -3,9 +3,9 @@
 Menu::Menu(StateGame& state_game, GameSettings& game_settings)
 {
 	System::resources.texture.LoadMenu();
-	System::resources.audio.sound.LoadMenuSound();
-	System::resources.audio.music.LoadMenuMusic();
-	game_settings.ReadSettings();
+	//System::resources.audio.sound.LoadMenuSound();
+	//System::resources.audio.music.LoadMenuMusic();
+	//game_settings.ReadSettings();
 	m_state_game_ptr = &state_game;
 	m_game_settings_ptr = &game_settings;
 	m_state = StateMainMenu::ON_MAIN;
@@ -17,15 +17,15 @@ Menu::Menu(StateGame& state_game, GameSettings& game_settings)
 
 void audioSettings(GameSettings& m_game_settings)
 {
-	System::resources.audio.music.menu_music.setLoop(true);
-	System::resources.audio.music.menu_music.setVolume(m_game_settings.GetMusicVolume());
+	//System::resources.audio.music.menu_music.setLoop(true);
+	//System::resources.audio.music.menu_music.setVolume(m_game_settings.GetMusicVolume());
 
-	if (m_game_settings.GetMusicOn()) {
-		if (System::resources.audio.music.menu_music.getStatus() == System::resources.audio.music.menu_music.Stopped())
-			System::resources.audio.music.menu_music.play();
-	}
-	else
-		System::resources.audio.music.menu_music.stop();
+	//if (m_game_settings.GetMusicOn()) {
+	//	//if (System::resources.audio.music.menu_music.getStatus() == System::resources.audio.music.menu_music.Stopped())
+	//	//	System::resources.audio.music.menu_music.play();
+	//}
+	//else
+	//	System::resources.audio.music.menu_music.stop();
 
 }
 
@@ -73,7 +73,7 @@ void Menu::Action()
 		break;
 	case StateMainMenu::ON_OPTIONS:
 		m_options_menu->Action();
-		m_game_settings_ptr->SaveSettings();
+		//m_game_settings_ptr->SaveSettings();
 		break;
 	case StateMainMenu::ON_EXIT:
 		m_exit_menu->Action();

@@ -10,8 +10,8 @@ struct Font
 	Font()
 	{
 		cout << "Font Loaded\n";
-		common.loadFromFile("Resources/Fonts/common.ttf");
-		erica_type.loadFromFile("Resources/Fonts/erica_type.ttf");
+		common.loadFromFile("Resources/fonts/Common.ttf");
+		erica_type.loadFromFile("Resources/fonts/Erica_Type.ttf");
 	}
 
 	~Font()

@@ -68,14 +68,14 @@ typedef unsigned int			uint;
 typedef sf::Vector2i			v2i;
 typedef sf::Vector2f			v2f;
 typedef sf::Keyboard			Key;
-typedef sf::Mouse				MButton, Wheel;
+typedef sf::Mouse				MouseButton, Wheel;
 typedef sf::RectangleShape		Shape;
 typedef sf::CircleShape			CircleShape;
 typedef sf::Texture				IMG, PNG, JPG;
 typedef sf::Color				Color;
 typedef sf::IntRect				IR;
 typedef sf::Text				Text;
-typedef sf::Music				OGG;
+//typedef sf::Music				OGG;
 
 typedef nlohmann::json			Json;
 

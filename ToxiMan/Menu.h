@@ -1,5 +1,7 @@
 #pragma once
 #include "System.h"
+#include "World.h"
+
 #include "MainMenu.h"
 #include "OptionsMenu.h"
 #include "ExitMenu.h"

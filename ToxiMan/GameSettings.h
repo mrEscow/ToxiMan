@@ -16,20 +16,20 @@ public:
 
 	GameSettings();
 	//void CreateSettings();
-	void ReadSettings();
-	void SaveSettings();
+	//void ReadSettings();
+	//void SaveSettings();
 
-	void SetMusicVolume(float value);
-	const float GetMusicVolume();
+	//void SetMusicVolume(float value);
+	//const float GetMusicVolume();
 
-	void SetMusicOn(bool value);
-	const bool GetMusicOn();
+	//void SetMusicOn(bool value);
+	//const bool GetMusicOn();
 
-	void SetSoundVolume(float value);
-	const float GetSoundVolume();
+	//void SetSoundVolume(float value);
+	//const float GetSoundVolume();
 
-	void SetSoundOn(bool value);
-	const bool GetSoundOn();
+	//void SetSoundOn(bool value);
+	//const bool GetSoundOn();
 
 	~GameSettings();
 };

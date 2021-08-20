@@ -94,10 +94,10 @@ void Player::Action(StateGame& state_game)
 		is_button_Up = false;
 	}
 		
-	if (System::IsMousePressed(MButton::Left)){
+	if (System::IsMousePressed(MouseButton::Left)){
 		is_shoot = true;
 	}
-	if (System::IsMouseReleased(MButton::Left)) {
+	if (System::IsMouseReleased(MouseButton::Left)) {
 		is_shoot = false;
 	}
 

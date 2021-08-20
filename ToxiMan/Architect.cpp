@@ -94,10 +94,10 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	for (auto& cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
 
-			if (System::IsMouseReleased(MButton::Left))
+			if (System::IsMouseReleased(MouseButton::Left))
 				CreateObject();
 
-			if (System::IsMouseReleased(MButton::Right))
+			if (System::IsMouseReleased(MouseButton::Right))
 				DeleteObject();
 		}
 	//--------------------------------------------------------	

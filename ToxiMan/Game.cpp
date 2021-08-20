@@ -28,12 +28,12 @@ void Game::Update()
 		m_main_menu->Update();
 		break;
 	case StateGame::ON_GAME:
-		System::resources.audio.music.menu_music.stop();
+		//System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:
-		System::resources.audio.music.menu_music.stop();
+		//System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game, m_number);
 		break;

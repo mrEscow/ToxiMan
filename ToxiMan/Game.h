@@ -1,8 +1,8 @@
 ﻿// ▼
 #pragma once
 
-#include "System.h"
-#include "World.h"
+//#include "System.h"
+//#include "World.h"
 #include "Menu.h"
 #include "Level.h"
 

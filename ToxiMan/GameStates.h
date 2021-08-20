@@ -8,6 +8,13 @@ enum class StateGame : uint
 	ON_ARCITECT
 };
 
+enum class StateMainMenu : uint
+{
+	ON_MAIN,
+	ON_OPTIONS,
+	ON_EXIT
+};
+
 enum class LevelNumber : uint
 {
 	zero, one, two, tree, four, five, six, seven, eight, nine, ten
@@ -28,13 +35,6 @@ enum class PlayerDir : uint
 };
 
 
-
-enum class StateMainMenu : uint
-{
-	ON_MAIN,
-	ON_OPTIONS,
-	ON_EXIT
-};
 
 enum class StateLevel : uint
 {

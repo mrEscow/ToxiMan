@@ -5,7 +5,7 @@ class ExitMenu
 {
 private:
 
-	vector<unique_ptr<Button>> vec_button;
+	vector<unique_ptr<UI::Button>> vec_button;
 	StateMainMenu* m_state_main_menu_ptr;
 	sf::Text text_exit;
 	GameSettings* m_game_settings_ptr;
