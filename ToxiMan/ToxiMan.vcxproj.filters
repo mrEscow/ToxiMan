@@ -13,96 +13,135 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Core">
+      <UniqueIdentifier>{1d2f33df-fd7f-4d6a-a582-84d95631f5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core">
+      <UniqueIdentifier>{34b03128-ecae-4185-af6a-bf6c843a0e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Resources">
+      <UniqueIdentifier>{2c914388-5417-4126-ae77-579b8f8656d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Menu">
+      <UniqueIdentifier>{687c7a1e-234f-42ed-8278-2dd5608028bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Menu">
+      <UniqueIdentifier>{d6de9f4a-2026-4551-a2f4-fca2d3328590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Player">
+      <UniqueIdentifier>{c6fef316-69dc-48d5-b5fe-afbbb8d9b7cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Player">
+      <UniqueIdentifier>{bc64c1f4-51cc-40cc-81a0-8be11990873e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\MapEditor">
+      <UniqueIdentifier>{3244c4d8-de7e-4d4b-a498-63c2ca12f8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\MapEditor">
+      <UniqueIdentifier>{b15a558f-738b-4cbb-bf62-b0c1f740f6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Levels">
+      <UniqueIdentifier>{3c9a671a-075c-49bf-9930-8c7b7fd51472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Levels">
+      <UniqueIdentifier>{01dd1833-ce47-4734-95ee-91fc19443b49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourcesManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Gun.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
     <ClInclude Include="GameStates.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="System.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Файлы заголовков\Core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Файлы заголовков\Core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesManager.h">
+      <Filter>Файлы заголовков\Core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Файлы заголовков\Core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Файлы заголовков\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Файлы заголовков\Player</Filter>
     </ClInclude>
     <ClInclude Include="Architect.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\MapEditor</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonSaveMenager.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Файлы заголовков\MapEditor</Filter>
     </ClInclude>
     <ClInclude Include="ArchtectMenu.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonSaveMenager.h">
+      <Filter>Файлы заголовков\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Файлы заголовков\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSettings.h">
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="System.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\Player</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Player</Filter>
     </ClCompile>
     <ClCompile Include="Architect.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\MapEditor</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonSaveMenager.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Исходные файлы\MapEditor</Filter>
     </ClCompile>
     <ClCompile Include="ArchtectMenu.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\MapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonSaveMenager.cpp">
+      <Filter>Исходные файлы\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Исходные файлы\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSettings.cpp">
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
