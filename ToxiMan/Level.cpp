@@ -3,10 +3,13 @@
 
 void Level::LoadLevel(LevelNumber& number)
 {
-	System::resources.texture.LoadLevel_0();
 	System::resources.texture.LoadForArhitect();
+
+	System::resources.texture.LoadLevel_0();
+
 	m_firstPos = v2f(500, 1750);
 	m_size_map = v2f(80, 30);
+
 	m_objectListBeck = m_jsonSM.LoadVecObject("Save/file_beck.json", number);
 	m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
