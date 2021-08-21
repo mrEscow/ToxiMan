@@ -75,7 +75,8 @@ typedef sf::Texture				IMG, PNG, JPG;
 typedef sf::Color				Color;
 typedef sf::IntRect				IR;
 typedef sf::Text				Text;
-//typedef sf::Music				OGG;
+typedef sf::Music				OGG;
+typedef sf::SoundBuffer			Buff;
 
 typedef nlohmann::json			Json;
 

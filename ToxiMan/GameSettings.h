@@ -15,7 +15,7 @@ private:
 public:
 
 	GameSettings();
-	void CreateSettings();
+	//void CreateSettings();
 	void ReadSettings();
 	void SaveSettings();
 

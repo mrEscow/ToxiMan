@@ -32,7 +32,8 @@ class Architect
 {
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
-	ArchtectMenu m_menu;
+
+	ArchtectMenu *m_ptr_menu;
 
 	Shape	m_mouse;
 
@@ -51,7 +52,7 @@ class Architect
 	vector<Shape> m_cell_vec;
 
 public:
-	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map);
+	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
 
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 

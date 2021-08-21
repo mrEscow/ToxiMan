@@ -1,6 +1,6 @@
 #include "Architect.h"
 
-Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map)
+Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
 	m_ptr_objectListBeck = &objectListBeck;
 	m_ptr_objectListZero = &objectListZero;
@@ -27,6 +27,8 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 			m_cell_vec.push_back(m_cell);
 		}
 	}
+
+	m_ptr_menu = new ArchtectMenu(game_settings);
 }
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
@@ -100,6 +102,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 			if (System::IsMouseReleased(MouseButton::Right))
 				DeleteObject();
 		}
+
 	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
 	{
@@ -148,6 +151,8 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 		m_Z_vec = ArcitectVector::FRONT;
 	}
 	//-------------------------------------------------------------
+	m_ptr_menu->Action();
+	//-------------------------------------------------------------
 }
 
 
@@ -155,8 +160,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::Update()
 {
-	m_menu.Update(m_Z_vec);
-
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
 	
@@ -165,13 +168,14 @@ void Architect::Update()
 			m_mouse.setPosition(cell.getPosition());
 		}
 
+	m_ptr_menu->Update(m_Z_vec);
 }
 
 void Architect::Draw(StateGame& state_game, Player* player)
 {
 	if (state_game == StateGame::ON_ARCITECT) {
 
-		m_menu.Draw();
+		m_ptr_menu->Draw();
 		System::wnd.setView(System::cam);
 
 		player->Draw();
@@ -179,10 +183,7 @@ void Architect::Draw(StateGame& state_game, Player* player)
 		for (auto &cell : m_cell_vec)
 			System::wnd.draw(cell);
 
-
 		System::wnd.draw(m_mouse);
-
-
 	}		
 }
 
@@ -283,4 +284,5 @@ void Architect::DeleteObject()
 
 Architect::~Architect()
 {
+	delete m_ptr_menu;
 }

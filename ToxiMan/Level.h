@@ -63,7 +63,7 @@ public:
 	void LoadLevel(LevelNumber &number);
 
 
-	Level(LevelNumber& number);
+	Level(LevelNumber& number, GameSettings& game_settings);
 	void Action(StateGame& state_game, LevelNumber& number);
 	void Update(StateGame& state_game, LevelNumber& number);
 	void Draw(StateGame& state_game, LevelNumber& number);

@@ -17,7 +17,7 @@ private:
 	unique_ptr<MainMenu> m_main_menu;			// Набор для управления в главном меню
 	unique_ptr<OptionsMenu> m_options_menu;		// Набор управления в меню настроек
 	unique_ptr<ExitMenu> m_exit_menu;			// Вы правда очень сильно хотите выйти?
-	Shape m_shape_back_ground;					// Фон главного меню
+	Shape m_menu_back_ground;					// Фон главного меню
 
 	GameSettings* m_game_settings_ptr;			// Указатель на настройки
 

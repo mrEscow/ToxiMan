@@ -9,7 +9,7 @@ namespace UI {
 		m_name_id = name_id;
 		m_shape = shape;
 		m_game_settings_ptr = &m_game_settings;
-		//s_button.setBuffer(System::resources.audio.sound.button_sound);
+		s_button.setBuffer(System::resources.audio.sound.button_sound);
 		text_button = System::CreateText(shape.getPosition(), shape.getSize().y, name_id, System::resources.font.erica_type, Color::Red);
 		System::CenteringText(text_button);
 		text_button.setPosition(shape.getPosition().x - (shape.getSize().x * 3.5), shape.getPosition().y - (shape.getSize().y / 1.5));
@@ -41,8 +41,8 @@ namespace UI {
 	void CheckBox::Action()
 	{
 		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
-			//s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
-			//if (m_game_settings_ptr->GetSoundOn())s_button.play();
+			s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
+			if (m_game_settings_ptr->GetSoundOn())s_button.play();
 			is_pressed = true;
 		}
 

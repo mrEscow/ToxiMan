@@ -39,28 +39,6 @@ OptionsMenu::OptionsMenu(StateMainMenu& state_main_menu, GameSettings& m_game_se
 
 }
 
-void OptionsMenu::Update()
-{
-
-	for (auto& button : vec_button)
-		button->Update();
-	for (auto& checkbox : vec_checkbox)
-		checkbox->Update();
-	for (auto& scroll : vec_scroll)
-		scroll->Update();
-}
-
-void OptionsMenu::Draw()
-{
-	System::wnd.draw(text_options);
-	for (auto& button : vec_button)
-		button->Draw();
-	for (auto& checkbox : vec_checkbox)
-		checkbox->Draw();
-	for (auto& scroll : vec_scroll)
-		scroll->Draw();
-}
-
 void OptionsMenu::Action()
 {
 	for (auto& button : vec_button)
@@ -106,6 +84,30 @@ void OptionsMenu::Action()
 		}
 	}
 }
+
+void OptionsMenu::Update()
+{
+
+	for (auto& button : vec_button)
+		button->Update();
+	for (auto& checkbox : vec_checkbox)
+		checkbox->Update();
+	for (auto& scroll : vec_scroll)
+		scroll->Update();
+}
+
+void OptionsMenu::Draw()
+{
+	System::wnd.draw(text_options);
+	for (auto& button : vec_button)
+		button->Draw();
+	for (auto& checkbox : vec_checkbox)
+		checkbox->Draw();
+	for (auto& scroll : vec_scroll)
+		scroll->Draw();
+}
+
+
 
 
 

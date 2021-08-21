@@ -19,13 +19,13 @@ void Level::LoadLevel(LevelNumber& number)
 	m_jsonSM.DeleteJsonFile("file_front.json", number);
 }
 //----------------------------------------------------------------------
-Level::Level(LevelNumber& number)
+Level::Level(LevelNumber& number, GameSettings& game_settings)
 {
 	m_ptr_number = &number;
 	LoadLevel(number);
 	
 	m_ptr_player = new Player(m_firstPos, m_size_map);
-	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront, m_size_map);
+	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	is_from_arhitetc = false;
 	is_reset = false;

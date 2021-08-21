@@ -17,7 +17,7 @@ namespace UI {
 		GameSettings* m_game_settings_ptr;
 
 		Text text_button;
-		//sf::Sound s_button;
+		sf::Sound s_button;
 
 		bool is_inside = false;
 		bool is_pressed = false;

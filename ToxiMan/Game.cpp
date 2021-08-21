@@ -5,15 +5,15 @@
 
 Game::Game()
 {
-	sf::Cursor curcor;
-	curcor.loadFromSystem(sf::Cursor::Cross);
-	System::wnd.setMouseCursor(curcor);
+	//sf::Cursor curcor;
+	//curcor.loadFromSystem(sf::Cursor::Cross);
+	//System::wnd.setMouseCursor(curcor);
 
 	System::speedGame = 2;
 
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
-	m_ptr_lvl = new Level(m_number);
+	m_ptr_lvl = new Level(m_number, m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 	m_ptr_thread->launch();
