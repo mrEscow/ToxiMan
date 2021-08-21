@@ -27,7 +27,7 @@ namespace UI {
 	public:
 
 		Button(Shape shape, string name_id, GameSettings& m_game_settings);
-		void Update(StateGame& state_game);
+		void Update();
 		void Draw();
 		bool IsAction();
 		string GetNameId();

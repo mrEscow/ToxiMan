@@ -201,7 +201,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		m_ptr_player->Update(is_reset);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_arhitevt->Update(state_game);
+		m_ptr_arhitevt->Update();
 		break;
 	default:
 		break;

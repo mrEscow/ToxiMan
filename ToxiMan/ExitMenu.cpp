@@ -15,10 +15,10 @@ ExitMenu::ExitMenu(StateMainMenu& state_main_menu, GameSettings& game_settings)
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150), v2f(200, 50), t_button), "No", *m_game_settings_ptr));
 }
 
-void ExitMenu::Update(StateGame& state_game)
+void ExitMenu::Update()
 {
 	for (auto& button : vec_button)
-		button->Update(state_game);
+		button->Update();
 }
 
 void ExitMenu::Draw()

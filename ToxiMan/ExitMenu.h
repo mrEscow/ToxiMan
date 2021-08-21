@@ -13,7 +13,7 @@ private:
 public:
 
 	ExitMenu(StateMainMenu&, GameSettings&);
-	void Update(StateGame& state_game);
+	void Update();
 	void Draw();
 	void Action();
 	~ExitMenu();

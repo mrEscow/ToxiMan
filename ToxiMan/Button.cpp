@@ -33,43 +33,22 @@ namespace UI{
 		return false;
 	}
 
-	void Button::Update(StateGame& state_game)
+	void Button::Update()
 	{
-		switch (state_game)
+
+		if (System::IsContains(m_shape, System::cur_p - System::cam.getCenter()))
 		{
-		case StateGame::ON_MAIN_MENU:
-			if (System::IsContains(m_shape, System::cur_p))
-			{
-				text_button.setFillColor(Color::Magenta);
-				m_shape.setFillColor(color_button_second);
-				is_inside = true;
-			}
-			else
-			{
-				text_button.setFillColor(Color::Green);
-				m_shape.setFillColor(color_button_default);
-				is_inside = false;
-			}
-			break;
-		case StateGame::ON_GAME:
-			break;
-		case StateGame::ON_ARCITECT:
-			if (System::IsContains(m_shape, System::cur_p_wnd))
-			{
-				text_button.setFillColor(Color::Magenta);
-				m_shape.setFillColor(color_button_second);
-				is_inside = true;
-			}
-			else
-			{
-				text_button.setFillColor(Color::Green);
-				m_shape.setFillColor(color_button_default);
-				is_inside = false;
-			}
-			break;
-		default:
-			break;
+			text_button.setFillColor(Color::Magenta);
+			m_shape.setFillColor(color_button_second);
+			is_inside = true;
 		}
+		else
+		{
+			text_button.setFillColor(Color::Green);
+			m_shape.setFillColor(color_button_default);
+			is_inside = false;
+		}
+
 
 
 		if (is_pressed) {

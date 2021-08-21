@@ -85,11 +85,11 @@ void OptionsMenu::Action()
 	}
 }
 
-void OptionsMenu::Update(StateGame& state_game)
+void OptionsMenu::Update()
 {
 
 	for (auto& button : vec_button)
-		button->Update(state_game);
+		button->Update();
 	for (auto& checkbox : vec_checkbox)
 		checkbox->Update();
 	for (auto& scroll : vec_scroll)

@@ -59,7 +59,7 @@ public:
 
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 
-	void Update(StateGame& state_game);
+	void Update();
 
 	void Draw(StateGame& state_game, Player* player);
 

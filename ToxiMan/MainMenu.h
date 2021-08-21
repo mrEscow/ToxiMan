@@ -20,7 +20,7 @@ private:
 public:
 
 	MainMenu(StateGame&, StateMainMenu&, GameSettings&);
-	void Update(StateGame& state_game);
+	void Update();
 	void Draw();
 	void Action();
 	~MainMenu();
