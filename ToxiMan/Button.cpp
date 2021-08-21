@@ -4,7 +4,10 @@ namespace UI{
 	{
 		m_name_id = name_id;
 		m_shape = shape;
+
 		m_game_settings_ptr = &m_game_settings;
+
+		
 		s_button.setBuffer(System::resources.audio.sound.button_sound);
 		text_button = System::CreateText(shape.getPosition(), shape.getSize().y / 2, name_id, System::resources.font.erica_type, Color::Yellow);
 		System::CenteringText(text_button);
@@ -30,20 +33,44 @@ namespace UI{
 		return false;
 	}
 
-	void Button::Update()
+	void Button::Update(StateGame& state_game)
 	{
-		if (System::IsContains(m_shape, System::cur_p))
+		switch (state_game)
 		{
-			text_button.setFillColor(Color::Magenta);
-			m_shape.setFillColor(color_button_second);
-			is_inside = true;
+		case StateGame::ON_MAIN_MENU:
+			if (System::IsContains(m_shape, System::cur_p))
+			{
+				text_button.setFillColor(Color::Magenta);
+				m_shape.setFillColor(color_button_second);
+				is_inside = true;
+			}
+			else
+			{
+				text_button.setFillColor(Color::Green);
+				m_shape.setFillColor(color_button_default);
+				is_inside = false;
+			}
+			break;
+		case StateGame::ON_GAME:
+			break;
+		case StateGame::ON_ARCITECT:
+			if (System::IsContains(m_shape, System::cur_p_wnd))
+			{
+				text_button.setFillColor(Color::Magenta);
+				m_shape.setFillColor(color_button_second);
+				is_inside = true;
+			}
+			else
+			{
+				text_button.setFillColor(Color::Green);
+				m_shape.setFillColor(color_button_default);
+				is_inside = false;
+			}
+			break;
+		default:
+			break;
 		}
-		else
-		{
-			text_button.setFillColor(Color::Green);
-			m_shape.setFillColor(color_button_default);
-			is_inside = false;
-		}
+
 
 		if (is_pressed) {
 			text_button.setScale(0.95, 0.95);
@@ -64,6 +91,16 @@ namespace UI{
 	string Button::GetNameId()
 	{
 		return m_name_id;
+	}
+
+	Shape* Button::GetShape()
+	{
+		return &m_shape;
+	}
+
+	v2f Button::GetPos()
+	{
+		return m_shape.getPosition();
 	}
 
 	Button::~Button()

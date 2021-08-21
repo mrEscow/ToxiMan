@@ -43,7 +43,7 @@ private:
 public:
 
 	OptionsMenu(StateMainMenu&, GameSettings& m_game_settings);
-	void Update();
+	void Update(StateGame& state_game);
 	void Action();
 	void Draw();
 	~OptionsMenu();

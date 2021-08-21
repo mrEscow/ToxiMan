@@ -36,11 +36,11 @@ void Menu::Update()
 	switch (m_state)
 	{
 	case StateMainMenu::ON_MAIN:
-		m_main_menu->Update(); break;
+		m_main_menu->Update(*m_state_game_ptr); break;
 	case StateMainMenu::ON_OPTIONS:
-		m_options_menu->Update(); break;
+		m_options_menu->Update(*m_state_game_ptr); break;
 	case StateMainMenu::ON_EXIT:
-		m_exit_menu->Update();
+		m_exit_menu->Update(*m_state_game_ptr);
 
 		break;
 	}

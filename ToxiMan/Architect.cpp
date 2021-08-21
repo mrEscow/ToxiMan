@@ -168,7 +168,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 
 
-void Architect::Update()
+void Architect::Update(StateGame& state_game)
 {
 	if (is_create)
 		CreateObject();
@@ -185,7 +185,7 @@ void Architect::Update()
 			m_mouse.setPosition(cell.getPosition());
 		}
 
-	m_ptr_menu->Update(m_Z_vec);
+	m_ptr_menu->Update(m_Z_vec, state_game);
 	//System::wnd.setView(System::cam);
 }
 
@@ -194,7 +194,7 @@ void Architect::Draw(StateGame& state_game, Player* player)
 	if (state_game == StateGame::ON_ARCITECT) {
 
 		m_ptr_menu->Draw();
-		System::wnd.setView(System::cam);
+
 
 		player->Draw();
 

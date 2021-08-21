@@ -19,7 +19,7 @@ private:
 public:
 	ArchtectMenu(GameSettings& game_settings);
 	void Action();
-	void Update(ArcitectVector &m_Z_vec);
+	void Update(ArcitectVector &m_Z_vec, StateGame& state_game);
 	void Draw();
 	~ArchtectMenu();
 };

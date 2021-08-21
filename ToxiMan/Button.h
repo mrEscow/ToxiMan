@@ -14,6 +14,8 @@ namespace UI {
 		Shape m_shape;
 		string m_name_id;
 
+
+
 		GameSettings* m_game_settings_ptr;
 
 		Text text_button;
@@ -24,11 +26,13 @@ namespace UI {
 
 	public:
 
-		Button(Shape shape, string name_id,GameSettings& m_game_settings);
-		void Update();
+		Button(Shape shape, string name_id, GameSettings& m_game_settings);
+		void Update(StateGame& state_game);
 		void Draw();
 		bool IsAction();
 		string GetNameId();
+		Shape* GetShape();
+		v2f GetPos();
 		~Button();
 
 	};

@@ -22,10 +22,10 @@ MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu, GameSe
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 0),		v2f(200, 50),		t_button), "Exit",		*m_game_settings_ptr));
 }
 
-void MainMenu::Update()
+void MainMenu::Update(StateGame& state_game)
 {
 	for (auto& button : vec_button)
-		button->Update();
+		button->Update(state_game);
 }
 
 void MainMenu::Draw()
