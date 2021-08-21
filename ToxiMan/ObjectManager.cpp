@@ -38,8 +38,8 @@ void ObjectManager::CreateStaticBox(Shape& shape)
 		Color::Blue
 	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
-	cout << "Create Object S " << m_ID << endl;
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Create Object S " << m_ID << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 bool ObjectManager::Check_is_delete()
@@ -61,8 +61,8 @@ void ObjectManager::CreateStaticBox(Json& json)
 		Color::Blue
 	);
 	m_body = World::CreateBodyBox(m_shape, m_name);
-	cout << "Create Object J " << m_ID  << endl;
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Create Object J " << m_ID  << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::DeleteObject()
@@ -129,8 +129,8 @@ void ObjectManager::CreateTextureBoxBeck(Json& json)
 		Color::Blue
 	);
 	//m_body = nullptr;
-	cout << "Create Object S " << m_ID << endl;
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Create Object S " << m_ID << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateTextureBoxFront(Shape& shape)
@@ -141,8 +141,8 @@ void ObjectManager::CreateTextureBoxFront(Shape& shape)
 	ObjectFrontID++;
 	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Green, Color::Blue);
 	//m_body = nullptr;
-	cout << "Create Object S " << m_ID << endl;
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Create Object S " << m_ID << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateTextureBoxFront(Json& json)
@@ -159,7 +159,7 @@ void ObjectManager::CreateTextureBoxFront(Json& json)
 		Color::Blue
 	);
 	//m_body = nullptr;
-	cout << "Create Object S " << m_ID << endl;
-	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
+	//cout << "Create Object S " << m_ID << endl;
+	//cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
