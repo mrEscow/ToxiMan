@@ -51,6 +51,9 @@ class Architect
 	Shape m_cell;
 	vector<Shape> m_cell_vec;
 
+	bool is_create;
+	bool is_delete;
+
 public:
 	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
 

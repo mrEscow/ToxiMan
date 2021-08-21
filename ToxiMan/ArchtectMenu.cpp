@@ -3,7 +3,8 @@
 ArchtectMenu::ArchtectMenu(GameSettings& game_settings)
 {
 	archMenu.setViewport(sf::FloatRect(0.f, 0.f, 0.25f, 1.f));
-	m_menu = System::CreateShape(archMenu.getCenter(), archMenu.getSize(), Color::White);	
+	//archMenu.setCenter(0, 0);
+	m_menu = System::CreateShape(archMenu.getCenter(), archMenu.getSize(), Color::Yellow);	
 	m_main_text = System::CreateText(v2f(10, 15 ), 70, "ArchitectMode:", System::resources.font.common, Color::Black);
 	m_name_vector_text = System::CreateText(v2f(archMenu.getCenter().x + 10, 15), 70, "Vector Zero", System::resources.font.common, Color::Black);
 
@@ -12,6 +13,9 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings)
 
 void ArchtectMenu::Action()
 {
+	//System::wnd.setView(archMenu);
+	cout << "x: " << System::cur_p.x << "y: " << System::cur_p.y << endl;
+	//System::cur_p = System::cur_p_wnd;
 	for (auto& button : vec_button)
 	{
 		if (button->IsAction())
@@ -23,10 +27,14 @@ void ArchtectMenu::Action()
 			}
 		}
 	}
+
 }
 
 void ArchtectMenu::Update(ArcitectVector &Z_vec)
 {
+	//System::wnd.setView(archMenu);
+	for (auto& button : vec_button)
+		button->Update();
 
 	switch (Z_vec)
 	{
@@ -43,8 +51,7 @@ void ArchtectMenu::Update(ArcitectVector &Z_vec)
 		break;
 	}
 
-	for (auto& button : vec_button)
-		button->Update();
+
 }
 
 void ArchtectMenu::Draw()

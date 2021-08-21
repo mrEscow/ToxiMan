@@ -11,6 +11,25 @@ namespace UI{
 
 	}
 
+	bool Button::IsAction()
+	{
+		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
+			s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
+			if (m_game_settings_ptr->GetSoundOn())s_button.play();
+			is_pressed = true;
+		}
+
+		if (System::IsMouseReleased(sf::Mouse::Left))
+		{
+			if (is_pressed)
+			{
+				is_pressed = false;
+				if (is_inside) return true;
+			}
+		}
+		return false;
+	}
+
 	void Button::Update()
 	{
 		if (System::IsContains(m_shape, System::cur_p))
@@ -40,25 +59,6 @@ namespace UI{
 	{
 		System::wnd.draw(m_shape);
 		System::wnd.draw(text_button);
-	}
-
-	bool Button::IsAction()
-	{
-		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
-			s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
-			if (m_game_settings_ptr->GetSoundOn())s_button.play();
-			is_pressed = true;
-		}
-
-		if (System::IsMouseReleased(sf::Mouse::Left))
-		{
-			if (is_pressed)
-			{
-				is_pressed = false;
-				if (is_inside) return true;
-			}
-		}
-		return false;
 	}
 
 	string Button::GetNameId()

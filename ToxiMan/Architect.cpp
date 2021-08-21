@@ -29,6 +29,9 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 	}
 
 	m_ptr_menu = new ArchtectMenu(game_settings);
+
+	is_create = false;
+	is_delete = false;
 }
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
@@ -96,11 +99,17 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	for (auto& cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
 
-			if (System::IsMouseReleased(MouseButton::Left))
-				CreateObject();
+			if (System::IsMousePressed(MouseButton::Left)) 
+				is_create = true;
+	
+			if (System::IsMouseReleased(MouseButton::Left)) 
+				is_create = false;
 
-			if (System::IsMouseReleased(MouseButton::Right))
-				DeleteObject();
+			if (System::IsMousePressed(MouseButton::Right))
+				is_delete = true;
+
+			if (System::IsMouseReleased(MouseButton::Right)) 
+				is_delete = false;			
 		}
 
 	//--------------------------------------------------------	
@@ -152,6 +161,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 	//-------------------------------------------------------------
 	m_ptr_menu->Action();
+	//System::wnd.setView(System::cam);
 	//-------------------------------------------------------------
 }
 
@@ -160,6 +170,13 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::Update()
 {
+	if (is_create)
+		CreateObject();
+
+	if (is_delete)
+		DeleteObject(); 
+
+
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
 	
@@ -169,6 +186,7 @@ void Architect::Update()
 		}
 
 	m_ptr_menu->Update(m_Z_vec);
+	//System::wnd.setView(System::cam);
 }
 
 void Architect::Draw(StateGame& state_game, Player* player)
@@ -199,11 +217,9 @@ void Architect::CreateObject()
 		for (auto& obj : *m_ptr_objectListBeck)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
-				//cout << "Contact " << endl;
 				break;
 			}
 		if (!is_contact) {
-			//cout << "if not contact" << endl;
 			object.CreateTextureBoxBeck(m_mouse);
 			m_ptr_objectListBeck->push_back(object);
 		}
@@ -212,11 +228,9 @@ void Architect::CreateObject()
 		for (auto& obj : *m_ptr_objectListZero)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
-				//cout << "Contact " << endl;
 				break;
 			}
 		if (!is_contact) {
-			//cout << "if not contact" << endl;
 			object.CreateStaticBox(m_mouse);
 			m_ptr_objectListZero->push_back(object);
 		}
@@ -225,11 +239,9 @@ void Architect::CreateObject()
 		for (auto& obj : *m_ptr_objectListFront)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
-				//cout << "Contact " << endl;
 				break;
 			}
 		if (!is_contact) {
-			//cout << "if not contact" << endl;
 			object.CreateTextureBoxFront(m_mouse);
 			m_ptr_objectListFront->push_back(object);
 		}
