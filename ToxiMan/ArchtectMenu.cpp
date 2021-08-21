@@ -44,11 +44,11 @@ void ArchtectMenu::Action()
 
 }
 
-void ArchtectMenu::Update()
+void ArchtectMenu::Update(float zoom)
 {
 
 	for (auto& button : vec_button)
-		button->Update();
+		button->Update(zoom);
 
 	switch (*m_ptr_Z_vec)
 	{

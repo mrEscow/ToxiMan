@@ -20,7 +20,7 @@ private:
 public:
 	ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec);
 	void Action();
-	void Update();
+	void Update(float zoom);
 	void Draw();
 	Shape* GetSnape();
 	~ArchtectMenu();

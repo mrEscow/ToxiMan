@@ -95,8 +95,12 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	}
 	//------------------------------------------------------
-	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p  - System::cam.getCenter())) {
-		cout << "Not On Menu" << endl;
+	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / m_zoom - System::cam.getCenter() / m_zoom)) {
+		//cout << "********************" << endl;
+		//cout << (System::cur_p / m_zoom - System::cam.getCenter() / m_zoom).x << endl;
+		//cout << m_ptr_menu->GetSnape()->getPosition().x << endl;
+		//cout << "Not On Menu" << endl;
+		//cout << "********************" << endl;
 		for (auto& cell : m_cell_vec)
 			if (System::IsContains(cell, System::cur_p)) {
 
@@ -114,19 +118,20 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 			}
 	}
 	else {
-		cout << "On Menu" << endl;
+		//cout << "********************" << endl;
+		//cout << (System::cur_p / m_zoom - System::cam.getCenter() / m_zoom).x << endl;
+		//cout << m_ptr_menu->GetSnape()->getPosition().x << endl;
+		//cout << "On Menu" << endl;
+		//cout << "********************" << endl;
 		is_create = false;
 		is_delete = false;
-	}
-
-			
-
+	}	
 	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
 	{
 		m_zoom *= 0.90f;
 		System::cam.zoom(0.90f);
-	
+		
 	}
 
 	if (System::IsKeyPressed(Key::E))
@@ -134,7 +139,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 		m_zoom *= 1.1f;
 		System::cam.zoom(1.1f); 		
 	}
-
 	//-------------------------------------------------------------
 
 	m_ptr_menu->Action();
@@ -188,7 +192,7 @@ void Architect::Update()
 			m_mouse.setPosition(cell.getPosition());
 		}
 
-	m_ptr_menu->Update();
+	m_ptr_menu->Update(m_zoom);
 
 }
 
