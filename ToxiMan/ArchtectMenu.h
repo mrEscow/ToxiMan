@@ -21,6 +21,7 @@ public:
 	void Action();
 	void Update(ArcitectVector &m_Z_vec);
 	void Draw();
+	Shape* GetSnape();
 	~ArchtectMenu();
 };
 

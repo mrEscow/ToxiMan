@@ -99,9 +99,6 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>Файлы заголовков\MapEditor</Filter>
     </ClInclude>
-    <ClInclude Include="ArchtectMenu.h">
-      <Filter>Файлы заголовков\MapEditor</Filter>
-    </ClInclude>
     <ClInclude Include="JsonSaveMenager.h">
       <Filter>Файлы заголовков\Levels</Filter>
     </ClInclude>
@@ -132,6 +129,9 @@
     <ClInclude Include="Scroll.h">
       <Filter>Файлы заголовков\UI</Filter>
     </ClInclude>
+    <ClInclude Include="ArchtectMenu.h">
+      <Filter>Файлы заголовков\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -156,9 +156,6 @@
       <Filter>Исходные файлы\MapEditor</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Исходные файлы\MapEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="ArchtectMenu.cpp">
       <Filter>Исходные файлы\MapEditor</Filter>
     </ClCompile>
     <ClCompile Include="JsonSaveMenager.cpp">
@@ -190,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Scroll.cpp">
       <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchtectMenu.cpp">
+      <Filter>Исходные файлы\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

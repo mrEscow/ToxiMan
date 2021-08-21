@@ -95,22 +95,29 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	}
 	//------------------------------------------------------
+	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p - System::cam.getCenter())) {
+		for (auto& cell : m_cell_vec)
+			if (System::IsContains(cell, System::cur_p)) {
 
-	for (auto& cell : m_cell_vec)
-		if (System::IsContains(cell, System::cur_p)) {
+				if (System::IsMousePressed(MouseButton::Left))
+					is_create = true;
 
-			if (System::IsMousePressed(MouseButton::Left)) 
-				is_create = true;
-	
-			if (System::IsMouseReleased(MouseButton::Left)) 
-				is_create = false;
+				if (System::IsMouseReleased(MouseButton::Left))
+					is_create = false;
 
-			if (System::IsMousePressed(MouseButton::Right))
-				is_delete = true;
+				if (System::IsMousePressed(MouseButton::Right))
+					is_delete = true;
 
-			if (System::IsMouseReleased(MouseButton::Right)) 
-				is_delete = false;			
-		}
+				if (System::IsMouseReleased(MouseButton::Right))
+					is_delete = false;
+			}
+	}
+	else {
+		is_create = false;
+		is_delete = false;
+	}
+
+			
 
 	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
@@ -170,6 +177,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::Update()
 {
+
 	if (is_create)
 		CreateObject();
 

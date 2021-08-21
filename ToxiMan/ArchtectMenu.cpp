@@ -72,6 +72,11 @@ void ArchtectMenu::Draw()
 	System::wnd.setView(System::cam);
 }
 
+Shape* ArchtectMenu::GetSnape()
+{
+	return &m_menu;
+}
+
 ArchtectMenu::~ArchtectMenu()
 {
 }
