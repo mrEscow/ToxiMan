@@ -191,5 +191,8 @@
     <ClCompile Include="ArchtectMenu.cpp">
       <Filter>Исходные файлы\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>Исходные файлы\Player</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
