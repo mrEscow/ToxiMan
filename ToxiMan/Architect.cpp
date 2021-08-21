@@ -95,7 +95,8 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	}
 	//------------------------------------------------------
-	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p - System::cam.getCenter())) {
+	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p  - System::cam.getCenter())) {
+		cout << "Not On Menu" << endl;
 		for (auto& cell : m_cell_vec)
 			if (System::IsContains(cell, System::cur_p)) {
 
@@ -113,6 +114,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 			}
 	}
 	else {
+		cout << "On Menu" << endl;
 		is_create = false;
 		is_delete = false;
 	}
