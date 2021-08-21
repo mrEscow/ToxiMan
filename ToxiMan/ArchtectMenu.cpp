@@ -22,6 +22,9 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 
 void ArchtectMenu::Action()
 {
+	cout << (System::cur_p - System::cam.getCenter()).x << endl;
+	cout << (System::cur_p - System::cam.getCenter()).y << endl;
+
 	for (auto& button : vec_button)
 	{
 		if (button->IsAction())
