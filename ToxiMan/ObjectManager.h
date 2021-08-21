@@ -16,6 +16,8 @@ public:
 	static uint ObjectZeroID;
 	static uint ObjectFrontID;
 
+	bool is_delete;
+
 	uint GetObjectID();
 	Shape GetShape();	
 	//b2Body* GetBoby();
@@ -23,6 +25,8 @@ public:
 
 	v2f GetObjectPosition();
 	v2f GetObjectSize();
+
+	bool Check_is_delete();
 
 	void CreateStaticBox(Shape& shape);
 	void CreateStaticBox(Json& json);
@@ -37,6 +41,6 @@ public:
 	void Action();
 	void Update(string vecName);
 	void Draw();
-	//~Architect();
+
 };
 

@@ -6,6 +6,7 @@
 class ArchtectMenu
 {
 private:
+	ArcitectVector * m_ptr_Z_vec;
 	sf::View archMenu;
 	Shape	m_menu;
 	Text	m_main_text;
@@ -17,9 +18,9 @@ private:
 
 
 public:
-	ArchtectMenu(GameSettings& game_settings);
+	ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec);
 	void Action();
-	void Update(ArcitectVector &m_Z_vec);
+	void Update();
 	void Draw();
 	Shape* GetSnape();
 	~ArchtectMenu();

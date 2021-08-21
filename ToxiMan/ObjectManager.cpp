@@ -12,7 +12,7 @@ uint ObjectManager::GetObjectID()
 
 void ObjectManager::SetNewID()
 {
-	m_ID--;
+	this->m_ID--;
 }
 
 v2f ObjectManager::GetObjectPosition()
@@ -27,6 +27,7 @@ v2f ObjectManager::GetObjectSize()
 
 void ObjectManager::CreateStaticBox(Shape& shape) 
 {
+	is_delete = false;
 	m_name = "static_object";// +ObjectZeroID;
 	m_ID = ObjectZeroID;
 	ObjectZeroID++;
@@ -41,8 +42,14 @@ void ObjectManager::CreateStaticBox(Shape& shape)
 	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
+bool ObjectManager::Check_is_delete()
+{
+	return is_delete;
+}
+
 void ObjectManager::CreateStaticBox(Json& json)
 {
+	is_delete = false;
 	m_name = "static_object";// +ObjectZeroID;
 	m_ID = json["ID"].get<uint>();
 	ObjectZeroID++;
@@ -60,7 +67,7 @@ void ObjectManager::CreateStaticBox(Json& json)
 
 void ObjectManager::DeleteObject()
 {
-	//cout << "Delete Object " << m_ID << endl;
+	is_delete = true;
 }
 
 
@@ -98,15 +105,19 @@ Shape ObjectManager::GetShape()
 
 void ObjectManager::CreateTextureBoxBeck(Shape& shape)
 {
+	is_delete = false;
 	m_name = "beck_object";// + ObjectBeckID;
 	m_ID = ObjectBeckID;
 	ObjectBeckID++;
 	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Yellow, Color::Blue);
 	//m_body = nullptr;
+	cout << "Create Object S " << m_ID << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateTextureBoxBeck(Json& json)
 {
+	is_delete = false;
 	m_name = "beck_object";//json["Name"].get<string>();
 	m_ID = json["ID"].get<uint>();
 	ObjectBeckID++;
@@ -118,20 +129,26 @@ void ObjectManager::CreateTextureBoxBeck(Json& json)
 		Color::Blue
 	);
 	//m_body = nullptr;
+	cout << "Create Object S " << m_ID << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateTextureBoxFront(Shape& shape)
 {
+	is_delete = false;
 	m_name = "front_object";// +ObjectFrontID;
 	m_ID = ObjectFrontID;
 	ObjectFrontID++;
 	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Green, Color::Blue);
 	//m_body = nullptr;
+	cout << "Create Object S " << m_ID << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
 void ObjectManager::CreateTextureBoxFront(Json& json)
 {
-	m_name = "beck_object";//json["Name"].get<string>();
+	is_delete = false;
+	m_name = "front_object";//json["Name"].get<string>();
 	m_ID = json["ID"].get<uint>();
 	ObjectBeckID++;
 	m_shape = System::CreateShape(
@@ -142,5 +159,7 @@ void ObjectManager::CreateTextureBoxFront(Json& json)
 		Color::Blue
 	);
 	//m_body = nullptr;
+	cout << "Create Object S " << m_ID << endl;
+	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 

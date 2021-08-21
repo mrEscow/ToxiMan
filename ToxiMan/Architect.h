@@ -14,11 +14,6 @@
 	ЛКМ - поставить объект
 	ПКМ - удалить объект
 
-	Выбор вектора объектов:
-	Num1 - Vector BECK  (Только для рисования)
-	Num2 - Vector ZERO  (Только для игровых объектов)
-	Num3 - Vector FRONT (Только для рисования)
-
 	Параметры:
 	Все объекты по одной оси кратны 64!
 	//Z - уменьшить ось Х
@@ -31,7 +26,6 @@
 class Architect
 {
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
-
 
 	ArchtectMenu *m_ptr_menu;
 

@@ -1,7 +1,8 @@
 #include "ArchtectMenu.h"
 
-ArchtectMenu::ArchtectMenu(GameSettings& game_settings)
+ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 {
+	m_ptr_Z_vec = &Z_vec;
 	archMenu.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 	archMenu.setCenter(-System::scr_w / 4,0);
 
@@ -13,7 +14,9 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings)
 	m_name_vector_text = System::CreateText(v2f(m_menu.getPosition().x, -450), 20, "Vector Zero", System::resources.font.common, Color::Black);
 	System::CenteringText(m_name_vector_text);
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, 0), v2f(100, 100), System::resources.texture.menu_button), "NEW", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x -150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_BECK", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -400), v2f(120, 50), System::resources.texture.menu_button), "V_ZERO", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x + 150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_FRONT", game_settings));
 
 }
 
@@ -24,22 +27,27 @@ void ArchtectMenu::Action()
 		if (button->IsAction())
 		{
 			cout << button->GetNameId() << endl;
-			if (button->GetNameId() == "NEW")
-			{
-				cout << "Click!" << endl;
-			}
+			if (button->GetNameId() == "V_BECK")										
+				*m_ptr_Z_vec = ArcitectVector::BECK;
+			
+			if (button->GetNameId() == "V_ZERO")							
+				*m_ptr_Z_vec = ArcitectVector::ZERO;
+			
+			if (button->GetNameId() == "V_FRONT")							
+				*m_ptr_Z_vec = ArcitectVector::FRONT;
+			
 		}
 	}
 
 }
 
-void ArchtectMenu::Update(ArcitectVector &Z_vec)
+void ArchtectMenu::Update()
 {
 
 	for (auto& button : vec_button)
 		button->Update();
 
-	switch (Z_vec)
+	switch (*m_ptr_Z_vec)
 	{
 	case ArcitectVector::BECK:
 		m_name_vector_text.setString("Vector Beck");

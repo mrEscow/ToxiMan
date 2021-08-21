@@ -28,7 +28,7 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 		}
 	}
 
-	m_ptr_menu = new ArchtectMenu(game_settings);
+	m_ptr_menu = new ArchtectMenu(game_settings, m_Z_vec);
 
 	is_create = false;
 	is_delete = false;
@@ -39,15 +39,15 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		
-		for (auto& obj : *m_ptr_objectListBeck) {
+		for (auto& obj : *m_ptr_objectListBeck) 
 			jsonSM.SaveObject(obj, "file_beck.json",number);
-		 }
-		for (auto& obj : *m_ptr_objectListZero) {
+
+		for (auto& obj : *m_ptr_objectListZero) 
 			jsonSM.SaveObject(obj, "file_zero.json", number);	
-		}
-		for (auto& obj : *m_ptr_objectListFront) {
+		
+		for (auto& obj : *m_ptr_objectListFront) 
 			jsonSM.SaveObject(obj, "file_front.json", number);
-		}
+		
 
 
 		ObjectManager::ObjectBeckID = 0;
@@ -135,38 +135,6 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 	//-------------------------------------------------------------
 
-	//if (System::IsKeyPressed(Key::Z)) {
-	//	if (m_size_x >= 128)
-	//		m_size_x -= 128;
-	//}
-
-	//if (System::IsKeyPressed(Key::X)) {
-	//	m_size_x += 128;
-	//}
-
-	//if (System::IsKeyPressed(Key::C)) {
-	//	if (m_size_y >= 128)
-	//		m_size_y -= 128;
-	//}
-
-	//if (System::IsKeyPressed(Key::V)) {
-	//	m_size_y += 128;
-	//}
-
-	//-------------------------------------------------------------
-
-	if (System::IsKeyPressed(Key::Num1)) {
-		m_Z_vec = ArcitectVector::BECK;
-	}
-
-	if (System::IsKeyPressed(Key::Num2)) {
-		m_Z_vec = ArcitectVector::ZERO;
-	}
-
-	if (System::IsKeyPressed(Key::Num3)) {
-		m_Z_vec = ArcitectVector::FRONT;
-	}
-	//-------------------------------------------------------------
 	m_ptr_menu->Action();
 
 	//-------------------------------------------------------------
@@ -177,6 +145,31 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::Update()
 {
+	for (auto it = m_ptr_objectListBeck->begin(); it != m_ptr_objectListBeck->end(); ) {
+		auto& object = it;
+		if (object->Check_is_delete())
+			it = m_ptr_objectListBeck->erase(it);
+		else
+			it++;
+	}
+
+	for (auto it = m_ptr_objectListZero->begin(); it != m_ptr_objectListZero->end(); ) {
+		auto& object = it;
+		if (object->Check_is_delete()) {
+			World::world->DestroyBody(it->m_body);
+			it = m_ptr_objectListZero->erase(it);
+		}
+		else
+			it++;
+	}
+
+	for (auto it = m_ptr_objectListFront->begin(); it != m_ptr_objectListFront->end(); ) {
+		auto& object = it;
+		if (object->Check_is_delete()) 
+			it = m_ptr_objectListFront->erase(it);		
+		else 
+			it++;		
+	}
 
 	if (is_create)
 		CreateObject();
@@ -193,7 +186,7 @@ void Architect::Update()
 			m_mouse.setPosition(cell.getPosition());
 		}
 
-	m_ptr_menu->Update(m_Z_vec);
+	m_ptr_menu->Update();
 
 }
 
@@ -264,38 +257,25 @@ void Architect::DeleteObject()
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto& object : *m_ptr_objectListBeck)
+		for (auto& object : *m_ptr_objectListBeck) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
-				it = m_ptr_objectListBeck->begin() + object.GetObjectID();
-				m_ptr_objectListBeck->erase(it);
-				for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it != m_ptr_objectListZero->end(); it++)
-					it->SetNewID();
-				ObjectManager::ObjectBeckID--;
-				break;
+				object.DeleteObject();
 			}
+		}
 		break;
 	case ArcitectVector::ZERO:
-		for (auto object : *m_ptr_objectListZero)
+		for (auto& object : *m_ptr_objectListZero) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
-				it = m_ptr_objectListZero->begin() + object.GetObjectID();
-				World::world->DestroyBody(it->m_body);
-				m_ptr_objectListZero->erase(it);
-				for (it = m_ptr_objectListZero->begin() + object.GetObjectID() ; it != m_ptr_objectListZero->end() ; it++)
-					it->SetNewID();
-				ObjectManager::ObjectZeroID--;
-				break;
+				object.DeleteObject();
 			}
+		}
 		break;
 	case ArcitectVector::FRONT:
-		for (auto& object : *m_ptr_objectListFront)
+		for (auto& object : *m_ptr_objectListFront) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
-				it = m_ptr_objectListFront->begin() + object.GetObjectID();
-				m_ptr_objectListFront->erase(it);
-				for (it = m_ptr_objectListZero->begin() + object.GetObjectID(); it != m_ptr_objectListZero->end(); it++)
-					it->SetNewID();
-				ObjectManager::ObjectFrontID--;
-				break;
+				object.DeleteObject();
 			}
+		}
 		break;
 	default:
 		break;
