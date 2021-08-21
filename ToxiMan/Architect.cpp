@@ -32,6 +32,7 @@ Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>
 
 	is_create = false;
 	is_delete = false;
+	is_grid = true;
 }
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
@@ -141,7 +142,7 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 	//-------------------------------------------------------------
 
-	m_ptr_menu->Action();
+	m_ptr_menu->Action(is_grid);
 
 	//-------------------------------------------------------------
 }
@@ -205,8 +206,9 @@ void Architect::Draw(StateGame& state_game, Player* player)
 
 		player->Draw();
 
-		for (auto &cell : m_cell_vec)
-			System::wnd.draw(cell);
+		if(is_grid)
+			for (auto &cell : m_cell_vec)
+				System::wnd.draw(cell);
 
 		System::wnd.draw(m_mouse);
 	}		

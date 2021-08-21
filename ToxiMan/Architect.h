@@ -47,6 +47,7 @@ class Architect
 
 	bool is_create;
 	bool is_delete;
+	bool is_grid;
 
 public:
 	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);

@@ -19,7 +19,7 @@ private:
 
 public:
 	ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec);
-	void Action();
+	void Action(bool &is_grid);
 	void Update(float zoom);
 	void Draw();
 	Shape* GetSnape();

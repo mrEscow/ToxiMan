@@ -18,9 +18,11 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -400), v2f(120, 50), System::resources.texture.menu_button), "V_ZERO", game_settings));
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x + 150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_FRONT", game_settings));
 
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x , -325), v2f(440, 50), System::resources.texture.menu_button), "enable grid", game_settings));
+
 }
 
-void ArchtectMenu::Action()
+void ArchtectMenu::Action(bool &is_grid)
 {
 	//cout << (System::cur_p - System::cam.getCenter()).x << endl;
 	//cout << (System::cur_p - System::cam.getCenter()).y << endl;
@@ -39,6 +41,9 @@ void ArchtectMenu::Action()
 			if (button->GetNameId() == "V_FRONT")							
 				*m_ptr_Z_vec = ArcitectVector::FRONT;
 			
+			if (button->GetNameId() == "enable grid") {
+				is_grid = !is_grid;
+			}
 		}
 	}
 
