@@ -35,7 +35,7 @@ class Architect
 
 	vector<ObjectManager>::iterator it;
 
-	vector<ObjectManager> *m_ptr_objectListBeck;
+	vector<ObjectManager> *m_ptr_objectListBack;
 	vector<ObjectManager> *m_ptr_objectListZero;
 	vector<ObjectManager> *m_ptr_objectListFront;
 
@@ -50,7 +50,7 @@ class Architect
 	bool is_grid;
 
 public:
-	Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
+	Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
 
 	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 

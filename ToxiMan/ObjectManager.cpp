@@ -74,7 +74,7 @@ void ObjectManager::DeleteObject()
 
 void ObjectManager::Update(string vecName)
 {
-	if (vecName == "objectListBeck") {
+	if (vecName == "objectListBack") {
 
 	}
 	if (vecName == "objectListZero") {
@@ -103,10 +103,10 @@ Shape ObjectManager::GetShape()
 //	return m_body;
 //}
 
-void ObjectManager::CreateTextureBoxBeck(Shape& shape)
+void ObjectManager::CreateTextureBoxBack(Shape& shape)
 {
 	is_delete = false;
-	m_name = "beck_object";// + ObjectBeckID;
+	m_name = "back_object";// + ObjectBeckID;
 	m_ID = ObjectBeckID;
 	ObjectBeckID++;
 	m_shape = System::CreateShape(/*System::cur_p*/shape.getPosition(), shape.getSize(), -3, Color::Yellow, Color::Blue);
@@ -115,10 +115,10 @@ void ObjectManager::CreateTextureBoxBeck(Shape& shape)
 	cout << "Object " << m_ID << "  POS:  " << m_shape.getPosition().x << "  " << m_shape.getPosition().y << endl;
 }
 
-void ObjectManager::CreateTextureBoxBeck(Json& json)
+void ObjectManager::CreateTextureBoxBack(Json& json)
 {
 	is_delete = false;
-	m_name = "beck_object";//json["Name"].get<string>();
+	m_name = "back_object";//json["Name"].get<string>();
 	m_ID = json["ID"].get<uint>();
 	ObjectBeckID++;
 	m_shape = System::CreateShape(

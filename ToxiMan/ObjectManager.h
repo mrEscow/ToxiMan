@@ -31,8 +31,8 @@ public:
 	void CreateStaticBox(Shape& shape);
 	void CreateStaticBox(Json& json);
 
-	void CreateTextureBoxBeck(Shape& shape);
-	void CreateTextureBoxBeck(Json& json);
+	void CreateTextureBoxBack(Shape& shape);
+	void CreateTextureBoxBack(Json& json);
 
 	void CreateTextureBoxFront(Shape& shape);
 	void CreateTextureBoxFront(Json& json);

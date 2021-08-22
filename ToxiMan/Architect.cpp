@@ -1,8 +1,8 @@
 #include "Architect.h"
 
-Architect::Architect(vector<ObjectManager>&objectListBeck, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
+Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
-	m_ptr_objectListBeck = &objectListBeck;
+	m_ptr_objectListBack = &objectListBack;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
 
@@ -40,8 +40,8 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		
-		for (auto& obj : *m_ptr_objectListBeck) 
-			jsonSM.SaveObject(obj, "file_beck.json",number);
+		for (auto& obj : *m_ptr_objectListBack) 
+			jsonSM.SaveObject(obj, "file_back.json",number);
 
 		for (auto& obj : *m_ptr_objectListZero) 
 			jsonSM.SaveObject(obj, "file_zero.json", number);	
@@ -152,10 +152,10 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 
 void Architect::Update()
 {
-	for (auto it = m_ptr_objectListBeck->begin(); it != m_ptr_objectListBeck->end(); ) {
+	for (auto it = m_ptr_objectListBack->begin(); it != m_ptr_objectListBack->end(); ) {
 		auto& object = it;
 		if (object->Check_is_delete())
-			it = m_ptr_objectListBeck->erase(it);
+			it = m_ptr_objectListBack->erase(it);
 		else
 			it++;
 	}
@@ -223,14 +223,14 @@ void Architect::CreateObject()
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto& obj : *m_ptr_objectListBeck)
+		for (auto& obj : *m_ptr_objectListBack)
 			if (System::IsContains(obj.m_shape, System::cur_p)) {
 				is_contact = true;
 				break;
 			}
 		if (!is_contact) {
-			object.CreateTextureBoxBeck(m_mouse);
-			m_ptr_objectListBeck->push_back(object);
+			object.CreateTextureBoxBack(m_mouse);
+			m_ptr_objectListBack->push_back(object);
 		}
 		break;
 	case ArcitectVector::ZERO:
@@ -265,7 +265,7 @@ void Architect::DeleteObject()
 	switch (m_Z_vec)
 	{
 	case ArcitectVector::BECK:
-		for (auto& object : *m_ptr_objectListBeck) {
+		for (auto& object : *m_ptr_objectListBack) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 				object.DeleteObject();
 			}

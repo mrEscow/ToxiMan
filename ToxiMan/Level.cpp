@@ -10,11 +10,11 @@ void Level::LoadLevel(LevelNumber& number)
 	m_firstPos = v2f(500, 1750);
 	m_size_map = v2f(80, 30);
 
-	m_objectListBeck = m_jsonSM.LoadVecObject("Save/file_beck.json", number);
+	m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
 	m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
 	m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
 
-	m_jsonSM.DeleteJsonFile("file_beck.json", number);
+	m_jsonSM.DeleteJsonFile("file_back.json", number);
 	m_jsonSM.DeleteJsonFile("file_zero.json", number);
 	m_jsonSM.DeleteJsonFile("file_front.json", number);
 }
@@ -25,7 +25,7 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	LoadLevel(number);
 	
 	m_ptr_player = new Player(m_firstPos, m_size_map);
-	m_ptr_arhitevt = new Architect(m_objectListBeck, m_objectListZero, m_objectListFront, m_size_map, game_settings);
+	m_ptr_arhitevt = new Architect(m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	is_from_arhitetc = false;
 	is_reset = false;
@@ -174,19 +174,19 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 
 	if (is_from_arhitetc) {
 
-		m_objectListBeck = m_jsonSM.LoadVecObject("file_beck.json", number);
+		m_objectListBack = m_jsonSM.LoadVecObject("file_back.json", number);
 		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
 		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
 
-		m_jsonSM.DeleteJsonFile("file_beck.json", number);
+		m_jsonSM.DeleteJsonFile("file_back.json", number);
 		m_jsonSM.DeleteJsonFile("file_zero.json", number);
 		m_jsonSM.DeleteJsonFile("file_front.json", number);
 
 		is_from_arhitetc = false;
 	}
 
-	for (auto& object : m_objectListBeck)
-		object.Update("objectListBeck");
+	for (auto& object : m_objectListBack)
+		object.Update("objectListBack");
 	for (auto& object : m_objectListZero)
 		object.Update("objectListZero");
 
@@ -226,7 +226,7 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
-		for (auto& object : m_objectListBeck)
+		for (auto& object : m_objectListBack)
 			if (System::IsShapeInCamera(object.m_shape))
 				object.Draw();
 		for (auto& object : m_objectListZero)
@@ -238,7 +238,7 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 				object.Draw();
 		break;
 	case StateGame::ON_ARCITECT:
-		for (auto& object : m_objectListBeck)
+		for (auto& object : m_objectListBack)
 				object.Draw();
 		for (auto& object : m_objectListZero)
 				object.Draw();
@@ -258,8 +258,8 @@ v2f Level::GetPositionPlayer()
 
 Level::~Level()
 {
-	for (auto &obj : m_objectListBeck) 
-		m_jsonSM.SaveObject(obj, "file_beck.json", *m_ptr_number);
+	for (auto &obj : m_objectListBack) 
+		m_jsonSM.SaveObject(obj, "file_back.json", *m_ptr_number);
 	
 	for (auto &obj : m_objectListZero) 
 		m_jsonSM.SaveObject(obj, "file_zero.json", *m_ptr_number);
@@ -267,12 +267,12 @@ Level::~Level()
 	for (auto &obj : m_objectListFront) 
 		m_jsonSM.SaveObject(obj, "file_front.json", *m_ptr_number);
 	
-	m_jsonSM.DeleteJsonFile("Save/file_beck.json", *m_ptr_number);
+	m_jsonSM.DeleteJsonFile("Save/file_back.json", *m_ptr_number);
 	m_jsonSM.DeleteJsonFile("Save/file_zero.json", *m_ptr_number);
 	m_jsonSM.DeleteJsonFile("Save/file_front.json", *m_ptr_number);
 
-	for (auto& obj : m_objectListBeck) 
-		m_jsonSM.SaveObject(obj, "Save/file_beck.json", *m_ptr_number);
+	for (auto& obj : m_objectListBack) 
+		m_jsonSM.SaveObject(obj, "Save/file_back.json", *m_ptr_number);
 	
 	for (auto& obj : m_objectListZero) 
 		m_jsonSM.SaveObject(obj, "Save/file_zero.json", *m_ptr_number);
@@ -282,4 +282,6 @@ Level::~Level()
 	
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;
+
+	
 }
