@@ -25,16 +25,11 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 
 	vector<ObjectManager> vec;
 	string temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
-	//string temp2 = "Resources/JsonSave/" + to_string((int)number) + "/" + "Save/" + name_file;
+
 	m_fin.open(temp);
-	if (!m_fin.is_open()) {
+	if (!m_fin.is_open()) 
 		cout << "error: " << temp << " not open!" << endl;
-		//cout << name_file << endl;
-		//if (name_file != "Save/file_beck.json" && name_file != "Save/file_zero.json" && name_file != "Save/file_front.json")
-		//	LoadVecObject("Save/" + name_file, number);
-	}
 	else {
-		//cout << "file open!" << endl;
 		string line;
 		ObjectManager object;
 		while (std::getline(m_fin, line))
@@ -67,14 +62,6 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 		}
 	}
 	m_fin.close();
-
-
-	//string str_temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file; 
-	//char* char_temp = new char[str_temp.size()];
-	//strcpy(char_temp, str_temp.c_str());
-	//if (name_file != "Save/file_beck.json" && name_file != "Save/file_zero.json" && name_file != "Save/file_front.json")
-	//	remove(char_temp);             // удаление файла 
-
 		
 	return vec;
 }
