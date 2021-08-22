@@ -26,7 +26,9 @@ public:
 	void CreateTextureBoxFront(Shape& shape);
 	void CreateTextureBoxFront(Json& json);
 
-	Shape* GetShape();
+	const char* GetName();
+
+	Shape& GetShape();
 	b2Body* GetBoby();
 
 	uint GetObjectID();

@@ -227,14 +227,14 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		break;
 	case StateGame::ON_GAME:
 		for (auto& object : m_objectListBack)
-			if (System::IsShapeInCamera(object.m_shape))
+			if (System::IsShapeInCamera(object.GetShape()))
 				object.Draw();
 		for (auto& object : m_objectListZero)
-			if (System::IsShapeInCamera(object.m_shape))
+			if (System::IsShapeInCamera(object.GetShape()))
 				object.Draw();
 		m_ptr_player->Draw();
 		for (auto& object : m_objectListFront)
-			if (System::IsShapeInCamera(object.m_shape))
+			if (System::IsShapeInCamera(object.GetShape()))
 				object.Draw();
 		break;
 	case StateGame::ON_ARCITECT:

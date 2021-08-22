@@ -95,9 +95,14 @@ void ObjectManager::CreateTextureBoxFront(Json& json)
 	);
 }
 
-Shape* ObjectManager::GetShape()
+const char* ObjectManager::GetName()
 {
-	return &m_shape;
+	return m_name;
+}
+
+Shape& ObjectManager::GetShape()
+{
+	return m_shape;
 }
 
 b2Body* ObjectManager::GetBoby()

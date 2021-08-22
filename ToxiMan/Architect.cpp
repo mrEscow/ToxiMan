@@ -32,7 +32,7 @@ Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>
 
 	is_create = false;
 	is_delete = false;
-	is_grid = true;
+	is_grid = false;
 }
 
 void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
@@ -224,7 +224,7 @@ void Architect::CreateObject()
 	{
 	case ArcitectVector::BECK:
 		for (auto& obj : *m_ptr_objectListBack)
-			if (System::IsContains(*obj.GetShape(), System::cur_p)) {
+			if (System::IsContains(obj.GetShape(), System::cur_p)) {
 				is_contact = true;
 				break;
 			}
@@ -235,7 +235,7 @@ void Architect::CreateObject()
 		break;
 	case ArcitectVector::ZERO:
 		for (auto& obj : *m_ptr_objectListZero)
-			if (System::IsContains(*obj.GetShape(), System::cur_p)) {
+			if (System::IsContains(obj.GetShape(), System::cur_p)) {
 				is_contact = true;
 				break;
 			}
@@ -246,7 +246,7 @@ void Architect::CreateObject()
 		break;
 	case ArcitectVector::FRONT:
 		for (auto& obj : *m_ptr_objectListFront)
-			if (System::IsContains(*obj.GetShape(), System::cur_p)) {
+			if (System::IsContains(obj.GetShape(), System::cur_p)) {
 				is_contact = true;
 				break;
 			}
@@ -266,7 +266,7 @@ void Architect::DeleteObject()
 	{
 	case ArcitectVector::BECK:
 		for (auto& object : *m_ptr_objectListBack) {
-			if (System::IsContains(*object.GetShape(), System::cur_p)) {
+			if (System::IsContains(object.GetShape(), System::cur_p)) {
 				object.DeleteObject();
 				//ObjectManager::ObjectBeckID--;
 			}
@@ -274,7 +274,7 @@ void Architect::DeleteObject()
 		break;
 	case ArcitectVector::ZERO:
 		for (auto& object : *m_ptr_objectListZero) {
-			if (System::IsContains(*object.GetShape(), System::cur_p)) {
+			if (System::IsContains(object.GetShape(), System::cur_p)) {
 				object.DeleteObject();
 				//ObjectManager::ObjectZeroID--;
 			}
@@ -282,7 +282,7 @@ void Architect::DeleteObject()
 		break;
 	case ArcitectVector::FRONT:
 		for (auto& object : *m_ptr_objectListFront) {
-			if (System::IsContains(*object.GetShape(), System::cur_p)) {
+			if (System::IsContains(object.GetShape(), System::cur_p)) {
 				object.DeleteObject();
 				//ObjectManager::ObjectFrontID--;
 			}

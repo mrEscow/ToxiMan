@@ -4,14 +4,14 @@
 
 void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumber& number)
 {
-	m_json["ID"] = obj.m_ID;
-	m_json["Name"] = obj.m_name;
+	m_json["ID"] = obj.GetObjectID();
+	m_json["Name"] = obj.GetName();
 
-	m_json["PosX"] = obj.m_shape.getPosition().x;
-	m_json["PosY"] = obj.m_shape.getPosition().y;
+	m_json["PosX"] = obj.GetShape().getPosition().x;
+	m_json["PosY"] = obj.GetShape().getPosition().y;
 
-	m_json["SizeX"] = obj.m_shape.getSize().x;
-	m_json["SizeY"] = obj.m_shape.getSize().y;
+	m_json["SizeX"] = obj.GetShape().getSize().x;
+	m_json["SizeY"] = obj.GetShape().getSize().y;
 
 	m_serializedString = m_json.dump();
 
