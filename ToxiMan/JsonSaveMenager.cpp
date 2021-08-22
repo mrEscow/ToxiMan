@@ -40,7 +40,7 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 		while (std::getline(m_fin, line))
 		{
 			m_json = Json::parse(line);
-			if (name_file == "file_beck.json") {
+			if (name_file == "file_back.json") {
 				object.CreateTextureBoxBack(m_json);
 				vec.push_back(object);
 			}
@@ -52,7 +52,7 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 				object.CreateTextureBoxFront(m_json);
 				vec.push_back(object);
 			}
-			if (name_file == "Save/file_beck.json") {
+			if (name_file == "Save/file_back.json") {
 				object.CreateTextureBoxBack(m_json);
 				vec.push_back(object);
 			}

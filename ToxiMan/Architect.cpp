@@ -268,6 +268,7 @@ void Architect::DeleteObject()
 		for (auto& object : *m_ptr_objectListBack) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 				object.DeleteObject();
+				ObjectManager::ObjectBeckID--;
 			}
 		}
 		break;
@@ -275,6 +276,7 @@ void Architect::DeleteObject()
 		for (auto& object : *m_ptr_objectListZero) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 				object.DeleteObject();
+				ObjectManager::ObjectZeroID--;
 			}
 		}
 		break;
@@ -282,6 +284,7 @@ void Architect::DeleteObject()
 		for (auto& object : *m_ptr_objectListFront) {
 			if (System::IsContains(object.m_shape, System::cur_p)) {
 				object.DeleteObject();
+				ObjectManager::ObjectFrontID--;
 			}
 		}
 		break;
