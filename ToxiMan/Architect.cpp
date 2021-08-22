@@ -135,6 +135,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	//-------------------------------------------------------------
 
 	m_ptr_menu->Action(is_grid, is_back);
+
 	if (is_back) {
 		for (auto& obj : *m_ptr_objectListBack)
 			jsonSM.SaveObject(obj, "file_back.json", number);
@@ -152,7 +153,9 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		ObjectManager::ObjectFrontID = 0;
 
 		is_from_arhitetc = true;
+
 		is_back = false;
+
 		state_game = previous_state;
 	}
 
