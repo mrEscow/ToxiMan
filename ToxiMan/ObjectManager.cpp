@@ -41,7 +41,13 @@ void ObjectManager::CreateTextureBoxBack(Shape& shape)
 	m_name = "back_object";
 	m_ID = ObjectBeckID;
 	ObjectBeckID++;
-	m_shape = System::CreateShape(shape.getPosition(), shape.getSize(), -3, Color::Yellow, Color::Blue);
+	m_shape = System::CreateShape(
+		shape.getPosition(), 
+		shape.getSize(), 
+		-3, 
+		Color::Yellow, 
+		Color::Blue
+	);
 }
 
 void ObjectManager::CreateTextureBoxBack(Json& json)
@@ -65,7 +71,13 @@ void ObjectManager::CreateTextureBoxFront(Shape& shape)
 	m_name = "front_object";
 	m_ID = ObjectFrontID;
 	ObjectFrontID++;
-	m_shape = System::CreateShape(shape.getPosition(), shape.getSize(), -3, Color::Green, Color::Blue);
+	m_shape = System::CreateShape(
+		shape.getPosition(), 
+		shape.getSize(), 
+		-3, 
+		Color::Green, 
+		Color::Blue
+	);
 }
 
 void ObjectManager::CreateTextureBoxFront(Json& json)
@@ -83,14 +95,19 @@ void ObjectManager::CreateTextureBoxFront(Json& json)
 	);
 }
 
+Shape* ObjectManager::GetShape()
+{
+	return &m_shape;
+}
+
+b2Body* ObjectManager::GetBoby()
+{
+	return m_body;
+}
+
 uint ObjectManager::GetObjectID()
 {
 	return m_ID;
-}
-
-void ObjectManager::SetNewID()
-{
-	this->m_ID--;
 }
 
 v2f ObjectManager::GetObjectPosition()
@@ -103,20 +120,14 @@ v2f ObjectManager::GetObjectSize()
 	return m_shape.getSize();
 }
 
-
-bool ObjectManager::Check_is_delete()
-{
-	return is_delete;
-}
-
 void ObjectManager::DeleteObject()
 {
 	is_delete = true;
 }
 
-Shape ObjectManager::GetShape()
+bool ObjectManager::Check_is_delete()
 {
-	return m_shape;
+	return is_delete;
 }
 
 void ObjectManager::Update(string vecName)
