@@ -20,11 +20,12 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x , -325), v2f(440, 50), System::resources.texture.menu_button), "enable grid", game_settings));
 
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, 400), v2f(440, 50), System::resources.texture.menu_button), "BACK", game_settings));
+
 }
 
-void ArchtectMenu::Action(bool &is_grid)
+void ArchtectMenu::Action(bool& is_grid, bool& is_back)
 {
-
 
 	for (auto& button : vec_button)
 	{
@@ -51,6 +52,11 @@ void ArchtectMenu::Action(bool &is_grid)
 				is_grid = !is_grid;
 				button->SetNameID("enable grid");
 			}
+
+			if (button->GetNameId() == "BACK") {
+				is_back = true;
+			}
+
 		}
 	}
 

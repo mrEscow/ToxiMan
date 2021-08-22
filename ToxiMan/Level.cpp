@@ -111,7 +111,7 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_g);
 }
 
-void Level::Action(StateGame& state_game, LevelNumber& number)
+void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number)
 {
 	switch (state_game)
 	{
@@ -121,7 +121,7 @@ void Level::Action(StateGame& state_game, LevelNumber& number)
 		m_ptr_player->Action(state_game);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_arhitevt->Action(state_game, is_from_arhitetc, m_jsonSM, number);
+		m_ptr_arhitevt->Action(state_game, previous_state, is_from_arhitetc, m_jsonSM, number);
 		break;
 	default:
 		break;

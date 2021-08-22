@@ -48,11 +48,12 @@ class Architect
 	bool is_create;
 	bool is_delete;
 	bool is_grid;
+	bool is_back;
 
 public:
 	Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
 
-	void Action(StateGame& state_game, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
+	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 
 	void Update();
 

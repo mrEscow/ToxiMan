@@ -25,6 +25,8 @@ void Game::Update()
 	{
 	case StateGame::ON_MAIN_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+		System::cam.setCenter(0, 0);
+		System::wnd.setView(System::cam);
 		m_main_menu->Update();
 		break;
 	case StateGame::ON_GAME:
@@ -70,12 +72,14 @@ void Game::Action()
 	{
 	case StateGame::ON_MAIN_MENU:
 		m_main_menu->Action();
+		previous_state = StateGame::ON_MAIN_MENU;
 		break;
 	case StateGame::ON_GAME:
-		m_ptr_lvl->Action(m_state_game, m_number);
+		m_ptr_lvl->Action(m_state_game, previous_state, m_number);
+		previous_state = StateGame::ON_GAME;
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_lvl->Action(m_state_game, m_number);
+		m_ptr_lvl->Action(m_state_game, previous_state, m_number);
 		break;
 	default:
 		break;

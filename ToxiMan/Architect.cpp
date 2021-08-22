@@ -2,6 +2,8 @@
 
 Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
+
+
 	m_ptr_objectListBack = &objectListBack;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
@@ -33,32 +35,33 @@ Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>
 	is_create = false;
 	is_delete = false;
 	is_grid = false;
+	is_back = false;
 }
 
-void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
+void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
 {
 	
-	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-		
-		for (auto& obj : *m_ptr_objectListBack) 
-			jsonSM.SaveObject(obj, "file_back.json",number);
+	//if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+	//	
+	//	for (auto& obj : *m_ptr_objectListBack) 
+	//		jsonSM.SaveObject(obj, "file_back.json",number);
 
-		for (auto& obj : *m_ptr_objectListZero) 
-			jsonSM.SaveObject(obj, "file_zero.json", number);	
-		
-		for (auto& obj : *m_ptr_objectListFront) 
-			jsonSM.SaveObject(obj, "file_front.json", number);
-		
+	//	for (auto& obj : *m_ptr_objectListZero) 
+	//		jsonSM.SaveObject(obj, "file_zero.json", number);	
+	//	
+	//	for (auto& obj : *m_ptr_objectListFront) 
+	//		jsonSM.SaveObject(obj, "file_front.json", number);
+	//	
 
 
-		ObjectManager::ObjectBeckID = 0;
-		ObjectManager::ObjectZeroID = 0;
-		ObjectManager::ObjectFrontID = 0;
+	//	ObjectManager::ObjectBeckID = 0;
+	//	ObjectManager::ObjectZeroID = 0;
+	//	ObjectManager::ObjectFrontID = 0;
 
-		is_from_arhitetc = true;
+	//	is_from_arhitetc = true;
 
-		state_game = StateGame::ON_GAME;
-	}
+	//	state_game = StateGame::ON_GAME;
+	//}
 
 	if (System::IsKeyReleased(Key::F1) || System::IsKeyReleased(Key::F1)) {
 
@@ -131,7 +134,27 @@ void Architect::Action(StateGame& state_game,bool& is_from_arhitetc, JsonSaveMen
 	}
 	//-------------------------------------------------------------
 
-	m_ptr_menu->Action(is_grid);
+	m_ptr_menu->Action(is_grid, is_back);
+	if (is_back) {
+		for (auto& obj : *m_ptr_objectListBack)
+			jsonSM.SaveObject(obj, "file_back.json", number);
+
+		for (auto& obj : *m_ptr_objectListZero)
+			jsonSM.SaveObject(obj, "file_zero.json", number);
+
+		for (auto& obj : *m_ptr_objectListFront)
+			jsonSM.SaveObject(obj, "file_front.json", number);
+
+		cout << "SAVE" << endl;
+
+		ObjectManager::ObjectBeckID = 0;
+		ObjectManager::ObjectZeroID = 0;
+		ObjectManager::ObjectFrontID = 0;
+
+		is_from_arhitetc = true;
+		is_back = false;
+		state_game = previous_state;
+	}
 
 	//-------------------------------------------------------------
 }

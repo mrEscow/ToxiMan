@@ -16,6 +16,7 @@ private:
 	//bool m_is_pause = false;
 
 	StateGame m_state_game = StateGame::ON_MAIN_MENU;
+	StateGame previous_state;
 
 	GameSettings m_game_settings;
 	unique_ptr<Menu> m_main_menu;
