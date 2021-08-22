@@ -24,14 +24,14 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 
 void ArchtectMenu::Action(bool &is_grid)
 {
-	//cout << (System::cur_p - System::cam.getCenter()).x << endl;
-	//cout << (System::cur_p - System::cam.getCenter()).y << endl;
+
 
 	for (auto& button : vec_button)
 	{
 		if (button->IsAction())
 		{
-			cout << button->GetNameId() << endl;
+			bool is_rename = false;
+
 			if (button->GetNameId() == "V_BACK")										
 				*m_ptr_Z_vec = ArcitectVector::BECK;
 			
@@ -42,7 +42,14 @@ void ArchtectMenu::Action(bool &is_grid)
 				*m_ptr_Z_vec = ArcitectVector::FRONT;
 			
 			if (button->GetNameId() == "enable grid") {
+				is_rename = true;
 				is_grid = !is_grid;
+				button->SetNameID("disable grid");
+			}
+
+			if (button->GetNameId() == "disable grid" && is_rename == false) {
+				is_grid = !is_grid;
+				button->SetNameID("enable grid");
 			}
 		}
 	}

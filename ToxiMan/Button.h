@@ -29,6 +29,7 @@ namespace UI {
 		void Draw();
 		bool IsAction();
 		string GetNameId();
+		void SetNameID(string newname);
 		Shape* GetShape();
 		v2f GetPos();
 		~Button();

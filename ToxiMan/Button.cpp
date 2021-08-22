@@ -52,11 +52,11 @@ namespace UI{
 
 		if (is_pressed) {
 			text_button.setScale(0.95, 0.95);
-			m_shape.setScale(0.95, 0.95); // Размер зажатой кнопки
+			m_shape.setScale(0.95, 0.95); 
 		}
 		else {
 			text_button.setScale(1.f, 1.f);
-			m_shape.setScale(1.f, 1.f); // Изначальный размер кнопки
+			m_shape.setScale(1.f, 1.f);
 		}
 	}
 
@@ -69,6 +69,12 @@ namespace UI{
 	string Button::GetNameId()
 	{
 		return m_name_id;
+	}
+
+	void Button::SetNameID(string newname)
+	{
+		m_name_id = newname;
+		text_button.setString(m_name_id);
 	}
 
 	Shape* Button::GetShape()
