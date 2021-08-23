@@ -21,9 +21,6 @@ void Level::LoadLevel(LevelNumber& number)
 //----------------------------------------------------------------------
 Level::Level(LevelNumber& number, GameSettings& game_settings)
 {
-
-
-
 	m_ptr_number = &number;
 	m_map_ptr = new Map(number);
 
@@ -189,6 +186,13 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		m_jsonSM.DeleteJsonFile("file_zero.json", number);
 		m_jsonSM.DeleteJsonFile("file_front.json", number);
 
+		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
+		//System::cam.move(m_ptr_player->GetPosCam());
+		System::cam.setCenter(m_ptr_player->GetPosCam());
+		System::wnd.setView(System::cam);
+		System::zoom /= System::zoom;
+		System::zoom = 1;
+
 		is_from_arhitetc = false;
 	}
 
@@ -202,11 +206,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 	case StateGame::ON_MAIN_MENU:
 		break;
 	case StateGame::ON_GAME:
-		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
-		System::cam.setCenter(m_ptr_player->GetPosCam());
-		System::wnd.setView(System::cam);
-		System::zoom /= System::zoom;
-		System::zoom = 1;
+
 		m_ptr_player->Update(is_reset);
 		break;
 	case StateGame::ON_ARCITECT:

@@ -37,6 +37,9 @@ private:
 
 	float dx;
 	float dy;
+
+	float dxCam;
+	float dyCam;
 	// начальная позиция
 	v2f m_firstPos;
 	v2f m_size_map;

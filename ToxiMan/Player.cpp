@@ -106,8 +106,33 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update(bool & is_reset)
 {
-	if (is_button_Left) dx = -m_speed;
-	if (is_button_Righr) dx = m_speed;
+	v2f go = v2f(m_body->GetLinearVelocity().x * System::time, m_body->GetLinearVelocity().y * System::time);
+
+	if (m_shape.getPosition().x - System::cam.getCenter().x > 0)
+		dxCam = 1;
+	else
+		dxCam = -1;
+	if (m_shape.getPosition().x - System::cam.getCenter().x == 0)
+		dxCam = 0;
+
+	if (m_shape.getPosition().y - System::cam.getCenter().y > 0)
+		dyCam = 1;
+	else
+		dyCam = -1;
+	if (m_shape.getPosition().y - System::cam.getCenter().y == 0)
+		dyCam = 0;
+
+	if (System::cam.getCenter() != m_shape.getPosition())
+			System::cam.move(dxCam,dyCam);
+
+	System::wnd.setView(System::cam);
+
+	if (is_button_Left) 
+		dx = -m_speed;
+	if (is_button_Righr)
+		dx = m_speed;
+
+
 	if (!is_button_Left && !is_button_Righr) dx = 0;
 
 	if (is_button_Up) 
@@ -149,6 +174,7 @@ void Player::Update(bool & is_reset)
 	if (is_dead) {
 		is_reset = true;
 		m_body->SetTransform(b2Vec2(m_firstPos.x / SCALE, m_firstPos.y / SCALE), m_body->GetAngle());
+		System::cam.setCenter(m_shape.getPosition());
 		is_dead = false;
 	}
 
