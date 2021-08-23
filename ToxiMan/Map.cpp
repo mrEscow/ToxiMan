@@ -1,5 +1,10 @@
 #include "Map.h"
 
+uint Map::GetId()
+{
+	return m_id;
+}
+
 v2f Map::GetMapSize()
 {
 	return m_map_size;
@@ -13,4 +18,24 @@ v2f Map::GetStartPos()
 v2f Map::GetFinalPos()
 {
 	return m_final_pos;
+}
+
+void Map::SetId(uint id)
+{
+	m_id = id;
+}
+
+void Map::SetMapSize(v2f size)
+{
+	m_map_size = size;
+}
+
+void Map::SetStartPos(v2f s_pos)
+{
+	m_start_pos = s_pos;
+}
+
+void Map::SetFinalPos(v2f f_pos)
+{
+	m_final_pos = f_pos;
 }
