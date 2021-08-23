@@ -106,24 +106,56 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update(bool & is_reset)
 {
-	v2f go = v2f(m_body->GetLinearVelocity().x * System::time, m_body->GetLinearVelocity().y * System::time);
 
-	if (m_shape.getPosition().x - System::cam.getCenter().x > 0)
+
+	if (m_shape.getPosition().x - System::cam.getCenter().x > 1.5)
 		dxCam = 1;
-	else
+	if (m_shape.getPosition().x - System::cam.getCenter().x < 1.5)
 		dxCam = -1;
-	if (m_shape.getPosition().x - System::cam.getCenter().x == 0)
-		dxCam = 0;
+	//if (m_shape.getPosition().x - System::cam.getCenter().x == 0)
+	//	dxCam = 0;
 
-	if (m_shape.getPosition().y - System::cam.getCenter().y > 0)
+	if (m_shape.getPosition().y - System::cam.getCenter().y > 1.5)
 		dyCam = 1;
-	else
+	if (m_shape.getPosition().y - System::cam.getCenter().y < 1.5)
 		dyCam = -1;
-	if (m_shape.getPosition().y - System::cam.getCenter().y == 0)
-		dyCam = 0;
+	//if (m_shape.getPosition().y - System::cam.getCenter().y == 0)
+	//	dyCam = 0;
 
-	if (System::cam.getCenter() != m_shape.getPosition())
-			System::cam.move(dxCam,dyCam);
+	v2f dCam = v2f(dxCam, dyCam);
+	v2f go = v2f(m_body->GetLinearVelocity().x * System::time, m_body->GetLinearVelocity().y * System::time) / 25.f;
+
+	if (go == v2f(0, 0)) {
+		dCam.x *= 0.1f * System::time;
+		dCam.y *= 0.1f * System::time;
+		//cout << "true" << endl;
+		//cout << dCam.x << endl;
+		//cout << dCam.y << endl;
+	}
+
+	else {
+		dCam = v2f(dxCam, dyCam) + go;
+		//cout << "false" << endl;
+		//cout << dCam.x << endl;
+		//cout << dCam.y << endl;
+	}
+
+
+
+	//v2f go = v2f(m_body->GetLinearVelocity().x , m_body->GetLinearVelocity().y);
+	//v2f dCam = v2f(dxCam, dyCam) * 1.5f + v2f(go);
+
+	//cout << System::cam.getCenter().x - m_shape.getPosition().x << endl;
+	//if (System::cam.getCenter() != m_shape.getPosition())
+	//		System::cam.move(dCam );
+	if (!System::IsContains(m_shape, System::cam.getCenter() + v2f(1, 1)) && !System::IsContains(m_shape, System::cam.getCenter() - v2f(1, 1))) {
+
+	System::cam.move(dCam);
+
+	}
+	else
+		dCam = v2f(0, 0);
+
 
 	System::wnd.setView(System::cam);
 
