@@ -29,6 +29,7 @@ class Architect
 
 	ArchtectMenu *m_ptr_menu;
 
+	Map *m_map_ptr;
 	Shape	m_mouse;
 
 	//float	m_zoom;
@@ -51,7 +52,7 @@ class Architect
 	bool is_back;
 
 public:
-	Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero,vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings);
+	Architect(Map& map, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
 
 	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
 

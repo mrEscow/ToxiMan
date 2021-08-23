@@ -15,6 +15,8 @@ private:
 
 	JsonSaveMenager  m_jsonSM;
 
+	Map *m_map_ptr;
+
 	v2f m_firstPos;
 	v2f m_size_map;
 	

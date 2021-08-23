@@ -2,7 +2,6 @@
 #include "System.h"
 #include "GameStates.h"
 #include "Button.h"
-#include "TextBox.h"
 #include "GameSettings.h"
 
 class MainMenu
@@ -18,7 +17,7 @@ private:
 
 	sf::Text HelloText;
 
-	vector<unique_ptr<UI::TextBox>> vec_textbox;
+
 
 public:
 

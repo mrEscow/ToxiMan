@@ -1,7 +1,8 @@
 #include "ArchtectMenu.h"
 
-ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
+ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec)
 {
+	m_map_ptr = &map;
 	m_ptr_Z_vec = &Z_vec;
 	archMenu.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 	archMenu.setCenter(-System::scr_w / 4,0);
@@ -22,6 +23,15 @@ ArchtectMenu::ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec)
 
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, 400), v2f(440, 50), System::resources.texture.menu_button), "BACK", game_settings));
 
+	
+	// nameMap
+
+	vec_textbox.push_back(make_unique<UI::TextBox>(v2f(m_menu.getPosition().x, -250), v2f(200, 30), "map Name", "Map Name"));
+	// sizeMap
+	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x - 100, -200), v2f(100, 50), "sizeMapX", to_string(m_map_ptr->GetMapSize().x)));
+	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x + 100, -200), v2f(100, 50), "sizeMapY", to_string(m_map_ptr->GetMapSize().y)));
+
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -150), v2f(200, 50), System::resources.texture.menu_button), "apply", game_settings));
 }
 
 void ArchtectMenu::Action(bool& is_grid, bool& is_back)
@@ -57,9 +67,29 @@ void ArchtectMenu::Action(bool& is_grid, bool& is_back)
 				is_back = true;
 			}
 
+			if (button->GetNameId() == "apply") {
+
+				m_map_ptr->SetName(vec_textbox[0].get()->GetData());
+
+				v2i newSize = v2i(
+					stoi(vec_textboxInt[0].get()->GetData()), 
+					stoi(vec_textboxInt[1].get()->GetData())
+				);
+
+				m_map_ptr->SetMapSize(newSize);
+
+				cout << m_map_ptr->GetName() << endl;
+				cout << m_map_ptr->GetMapSize().x << endl;
+				cout << m_map_ptr->GetMapSize().y << endl;
+			}
+
 		}
 	}
 
+	for (auto& textbox : vec_textbox)
+		textbox->Action();
+	for (auto& textbox : vec_textboxInt)
+		textbox->Action();
 }
 
 void ArchtectMenu::Update()
@@ -83,7 +113,10 @@ void ArchtectMenu::Update()
 		break;
 	}
 
-
+	for (auto& textbox : vec_textbox)
+		textbox->Update();
+	for (auto& textbox : vec_textboxInt)
+		textbox->Update();
 }
 
 void ArchtectMenu::Draw()
@@ -97,6 +130,11 @@ void ArchtectMenu::Draw()
 
 	for (auto& button : vec_button)
 		button->Draw();
+
+	for (auto& textbox : vec_textbox)
+		textbox->Draw();
+	for (auto& textbox : vec_textboxInt)
+		textbox->Draw();
 
 	System::wnd.setView(System::cam);
 }

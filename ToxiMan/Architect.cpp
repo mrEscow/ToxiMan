@@ -1,9 +1,9 @@
 #include "Architect.h"
 
-Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
+Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
 
-
+	m_map_ptr = &map;
 	m_ptr_objectListBack = &objectListBack;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
@@ -30,7 +30,7 @@ Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>
 		}
 	}
 
-	m_ptr_menu = new ArchtectMenu(game_settings, m_Z_vec);
+	m_ptr_menu = new ArchtectMenu(*m_map_ptr,game_settings, m_Z_vec);
 
 	is_create = false;
 	is_delete = false;

@@ -2,12 +2,15 @@
 #include "System.h"
 #include "GameStates.h"
 #include "Button.h"
+#include "TextBox.h"
+#include "Map.h"
 
-class ArchtectMenu
+class ArchtectMenu 
 {
 private:
 	StateGame m_state_game_ptr;
 	ArcitectVector * m_ptr_Z_vec;
+	Map *m_map_ptr;
 	sf::View archMenu;
 	Shape	m_menu;
 	Text	m_main_text;
@@ -16,10 +19,11 @@ private:
 
 	
 	vector<unique_ptr<UI::Button>> vec_button;
-
+	vector<unique_ptr<UI::TextBox>> vec_textbox;
+	vector<unique_ptr<UI::TextBoxInt>> vec_textboxInt;
 
 public:
-	ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec);
+	ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec);
 	void Action(bool &is_grid, bool& is_back);
 	void Update();
 	void Draw();

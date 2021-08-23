@@ -21,11 +21,18 @@ void Level::LoadLevel(LevelNumber& number)
 //----------------------------------------------------------------------
 Level::Level(LevelNumber& number, GameSettings& game_settings)
 {
+
+
+
 	m_ptr_number = &number;
+	m_map_ptr = new Map(number);
+
 	LoadLevel(number);
+
+
 	
 	m_ptr_player = new Player(m_firstPos, m_size_map);
-	m_ptr_arhitevt = new Architect(m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
+	m_ptr_arhitevt = new Architect(*m_map_ptr,m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	is_from_arhitetc = false;
 	is_reset = false;
@@ -282,6 +289,7 @@ Level::~Level()
 	
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;
+	delete m_map_ptr;
 
 	
 }

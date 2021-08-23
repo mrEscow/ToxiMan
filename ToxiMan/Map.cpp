@@ -1,11 +1,21 @@
 #include "Map.h"
 
+Map::Map(LevelNumber& number)
+{
+	m_id = (int)number;
+}
+
+string Map::GetName()
+{
+	return m_name;
+}
+
 uint Map::GetId()
 {
 	return m_id;
 }
 
-v2f Map::GetMapSize()
+v2i Map::GetMapSize()
 {
 	return m_map_size;
 }
@@ -20,12 +30,17 @@ v2f Map::GetFinalPos()
 	return m_final_pos;
 }
 
+void Map::SetName(string name)
+{
+	m_name = name;
+}
+
 void Map::SetId(uint id)
 {
 	m_id = id;
 }
 
-void Map::SetMapSize(v2f size)
+void Map::SetMapSize(v2i size)
 {
 	m_map_size = size;
 }
