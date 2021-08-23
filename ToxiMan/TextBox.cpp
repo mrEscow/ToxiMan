@@ -55,7 +55,6 @@ namespace UI {
 			m_is_picked = false;
 
 			if (IsContains(m_shape_box, cur_for_UI)) {
-				cout << "CLICK" << endl;
 				TBEH::value_left = "";
 				TBEH::text_left = m_text;
 				TBEH::text_left.setString(TBEH::value_left);
@@ -114,7 +113,7 @@ namespace UI {
 			}
 
 			if (event.type == sf::Event::TextEntered) {
-				if (event.text.unicode < 128) {
+				if (event.text.unicode > 47 && event.text.unicode < 128 || event.text.unicode == 8) {
 					if (event.text.unicode == 8) {
 						if (!m_value.empty()) {
 							if (TBEH::char_position > 0) {
@@ -129,7 +128,7 @@ namespace UI {
 							m_value = "";
 						}
 					}
-					else if (m_text.getString().toAnsiString().length() < m_max_value) { // Åñëè ââîäèì òåêñò è ñòðîêà êîðî÷å çàäàííîãî ìàêñèìóìâ
+					else if (m_text.getString().toAnsiString().length() < m_max_value) {
 						TBEH::value_left += event.text.unicode;
 						TBEH::char_position++;
 						TBEH::text_left.setString(TBEH::value_left);

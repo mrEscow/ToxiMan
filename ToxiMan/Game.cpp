@@ -25,17 +25,20 @@ void Game::Update()
 	{
 	case StateGame::ON_MAIN_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 		System::cam.setCenter(0, 0);
 		System::wnd.setView(System::cam);
+		System::zoom /= System::zoom;
+		System::zoom = 1;
 		m_main_menu->Update();
 		break;
 	case StateGame::ON_GAME:
-		//System::resources.audio.music.menu_music.stop();
+		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game,m_number);
 		break;
 	case StateGame::ON_ARCITECT:
-		//System::resources.audio.music.menu_music.stop();
+		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
 		m_ptr_lvl->Update(m_state_game, m_number);
 		break;
@@ -105,7 +108,9 @@ void Game::Thread()
 		Draw();
 	}
 
-	sf::sleep(sf::milliseconds(1000));
+
+
+	//sf::sleep(sf::milliseconds(1000));
 }
 
 void Game::Play()
@@ -115,11 +120,13 @@ void Game::Play()
 	while (System::wnd.isOpen())	
 		while (System::wnd.pollEvent(System::event)) Action();	
 
+
 	sf::sleep(sf::milliseconds(1000));
 }
 
 Game::~Game()
 {
+	//m_ptr_thread->wait();
 	delete m_ptr_lvl;
 	delete m_ptr_thread;
 }

@@ -205,6 +205,8 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
 		System::cam.setCenter(m_ptr_player->GetPosCam());
 		System::wnd.setView(System::cam);
+		System::zoom /= System::zoom;
+		System::zoom = 1;
 		m_ptr_player->Update(is_reset);
 		break;
 	case StateGame::ON_ARCITECT:

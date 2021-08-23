@@ -169,5 +169,8 @@ public:
 		body->SetFixedRotation(fixRotat); // не крутися
 		return body;
 	}
+	//static void DeleteWorld() {
+	//	delete world;
+	//}
 
 };

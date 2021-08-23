@@ -7,5 +7,7 @@ int main()
 	World("init");
 	Game game;
 	game.Play();
+
+	//World::DeleteWorld();
 	return 0;
 }
