@@ -1,15 +1,13 @@
 ﻿// ▼
 #pragma once
-
 #include "Menu.h"
 #include "Level.h"
+
 
 
 class Game
 {
 private:
-
-
 
 	sf::Thread* m_ptr_thread;
 
@@ -25,7 +23,7 @@ private:
 
 	Level *m_ptr_lvl;
 
-
+	
 
 public:
 

@@ -31,7 +31,7 @@ class Architect
 
 	Shape	m_mouse;
 
-	float	m_zoom;
+	//float	m_zoom;
 
 	vector<ObjectManager>::iterator it;
 

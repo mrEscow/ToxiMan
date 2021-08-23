@@ -62,11 +62,11 @@ void ArchtectMenu::Action(bool& is_grid, bool& is_back)
 
 }
 
-void ArchtectMenu::Update(float zoom)
+void ArchtectMenu::Update()
 {
 
 	for (auto& button : vec_button)
-		button->Update(zoom);
+		button->Update();
 
 	switch (*m_ptr_Z_vec)
 	{

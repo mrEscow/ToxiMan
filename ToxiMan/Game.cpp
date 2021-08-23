@@ -96,6 +96,8 @@ void Game::Thread()
 	{
 		System::SystemUpdate();
 
+		UI::TextBoxEditHelper::Update();
+
 		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 
 		Update();

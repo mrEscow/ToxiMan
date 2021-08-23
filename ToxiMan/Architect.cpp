@@ -15,7 +15,7 @@ Architect::Architect(vector<ObjectManager>&objectListBack, vector<ObjectManager>
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
 
-	m_zoom = 1.f;
+	//m_zoom = 1.f;
 
 	for (size_t i = 0; i < size_map.x; i++)
 	{
@@ -68,7 +68,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {
-		System::cam.move( - 10 * m_zoom, 0);
+		System::cam.move( - 10 * System::zoom, 0);
 	}
 
 	if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
@@ -76,7 +76,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 	if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
-		System::cam.move(10 * m_zoom, 0); //cout << "D" << endl;
+		System::cam.move(10 * System::zoom, 0); //cout << "D" << endl;
 	}
 
 	if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
@@ -84,7 +84,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 	if (System::IsKeyPressed(Key::Up) || System::IsKeyPressed(Key::W)) {
-		System::cam.move(0, -10 * m_zoom);
+		System::cam.move(0, -10 * System::zoom);
 	}
 
 	if ((System::IsKeyReleased(Key::Up) || System::IsKeyReleased(Key::W))) {
@@ -92,14 +92,14 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 	if (System::IsKeyPressed(Key::Down) || System::IsKeyPressed(Key::S)) {
-		System::cam.move(0, 10 * m_zoom);
+		System::cam.move(0, 10 * System::zoom);
 	}
 
 	if ((System::IsKeyReleased(Key::Down) || System::IsKeyReleased(Key::S))) {
 
 	}
 	//------------------------------------------------------
-	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / m_zoom - System::cam.getCenter() / m_zoom)) {
+	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
 		for (auto& cell : m_cell_vec)
 			if (System::IsContains(cell, System::cur_p)) {
 
@@ -123,13 +123,13 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
 	{
-		m_zoom *= 0.90f;
+		System::zoom *= 0.90f;
 		System::cam.zoom(0.90f);		
 	}
 
 	if (System::IsKeyPressed(Key::E))
 	{
-		m_zoom *= 1.1f;
+		System::zoom *= 1.1f;
 		System::cam.zoom(1.1f); 		
 	}
 	//-------------------------------------------------------------
@@ -208,7 +208,7 @@ void Architect::Update()
 			m_mouse.setPosition(cell.getPosition());
 		}
 
-	m_ptr_menu->Update(m_zoom);
+	m_ptr_menu->Update();
 
 }
 

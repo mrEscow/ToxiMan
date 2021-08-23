@@ -132,6 +132,12 @@
     <ClInclude Include="ArchtectMenu.h">
       <Filter>Файлы заголовков\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Файлы заголовков\MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Файлы заголовков\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -193,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>Исходные файлы\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Исходные файлы\MapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

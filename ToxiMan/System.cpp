@@ -19,7 +19,7 @@ sf::Clock				System::clock;
 
 float					System::fps;		// Кадры в секунду
 float					System::speedGame;	// Скорость игры
-
+float					System::zoom;		// Зум
 
 
 
@@ -45,10 +45,11 @@ System::System(string init)
 		wnd.setView(cam);
 		wnd.setMouseCursorVisible(true);
 		fps = 120;
-		speedGame = 1;
 		wnd.setFramerateLimit(fps);
 		srand(::time(0));
 		clock.restart();
+		speedGame = 1;
+		zoom = 1;
 	}
 }
 

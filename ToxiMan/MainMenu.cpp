@@ -20,12 +20,19 @@ MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu, GameSe
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150),	v2f(200, 50),		t_button), "MapEditor", *m_game_settings_ptr));
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -75),	v2f(200, 50),		t_button), "Options",	*m_game_settings_ptr));
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 0),		v2f(200, 50),		t_button), "Exit",		*m_game_settings_ptr));
+
+
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 300), v2f(200, 50), t_button), "CLICK", *m_game_settings_ptr));
+
+	vec_textbox.push_back(make_unique<UI::TextBox>(v2f(0, 200), v2f(200, 50), "test_value","default_value"));
 }
 
 void MainMenu::Update()
 {
 	for (auto& button : vec_button)
 		button->Update();
+	for (auto& textbox : vec_textbox)
+		textbox->Update();
 }
 
 void MainMenu::Draw()
@@ -33,6 +40,8 @@ void MainMenu::Draw()
 	System::wnd.draw(HelloText);
 	for (auto& button : vec_button)
 		button->Draw();
+	for (auto& textbox : vec_textbox)
+		textbox->Draw();
 }
 
 void MainMenu::Action()
@@ -46,8 +55,12 @@ void MainMenu::Action()
 			if (button->GetNameId() == "MapEditor") *m_state_game_ptr = StateGame::ON_ARCITECT;
 			if (button->GetNameId() == "Options") *m_state_main_menu_ptr = StateMainMenu::ON_OPTIONS;
 			if (button->GetNameId() == "Exit") *m_state_main_menu_ptr = StateMainMenu::ON_EXIT;
+			if (button->GetNameId() == "CLICK") cout << vec_textbox[0].get()->GetData() << endl;
 		}
 	}
+
+	for (auto& textbox : vec_textbox)
+		textbox->Action();
 }
 
 MainMenu::~MainMenu()

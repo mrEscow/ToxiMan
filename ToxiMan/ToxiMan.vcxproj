@@ -158,6 +158,7 @@
     <ClInclude Include="JsonSaveMenager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="OptionsMenu.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="ResourcesManager.h" />
     <ClInclude Include="Scroll.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -181,6 +183,7 @@
     <ClCompile Include="JsonSaveMenager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

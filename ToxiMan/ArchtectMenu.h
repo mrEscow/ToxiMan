@@ -21,7 +21,7 @@ private:
 public:
 	ArchtectMenu(GameSettings& game_settings, ArcitectVector& Z_vec);
 	void Action(bool &is_grid, bool& is_back);
-	void Update(float zoom);
+	void Update();
 	void Draw();
 	Shape* GetSnape();
 	~ArchtectMenu();

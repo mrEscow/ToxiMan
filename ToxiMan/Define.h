@@ -9,6 +9,7 @@
 // Подключаем набор используемых стандартных библиотек
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <memory>
 #include <cmath>
 #include <list>

@@ -33,9 +33,9 @@ namespace UI{
 		return false;
 	}
 
-	void Button::Update(float zoom)
+	void Button::Update()
 	{
-		if (System::IsContains(m_shape, (System::cur_p / zoom - System::cam.getCenter() / zoom)))
+		if (System::IsContains(m_shape, (System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)))
 		{
 			text_button.setFillColor(Color::Magenta);
 			m_shape.setFillColor(color_button_second);
