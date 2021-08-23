@@ -54,7 +54,7 @@ namespace UI {
 		if (IsMousePressed(sf::Mouse::Left)) {
 			m_is_picked = false;
 
-			if (IsContains(m_shape_box, (System::cur_p / System::zoom - System::cam.getCenter() / System::zoom))) {
+			if (IsContains(m_shape_box, cur_for_UI)) {
 				cout << "CLICK" << endl;
 				TBEH::value_left = "";
 				TBEH::text_left = m_text;
@@ -179,7 +179,7 @@ namespace UI {
 	{
 		if (IsMousePressed(sf::Mouse::Left)) {
 			m_is_picked = false;
-			if (IsContains(m_shape_box, cur_p_wnd)) {
+			if (IsContains(m_shape_box, cur_for_UI)) {
 				TBEH::value_left = "";
 				TBEH::text_left = m_text;
 				TBEH::text_left.setString(TBEH::value_left);

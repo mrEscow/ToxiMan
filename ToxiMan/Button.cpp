@@ -35,7 +35,7 @@ namespace UI{
 
 	void Button::Update()
 	{
-		if (System::IsContains(m_shape, (System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)))
+		if (System::IsContains(m_shape, System::cur_for_UI))
 		{
 			text_button.setFillColor(Color::Magenta);
 			m_shape.setFillColor(color_button_second);

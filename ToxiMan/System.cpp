@@ -20,7 +20,7 @@ sf::Clock				System::clock;
 float					System::fps;		// Кадры в секунду
 float					System::speedGame;	// Скорость игры
 float					System::zoom;		// Зум
-
+v2f						System::cur_for_UI;	// Позиция курсора в глобальной системе координат (Для обработки UI)
 
 
 System::System(string init)
@@ -60,7 +60,9 @@ void System::SystemUpdate()
 	time = float(clock.getElapsedTime().asMicroseconds()) / 1000.f, clock.restart();
 	cur_p = wnd.mapPixelToCoords(sf::Mouse::getPosition(wnd));
 	cur_p_wnd = v2f(sf::Mouse::getPosition(wnd));
+	cur_for_UI = cur_p / zoom - cam.getCenter() / zoom;
 	cam_p = cam.getCenter();
+
 	
 }
 

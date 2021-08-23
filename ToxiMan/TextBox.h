@@ -3,7 +3,7 @@
 
 namespace UI {
 
-	class TextBoxEditHelper : public B {
+	class TextBoxEditHelper : public System {
 	public:
 
 		static short timer_blink;			// 
@@ -29,7 +29,7 @@ namespace UI {
 		REAL = 2u
 	};
 
-	class TextBox : public B
+	class TextBox : public System
 	{
 	private:
 
