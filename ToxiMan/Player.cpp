@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
-
-
+#include "AlgoritmLi.h"
 
 
 Player::Player(v2f firstPos, v2f size_map)
@@ -65,6 +64,9 @@ Player::Player(v2f firstPos, v2f size_map)
 
 void Player::Action(StateGame& state_game)
 {
+
+
+
 	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
 		state_game = StateGame::ON_ARCITECT;
 	}

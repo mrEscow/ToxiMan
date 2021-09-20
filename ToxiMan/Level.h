@@ -5,6 +5,7 @@
 #include "JsonSaveMenager.h"
 #include "Player.h"
 #include "Architect.h"
+#include "AlgoritmLi.h"
 
 
 class Level
@@ -24,14 +25,17 @@ private:
 
 	Architect* m_ptr_arhitevt;
 
+	AlgoritmLi* m_ptr_Li;
+
 	bool is_from_arhitetc;
 
 	bool is_reset;
-
+//protected:
 	vector<ObjectManager> m_objectListBack;
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;
 
+private:
 	// Shader	
 
 	sf::Shader shaderBg5_a;

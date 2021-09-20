@@ -142,6 +142,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlgoritmLi.h" />
     <ClInclude Include="Architect.h" />
     <ClInclude Include="ArchtectMenu.h" />
     <ClInclude Include="Audio.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlgoritmLi.cpp" />
     <ClCompile Include="Architect.cpp" />
     <ClCompile Include="ArchtectMenu.cpp" />
     <ClCompile Include="Bullet.cpp" />

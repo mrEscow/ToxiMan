@@ -31,6 +31,8 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	m_ptr_player = new Player(m_firstPos, m_size_map);
 	m_ptr_arhitevt = new Architect(*m_map_ptr,m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
+	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt);
+
 	is_from_arhitetc = false;
 	is_reset = false;
 	
@@ -117,6 +119,11 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 
 void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number)
 {
+
+	if (System::IsKeyPressed(Key::M)) {
+		m_ptr_Li->CreateMap();
+	}
+
 	switch (state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
@@ -186,7 +193,12 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		m_jsonSM.DeleteJsonFile("file_zero.json", number);
 		m_jsonSM.DeleteJsonFile("file_front.json", number);
 
-		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
+		System::cam.reset(sf::FloatRect(
+			0, 
+			0, 
+			static_cast<float>(System::scr_w), 
+			static_cast<float>(System::scr_h)
+		));
 		//System::cam.move(m_ptr_player->GetPosCam());
 		System::cam.setCenter(m_ptr_player->GetPosCam());
 		System::wnd.setView(System::cam);

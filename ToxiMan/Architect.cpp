@@ -1,5 +1,6 @@
 #include "Architect.h"
 
+
 Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
 
@@ -61,6 +62,10 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	//	is_from_arhitetc = true;
 
 	//	state_game = StateGame::ON_GAME;
+	//}
+
+	//if (System::IsKeyPressed(Key::M)) {
+	//	m_li.CreateMap(*m_map_ptr);
 	//}
 
 	if (System::IsKeyReleased(Key::F1) || System::IsKeyReleased(Key::F1)) {
@@ -306,6 +311,16 @@ void Architect::DeleteObject()
 	default:
 		break;
 	}
+}
+
+vector<ObjectManager>& Architect::GetVecZero()
+{
+	return *m_ptr_objectListZero;
+}
+
+vector<Shape>& Architect::GetVecCell()
+{
+	return m_cell_vec;
 }
 
 Architect::~Architect()

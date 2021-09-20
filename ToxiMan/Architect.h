@@ -29,6 +29,8 @@ class Architect
 
 	ArchtectMenu *m_ptr_menu;
 
+	//friend AlgoritmLi;
+
 	Map *m_map_ptr;
 	Shape	m_mouse;
 
@@ -40,11 +42,14 @@ class Architect
 	vector<ObjectManager> *m_ptr_objectListZero;
 	vector<ObjectManager> *m_ptr_objectListFront;
 
+	vector<Shape> m_cell_vec;
+
+
 	uint m_size_x;
 	uint m_size_y;
 
 	Shape m_cell;
-	vector<Shape> m_cell_vec;
+
 
 	bool is_create;
 	bool is_delete;
@@ -63,6 +68,9 @@ public:
 	void CreateObject();
 
 	void DeleteObject();
+
+	vector<ObjectManager>& GetVecZero();
+	vector<Shape>& GetVecCell();
 
 	~Architect();
 };
