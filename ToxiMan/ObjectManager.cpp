@@ -142,7 +142,7 @@ void ObjectManager::Update(string vecName)
 	}
 	if (vecName == "objectListZero") {
 		m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
-		m_shape.setRotation(m_body->GetAngle() * DEG);
+		m_shape.setRotation(m_body->GetAngle() * static_cast<float>(DEG));
 	}
 	if (vecName == "objectListFront") {
 

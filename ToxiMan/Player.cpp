@@ -50,7 +50,7 @@ Player::Player(v2f firstPos, v2f size_map)
 	 
 	// движение
 	m_koeficent = 10;
-	m_speed = 0.4 * 5 / magic;
+	m_speed = 0.4f * 5 / magic;
 	dx = 0; dy = 0;
 	is_onGround = false;
 	// оружие
@@ -195,10 +195,10 @@ void Player::Update(bool & is_reset)
 	}
 
 
-	m_body->SetLinearDamping(0.1); // затухание 
+	m_body->SetLinearDamping(0.1f); // затухание 
 
 	m_shape.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
-	m_shape.setRotation(m_body->GetAngle() * DEG);
+	m_shape.setRotation(m_body->GetAngle() * static_cast<float> (DEG));
 
 	if (!System::IsShapeInCamera(m_shape))
 		is_dead = true;
@@ -244,7 +244,7 @@ v2f Player::GetPosCam()
 		y = m_shape.getPosition().y;
 
 	if (m_shape.getPosition().x < (System::scr_w - 64) / 2)
-		x = (System::scr_w - 64) / 2;
+		x = (System::scr_w - 64.f) / 2.f;
 	if (m_shape.getPosition().x > ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2))
 		x = ((64 * m_size_map.x) - 32) - ((System::scr_w) / 2);
 
@@ -252,7 +252,7 @@ v2f Player::GetPosCam()
 		y = ((System::scr_h + (64 * m_size_map.y)) / 2) - 128 - 16;
 
 	if (m_shape.getPosition().y < (System::scr_h / 2) - 32)
-		y = (System::scr_h / 2) - 32;
+		y = (System::scr_h / 2.f) - 32.f;
 
 	temp = v2f(x, y);
 

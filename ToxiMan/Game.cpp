@@ -25,7 +25,14 @@ void Game::Update()
 	{
 	case StateGame::ON_MAIN_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-		System::cam.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
+		System::cam.reset(
+			sf::FloatRect(
+				0, 
+				0, 
+				static_cast<float>(System::scr_w), 
+				static_cast<float>(System::scr_h)
+			)
+		);
 		System::cam.setCenter(0, 0);
 		System::wnd.setView(System::cam);
 		System::zoom /= System::zoom;

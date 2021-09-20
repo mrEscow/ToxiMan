@@ -13,7 +13,7 @@ public:
 	World(string init)  {
 		if (init == "init") {
 			wind = 0;
-			gravity = 9.8;
+			gravity = 9.8f;
 			worldParam.Set(wind, gravity);
 			static b2World wrd(worldParam);
 			//wrd.DrawDebugData();
@@ -159,7 +159,7 @@ public:
 		b2FixtureDef fdef;
 		fdef.density = massa;	// плотность
 		fdef.restitution = 0;	// упругость (от 0 до 1)
-		fdef.friction = 0.3;		// трение
+		fdef.friction = 0.3f;		// трение
 		fdef.shape = &polygonShape;
 
 		b2Body* body = world->CreateBody(&bodyDef);
