@@ -66,6 +66,31 @@ namespace UI {
 		virtual void Action() override;
 		virtual ~TextBoxInt();
 	};
+
+	class Label : public System {
+
+		const string m_data_id;
+
+		Shape m_shp_label;
+
+
+	public:
+
+		Label(
+			const string data_id,
+			v2f pos, 
+			v2f siz
+		) :
+			m_data_id(data_id)
+		{
+
+			m_shp_label = CreateShape(v2f(0,0),v2f(0,0));
+
+		}
+
+
+	};
+
 }
 
 

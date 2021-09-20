@@ -1,6 +1,6 @@
 #include "JsonSaveMenager.h"
 
-#pragma warning(disable : 4996)
+//#pragma warning(disable : 4996)
 
 void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumber& number)
 {
@@ -69,7 +69,8 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 void JsonSaveMenager::DeleteJsonFile(string name_file, LevelNumber& number)
 {
 	string str_temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
-	char* char_temp = new char[str_temp.size()];
-	strcpy(char_temp, str_temp.c_str());
-	remove(char_temp);
+	//char* char_temp = new char[str_temp.size()];
+	//strcpy(char_temp, str_temp.c_str());
+	remove(str_temp.c_str());
+	cout << "DeleteJsonFile" << endl;
 }

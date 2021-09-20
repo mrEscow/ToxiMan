@@ -32,15 +32,37 @@ namespace UI {
 		else shape_blink_line.setFillColor(Color(0, 0, 0, 0));
 	}
 
-	TextBox::TextBox(v2f pos, v2f siz, const string data_id, const string value, uint max_value)
+	TextBox::TextBox(
+		v2f pos, 
+		v2f siz, 
+		const string data_id, 
+		const string value, 
+		uint max_value
+	)
 		:
+
 		m_value_default(value),
 		m_data_id(data_id),
 		m_max_value(max_value)
 	{
 		m_input_type = InputType::TEXT;
-		m_shape_box = CreateShape(pos, siz, -1, Color(150, 150, 150), Color(40, 40, 40));
-		m_text = CreateText(v2f(pos.x - (m_shape_box.getSize().x / 2) + 2, pos.y), siz.y - 8, m_value_default, resources.font.erica_type, Color::Black);
+		m_shape_box = CreateShape(
+			pos, 
+			siz, 
+			-1, 
+			Color(150, 150, 150), 
+			Color(40, 40, 40)
+		);
+		m_text = CreateText(
+			v2f(
+				pos.x - (m_shape_box.getSize().x / 2) + 2,
+				pos.y
+			), 
+			siz.y - 8, 
+			m_value_default, 
+			resources.font.erica_type, 
+			Color::Black
+		);
 		m_text.setOrigin(0, (siz.y - 8) / 2);
 		m_value = m_value_default;
 	}
