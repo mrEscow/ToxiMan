@@ -71,6 +71,7 @@ public:
 
 	vector<ObjectManager>& GetVecZero();
 	vector<Shape>& GetVecCell();
+	Map GetMap();
 
 	~Architect();
 };

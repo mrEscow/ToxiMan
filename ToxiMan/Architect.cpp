@@ -18,11 +18,11 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 
 	//m_zoom = 1.f;
 
-	for (size_t i = 0; i < size_map.x; i++)
+	for (size_t y = 0; y < size_map.y; y++)
 	{
-		for (size_t j = 0; j < size_map.y; j++) {
+		for (size_t x = 0; x < size_map.x; x++) {
 			
-			m_cell = System::CreateShape(v2f(i * m_size_x, j * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+			m_cell = System::CreateShape(v2f(x * m_size_x, y * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
 				
 			m_cell.setOutlineColor(Color::Green);
 			m_cell.setOutlineThickness(-2);
@@ -321,6 +321,11 @@ vector<ObjectManager>& Architect::GetVecZero()
 vector<Shape>& Architect::GetVecCell()
 {
 	return m_cell_vec;
+}
+
+Map Architect::GetMap()
+{
+	return *m_map_ptr;
 }
 
 Architect::~Architect()

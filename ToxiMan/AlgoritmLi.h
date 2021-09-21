@@ -7,12 +7,12 @@
 class AlgoritmLi 
 {
 public:
-	AlgoritmLi(Architect* arch);
+	AlgoritmLi(Architect* arch, Player* player);
 
-	enum class A : uint
+	enum class eCell : uint
 	{
 		START,
-		STOP,
+		FINISH,
 		FREE,
 		UNFREE
 	};
@@ -22,16 +22,20 @@ public:
 	v2i m_map_size;
 
 	Architect * m_arch;
+	Player* m_player;
 
-	std::pair<bool, A> m_is_unfree;
+	//std::pair<bool, eCell> m_is_unfree;
+
+	std::pair<v2i, eCell> m_pair;
+
+	vector<std::pair<v2i, eCell>> m_vec_map;
 
 	vector<v2i> m_go;
 
 
 
 	void CreateMap();
-
-	void TekeStart(Player p);
+	void TekeStart();
 	void TakeStop();
 
 public:
