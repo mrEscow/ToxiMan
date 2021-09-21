@@ -15,6 +15,9 @@ void AlgoritmLi::CreateMap()
 		for (size_t x = 0; x < m_map_size.x; x++)
 		{
 			bool is_unfree = false;
+			bool is_start = false;
+			bool is_finish = false;
+
 
 			for (auto& obj : m_arch->GetVecZero()) {
 				if (!is_unfree && System::IsContains(
@@ -22,24 +25,49 @@ void AlgoritmLi::CreateMap()
 					obj.GetShape().getPosition())
 					) 
 				{
-					cout << "1";
 					is_unfree = true;
 				}
-
-			}
-			if (!is_unfree) {
-				cout << "0";				
 			}
 
+			for (auto& obj : m_arch->GetVecZero()) {
+				if (!is_start && System::IsContains(
+					m_arch->GetVecCell()[x + (y * m_map_size.x)],
+					m_player->GetPosition())
+					)
+				{
+					is_start = true;
+				}
+			}
 
+			for (auto& obj : m_arch->GetVecZero()) {
+				if (!is_finish && System::IsContains(
+					m_arch->GetVecCell()[x + (y * m_map_size.x)],
+					System::cur_p)
+					)
+				{
+					is_finish = true;
+				}
+			}
 
 			m_pair.first.x = x;
-			m_pair.first.x = y;
-
-			if (is_unfree)
+			m_pair.first.y = y;
+			
+			if (is_unfree) {
+				cout << "1";
 				m_pair.second = eCell::UNFREE;
-			else
+			}
+			else if (is_start) {
+				cout << "S";
+				m_pair.second = eCell::START;
+			}
+			else if (is_finish) {
+				cout << "F";
+				m_pair.second = eCell::FINISH;
+			}
+			else {
+				cout << "0";
 				m_pair.second = eCell::FREE;
+			}
 
 			m_vec_map.push_back(m_pair);
 		}
@@ -65,13 +93,27 @@ void AlgoritmLi::TakeStop()
 			cout << "F";
 		}
 	}
-}
+   }
 
-bool AlgoritmLi::CreateRoad( Player p)
+bool AlgoritmLi::CreateRoad()
 {
+
+	cout << "MAP:" << endl;
 	CreateMap();
-	TekeStart();
-	TakeStop();
+	cout << "--------------" << endl;
+	//TekeStart();
+	//TakeStop();
+
+	for (auto &pair : m_vec_map) {
+		if (pair.second == eCell::START) {
+			cout << pair.first.x << endl;
+			cout << pair.first.y << endl;
+		}
+	}
+
+	   
+
+
 
 	return true;
 }

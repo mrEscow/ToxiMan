@@ -131,7 +131,7 @@ void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber
 {
 
 	if (System::IsKeyPressed(Key::M)) {
-		m_ptr_Li->CreateMap();
+		m_ptr_Li->CreateRoad();
 	}
 
 	switch (state_game)

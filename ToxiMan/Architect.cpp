@@ -22,7 +22,11 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 	{
 		for (size_t x = 0; x < size_map.x; x++) {
 			
-			m_cell = System::CreateShape(v2f(x * m_size_x, y * m_size_y), v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+			m_cell = System::CreateShape(
+				v2f(x * m_size_x, y * m_size_y), 
+				v2f(m_size_x, m_size_y), 
+				System::resources.texture.arhitectMouse
+			);
 				
 			m_cell.setOutlineColor(Color::Green);
 			m_cell.setOutlineThickness(-2);

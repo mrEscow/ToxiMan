@@ -3,6 +3,7 @@
 #include "Architect.h"
 #include "Player.h"
 #include "System.h"
+#include <stack>
 
 class AlgoritmLi 
 {
@@ -17,11 +18,23 @@ public:
 		UNFREE
 	};
 
+	enum class eDirection : uint
+	{
+		UP,
+		UP_RIGHT,
+		RIGHT,
+		DOWN_RIGHT,
+		DOWN,
+		DOWN_LEFT,
+		LEFT,
+		UP_LEFT
+	};
+
 	v2i m_start;
 	v2i m_stop;
 	v2i m_map_size;
 
-	Architect * m_arch;
+	Architect* m_arch;
 	Player* m_player;
 
 	//std::pair<bool, eCell> m_is_unfree;
@@ -32,14 +45,14 @@ public:
 
 	vector<v2i> m_go;
 
-
+	std::stack<eDirection>& get();
 
 	void CreateMap();
 	void TekeStart();
 	void TakeStop();
 
 public:
-	bool CreateRoad( Player p);
+	bool CreateRoad();
 
 };
 
