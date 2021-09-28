@@ -3,8 +3,10 @@
 #include "AlgoritmLi.h"
 
 
-Player::Player(v2f firstPos, v2f size_map)
+Player::Player(Map &map, v2f firstPos, v2f size_map)
 {
+	m_map = &map;
+
 	// параметры игрока
 	name = "player";
 	is_dead = false;
@@ -15,7 +17,7 @@ Player::Player(v2f firstPos, v2f size_map)
 	width = m_size_w / magic; // Объем бокса влияет на скорость и импульс
 	dinamic = true;	
 	fixRotat = true;
-	m_firstPos = firstPos;
+	m_firstPos = m_map->GetStartPos();
 	is_shoot = false;
 
 	// для камеры
@@ -109,6 +111,11 @@ void Player::Action(StateGame& state_game)
 void Player::Update(bool & is_reset)
 {
 
+	cout << m_map->GetStartPos().x << endl;
+	cout << m_map->GetStartPos().y << endl;
+
+	m_firstPos = m_map->GetStartPos();
+	
 
 	if (m_shape.getPosition().x - System::cam.getCenter().x > 1.5)
 		dxCam = 1;
@@ -207,7 +214,7 @@ void Player::Update(bool & is_reset)
 	 
 	if (is_dead) {
 		is_reset = true;
-		m_body->SetTransform(b2Vec2(m_firstPos.x / SCALE, m_firstPos.y / SCALE), m_body->GetAngle());
+		m_body->SetTransform(b2Vec2(m_map->GetStartPos().x / SCALE, m_map->GetStartPos().y / SCALE), m_body->GetAngle());
 		System::cam.setCenter(m_shape.getPosition());
 		is_dead = false;
 	}

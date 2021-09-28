@@ -3,42 +3,78 @@
 
 void Level::LoadLevel(LevelNumber& number)
 {
-	System::resources.texture.LoadForArhitect();
 
-	System::resources.texture.LoadLevel_0();
+
+	m_map_ptr = new Map;
 
 	m_ptr_number = &number;
 
+	switch (number)
+	{
+	case LevelNumber::zero:
+
+		// from Json
+		System::resources.texture.LoadLevel_0();
 
 
-	m_map_ptr = new Map(number);
-	m_map_ptr->SetName("Test");
-	m_map_ptr->SetMapSize(v2i(80, 30));
-	m_map_ptr->SetId(static_cast<uint>(number));
-	m_map_ptr->SetStartPos(v2f(500, 1750));
-	m_map_ptr->SetFinalPos(v2f(1000, 1750));
+		m_map_ptr->SetName("Test");
+		m_map_ptr->SetMapSize(v2i(80, 30));
+		m_map_ptr->SetStartPos(v2f(500, 1750));
+		m_map_ptr->SetFinalPos(v2f(1000, 1750));
 
-	m_firstPos = v2f(500, 1750);
-	m_size_map = v2f(80, 30);
+		m_firstPos = v2f(500, 1750);
+		m_size_map = v2f(80, 30);
 
-	m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
-	m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
-	m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
+		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
+		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
+		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
 
-	m_jsonSM.DeleteJsonFile("file_back.json", number);
-	m_jsonSM.DeleteJsonFile("file_zero.json", number);
-	m_jsonSM.DeleteJsonFile("file_front.json", number);
+		m_jsonSM.DeleteJsonFile("file_back.json", number);
+		m_jsonSM.DeleteJsonFile("file_zero.json", number);
+		m_jsonSM.DeleteJsonFile("file_front.json", number);
+
+		break;
+	case LevelNumber::two:
+
+		// from Json
+
+		m_map_ptr->SetName("Test2");
+		m_map_ptr->SetMapSize(v2i(10, 10));
+
+		m_map_ptr->SetStartPos(v2f(0, 0));
+		m_map_ptr->SetFinalPos(v2f(0, 0));
+
+		m_firstPos = v2f(0, 0);
+		m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
+
+		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
+		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
+		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
+
+		m_jsonSM.DeleteJsonFile("file_back.json", number);
+		m_jsonSM.DeleteJsonFile("file_zero.json", number);
+		m_jsonSM.DeleteJsonFile("file_front.json", number);
+
+		break;
+	default:
+		break;
+	}
+
+
+
+
+
 }
 //----------------------------------------------------------------------
 Level::Level(LevelNumber& number, GameSettings& game_settings)
 {
-
+	System::resources.texture.LoadForArhitect();
 
 	LoadLevel(number);
 
 
 	
-	m_ptr_player = new Player(m_firstPos, m_size_map);
+	m_ptr_player = new Player(*m_map_ptr,m_firstPos, m_size_map);
 	m_ptr_arhitevt = new Architect(*m_map_ptr,m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt,m_ptr_player);
@@ -151,6 +187,9 @@ void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
+
+
+
 	if (is_reset) {
 		cout << "DEAD" << endl;
 		offsetBg5_a = v2f(0, 0);
@@ -285,6 +324,11 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 v2f Level::GetPositionPlayer()
 {
 	return m_ptr_player->GetPosition();
+}
+
+bool Level::check_lvl()
+{
+	return false;
 }
 
 Level::~Level()

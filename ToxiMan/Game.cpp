@@ -9,18 +9,37 @@ Game::Game()
 	//curcor.loadFromSystem(sf::Cursor::Cross);
 	//System::wnd.setMouseCursor(curcor);
 
-	System::speedGame = 2;
+
 
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
 	m_ptr_lvl = new Level(m_number, m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
+
 	m_ptr_thread->launch();
+
+	System::speedGame = 2;
+
+
+}
+
+
+void Game::LoadNextLevel(LevelNumber number){
+
+}
+
+void Game::GreateLevel() {
+
 }
 
 void Game::Update()
 {
+	if (m_is_next_level) {
+		LoadNextLevel(m_number);
+		m_is_next_level = false;
+	}
+
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
@@ -42,7 +61,11 @@ void Game::Update()
 	case StateGame::ON_GAME:
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+
 		m_ptr_lvl->Update(m_state_game,m_number);
+
+		m_ptr_lvl->check_lvl();
+
 		break;
 	case StateGame::ON_ARCITECT:
 		System::resources.audio.music.menu_music.stop();
@@ -118,6 +141,10 @@ void Game::Thread()
 
 
 	//sf::sleep(sf::milliseconds(1000));
+}
+
+void Game::NextLevel()
+{
 }
 
 void Game::Play()

@@ -1,8 +1,8 @@
 #include "Map.h"
 
-Map::Map(LevelNumber& number)
+Map::Map()
 {
-	m_id = (int)number;
+	//m_id = (int)number;
 }
 
 string Map::GetName()
@@ -10,10 +10,10 @@ string Map::GetName()
 	return m_name;
 }
 
-uint Map::GetId()
-{
-	return m_id;
-}
+//uint Map::GetId()
+//{
+//	return m_id;
+//}
 
 v2i Map::GetMapSize()
 {
@@ -35,10 +35,10 @@ void Map::SetName(string name)
 	m_name = name;
 }
 
-void Map::SetId(uint id)
-{
-	m_id = id;
-}
+//void Map::SetId(uint id)
+//{
+//	m_id = id;
+//}
 
 void Map::SetMapSize(v2i size)
 {

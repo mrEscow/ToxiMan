@@ -49,8 +49,8 @@ void AlgoritmLi::CreateMap()
 				}
 			}
 
-			m_pair.first.x = x;
-			m_pair.first.y = y;
+			m_pair.first.x = static_cast<int>(x);
+			m_pair.first.y = static_cast<int>(y);
 			
 			if (is_unfree) {
 				cout << "1";

@@ -3,6 +3,7 @@
 #include "World.h"
 #include "Gun.h"
 #include "GameStates.h"
+#include "Map.h"
 
 class Player
 {
@@ -56,10 +57,12 @@ private:
 	bool is_button_Left;
 	bool is_button_Up;
 
+	Map *m_map;
+
 
 public:
 
-	Player(v2f firstPos, v2f size_map);
+	Player(Map& map,v2f firstPos, v2f size_map);
 	v2f GetPosition();
 	v2f GetPosCam();
 	float GetDx();

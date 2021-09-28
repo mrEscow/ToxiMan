@@ -70,9 +70,13 @@ public:
 
 
 	Level(LevelNumber& number, GameSettings& game_settings);
+
 	void Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number);
 	void Update(StateGame& state_game, LevelNumber& number);
 	void Draw(StateGame& state_game, LevelNumber& number);
+
+	bool check_lvl();
+
 	~Level();
 };
 

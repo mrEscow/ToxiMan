@@ -8,15 +8,23 @@
 class ArchtectMenu 
 {
 private:
+
 	StateGame m_state_game_ptr;
+
 	ArcitectVector * m_ptr_Z_vec;
+
 	Map *m_map_ptr;
+
 	sf::View archMenu;
+
 	Shape	m_menu;
+
 	Text	m_main_text;
+
 	Text	m_name_vector_text;
 
 
+	bool m_is_CreateStart = false;
 	
 	vector<unique_ptr<UI::Button>> vec_button;
 	vector<unique_ptr<UI::TextBox>> vec_textbox;
@@ -24,7 +32,7 @@ private:
 
 public:
 	ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec);
-	void Action(bool &is_grid, bool& is_back);
+	void Action(bool &is_grid, bool& is_back, bool& m_is_new_start);
 	void Update();
 	void Draw();
 	Shape* GetSnape();

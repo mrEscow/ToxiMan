@@ -5,16 +5,25 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 {
 
 	m_map_ptr = &map;
+
+
+
 	m_ptr_objectListBack = &objectListBack;
 	m_ptr_objectListZero = &objectListZero;
 	m_ptr_objectListFront = &objectListFront;
 
+
+	// размер Shape
 	m_size_x = 64;
 	m_size_y = 64;
 
 	m_mouse = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
+
+	m_start = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+	m_mouse.setOutlineColor(Color::White);
+	m_mouse.setOutlineThickness(-20);
 
 	//m_zoom = 1.f;
 
@@ -41,36 +50,13 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 	is_delete = false;
 	is_grid = false;
 	is_back = false;
+
+	m_is_new_start = false;
 }
 
 void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
 {
 	
-	//if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-	//	
-	//	for (auto& obj : *m_ptr_objectListBack) 
-	//		jsonSM.SaveObject(obj, "file_back.json",number);
-
-	//	for (auto& obj : *m_ptr_objectListZero) 
-	//		jsonSM.SaveObject(obj, "file_zero.json", number);	
-	//	
-	//	for (auto& obj : *m_ptr_objectListFront) 
-	//		jsonSM.SaveObject(obj, "file_front.json", number);
-	//	
-
-
-	//	ObjectManager::ObjectBeckID = 0;
-	//	ObjectManager::ObjectZeroID = 0;
-	//	ObjectManager::ObjectFrontID = 0;
-
-	//	is_from_arhitetc = true;
-
-	//	state_game = StateGame::ON_GAME;
-	//}
-
-	//if (System::IsKeyPressed(Key::M)) {
-	//	m_li.CreateMap(*m_map_ptr);
-	//}
 
 	if (System::IsKeyReleased(Key::F1) || System::IsKeyReleased(Key::F1)) {
 
@@ -108,27 +94,44 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 
 	}
 	//------------------------------------------------------
-	if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
-		for (auto& cell : m_cell_vec)
-			if (System::IsContains(cell, System::cur_p)) {
+	if (m_is_new_start) {
+		if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
+			for (auto& cell : m_cell_vec)
+				if (System::IsContains(cell, System::cur_p)) {
 
-				if (System::IsMousePressed(MouseButton::Left))
-					is_create = true;
+					if (System::IsMousePressed(MouseButton::Left))
+						//is_create = true;
+						CreateStart();
 
-				if (System::IsMouseReleased(MouseButton::Left))
-					is_create = false;
+				}
+		}
 
-				if (System::IsMousePressed(MouseButton::Right))
-					is_delete = true;
-
-				if (System::IsMouseReleased(MouseButton::Right))
-					is_delete = false;
-			}
+		m_is_new_start = false;
 	}
-	else {
-		is_create = false;
-		is_delete = false;
-	}	
+	else
+		if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
+			for (auto& cell : m_cell_vec)
+				if (System::IsContains(cell, System::cur_p)) {
+
+				
+
+					if (System::IsMousePressed(MouseButton::Left))
+						is_create = true;
+
+					if (System::IsMouseReleased(MouseButton::Left))
+						is_create = false;
+
+					if (System::IsMousePressed(MouseButton::Right))
+						is_delete = true;
+
+					if (System::IsMouseReleased(MouseButton::Right))
+						is_delete = false;
+				}
+		}
+		else {
+			is_create = false;
+			is_delete = false;
+		}	
 	//--------------------------------------------------------	
 	if (System::IsKeyPressed(Key::Q))
 	{
@@ -143,7 +146,10 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 	//-------------------------------------------------------------
 
-	m_ptr_menu->Action(is_grid, is_back);
+	m_ptr_menu->Action(is_grid, is_back, m_is_new_start);
+
+
+	//-------------------------------------------------------------
 
 	if (is_back) {
 		for (auto& obj : *m_ptr_objectListBack)
@@ -208,6 +214,10 @@ void Architect::Update()
 	if (is_delete)
 		DeleteObject(); 
 
+	if (m_is_new_start) {
+		CreateStart();
+	}
+
 
 	m_mouse.setSize(v2f(m_size_x, m_size_y));
 	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
@@ -215,6 +225,7 @@ void Architect::Update()
 	for (auto &cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
 			m_mouse.setPosition(cell.getPosition());
+			m_start.setPosition(cell.getPosition());
 		}
 
 	m_ptr_menu->Update();
@@ -234,7 +245,10 @@ void Architect::Draw(StateGame& state_game, Player* player)
 			for (auto &cell : m_cell_vec)
 				System::wnd.draw(cell);
 
-		System::wnd.draw(m_mouse);
+		if(!m_is_new_start)
+			System::wnd.draw(m_mouse);
+		else
+			System::wnd.draw(m_start);
 	}		
 }
 
@@ -320,6 +334,15 @@ void Architect::DeleteObject()
 vector<ObjectManager>& Architect::GetVecZero()
 {
 	return *m_ptr_objectListZero;
+}
+
+void Architect::CreateStart()
+{
+	// if()
+	// delete old
+	// set new pos and texturu
+
+	m_map_ptr->SetStartPos(System::cur_p);
 }
 
 vector<Shape>& Architect::GetVecCell()
