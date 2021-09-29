@@ -31,18 +31,45 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x - 100, -200), v2f(100, 50), "sizeMapX", to_string(m_map_ptr->GetMapSize().x)));
 	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x + 100, -200), v2f(100, 50), "sizeMapY", to_string(m_map_ptr->GetMapSize().y)));
 	// apply map
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -150), v2f(200, 50), System::resources.texture.menu_button), "CreateMap", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(m_menu.getPosition().x, 300), 
+		v2f(200, 50), 
+		System::resources.texture.menu_button), 
+		"SaveMap", 
+		game_settings));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -200), v2f(200, 50), System::resources.texture.menu_button), "NextMap", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(m_menu.getPosition().x, 200), 
+		v2f(200, 50), 
+		System::resources.texture.menu_button), 
+		"NextMap", 
+		game_settings));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -300), v2f(200, 50), System::resources.texture.menu_button), "CreateStart", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(m_menu.getPosition().x, 100), 
+		v2f(200, 50), 
+		System::resources.texture.menu_button), 
+		"CreateStart", 
+		game_settings));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -400), v2f(200, 50), System::resources.texture.menu_button), "CreateFinish", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(m_menu.getPosition().x, 0), 
+		v2f(200, 50), 
+		System::resources.texture.menu_button), 
+		"CreateFinish", 
+		game_settings));
 
 
 }
 
-void ArchtectMenu::Action(bool& is_grid, bool& is_back, bool& m_is_new_start)
+void ArchtectMenu::Action(
+
+	bool& is_grid, 
+	bool& is_back, 
+	bool& is_new_start,
+	bool& is_save_map
+
+)
 {
 
 	for (auto& button : vec_button)
@@ -75,33 +102,43 @@ void ArchtectMenu::Action(bool& is_grid, bool& is_back, bool& m_is_new_start)
 				is_back = true;
 			}
 
-			if (button->GetNameId() == "CreateMap") {
 
-				m_map_ptr->SetName(vec_textbox[0].get()->GetData());
-
-				v2i newSize = v2i(
-					stoi(vec_textboxInt[0].get()->GetData()), 
-					stoi(vec_textboxInt[1].get()->GetData())
-				);
-
-				m_map_ptr->SetMapSize(newSize);
-
-				cout << m_map_ptr->GetName() << endl;
-				cout << m_map_ptr->GetMapSize().x << endl;
-				cout << m_map_ptr->GetMapSize().y << endl;
-
-
-			}
 
 			if (button->GetNameId() == "NextMap") {
 				cout << "NextMap" << endl;				
 			}
 
 			if (button->GetNameId() == "CreateStart") {
-				m_is_new_start = true;
-				cout << "CreateStart" << endl;
-				//m_map_ptr->SetStartPos();
+
+				cout << "CreateStart_achc_menu!" << endl;
+				is_new_start = true;
 				
+			}
+
+			if (button->GetNameId() == "SaveMap") {
+
+				is_save_map = true;
+
+				m_map_ptr->SetName(vec_textbox[0].get()->GetData());
+
+				v2i newSize = v2i(
+					stoi(vec_textboxInt[0].get()->GetData()),
+					stoi(vec_textboxInt[1].get()->GetData())
+				);
+
+				m_map_ptr->SetMapSize(newSize);
+
+				//cout << m_map_ptr->GetName() << endl;
+				//cout << m_map_ptr->GetMapSize().x << endl;
+				//cout << m_map_ptr->GetMapSize().y << endl;
+
+				//m_map_ptr->SetStartPos(
+				//	System::cur_p
+				//);
+
+				//m_map_ptr->SetFinalPos(
+				//	System::cur_p
+				//);
 			}
 
 		}

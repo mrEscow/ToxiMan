@@ -32,7 +32,7 @@ private:
 
 public:
 	ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec);
-	void Action(bool &is_grid, bool& is_back, bool& m_is_new_start);
+	void Action(bool &is_grid, bool& is_back, bool& m_is_new_start ,bool& is_save_map);
 	void Update();
 	void Draw();
 	Shape* GetSnape();

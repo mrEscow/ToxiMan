@@ -34,8 +34,8 @@ class Architect
 	Map *m_map_ptr;
 
 	Shape	m_mouse;
-	Shape m_start;
-	Shape m_finish;
+	Shape	m_start;
+	Shape	m_finish;
 
 	//float	m_zoom;
 
@@ -60,6 +60,7 @@ class Architect
 	bool is_back;
 
 	bool m_is_new_start;
+	bool is_save_map;
 
 public:
 	Architect(Map& map, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);

@@ -449,7 +449,6 @@
 {"ID":459,"Name":"static_object","PosX":576.0,"PosY":256.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":460,"Name":"static_object","PosX":576.0,"PosY":256.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":461,"Name":"static_object","PosX":576.0,"PosY":320.0,"SizeX":64.0,"SizeY":64.0}
-{"ID":462,"Name":"static_object","PosX":64.0,"PosY":64.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":463,"Name":"static_object","PosX":0.0,"PosY":448.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":464,"Name":"static_object","PosX":0.0,"PosY":448.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":465,"Name":"static_object","PosX":0.0,"PosY":512.0,"SizeX":64.0,"SizeY":64.0}
@@ -624,4 +623,3 @@
 {"ID":634,"Name":"static_object","PosX":576.0,"PosY":576.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":635,"Name":"static_object","PosX":576.0,"PosY":576.0,"SizeX":64.0,"SizeY":64.0}
 {"ID":636,"Name":"static_object","PosX":576.0,"PosY":576.0,"SizeX":64.0,"SizeY":64.0}
-{"ID":626,"Name":"static_object","PosX":512.0,"PosY":64.0,"SizeX":64.0,"SizeY":64.0}

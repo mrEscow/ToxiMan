@@ -2,6 +2,66 @@
 
 //#pragma warning(disable : 4996)
 
+void JsonSaveMenager::SaveMap(string name_file, Map& map, LevelNumber& number)
+{
+	m_json["Name"] = map.GetName();				// string
+
+	m_json["MapSizeX"] = map.GetMapSize().x;	// int
+	m_json["MapSizeY"] = map.GetMapSize().y;	// int
+
+	m_json["MapStartPosX"] = map.GetStartPos().x;	// float
+	m_json["MapStartPosY"] = map.GetStartPos().y;	// float
+
+	m_json["MapFinalPosX"] = map.GetFinalPos().x;	// float
+	m_json["MapFinalPosY"] = map.GetFinalPos().y;	// float
+
+	m_serializedString = m_json.dump();
+
+	m_fout.open("Resources/JsonSave/" + to_string((int)number) + "/" + name_file, ofstream::app);
+	m_fout << m_serializedString << "\n";
+	m_fout.close();
+}
+
+Map JsonSaveMenager::LoadMap(string name_file, LevelNumber& number)
+{
+	string temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
+
+	Map temp_map;
+
+	m_fin.open(temp);
+
+	if (!m_fin.is_open())
+		cout << "error: " << temp << " not open!" << endl;
+	else {
+
+		string line;
+
+
+		while (std::getline(m_fin, line))
+		{
+			m_json = Json::parse(line);
+
+			temp_map.SetName(m_json["Name"].get<string>());		// string
+
+
+			// Logic
+			temp_map.SetMapSize(v2i(m_json["MapSizeX"].get<int>(), 
+									m_json["MapSizeY"].get<int>()));	// int
+
+
+			// View
+			temp_map.SetStartPos(v2f(m_json["MapStartPosX"].get<float>(), 
+									 m_json["MapStartPosY"].get<float>()));	// S
+			temp_map.SetFinalPos(v2f(m_json["MapFinalPosX"].get<float>(), 
+									 m_json["MapFinalPosY"].get<float>()));	// F
+
+		}
+	}
+
+	m_fin.close();
+	return temp_map;
+}
+
 void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumber& number)
 {
 	m_json["ID"] = obj.GetObjectID();

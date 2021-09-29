@@ -37,14 +37,15 @@ void Level::LoadLevel(LevelNumber& number)
 	case LevelNumber::two:
 
 		// from Json
+		*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json",number);
 
-		m_map_ptr->SetName("Test2");
-		m_map_ptr->SetMapSize(v2i(10, 10));
+		//m_map_ptr->SetName("Test2");
+		//m_map_ptr->SetMapSize(v2i(10, 10));
 
-		m_map_ptr->SetStartPos(v2f(0, 0));
-		m_map_ptr->SetFinalPos(v2f(0, 0));
+		//m_map_ptr->SetStartPos(v2f(0, 0));
+		//m_map_ptr->SetFinalPos(v2f(0, 0));
 
-		m_firstPos = v2f(0, 0);
+		m_firstPos = m_map_ptr->GetStartPos();
 		m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
 
 		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
