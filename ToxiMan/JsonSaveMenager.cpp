@@ -52,6 +52,7 @@ Map JsonSaveMenager::LoadMap(string name_file, LevelNumber& number)
 			// View
 			temp_map.SetStartPos(v2f(m_json["MapStartPosX"].get<float>(), 
 									 m_json["MapStartPosY"].get<float>()));	// S
+
 			temp_map.SetFinalPos(v2f(m_json["MapFinalPosX"].get<float>(), 
 									 m_json["MapFinalPosY"].get<float>()));	// F
 
