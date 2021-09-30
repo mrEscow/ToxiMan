@@ -18,6 +18,7 @@ public:
 		UNFREE
 	};
 
+	eCell e_Cell = eCell::START;
 	enum class eDirection : uint
 	{
 		UP,
@@ -30,8 +31,10 @@ public:
 		UP_LEFT
 	};
 
+	eDirection eFind = eDirection::UP;
+
 	v2i m_start;
-	v2i m_stop;
+	v2i m_finish;
 	v2i m_map_size;
 
 	Architect* m_arch;
@@ -40,16 +43,31 @@ public:
 	//std::pair<bool, eCell> m_is_unfree;
 
 	std::pair<v2i, eCell> m_pair;
+	std::pair<v2i, bool> m_v2i_b;
+
+	std::stack<pair<v2i, bool>> m_stack;
+	std::stack<pair<v2i, string >> m_stack2;
 
 	vector<std::pair<v2i, eCell>> m_vec_map;
+
+
+	vector<std::pair<v2i, int  >> m_vec_map_int;
+	vector<std::pair<v2i, bool  >> m_vec_map_bool;
+
+	vector<std::pair<v2i, string>> m_vec_i_str;
 
 	vector<v2i> m_go;
 
 	std::stack<eDirection>& get();
 
+	bool CheckVeck();
+
 	void CreateMap();
+
 	void TekeStart();
 	void TakeStop();
+
+
 
 public:
 	bool CreateRoad();

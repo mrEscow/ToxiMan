@@ -6,6 +6,8 @@ AlgoritmLi::AlgoritmLi(Architect* arch,Player* player)
 		m_player = player;
 }
 
+
+
 void AlgoritmLi::CreateMap()
 {
 	m_map_size = m_arch->GetMap().GetMapSize();
@@ -42,7 +44,8 @@ void AlgoritmLi::CreateMap()
 			for (auto& obj : m_arch->GetVecZero()) {
 				if (!is_finish && System::IsContains(
 					m_arch->GetVecCell()[x + (y * m_map_size.x)],
-					System::cur_p)
+					m_arch->GetMap().GetFinalPos())
+					//System::cur_p)					
 					)
 				{
 					is_finish = true;
@@ -53,19 +56,29 @@ void AlgoritmLi::CreateMap()
 			m_pair.first.y = static_cast<int>(y);
 			
 			if (is_unfree) {
-				cout << "1";
+				cout << "#";
+				m_vec_i_str.push_back(std::pair<v2i,string>((m_pair.first), "#"));
+				m_vec_map_bool.push_back(std::pair<v2i, int >(m_pair.first, true));
 				m_pair.second = eCell::UNFREE;
 			}
 			else if (is_start) {
 				cout << "S";
+				m_vec_i_str.push_back(std::pair<v2i, string>((m_pair.first), "S"));
+				m_vec_map_bool.push_back(std::pair<v2i, int >(m_pair.first, true));
 				m_pair.second = eCell::START;
+				m_start = m_pair.first;
 			}
 			else if (is_finish) {
 				cout << "F";
+				m_vec_i_str.push_back(std::pair<v2i, string>((m_pair.first), "F"));
+				m_vec_map_bool.push_back(std::pair<v2i, int >(m_pair.first, false));
 				m_pair.second = eCell::FINISH;
+				m_finish = m_pair.first;
 			}
 			else {
-				cout << "0";
+				cout << " ";
+				m_vec_i_str.push_back(std::pair<v2i, string>((m_pair.first), " "));
+				m_vec_map_bool.push_back(std::pair<v2i, int >(m_pair.first, false));
 				m_pair.second = eCell::FREE;
 			}
 
@@ -95,25 +108,82 @@ void AlgoritmLi::TakeStop()
 	}
    }
 
+bool AlgoritmLi::CheckVeck()
+{
+	for (auto& a : m_vec_map_bool)
+		if (a.second == false)
+			return true;
+	return false;
+}
+
 bool AlgoritmLi::CreateRoad()
 {
 
 	cout << "MAP:" << endl;
 	CreateMap();
 	cout << "--------------" << endl;
-	//TekeStart();
-	//TakeStop();
-
-	for (auto &pair : m_vec_map) {
-		if (pair.second == eCell::START) {
-			cout << pair.first.x << endl;
-			cout << pair.first.y << endl;
+	/*
+		ЦИКЛ
+			ДЛЯ каждой ячейки loc, помеченной числом d
+			пометить все соседние свободные непомеченные ячейки числом d + 1
+			КЦ
+			d : = d + 1
+			ПОКА(финишная ячейка не помечена) И(есть возможность распространения волны)
+	*/
+	/*
+	int d = 0;
+	m_vec_map_int.push_back(std::pair<v2i, int >(m_start,d));
+	//m_vec_map_bool.push_back(std::pair<v2i, int >(m_start, true));
+	do
+	{
+		for (auto& bl : m_vec_map_bool) {
+			
+			if(bl.first == v2i(m_start.x, m_start.y - 1))
+				if (bl.second = false) {
+					bl.second = true;
+					m_vec_map_int.push_back(std::pair<v2i, int >(m_start, d + 1));
+					m_vec_map_bool[m_start.x + (m_start.y * m_map_size.x)].second = true;
+				}
+			if (bl.first == v2i(m_start.x + 1, m_start.y ))
+				if (bl.second = false) {
+					bl.second = true;
+					m_vec_map_int.push_back(std::pair<v2i, int >(m_start, d + 1));
+					m_vec_map_bool[m_start.x + (m_start.y * m_map_size.x)].second = true;
+				}
+			if (bl.first == v2i(m_start.x , m_start.y + 1))
+				if (bl.second = false) {
+					bl.second = true;
+					m_vec_map_int.push_back(std::pair<v2i, int >(m_start, d + 1));
+					m_vec_map_bool[m_start.x + (m_start.y * m_map_size.x)].second = true;
+				}
+			if (bl.first == v2i(m_start.x - 1, m_start.y))
+				if (bl.second = false) {
+					bl.second = true;
+					m_vec_map_int.push_back(std::pair<v2i, int >(m_start, d + 1));
+					m_vec_map_bool[m_start.x + (m_start.y * m_map_size.x)].second = true;
+				}
 		}
+
+		d++;
+		
+	} while ( 
+		CheckVeck()
+		);
+	*/
+
+
+
+	cout << "--------------" << endl;
+	for (size_t y = 0; y < m_map_size.y; y++)
+	{
+		for (size_t x = 0; x < m_map_size.x; x++)
+		{
+			cout << m_vec_i_str[x + (y * m_map_size.x)].second;
+
+		}
+
+		cout << endl;
 	}
-
-	   
-
-
-
+	cout << "--------------" << endl;
 	return true;
 }
