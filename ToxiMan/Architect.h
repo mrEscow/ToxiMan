@@ -59,7 +59,8 @@ class Architect
 	bool is_grid;
 	bool is_back;
 
-	bool m_is_new_start;
+	bool is_new_start;
+	bool is_new_finish;
 	bool is_save_map;
 
 public:
@@ -76,6 +77,8 @@ public:
 	void DeleteObject();
 
 	void CreateStart();
+
+	void CreateFinish();
 
 	vector<ObjectManager>& GetVecZero();
 	vector<Shape>& GetVecCell();

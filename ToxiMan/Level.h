@@ -18,8 +18,10 @@ private:
 
 	Map *m_map_ptr;
 
-	v2f m_firstPos;
 	v2f m_size_map;
+
+	v2f m_StartPos;
+	v2f m_FinishPos;
 	
 	Player* m_ptr_player;
 

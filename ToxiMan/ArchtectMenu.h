@@ -24,7 +24,7 @@ private:
 	Text	m_name_vector_text;
 
 
-	bool m_is_CreateStart = false;
+	//bool m_is_CreateStart = false;
 	
 	vector<unique_ptr<UI::Button>> vec_button;
 	vector<unique_ptr<UI::TextBox>> vec_textbox;
@@ -32,7 +32,18 @@ private:
 
 public:
 	ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec);
-	void Action(bool &is_grid, bool& is_back, bool& m_is_new_start ,bool& is_save_map);
+	void Action(
+
+		// Menu buttons
+
+		bool& is_grid, 
+ 
+		bool& is_new_start,
+		bool& is_new_finish,
+		bool& is_save_map,
+
+		bool& is_back
+	);
 	void Update();
 	void Draw();
 	Shape* GetSnape();

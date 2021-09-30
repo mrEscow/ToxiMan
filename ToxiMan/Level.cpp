@@ -22,7 +22,7 @@ void Level::LoadLevel(LevelNumber& number)
 		m_map_ptr->SetStartPos(v2f(500, 1750));
 		m_map_ptr->SetFinalPos(v2f(1000, 1750));
 
-		m_firstPos = v2f(500, 1750);
+		m_StartPos = v2f(500, 1750);
 		m_size_map = v2f(80, 30);
 
 		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
@@ -36,17 +36,12 @@ void Level::LoadLevel(LevelNumber& number)
 		break;
 	case LevelNumber::two:
 
-		// from Json
 		*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json",number);
 
-		//m_map_ptr->SetName("Test2");
-		//m_map_ptr->SetMapSize(v2i(10, 10));
-
-		//m_map_ptr->SetStartPos(v2f(0, 0));
-		//m_map_ptr->SetFinalPos(v2f(0, 0));
-
-		m_firstPos = m_map_ptr->GetStartPos();
 		m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
+
+		m_StartPos = m_map_ptr->GetStartPos();
+		m_FinishPos = m_map_ptr->GetFinalPos();
 
 		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
 		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
@@ -75,7 +70,7 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 
 
 	
-	m_ptr_player = new Player(*m_map_ptr,m_firstPos, m_size_map);
+	m_ptr_player = new Player(*m_map_ptr, m_StartPos, m_size_map);
 	m_ptr_arhitevt = new Architect(*m_map_ptr,m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt,m_ptr_player);

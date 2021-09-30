@@ -18,13 +18,37 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 	m_size_x = 64;
 	m_size_y = 64;
 
-	m_mouse = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+	m_mouse = System::CreateShape(
+		System::cur_p, 
+		v2f(
+		static_cast<float> (m_size_x), 
+		static_cast<float> (m_size_y)
+		), 
+		System::resources.texture.arhitectMouse);
+
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
 
-	m_start = System::CreateShape(System::cur_p, v2f(m_size_x, m_size_y), System::resources.texture.arhitectMouse);
+	m_start = System::CreateShape(
+		m_map_ptr->GetStartPos(),
+		v2f(
+			static_cast<float> (m_size_x),
+			static_cast<float> (m_size_y)
+		), 
+		System::resources.texture.arhitectMouse); // cteate texture
 	m_start.setOutlineColor(Color::Cyan);
-	m_start.setOutlineThickness(-20);
+	m_start.setOutlineThickness(-50);
+
+	
+	m_finish = System::CreateShape(
+		m_map_ptr->GetFinalPos(),
+		v2f(
+			static_cast<float> (m_size_x),
+			static_cast<float> (m_size_y)
+		),
+		System::resources.texture.arhitectMouse); // cteate texture
+	m_finish.setOutlineColor(Color::Yellow);
+	m_finish.setOutlineThickness(-50);
 
 	//m_zoom = 1.f;
 
@@ -33,8 +57,12 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 		for (size_t x = 0; x < size_map.x; x++) {
 			
 			m_cell = System::CreateShape(
-				v2f(x * m_size_x, y * m_size_y), 
-				v2f(m_size_x, m_size_y), 
+				v2f(
+					static_cast<float> (x) * m_size_x, 
+					static_cast<float> (y) * m_size_y),
+				v2f(
+					static_cast<float> (m_size_x),
+					static_cast<float> (m_size_y)),
 				System::resources.texture.arhitectMouse
 			);
 				
@@ -47,12 +75,15 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 
 	m_ptr_menu = new ArchtectMenu(*m_map_ptr,game_settings, m_Z_vec);
 
+	// 
 	is_create = false;
 	is_delete = false;
 	is_grid = false;
 	is_back = false;
 
-	m_is_new_start = false;
+	// buttons for map
+	is_new_start = false;
+	is_new_finish = false;
 	is_save_map = false;
 }
 
@@ -97,8 +128,8 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 	//------------------------------------------------------
 
-	if (!m_is_new_start) {
-		cout << "m_is_new_start in arhitect_333" << endl;
+	if (!is_new_start && !is_new_finish) {
+		//cout << "m_is_new_start in arhitect_100" << endl;
 		if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
 			for (auto& cell : m_cell_vec)
 				if (System::IsContains(cell, System::cur_p)) {
@@ -124,9 +155,9 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 
-	if (m_is_new_start) {
+	if (is_new_start && !is_new_finish) {
 
-		cout << "m_is_new_start in arhitect_111" << endl;
+		//cout << "m_is_new_start in arhitect_200" << endl;
 		is_create = false;
 		is_delete = false;
 
@@ -135,13 +166,13 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 				if (System::IsContains(cell, System::cur_p)) {
 
 					if (System::IsMousePressed(MouseButton::Left)) {
-						cout << "m_is_new_start in arhitect_222" << endl;
+						//cout << "m_is_new_start in arhitect_210" << endl;
 						CreateStart();
 						is_create = false;
 						is_delete = false;
 					}
 					if (System::IsMouseReleased(MouseButton::Left)) {
-						cout << "m_is_new_start in arhitect_444" << endl;
+						//cout << "m_is_new_start in arhitect_220" << endl;
 						//CreateStart();
 						is_create = false;
 						is_delete = false;
@@ -149,6 +180,33 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 
 				}
 		}		
+	}
+
+	if (!is_new_start && is_new_finish) {
+
+		//cout << "m_is_new_start in arhitect_200" << endl;
+		is_create = false;
+		is_delete = false;
+
+		if (!System::IsContains(*m_ptr_menu->GetSnape(), System::cur_p / System::zoom - System::cam.getCenter() / System::zoom)) {
+			for (auto& cell : m_cell_vec)
+				if (System::IsContains(cell, System::cur_p)) {
+
+					if (System::IsMousePressed(MouseButton::Left)) {
+						//cout << "m_is_new_start in arhitect_210" << endl;
+						CreateFinish();
+						is_create = false;
+						is_delete = false;
+					}
+					if (System::IsMouseReleased(MouseButton::Left)) {
+						//cout << "m_is_new_start in arhitect_220" << endl;
+						//CreateStart();
+						is_create = false;
+						is_delete = false;
+					}
+
+				}
+		}
 	}
 
 
@@ -165,9 +223,17 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		System::zoom *= 1.1f;
 		System::cam.zoom(1.1f); 		
 	}
-	//-------------------------------------------------------------
+	//--------------------------------------------------------  --IS FROM MENU
 
-	m_ptr_menu->Action(is_grid, is_back, m_is_new_start, is_save_map);
+	m_ptr_menu->Action(
+		is_grid, 
+
+		is_new_start, 
+		is_new_finish,
+		is_save_map,
+
+		is_back
+	);
 
 
 	//-------------------------------------------------------------
@@ -182,7 +248,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		for (auto& obj : *m_ptr_objectListFront)
 			jsonSM.SaveObject(obj, "file_front.json", number);
 
-		cout << "SAVE" << endl;
+		cout << "SAVE is_back from menu arch" << endl;
 
 		ObjectManager::ObjectBeckID = 0;
 		ObjectManager::ObjectZeroID = 0;
@@ -212,7 +278,6 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 void Architect::Update()
 {
 
-	//cout << "IS:" << m_is_new_start << endl;
 
 	for (auto it = m_ptr_objectListBack->begin(); it != m_ptr_objectListBack->end(); ) {
 		auto& object = it;
@@ -246,21 +311,38 @@ void Architect::Update()
 	if (is_delete)
 		DeleteObject(); 
 
-	//if (m_is_new_start) {
-	//	CreateStart();
-	//}
 
-
-
-
-	m_mouse.setSize(v2f(m_size_x, m_size_y));
-	m_mouse.setOrigin(v2f(m_size_x, m_size_y) / 2.f);
+	m_mouse.setSize(
+		v2f(
+			static_cast<float> (m_size_x), 
+			static_cast<float> (m_size_y))
+	);
+	m_mouse.setOrigin(
+		v2f(
+			static_cast<float> (m_size_x), 
+			static_cast<float> (m_size_y)) / 2.f
+	);
 	
 	for (auto &cell : m_cell_vec)
 		if (System::IsContains(cell, System::cur_p)) {
+
+
 			m_mouse.setPosition(cell.getPosition());
+
+
+			if (is_new_start && !is_new_finish)
 			m_start.setPosition(cell.getPosition());
+
+			if (!is_new_start && is_new_finish)
+			m_finish.setPosition(cell.getPosition());
+
+
 		}
+
+	if (is_new_start && is_new_finish) {
+		m_start.setPosition(m_map_ptr->GetStartPos());
+		m_finish.setPosition(m_map_ptr->GetFinalPos());
+	}
 
 	m_ptr_menu->Update();
 
@@ -279,16 +361,11 @@ void Architect::Draw(StateGame& state_game, Player* player)
 			for (auto &cell : m_cell_vec)
 				System::wnd.draw(cell);
 
-		if (!m_is_new_start) {
-			System::wnd.draw(m_mouse);
-			//cout << "m_mouse" << endl;
-		}
-			
-		else {
+
+
 			System::wnd.draw(m_start);
-			//cout << "m_start" << endl;
-		}
-			
+			System::wnd.draw(m_finish);
+			System::wnd.draw(m_mouse);
 	}		
 }
 
@@ -378,13 +455,16 @@ vector<ObjectManager>& Architect::GetVecZero()
 
 void Architect::CreateStart()
 {
-	// if()
-	// delete old
-	// set new pos and texturu
-
 	m_map_ptr->SetStartPos(m_start.getPosition());
 
-	m_is_new_start = false;
+	is_new_start = false;
+}
+
+void Architect::CreateFinish() 
+{
+	m_map_ptr->SetFinalPos(m_finish.getPosition());
+
+	is_new_finish = false;
 }
 
 vector<Shape>& Architect::GetVecCell()
