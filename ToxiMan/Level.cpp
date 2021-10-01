@@ -158,14 +158,31 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	m_bg5_e = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_e);
 
 	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_g);
+
+
+	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64), Color::Magenta);
+
+	m_ptr_thread = new sf::Thread(&Level::LI, this);
+
+	m_ptr_thread->launch();
+}
+
+void Level::LI()
+{
+	while (1) {
+		if (m_ptr_Li->CreateRoad())
+			m_Li_go = m_ptr_Li->GetRoad();
+	}
 }
 
 void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number)
 {
+	//if (System::IsKeyPressed(Key::M))
 
-	if (System::IsKeyPressed(Key::M)) {
-		m_ptr_Li->CreateRoad();
+	{
+
 	}
+
 
 	switch (state_game)
 	{
@@ -184,8 +201,7 @@ void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber
 
 void Level::Update(StateGame& state_game, LevelNumber& number)
 {
-
-
+	m_s_final.setPosition(m_map_ptr->GetFinalPos());
 
 	if (is_reset) {
 		cout << "DEAD" << endl;
@@ -299,6 +315,7 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		for (auto& object : m_objectListZero)
 			if (System::IsShapeInCamera(object.GetShape()))
 				object.Draw();
+		System::wnd.draw(m_s_final);
 		m_ptr_player->Draw();
 		for (auto& object : m_objectListFront)
 			if (System::IsShapeInCamera(object.GetShape()))
@@ -322,6 +339,8 @@ v2f Level::GetPositionPlayer()
 {
 	return m_ptr_player->GetPosition();
 }
+
+
 
 bool Level::check_lvl()
 {
@@ -356,5 +375,5 @@ Level::~Level()
 	delete m_ptr_arhitevt;
 	delete m_map_ptr;
 
-	
+	delete m_ptr_thread;
 }

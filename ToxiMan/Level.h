@@ -27,7 +27,12 @@ private:
 
 	Architect* m_ptr_arhitevt;
 
+
+	sf::Thread* m_ptr_thread;
+
 	AlgoritmLi* m_ptr_Li;
+
+	vector<v2f> m_Li_go;
 
 	bool is_from_arhitetc;
 
@@ -63,6 +68,11 @@ private:
 	Shape m_bg5_e;
 
 	Shape m_bg5_g;
+
+	// final point
+	Shape m_s_final;
+
+	void LI();
 
 public:
 

@@ -18,7 +18,9 @@ private:
 
 	bool m_is_next_level = true;
 
-	StateGame m_state_game = StateGame::ON_ARCITECT;
+
+	StateGame m_state_game = StateGame::ON_GAME;
+	//StateGame m_state_game = StateGame::ON_ARCITECT;
 
 	StateGame previous_state;
 

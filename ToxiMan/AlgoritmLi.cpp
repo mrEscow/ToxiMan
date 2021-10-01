@@ -1,5 +1,7 @@
 #include "AlgoritmLi.h"
 
+vector<v2f> AlgoritmLi::LI_GO;
+
 AlgoritmLi::AlgoritmLi(Architect* arch,Player* player)
 {
 		m_arch = arch;
@@ -14,6 +16,7 @@ void AlgoritmLi::CreateMap()
 	m_vec_map_bool.clear();
 	m_vec_map_int.clear();
 	m_vec_map.clear();
+	m_go.clear();
 
 	for (size_t y = 0; y < m_map_size.y; y++)
 	{
@@ -48,7 +51,8 @@ void AlgoritmLi::CreateMap()
 				if (!is_finish && System::IsContains(
 					m_arch->GetVecCell()[x + (y * m_map_size.x)],
 					m_arch->GetMap().GetFinalPos())
-					//System::cur_p)					
+					//System::cur_p)		
+					//System::cur_for_UI)
 					)
 				{
 					is_finish = true;
@@ -91,7 +95,7 @@ void AlgoritmLi::CreateMap()
 
 			m_vec_map.push_back(m_pair);
 		}
-		cout << endl;
+		//cout << endl;
 	}
 
 
@@ -294,13 +298,48 @@ bool AlgoritmLi::CheckSearch()
 	return true;	
 }
 
+vector<v2f> AlgoritmLi::GetRoad()
+{
+	vector<v2f> temp;
+	temp.push_back(v2f(
+		static_cast<float>(m_finish.x),
+		static_cast<float>(m_finish.y)
+	));
+
+	for (size_t i = 0; i < m_go.size(); i++)
+	{
+		temp.push_back(v2f(
+			static_cast<float>(m_go[ m_go.size() - 1 - i ].x),
+			static_cast<float>(m_go[ m_go.size() - 1 - i ].y)
+		));
+	}
+
+	return temp;
+}
 
 bool AlgoritmLi::CreateRoad()
-{
+{	
 	CreateMap();
 
-	if(CheckSearch())
+	if (CheckSearch()) {
+		LI_GO.clear();
+		LI_GO = GetRoad();
+
+		cout << "LI_GO:OK" << endl;
+
+		for (size_t y = 0; y < m_map_size.y; y++)
+		{
+			for (size_t x = 0; x < m_map_size.x; x++)
+			{
+				cout << m_vec_i_str[x + (y * m_map_size.x)].second;
+			}
+			cout << endl;
+		}
+
 		return true;
+	}
+		
+	cout << "LI_GO:NOT" <<endl;
 
 	return false;
 }

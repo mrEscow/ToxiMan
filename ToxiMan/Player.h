@@ -59,6 +59,22 @@ private:
 
 	Map *m_map;
 
+	//enum class eDirection : uint
+	//{
+	//	UP,
+	//	UP_RIGHT,
+	//	RIGHT,
+	//	DOWN_RIGHT,
+	//	DOWN,
+	//	DOWN_LEFT,
+	//	LEFT,
+	//	UP_LEFT
+	//};
+
+	//eDirection eDir;
+
+	bool is_li_go;
+	v2f m_v2f_go;
 
 public:
 

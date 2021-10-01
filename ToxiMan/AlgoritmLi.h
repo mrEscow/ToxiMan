@@ -76,6 +76,8 @@ public:
 
 
 public:
+	static vector<v2f> LI_GO;
+	vector<v2f> GetRoad();
 	bool CreateRoad();
 
 };

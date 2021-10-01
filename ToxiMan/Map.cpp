@@ -52,5 +52,6 @@ void Map::SetStartPos(v2f s_pos)
 
 void Map::SetFinalPos(v2f f_pos)
 {
+
 	m_final_pos = f_pos;
 }
