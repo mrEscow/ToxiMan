@@ -320,26 +320,27 @@ vector<v2f> AlgoritmLi::GetRoad()
 bool AlgoritmLi::CreateRoad()
 {	
 	CreateMap();
+	if(m_start != m_finish)
+		if (CheckSearch()) {
+			LI_GO.clear();
+			LI_GO = GetRoad();
 
-	if (CheckSearch()) {
-		LI_GO.clear();
-		LI_GO = GetRoad();
+			//cout << "LI_GO:OK" << endl;
 
-		cout << "LI_GO:OK" << endl;
+			//for (size_t y = 0; y < m_map_size.y; y++)
+			//{
+			//	for (size_t x = 0; x < m_map_size.x; x++)
+			//	{
+			//		cout << m_vec_i_str[x + (y * m_map_size.x)].second;
+			//	}
+			//	cout << endl;
+			//}
 
-		for (size_t y = 0; y < m_map_size.y; y++)
-		{
-			for (size_t x = 0; x < m_map_size.x; x++)
-			{
-				cout << m_vec_i_str[x + (y * m_map_size.x)].second;
-			}
-			cout << endl;
+			return true;
 		}
-
-		return true;
-	}
 		
-	cout << "LI_GO:NOT" <<endl;
+	LI_GO.clear();
+	//cout << "LI_GO:NOT" <<endl;
 
 	return false;
 }

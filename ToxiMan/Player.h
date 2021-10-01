@@ -76,6 +76,10 @@ private:
 	bool is_li_go;
 	v2f m_v2f_go;
 
+	bool a; //= false;
+	bool b; //= false;
+	bool c; //= true;
+
 public:
 
 	Player(Map& map,v2f firstPos, v2f size_map);

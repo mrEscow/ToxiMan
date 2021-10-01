@@ -66,7 +66,11 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 	is_button_Left	= false;
 	is_button_Up	= false;
 
-	is_li_go = false;
+	is_li_go = true;
+
+	bool a = true;
+	bool b = true;
+	bool c = true;
 }
 
 void Player::Action(StateGame& state_game)
@@ -122,12 +126,17 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update(bool & is_reset)
 {
+	if (!AlgoritmLi::LI_GO.empty() && !is_li_go) {
+		is_li_go = true;
+	}
 
-	//cout << m_map->GetStartPos().x << endl;
-	//cout << m_map->GetStartPos().y << endl;
 
-	if (!AlgoritmLi::LI_GO.empty() && is_li_go)
+	if (!AlgoritmLi::LI_GO.empty() && is_li_go )
 	{
+		
+		
+		c = true;
+
 		//cout << "LenLI: "<<AlgoritmLi::LI_GO.size() << endl;
 
 		if (AlgoritmLi::LI_GO.size() - 1 > 0) {
@@ -153,12 +162,17 @@ void Player::Update(bool & is_reset)
 		//cout << m_shape.getPosition().y << endl;
 		//cout << endl;
 
-		if (m_shape.getPosition().x < m_v2f_go.x)
+		if (m_shape.getPosition().x < m_v2f_go.x && b) {
+			b = false;
 			is_button_Righr = true;
-		if (m_shape.getPosition().x > m_v2f_go.x)
+		}
+			
+		if (m_shape.getPosition().x > m_v2f_go.x && a) {
+			a = false;
 			is_button_Left = true;
-		if (m_shape.getPosition().y + 64 > m_v2f_go.y)
-			is_button_Up = true;
+		}
+		//if (m_shape.getPosition().y + 64 > m_v2f_go.y)
+		//	is_button_Up = true;
 		//if (m_shape.getPosition().x < AlgoritmLi::LI_GO[AlgoritmLi::LI_GO.size() - 1].x)
 		//	is_button_Righr = true;
 		is_li_go = false;
@@ -166,29 +180,51 @@ void Player::Update(bool & is_reset)
 
 	if (!AlgoritmLi::LI_GO.empty()) {
 
-		bool a = false;
-		bool b = false;
-		bool c = false;
 
-		if (m_shape.getPosition().x >= m_v2f_go.x) {
+
+		if (m_shape.getPosition().x >= m_v2f_go.x - 16) {
 			is_button_Righr = false;
 			a = true;
 		}
-		if (m_shape.getPosition().x <= m_v2f_go.x) {
+
+		if (m_shape.getPosition().x <= m_v2f_go.x + 16) {
 			is_button_Left = false;
 			b = true;
 		}
-		if (m_shape.getPosition().y + 64 <= m_v2f_go.y) {
-			is_button_Up = false;
-			c = true;
-		}
+		//if (m_shape.getPosition().y + 64 <= m_v2f_go.y) {
+		//	is_button_Up = false;
+		//	c = true;
+		//}
 
 		//cout << "-------" << endl;
-		//cout << "a=" << a << endl;
-		//cout << "b=" << b << endl;
+		//cout << "right = " << a << endl;
+		//cout << "left  = " << b << endl;
 		//cout << "c=" << c << endl;
+		//if ( m_v2f_go.x + 16 >= m_shape.getPosition().x >= m_v2f_go.x - 16 ) {
+		if (
+			m_shape.getPosition().x <= m_v2f_go.x + 16 
+			&& 
+			m_shape.getPosition().x >= m_v2f_go.x - 16
+			) 
+		{
+			//if (m_shape.getPosition().y <= m_v2f_go.y - 32 && m_shape.getPosition().y >= m_v2f_go.y + 32) {
+			cout << "TRUE" << endl;
+			a = true;
+			b = true;
 
-		if ((a || b) || c) {
+			is_button_Righr = false;
+			is_button_Left = false;
+			//}
+		}
+
+		if (
+			a 
+			&& 
+			b 
+			&& 
+			c
+			) 
+		{
 			is_li_go = true;
 		}
 	}

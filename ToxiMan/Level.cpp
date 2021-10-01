@@ -169,8 +169,8 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 
 void Level::LI()
 {
-	while (1) {
-		if (m_ptr_Li->CreateRoad())
+	while (System::wnd.isOpen()) {
+		if (m_ptr_Li->CreateRoad()) // Потом нужно будет сделать CreateRoad(NPC)
 			m_Li_go = m_ptr_Li->GetRoad();
 	}
 }
