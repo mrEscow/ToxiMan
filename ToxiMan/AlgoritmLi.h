@@ -51,16 +51,22 @@ public:
 	vector<std::pair<v2i, eCell>> m_vec_map;
 
 
-	vector<std::pair<v2i, int  >> m_vec_map_int;
+
 	vector<std::pair<v2i, bool  >> m_vec_map_bool;
 
-	vector<std::pair<v2i, string>> m_vec_i_str;
+
+	vector<std::pair<v2i, int   >> m_vec_map_int; // matrix
+	vector<std::pair<v2i, string>> m_vec_i_str;   // matrix
 
 	vector<v2i> m_go;
 
+
+
 	std::stack<eDirection>& get();
 
-	bool CheckVeck();
+	bool CheckSearch();
+
+	bool CheckSosedy(v2i, int );
 
 	void CreateMap();
 
