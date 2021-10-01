@@ -354,6 +354,8 @@ void Architect::Draw(StateGame& state_game, Player* player)
 
 		m_ptr_menu->Draw();
 
+		System::wnd.draw(m_start);
+		System::wnd.draw(m_finish);
 
 		player->Draw();
 
@@ -361,11 +363,7 @@ void Architect::Draw(StateGame& state_game, Player* player)
 			for (auto &cell : m_cell_vec)
 				System::wnd.draw(cell);
 
-
-
-			System::wnd.draw(m_start);
-			System::wnd.draw(m_finish);
-			System::wnd.draw(m_mouse);
+		System::wnd.draw(m_mouse);
 	}		
 }
 

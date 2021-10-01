@@ -65,6 +65,7 @@ void Level::LoadLevel(LevelNumber& number)
 Level::Level(LevelNumber& number, GameSettings& game_settings)
 {
 	System::resources.texture.LoadForArhitect();
+	System::resources.texture.LoadLevel_0();
 
 	LoadLevel(number);
 
