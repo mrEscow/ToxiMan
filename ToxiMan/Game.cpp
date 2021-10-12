@@ -33,10 +33,8 @@ void Game::GreateLevel() {
 
 void Game::Update()
 {
-
-
 	if (timer5sec.IsTick()) {
-		cout << "timer5sec.IsOff()" << endl;
+		cout << "timer5sec.IsTick()" << endl;
 	}
 
 	if (m_is_next_level) {
