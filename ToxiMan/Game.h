@@ -1,9 +1,12 @@
 ﻿// ▼
 #pragma once
+
+
+
 #include "Menu.h"
 #include "Level.h"
 
-
+#include "Timer.h"
 
 class Game
 {
@@ -37,7 +40,7 @@ private:
 	unique_ptr< Map > m_u_map;
 	unique_ptr<Level> m_u_lvl;
 
-
+	Escow::Timer timer5sec{ 5.f };
 
 public:
 

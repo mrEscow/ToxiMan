@@ -9,8 +9,6 @@ Game::Game()
 	//curcor.loadFromSystem(sf::Cursor::Cross);
 	//System::wnd.setMouseCursor(curcor);
 
-
-
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
 	m_ptr_lvl = new Level(m_number, m_game_settings);
@@ -35,6 +33,12 @@ void Game::GreateLevel() {
 
 void Game::Update()
 {
+
+
+	if (timer5sec.IsOff()) {
+		cout << "timer5sec.IsOff()" << endl;
+	}
+
 	if (m_is_next_level) {
 		LoadNextLevel(m_number);
 		m_is_next_level = false;
@@ -96,6 +100,7 @@ void Game::Draw()
 		break;
 	}
 
+
 	System::wnd.display();
 }
 
@@ -124,17 +129,12 @@ void Game::Action()
 void Game::Thread()
 {
 	System::wnd.setActive(false);
-
 	while (System::wnd.isOpen())
 	{
 		System::SystemUpdate();
-
 		UI::TextBoxEditHelper::Update();
-
 		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
-
 		Update();
-
 		Draw();
 	}
 
