@@ -6,13 +6,8 @@ namespace Escow {
 		m_time_stop = seconds * 1000;
 	}
 
-	Timer::~Timer()
+	bool Timer::IsTick()
 	{
-	}
-
-	bool Timer::IsOff()
-	{
-		cout << m_time_stop - System::time << endl;
 		m_time_stop = m_time_stop - System::time;
 
 		if (m_time_stop <= 0)

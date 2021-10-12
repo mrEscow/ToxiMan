@@ -7,9 +7,7 @@ namespace Escow {
 		float m_time_stop;
 	public:
 		Timer(float seconds);
-		~Timer();
-
-		bool IsOff();
+		bool IsTick();
 
 	};
 }

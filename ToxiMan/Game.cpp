@@ -35,7 +35,7 @@ void Game::Update()
 {
 
 
-	if (timer5sec.IsOff()) {
+	if (timer5sec.IsTick()) {
 		cout << "timer5sec.IsOff()" << endl;
 	}
 
