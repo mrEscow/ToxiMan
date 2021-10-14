@@ -60,6 +60,8 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 	// оружие
 	MyFirstGun = new Gun(m_shape.getPosition());
 
+	// Life
+	m_life = 100;
 
 	// состояния клавишь
 	is_button_Righr	= false;
@@ -126,6 +128,18 @@ void Player::Action(StateGame& state_game)
 
 void Player::Update(bool & is_reset)
 {
+
+	if (testTimer.IsTick(0.05f)) {
+		//is_button_Up = true;
+		m_life--;
+		if (m_life <= 0)
+			is_dead = true;
+	}
+
+
+	lifeBarPlayer.update(m_life);//сюда передаем значение, которое надо нарисовать. Можно передать здоровья игрока тогда будет lifeBarPlayer.update(player.getHealth()); так
+
+
 	if (!AlgoritmLi::LI_GO.empty() && !is_li_go) {
 		is_li_go = true;
 	}
@@ -295,9 +309,14 @@ void Player::Update(bool & is_reset)
 
 	if (!is_button_Left && !is_button_Righr) dx = 0;
 
-	if (is_button_Up) 
-		if (is_onGround) 
+	if (is_button_Up) {
+		if (is_onGround) {
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
+		}
+		is_button_Up = false;
+	}
+
+			
 		
 	if (dx > 0)
 		m_dir = PlayerDir::RIGHT;
@@ -336,6 +355,7 @@ void Player::Update(bool & is_reset)
 		m_body->SetTransform(b2Vec2(m_map->GetStartPos().x / SCALE, m_map->GetStartPos().y / SCALE), m_body->GetAngle());
 		System::cam.setCenter(m_shape.getPosition());
 		is_dead = false;
+		m_life = 100;
 	}
 
 	switch (m_dir) {
@@ -362,6 +382,8 @@ void Player::Draw()
 {	
 	System::wnd.draw(m_shape);
 	MyFirstGun->Draw();
+
+	lifeBarPlayer.draw();
 }
 
 v2f Player::GetPosCam()

@@ -164,7 +164,7 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 
 	m_ptr_thread = new sf::Thread(&Level::LI, this);
 
-	m_ptr_thread->launch();
+	//m_ptr_thread->launch();
 }
 
 void Level::LI()

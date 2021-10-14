@@ -4,6 +4,8 @@
 #include "Gun.h"
 #include "GameStates.h"
 #include "Map.h"
+#include "Timer.h"
+#include "LifeBar.h"
 
 class Player
 {
@@ -79,6 +81,11 @@ private:
 	bool a; //= false;
 	bool b; //= false;
 	bool c; //= true;
+
+	Escow::Timer testTimer;
+
+	LifeBar lifeBarPlayer;//экземпл€р класса полоски здоровь€
+	int m_life;
 
 public:
 
