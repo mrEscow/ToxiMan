@@ -22,7 +22,7 @@ private:
 	bool m_is_next_level = true;
 
 
-	StateGame m_state_game = StateGame::ON_GAME;
+	StateGame m_state_game = StateGame::ON_MAIN_MENU;
 	//StateGame m_state_game = StateGame::ON_ARCITECT;
 
 	StateGame previous_state;
@@ -32,7 +32,7 @@ private:
 	unique_ptr<Menu> m_main_menu;
 
 
-	LevelNumber m_number = LevelNumber::two;
+	LevelNumber m_number = LevelNumber::zero;
 
 	Map* m_map_ptr;
 	Level *m_ptr_lvl;
