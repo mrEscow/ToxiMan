@@ -4,7 +4,7 @@
 
 
 
-![Иллюстрация к проекту](https://github.com/jon/coolproject/raw/master/image/image.png)
+![Иллюстрация к проекту](https://github.com/mrEscow/ToxiMan/blob/master/ToxiMan/Resources/images/ForReadMe/0.png)
 
 ![Image alt](https://github.com/{username}/{repository}/raw/{branch}/{path}/image.png)
 
