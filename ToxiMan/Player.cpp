@@ -73,6 +73,17 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 	bool a = true;
 	bool b = true;
 	bool c = true;
+
+	// Шейдер
+	m_shader.setUniform("hasTexture", true);
+	//m_shader.setUniform("lightPos", m_shape.getPosition());
+
+	if (!m_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))		// not bad
+		cout << "ERROR:Shader is not load./n";
+
+	//if (!m_shader.loadFromFile("vertex_shader.vert", "test_from_inet_1.frag"))
+	//	cout << "ERROR:Shader is not load./n";
+	ms_time = 0;
 }
 
 void Player::Action(StateGame& state_game)
@@ -129,11 +140,12 @@ void Player::Action(StateGame& state_game)
 void Player::Update(bool & is_reset)
 {
 
-	if (testTimer.IsTick(0.05f)) {
+	if (testTimer.IsTick(0.05f)) {		//		TICK
 		//is_button_Up = true;
 		m_life--;
 		if (m_life <= 0)
-			is_dead = true;
+			//is_dead = true;
+			;
 	}
 
 
@@ -378,13 +390,7 @@ void Player::Update(bool & is_reset)
 	MyFirstGun->Update(m_shape.getPosition(), m_dir);	
 }
 
-void Player::Draw()
-{	
-	System::wnd.draw(m_shape);
-	MyFirstGun->Draw();
 
-	lifeBarPlayer.draw();
-}
 
 v2f Player::GetPosCam()
 {
@@ -429,4 +435,38 @@ float Player::GetDx()
 b2Body* Player::GetBody()
 {
 	return m_body;
+}
+
+
+void Player::Draw()
+{
+	m_shader.setUniform("hasTexture", true);
+	//m_shader.setUniform("resolution", m_shape.getSize());
+	m_shader.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()) );
+
+	//v2f testtest = static_cast<v2f>(System::wnd.getSize());
+	//cout << testtest.x << "    " << testtest.y << endl;
+	//cout << System::cur_p_wnd.x << "   " << System::cur_p_wnd.y << endl;
+	//cout << System::cam_p.x << "   " << System::cam_p.y << endl;
+	//cout << <<"    "<< << endl;
+
+	m_shader.setUniform("pos", System::cur_p_wnd);
+	m_shader.setUniform("size", m_shape.getSize());
+	//cout << m_shape.getPosition().x << "    " << m_shape.getPosition().y << endl;
+	//cout << mst_time.asSeconds() << endl;
+	ms_time = ms_time + System::time/100;
+	//cout << ms_time << endl;
+	//cout << System::time << endl;
+	m_shader.setUniform("time", ms_time);
+
+	if (&m_shader) {
+		System::wnd.draw(m_shape, &m_shader);
+	}
+	else
+		System::wnd.draw(m_shape);
+
+
+	MyFirstGun->Draw();
+
+	lifeBarPlayer.draw();
 }

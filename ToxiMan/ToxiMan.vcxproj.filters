@@ -52,9 +52,27 @@
     <Filter Include="Файлы заголовков\UI">
       <UniqueIdentifier>{e81c4669-ad5d-4f82-9b67-d2c27ef8ba60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Algoritms">
+      <UniqueIdentifier>{ad7bcd8b-f8b8-4e71-9e8e-83c17e28734e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Algoritms">
+      <UniqueIdentifier>{b327ef36-de38-445a-bac8-89949516ae5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Shaders">
+      <UniqueIdentifier>{77762711-9621-43d6-9605-8b57ba1b15f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="fragment_shader.frag">
+      <Filter>Файлы заголовков\Core\Shaders</Filter>
+    </None>
+    <None Include="vertex_shader.vert">
+      <Filter>Файлы заголовков\Core\Shaders</Filter>
+    </None>
+    <None Include="test_from_inet_1.frag">
+      <Filter>Файлы заголовков\Core\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -139,13 +157,13 @@
       <Filter>Файлы заголовков\UI</Filter>
     </ClInclude>
     <ClInclude Include="AlgoritmLi.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Algoritms</Filter>
     </ClInclude>
     <ClInclude Include="LifeBar.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,13 +234,13 @@
       <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
     <ClCompile Include="AlgoritmLi.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Algoritms</Filter>
     </ClCompile>
     <ClCompile Include="LifeBar.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

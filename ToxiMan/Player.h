@@ -87,6 +87,12 @@ private:
 	LifeBar lifeBarPlayer;//экземпл€р класса полоски здоровь€
 	int m_life;
 
+	// Ўейдер
+	sf::Shader m_shader;
+
+	float ms_time;
+	sf::Time mst_time;
+
 public:
 
 	Player(Map& map,v2f firstPos, v2f size_map);
