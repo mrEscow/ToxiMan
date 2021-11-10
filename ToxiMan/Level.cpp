@@ -160,7 +160,11 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_g);
 
 
+	// points
+	m_s_start = System::CreateShape(m_map_ptr->GetStartPos(), v2f(500, 500), Color::Magenta);
 	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64), Color::Magenta);
+	m_shader_start.loadFromFile("vertex_shader.vert", "inet2.frag");
+	m_shader_stop.loadFromFile("vertex_shader.vert", "inet2.frag");
 
 	m_ptr_thread = new sf::Thread(&Level::LI, this);
 
@@ -315,7 +319,28 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		for (auto& object : m_objectListZero)
 			if (System::IsShapeInCamera(object.GetShape()))
 				object.Draw();
-		System::wnd.draw(m_s_final);
+
+
+		//m_shader_start.setUniform("hasTexture", true);
+		m_shader_start.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
+		m_shader_start.setUniform("pos", m_s_start.getPosition());
+
+		cout << m_s_start.getPosition().x << "    " << m_s_start.getPosition().y << endl;
+
+		m_shader_start.setUniform("size", m_s_start.getSize());
+		m_time = m_time + System::time / 1000;
+		m_shader_start.setUniform("time", m_time);
+		System::wnd.draw(m_s_start, &m_shader_start);
+
+
+		//m_shader_stop.setUniform("hasTexture", true);
+		m_shader_stop.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
+		m_shader_stop.setUniform("pos", m_s_final.getPosition());
+		m_shader_stop.setUniform("size", m_s_final.getSize());
+		//m_time = m_time + System::time / 100;
+		m_shader_stop.setUniform("time", m_time);
+		System::wnd.draw(m_s_final, &m_shader_stop);
+
 		m_ptr_player->Draw();
 		for (auto& object : m_objectListFront)
 			if (System::IsShapeInCamera(object.GetShape()))

@@ -73,6 +73,9 @@
     <None Include="test_from_inet_1.frag">
       <Filter>Файлы заголовков\Core\Shaders</Filter>
     </None>
+    <None Include="inet2.frag">
+      <Filter>Файлы заголовков\Core\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">

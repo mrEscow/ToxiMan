@@ -441,22 +441,10 @@ b2Body* Player::GetBody()
 void Player::Draw()
 {
 	m_shader.setUniform("hasTexture", true);
-	//m_shader.setUniform("resolution", m_shape.getSize());
 	m_shader.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()) );
-
-	//v2f testtest = static_cast<v2f>(System::wnd.getSize());
-	//cout << testtest.x << "    " << testtest.y << endl;
-	//cout << System::cur_p_wnd.x << "   " << System::cur_p_wnd.y << endl;
-	//cout << System::cam_p.x << "   " << System::cam_p.y << endl;
-	//cout << <<"    "<< << endl;
-
 	m_shader.setUniform("pos", System::cur_p_wnd);
 	m_shader.setUniform("size", m_shape.getSize());
-	//cout << m_shape.getPosition().x << "    " << m_shape.getPosition().y << endl;
-	//cout << mst_time.asSeconds() << endl;
 	ms_time = ms_time + System::time/100;
-	//cout << ms_time << endl;
-	//cout << System::time << endl;
 	m_shader.setUniform("time", ms_time);
 
 	if (&m_shader) {

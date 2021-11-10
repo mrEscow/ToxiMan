@@ -44,6 +44,8 @@ private:
 
 private:
 	// Shader	
+	sf::Shader m_shader_start;
+	sf::Shader m_shader_stop;
 
 	sf::Shader shaderBg5_a;
 	sf::Shader shaderBg5_b;
@@ -70,7 +72,10 @@ private:
 	Shape m_bg5_g;
 
 	// final point
+	Shape m_s_start;
 	Shape m_s_final;
+
+	float m_time = 0;
 
 	void LI();
 
