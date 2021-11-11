@@ -76,6 +76,7 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 
 	// Шейдер
 	m_shader.setUniform("hasTexture", true);
+	m_shader.setUniform("is_right", true);
 	//m_shader.setUniform("lightPos", m_shape.getPosition());
 
 	if (!m_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))		// not bad
@@ -442,10 +443,16 @@ void Player::Draw()
 {
 	m_shader.setUniform("hasTexture", true);
 	m_shader.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()) );
-	m_shader.setUniform("pos", System::cur_p_wnd);
+	m_shader.setUniform("pos", System::GetPosForShader(m_shape));
 	m_shader.setUniform("size", m_shape.getSize());
-	ms_time = ms_time + System::time/100;
+	ms_time = ms_time + System::time/500;
 	m_shader.setUniform("time", ms_time);
+
+	if (dx > 0)
+		m_shader.setUniform("is_right", true);
+	if (dx < 0)
+		m_shader.setUniform("is_right", false);
+	
 
 	if (&m_shader) {
 		System::wnd.draw(m_shape, &m_shader);

@@ -370,6 +370,7 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		//			).y 
 		//	)
 		//);
+
 		m_time = m_time + System::time / 1000;
 
 		m_shader_start.setUniform("time", m_time);

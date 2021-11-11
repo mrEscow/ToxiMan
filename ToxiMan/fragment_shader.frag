@@ -8,13 +8,17 @@ uniform bool hasTexture;
 //may
 #extension GL_OES_standard_derivatives : enable
 
-precision highp float;
+uniform bool is_right;
+
+//precision highp float;
 
 uniform float time;
 uniform vec2 resolution;
 
 uniform vec2 pos;
 uniform vec2 size;
+
+
 
 
 void main()
@@ -38,11 +42,22 @@ void main()
 	// may
 	//vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 	//vec2 p = (gl_FragCoord.xy * 1.0 - (resolution )) / min(size.x, size.y);
-	vec2 p = (gl_FragCoord.xy * 1.0 - size) / min(size.x, size.y);
+	vec2 p1 = (gl_FragCoord.xy * 1.0 - (pos + vec2(0,20))) / min(size.x, size.y);
+	//vec2 p2 = (gl_FragCoord.xy * 1.0 - (pos + vec2(20,20))) / min(size.x, size.y);
+	//vec2 p2;
+	if(is_right == true)
+	{
+		vec2 p2 = (gl_FragCoord.xy * 1.0 - (pos + vec2(20,20))) / min(size.x, size.y);
+	}
+	else
+	{
+		vec2 p2 = (gl_FragCoord.xy * 1.0 - (pos + vec2(-20,20))) / min(size.x, size.y);
+	}	
 
+	float l1 = 0.2 * abs(sin(time * 1.0)) / length(p1);
+	float l2 = 0.2 * abs(sin(time * 1.0)) / length(p2);
 
-	float l = 10. * abs(sin(time * 1.0)) / length(p);
-	vec4 my_test = vec4(vec3(l), 1.0);
+	vec4 my_test = vec4(vec3(l1), 1.0) * vec4(vec3(l2), 1.0);
 
     // multiply it by the color and lighting
 	if(hasTexture == true)
