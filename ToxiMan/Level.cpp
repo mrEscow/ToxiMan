@@ -161,8 +161,8 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 
 
 	// points
-	m_s_start = System::CreateShape(m_map_ptr->GetStartPos(), v2f(500, 500), Color::Magenta);
-	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64), Color::Magenta);
+	m_s_start = System::CreateShape(m_map_ptr->GetStartPos(), v2f(500, 500),Color(0, 0, 0, 255));
+	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64),Color(255,255,255,255));
 	m_shader_start.loadFromFile("vertex_shader.vert", "inet2.frag");
 	m_shader_stop.loadFromFile("vertex_shader.vert", "inet2.frag");
 
@@ -370,6 +370,8 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 		//			).y 
 		//	)
 		//);
+
+		
 
 		m_time = m_time + System::time / 1000;
 

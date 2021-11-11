@@ -26,7 +26,7 @@ void main(void){
 
 	p = rotate2d((time * 1.0) * PI) * p;
 
-	float t = 0.02 / abs(abs(sin(time)) - length(p));
+	float t = 0.05 / abs(abs(sin(time)) - length(p));
 
-    gl_FragColor =  vec4(vec3(t) * vec3(p.x,p.y,1.0), 1.0) ;
+    gl_FragColor = gl_Color + vec4((vec3(t)) * vec3(p.x,p.y,1.0) , 1.);
 }

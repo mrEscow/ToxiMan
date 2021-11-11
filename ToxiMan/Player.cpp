@@ -75,12 +75,15 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 	bool c = true;
 
 	// Шейдер
-	m_shader.setUniform("hasTexture", true);
-	m_shader.setUniform("is_right", true);
+	
+	//m_shader.setUniform("hasTexture", true);
+	
 	//m_shader.setUniform("lightPos", m_shape.getPosition());
 
 	if (!m_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))		// not bad
-		cout << "ERROR:Shader is not load./n";
+		cout << "ERROR:Shader is not load.\n";
+
+	m_shader.setUniform("isRight", true);
 
 	//if (!m_shader.loadFromFile("vertex_shader.vert", "test_from_inet_1.frag"))
 	//	cout << "ERROR:Shader is not load./n";
@@ -447,11 +450,11 @@ void Player::Draw()
 	m_shader.setUniform("size", m_shape.getSize());
 	ms_time = ms_time + System::time/500;
 	m_shader.setUniform("time", ms_time);
-
+	
 	if (dx > 0)
-		m_shader.setUniform("is_right", true);
+		m_shader.setUniform("isRight", true);
 	if (dx < 0)
-		m_shader.setUniform("is_right", false);
+		m_shader.setUniform("isRight", false);
 	
 
 	if (&m_shader) {
