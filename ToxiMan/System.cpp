@@ -277,7 +277,7 @@ const float System::GetAngle(Shape& shp1, Shape& shp2)
 	return atan2f(p2.y - p1.y, p2.x - p1.x) * DEG;
 }
 
-const v2f  System::GetPosForShader(Shape& shp)
+const v2f System::GetPosForShader(Shape& shp)
 {
 	return v2f(
 		wnd.mapCoordsToPixel(shp.getPosition(), cam).x,
