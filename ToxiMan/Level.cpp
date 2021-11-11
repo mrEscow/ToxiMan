@@ -307,6 +307,10 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 	System::wnd.draw(m_bg5_c, &shaderBg5_c);
 	System::wnd.draw(m_bg5_d, &shaderBg5_d);
 	System::wnd.draw(m_bg5_e, &shaderBg5_e);
+
+	// for shaders
+	v2f center = System::wnd.getView().getCenter();
+	v2f size = System::wnd.getView().getSize();
 	
 	switch (state_game)
 	{
@@ -322,23 +326,60 @@ void Level::Draw(StateGame& state_game,LevelNumber& number)
 
 
 		//m_shader_start.setUniform("hasTexture", true);
-		m_shader_start.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
-		m_shader_start.setUniform("pos", m_s_start.getPosition());
 
-		cout << m_s_start.getPosition().x << "    " << m_s_start.getPosition().y << endl;
+		//resolution + position
+		//cout << "--POS----------------------------------" << endl;
+		//cout << System::wnd.getSize().x << "    " << System::wnd.getSize().y << endl;
+		//cout << m_s_start.getPosition().x << "    " << m_s_start.getPosition().y << endl;
+		//cout << "---MOUSE-----------------------------------" << endl;
+		//cout << System::cur_p.x << "    " << System::cur_p.y << endl;
+		//cout << System::cur_p_wnd.x << "    " << System::cur_p_wnd.y << endl;
+		//cout << System::cur_for_UI.x << "    " << System::cur_for_UI.y << endl;
+		//cout << "---New-----------------------------------" << endl;
+		//cout << -(System::wnd.mapPixelToCoords(v2i(m_s_start.getPosition().x, -m_s_start.getPosition().y)) - System::cam.getCenter()).x
+		//	 << "   " 
+		//	 << (System::wnd.mapPixelToCoords(v2i(m_s_start.getPosition().x, -m_s_start.getPosition().y)) - System::cam.getCenter()).y << endl;
+		//cout << System::wnd.mapCoordsToPixel(m_s_start.getPosition(), System::cam).x 
+		//	<< "  "
+		//	<< System::wnd.getSize().y - System::wnd.mapCoordsToPixel(m_s_start.getPosition(), System::cam).y
+		//	<< endl;
 
-		m_shader_start.setUniform("size", m_s_start.getSize());
+		//cout << -(System::wnd.mapPixelToCoords(v2i(
+		//		m_s_start.getPosition().x ,
+		//		-m_s_start.getPosition().y))).x 
+		//	 << "   " 
+		//	 << (System::wnd.mapPixelToCoords(v2i(
+		//		 m_s_start.getPosition().x ,
+		//		 -m_s_start.getPosition().y ))).y  
+		//	 << endl;
+		
+
+		//m_shader_start.setUniform("mouse", System::cur_for_UI);
+		//m_shader_start.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
+
+		//m_shader_start.setUniform(
+		//	"pos", 
+		//	v2f(
+		//		-(System::wnd.mapPixelToCoords(v2i(
+		//			m_s_start.getPosition().x, 
+		//			-m_s_start.getPosition().y + (System::wnd.getSize().y / 2)))
+		//			).x ,
+		//		(System::wnd.mapPixelToCoords(v2i(
+		//			m_s_start.getPosition().x, 
+		//			-m_s_start.getPosition().y + (System::wnd.getSize().y / 2)))
+		//			).y 
+		//	)
+		//);
 		m_time = m_time + System::time / 1000;
+
 		m_shader_start.setUniform("time", m_time);
+		m_shader_start.setUniform("pos",System::GetPosForShader(m_s_start));
+		m_shader_start.setUniform("size", m_s_start.getSize());
 		System::wnd.draw(m_s_start, &m_shader_start);
 
-
-		//m_shader_stop.setUniform("hasTexture", true);
-		m_shader_stop.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
-		m_shader_stop.setUniform("pos", m_s_final.getPosition());
-		m_shader_stop.setUniform("size", m_s_final.getSize());
-		//m_time = m_time + System::time / 100;
 		m_shader_stop.setUniform("time", m_time);
+		m_shader_stop.setUniform("pos", System::GetPosForShader(m_s_final));
+		m_shader_stop.setUniform("size", m_s_final.getSize());
 		System::wnd.draw(m_s_final, &m_shader_stop);
 
 		m_ptr_player->Draw();

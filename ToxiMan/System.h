@@ -131,6 +131,9 @@ public:
 	// Возвращает направление в градусах относительно фигуры shp1 к фигуре shp2
 	static const float GetAngle(Shape& shp1, Shape& shp2);
 
+	// Возвращает позицию фигуры в оконных координатах (для обработки в шейдоре)
+	static const v2f GetPosForShader(Shape& shp);
+
 private:
 
 	static sf::Clock clock;
