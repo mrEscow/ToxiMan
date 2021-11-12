@@ -31,5 +31,5 @@ void main(void){
 
 	vec4 mayvec4 = vec4(vec3(t),t2);
 
-    gl_FragColor = vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4;
-}dd
+    gl_FragColor = vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+}
