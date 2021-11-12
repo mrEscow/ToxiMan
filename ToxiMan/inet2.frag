@@ -26,8 +26,10 @@ void main(void){
 
 	p = rotate2d((time * 1.0) * PI) * p;
 
-	float t = 0.02 / abs(abs(sin(time)) - length(p));
-	float t2 = 0.02 / abs(abs(sin(time)) - length(p));
+	float thickness = 0.2;
+
+	float t = thickness / abs(abs(sin(time)) - length(p));
+	float t2 = thickness / abs(abs(sin(time)) - length(p));
 
 	vec4 mayvec4 = vec4(vec3(t),t2);
 
