@@ -70,7 +70,7 @@ void main()
 		// may test
 		//gl_FragColor = 1,0, 0, 1;
 		//gl_FragColor = gl_Color * pixel * my_test; // cool2
-		gl_FragColor = (pixel + my_test) * pixel ;
+		gl_FragColor = (pixel + my_test) * pixel ; 
 		//gl_FragColor =  my_test;
 
 		//gl_FragColor = gl_Color * pixel * (clamp(ambient + vec4(1-vecLength, 1-vecLength, 1-vecLength, 1), 0, 1));  //cool

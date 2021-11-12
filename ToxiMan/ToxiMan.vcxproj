@@ -141,6 +141,7 @@
   <ItemGroup>
     <None Include="fragment_shader.frag" />
     <None Include="inet2.frag" />
+    <None Include="inet3_fire.frag" />
     <None Include="packages.config" />
     <None Include="test_from_inet_1.frag" />
     <None Include="vertex_shader.vert" />

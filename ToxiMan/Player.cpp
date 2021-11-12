@@ -88,6 +88,13 @@ Player::Player(Map &map, v2f firstPos, v2f size_map)
 	//if (!m_shader.loadFromFile("vertex_shader.vert", "test_from_inet_1.frag"))
 	//	cout << "ERROR:Shader is not load./n";
 	ms_time = 0;
+
+	//if (!m_shader_fire.loadFromFile("vertex_shader.vert", "inet3_fire.frag"))		// not bad
+	//	cout << "ERROR:Shader is not load.  FIRE\n";
+
+	//m_shape_fire = System::CreateShape(m_firstPos, v2f(60, 50));
+	//m_shape_fire.scale(0, -1);
+
 }
 
 void Player::Action(StateGame& state_game)
@@ -329,7 +336,7 @@ void Player::Update(bool & is_reset)
 		if (is_onGround) {
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0, (-190 / magic) * m_koeficent), true);
 		}
-		is_button_Up = false;
+		//is_button_Up = false;
 	}
 
 			
@@ -392,6 +399,9 @@ void Player::Update(bool & is_reset)
 	}
 
 	MyFirstGun->Update(m_shape.getPosition(), m_dir);	
+
+	//m_shape_fire.setPosition(m_shape.getPosition().x, m_shape.getPosition().y + 70);
+	
 }
 
 
@@ -462,6 +472,11 @@ void Player::Draw()
 	}
 	else
 		System::wnd.draw(m_shape);
+	//-------------------------------------
+	//m_shader_fire.setUniform("resolution", System::GetPosForShader(m_shape_fire));
+	////m_shader_fire.setUniform("size", m_shape_fire.getSize());
+	//m_shader_fire.setUniform("time", ms_time);
+	//System::wnd.draw(m_shape_fire, &m_shader_fire);
 
 
 	MyFirstGun->Draw();

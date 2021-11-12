@@ -26,7 +26,7 @@ void main(void){
 
 	p = rotate2d((time * 1.0) * PI) * p;
 
-	float thickness = 0.2;
+	float thickness = 0.256;
 
 	float t = thickness / abs(abs(sin(time)) - length(p));
 	float t2 = thickness / abs(abs(sin(time)) - length(p));

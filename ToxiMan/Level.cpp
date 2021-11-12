@@ -70,15 +70,15 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	LoadLevel(number);
 
 
-	
-	m_ptr_player = new Player(*m_map_ptr, m_StartPos, m_size_map);
-	m_ptr_arhitevt = new Architect(*m_map_ptr,m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
-	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt,m_ptr_player);
+	m_ptr_player = new Player(*m_map_ptr, m_StartPos, m_size_map);
+	m_ptr_arhitevt = new Architect(*m_map_ptr, m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
+
+	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt, m_ptr_player);
 
 	is_from_arhitetc = false;
 	is_reset = false;
-	
+
 	shaderBg5_a.loadFromMemory
 	(
 		"uniform vec2 offset;"
@@ -151,18 +151,18 @@ Level::Level(LevelNumber& number, GameSettings& game_settings)
 	offsetBg5_d = v2f(0, 0);;
 	offsetBg5_e = v2f(0, 0);;
 
-	m_bg5_a = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_a);
-	m_bg5_b = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_b);
-	m_bg5_c = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_c);
-	m_bg5_d = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_d);
-	m_bg5_e = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_e);
+	m_bg5_a = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_a);
+	m_bg5_b = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_b);
+	m_bg5_c = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_c);
+	m_bg5_d = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_d);
+	m_bg5_e = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_e);
 
-	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y ) / 2 ) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_g);
+	m_bg5_g = System::CreateShape(v2f(((64 * m_size_map.x) / 2) - 32, ((64 * m_size_map.y) / 2) - 32), v2f(64 * m_size_map.x + 500, 64 * m_size_map.y), System::resources.texture.bg5_g);
 
 
 	// points
-	m_s_start = System::CreateShape(m_map_ptr->GetStartPos(), v2f(500, 500),Color(0, 0, 0, 255));
-	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64),Color(255,255,255,255));
+	m_s_start = System::CreateShape(m_map_ptr->GetStartPos(), v2f(500, 500), Color(0, 0, 0, 255));
+	m_s_final = System::CreateShape(m_map_ptr->GetFinalPos(), v2f(64, 64), Color(255, 255, 255, 255));
 	m_shader_start.loadFromFile("vertex_shader.vert", "inet2.frag");
 	m_shader_stop.loadFromFile("vertex_shader.vert", "inet2.frag");
 

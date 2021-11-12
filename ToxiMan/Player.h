@@ -93,6 +93,11 @@ private:
 	float ms_time;
 	sf::Time mst_time;
 
+	sf::Shader m_shader_fire;
+	Shape m_shape_fire;
+
+
+
 public:
 
 	Player(Map& map,v2f firstPos, v2f size_map);
