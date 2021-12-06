@@ -15,10 +15,10 @@ enum class StateMainMenu : uint
 	ON_EXIT
 };
 
-enum class LevelNumber : uint
-{
-	zero, one, two
-};
+//enum class LevelNumber : uint
+//{
+//	zero, one, two
+//};
 
 enum class ArcitectVector : uint
 {
@@ -55,5 +55,10 @@ public:
 	void SetGameLevel(UINT32 GameLevel)
 	{ 
 		this->GameLevel = GameLevel;
+	}
+
+	const UINT32 GetGameLevel()
+	{
+		return GameLevel;
 	}
 };

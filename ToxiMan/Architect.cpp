@@ -87,7 +87,7 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 	is_save_map = false;
 }
 
-void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, LevelNumber& number)
+void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, UINT32 GameLevel)
 {
 	
 
@@ -240,13 +240,13 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 
 	if (is_back) {
 		for (auto& obj : *m_ptr_objectListBack)
-			jsonSM.SaveObject(obj, "file_back.json", number);
+			jsonSM.SaveObject(obj, "file_back.json", GameLevel);
 
 		for (auto& obj : *m_ptr_objectListZero)
-			jsonSM.SaveObject(obj, "file_zero.json", number);
+			jsonSM.SaveObject(obj, "file_zero.json", GameLevel);
 
 		for (auto& obj : *m_ptr_objectListFront)
-			jsonSM.SaveObject(obj, "file_front.json", number);
+			jsonSM.SaveObject(obj, "file_front.json", GameLevel);
 
 		cout << "SAVE is_back from menu arch" << endl;
 
@@ -263,8 +263,8 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 
 	if (is_save_map) {
 		JsonSaveMenager temp;
-		temp.DeleteJsonFile("Save/MAP.json", number);
-		temp.SaveMap("Save/MAP.json", *m_map_ptr, number);
+		temp.DeleteJsonFile("Save/MAP.json", GameLevel);
+		temp.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
 		is_save_map = false;
 		cout << "SaveMap" << endl;
 	}

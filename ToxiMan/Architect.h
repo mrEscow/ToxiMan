@@ -66,7 +66,7 @@ class Architect
 public:
 	Architect(Map& map, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
 
-	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, LevelNumber& number);
+	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, UINT32 GameLevel);
 
 	void Update();
 

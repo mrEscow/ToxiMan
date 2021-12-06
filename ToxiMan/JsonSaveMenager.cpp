@@ -2,7 +2,7 @@
 
 //#pragma warning(disable : 4996)
 
-void JsonSaveMenager::SaveMap(string name_file, Map& map, LevelNumber& number)
+void JsonSaveMenager::SaveMap(string name_file, Map& map, UINT32 GameLevel)
 {
 	m_json["Name"] = map.GetName();				// string
 
@@ -17,14 +17,14 @@ void JsonSaveMenager::SaveMap(string name_file, Map& map, LevelNumber& number)
 
 	m_serializedString = m_json.dump();
 
-	m_fout.open("Resources/JsonSave/" + to_string((int)number) + "/" + name_file, ofstream::app);
+	m_fout.open("Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file, ofstream::app);
 	m_fout << m_serializedString << "\n";
 	m_fout.close();
 }
 
-Map JsonSaveMenager::LoadMap(string name_file, LevelNumber& number)
+Map JsonSaveMenager::LoadMap(string name_file, UINT32 GameLevel)
 {
-	string temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
+	string temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
 
 	Map temp_map;
 
@@ -63,7 +63,7 @@ Map JsonSaveMenager::LoadMap(string name_file, LevelNumber& number)
 	return temp_map;
 }
 
-void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumber& number)
+void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, UINT32 GameLevel)
 {
 	m_json["ID"] = obj.GetObjectID();
 	m_json["Name"] = obj.GetName();
@@ -76,16 +76,16 @@ void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, LevelNumb
 
 	m_serializedString = m_json.dump();
 
-	m_fout.open("Resources/JsonSave/" + to_string((int)number) + "/" + name_file, ofstream::app);
+	m_fout.open("Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file, ofstream::app);
 	m_fout << m_serializedString << "\n";
 	m_fout.close();
 }
 
-vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumber& number)
+vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, UINT32 GameLevel)
 {
 
 	vector<ObjectManager> vec;
-	string temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
+	string temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
 
 	m_fin.open(temp);
 	if (!m_fin.is_open()) 
@@ -127,9 +127,9 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, LevelNumb
 	return vec;
 }
 
-void JsonSaveMenager::DeleteJsonFile(string name_file, LevelNumber& number)
+void JsonSaveMenager::DeleteJsonFile(string name_file, UINT32 GameLevel)
 {
-	string str_temp = "Resources/JsonSave/" + to_string((int)number) + "/" + name_file;
+	string str_temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
 	//char* char_temp = new char[str_temp.size()];
 	//strcpy(char_temp, str_temp.c_str());
 	remove(str_temp.c_str());

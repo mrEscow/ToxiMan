@@ -1,73 +1,68 @@
 #include "Level.h"
 
 
-void Level::LoadLevel(LevelNumber& number)
+void Level::LoadLevel(UINT32 GameLevel)
 {
-
-
 	m_map_ptr = new Map;
 
-	m_ptr_number = &number;
+	//m_ptr_number = &number;
 
-	switch (number)
-	{
-	case LevelNumber::zero:
+	//switch (number)
+	//{
+	//case LevelNumber::zero:
 
 		// from Json
-		System::resources.texture.LoadLevel_0();
+		//System::resources.texture.LoadLevel_0();
 
 
-		m_map_ptr->SetName("Test");
-		m_map_ptr->SetMapSize(v2i(80, 30));
-		m_map_ptr->SetStartPos(v2f(500, 1750));
-		m_map_ptr->SetFinalPos(v2f(1000, 1750));
+		//m_map_ptr->SetName("Test");
+		//m_map_ptr->SetMapSize(v2i(80, 30));
+		//m_map_ptr->SetStartPos(v2f(500, 1750));
+		//m_map_ptr->SetFinalPos(v2f(1000, 1750));
 
-		m_StartPos = v2f(500, 1750);
-		m_size_map = v2f(80, 30);
+		//m_StartPos = v2f(500, 1750);
+		//m_size_map = v2f(80, 30);
 
-		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
-		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
-		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
+		//m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
+		//m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
+		//m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
 
-		m_jsonSM.DeleteJsonFile("file_back.json", number);
-		m_jsonSM.DeleteJsonFile("file_zero.json", number);
-		m_jsonSM.DeleteJsonFile("file_front.json", number);
+		//m_jsonSM.DeleteJsonFile("file_back.json", number);
+		//m_jsonSM.DeleteJsonFile("file_zero.json", number);
+		//m_jsonSM.DeleteJsonFile("file_front.json", number);
 
-		break;
-	case LevelNumber::two:
+	//	break;
+	//case LevelNumber::two:
 
-		*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json",number);
+		*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json", GameLevel);
 
 		m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
 
 		m_StartPos = m_map_ptr->GetStartPos();
 		m_FinishPos = m_map_ptr->GetFinalPos();
 
-		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
-		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
-		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
+		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", GameLevel);
+		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", GameLevel);
+		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", GameLevel);
 
-		m_jsonSM.DeleteJsonFile("file_back.json", number);
-		m_jsonSM.DeleteJsonFile("file_zero.json", number);
-		m_jsonSM.DeleteJsonFile("file_front.json", number);
+		m_jsonSM.DeleteJsonFile("file_back.json", GameLevel);
+		m_jsonSM.DeleteJsonFile("file_zero.json", GameLevel);
+		m_jsonSM.DeleteJsonFile("file_front.json", GameLevel);
 
-		break;
-	default:
-		break;
-	}
-
-
-
-
+	//	break;
+	//default:
+	//	break;
+	//}
 
 }
 //----------------------------------------------------------------------
-Level::Level(LevelNumber& number, GameSettings& game_settings)
+Level::Level(UINT32 GameLevel, GameSettings& game_settings)
 {
+	m_GameLevel = GameLevel;
 	System::resources.texture.LoadForArhitect();
 	System::resources.texture.LoadLevel_0();
 
-	LoadLevel(number);
+	LoadLevel(GameLevel);
 
 
 
@@ -179,7 +174,7 @@ void Level::LI()
 	}
 }
 
-void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number)
+void Level::Action(StateGame& state_game, StateGame& previous_state, UINT32 GameLevel)
 {
 	//if (System::IsKeyPressed(Key::M))
 
@@ -196,14 +191,14 @@ void Level::Action(StateGame& state_game, StateGame& previous_state, LevelNumber
 		m_ptr_player->Action(state_game);
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_arhitevt->Action(state_game, previous_state, is_from_arhitetc, m_jsonSM, number);
+		m_ptr_arhitevt->Action(state_game, previous_state, is_from_arhitetc, m_jsonSM, GameLevel);
 		break;
 	default:
 		break;
 	}
 }
 
-void Level::Update(StateGame& state_game, LevelNumber& number)
+void Level::Update(StateGame& state_game, UINT32 GameLevel)
 {
 	m_s_final.setPosition(m_map_ptr->GetFinalPos());
 
@@ -251,13 +246,13 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 
 	if (is_from_arhitetc) {
 
-		m_objectListBack = m_jsonSM.LoadVecObject("file_back.json", number);
-		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", number);
-		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", number);
+		m_objectListBack = m_jsonSM.LoadVecObject("file_back.json", GameLevel);
+		m_objectListZero = m_jsonSM.LoadVecObject("file_zero.json", GameLevel);
+		m_objectListFront = m_jsonSM.LoadVecObject("file_front.json", GameLevel);
 
-		m_jsonSM.DeleteJsonFile("file_back.json", number);
-		m_jsonSM.DeleteJsonFile("file_zero.json", number);
-		m_jsonSM.DeleteJsonFile("file_front.json", number);
+		m_jsonSM.DeleteJsonFile("file_back.json", GameLevel);
+		m_jsonSM.DeleteJsonFile("file_zero.json", GameLevel);
+		m_jsonSM.DeleteJsonFile("file_front.json", GameLevel);
 
 		System::cam.reset(sf::FloatRect(
 			0, 
@@ -298,7 +293,7 @@ void Level::Update(StateGame& state_game, LevelNumber& number)
 		object.Update("objectListFront");
 }
 
-void Level::Draw(StateGame& state_game,LevelNumber& number)
+void Level::Draw(StateGame& state_game, UINT32 GameLevel)
 {
 	System::wnd.draw(m_bg5_g);
 
@@ -419,26 +414,26 @@ bool Level::check_lvl()
 Level::~Level()
 {
 	for (auto &obj : m_objectListBack) 
-		m_jsonSM.SaveObject(obj, "file_back.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "file_back.json", m_GameLevel);
 	
 	for (auto &obj : m_objectListZero) 
-		m_jsonSM.SaveObject(obj, "file_zero.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "file_zero.json", m_GameLevel);
 	
 	for (auto &obj : m_objectListFront) 
-		m_jsonSM.SaveObject(obj, "file_front.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "file_front.json", m_GameLevel);
 	
-	m_jsonSM.DeleteJsonFile("Save/file_back.json", *m_ptr_number);
-	m_jsonSM.DeleteJsonFile("Save/file_zero.json", *m_ptr_number);
-	m_jsonSM.DeleteJsonFile("Save/file_front.json", *m_ptr_number);
+	m_jsonSM.DeleteJsonFile("Save/file_back.json", m_GameLevel);
+	m_jsonSM.DeleteJsonFile("Save/file_zero.json", m_GameLevel);
+	m_jsonSM.DeleteJsonFile("Save/file_front.json", m_GameLevel);
 
 	for (auto& obj : m_objectListBack) 
-		m_jsonSM.SaveObject(obj, "Save/file_back.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "Save/file_back.json", m_GameLevel);
 	
 	for (auto& obj : m_objectListZero) 
-		m_jsonSM.SaveObject(obj, "Save/file_zero.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "Save/file_zero.json", m_GameLevel);
 	
 	for (auto& obj : m_objectListFront) 
-		m_jsonSM.SaveObject(obj, "Save/file_front.json", *m_ptr_number);
+		m_jsonSM.SaveObject(obj, "Save/file_front.json", m_GameLevel);
 	
 	delete m_ptr_player;
 	delete m_ptr_arhitevt;

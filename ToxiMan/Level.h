@@ -12,7 +12,8 @@ class Level
 {
 private:
 
-	LevelNumber *m_ptr_number;
+	UINT32 m_GameLevel;
+	//LevelNumber *m_ptr_number;
 
 	JsonSaveMenager  m_jsonSM;
 
@@ -83,14 +84,14 @@ public:
 
 	v2f GetPositionPlayer();
 
-	void LoadLevel(LevelNumber &number);
+	void LoadLevel(UINT32 GameLevel);
 
 
-	Level(LevelNumber& number, GameSettings& game_settings);
+	Level(UINT32 GameLevel, GameSettings& game_settings);
 
-	void Action(StateGame& state_game, StateGame& previous_state, LevelNumber& number);
-	void Update(StateGame& state_game, LevelNumber& number);
-	void Draw(StateGame& state_game, LevelNumber& number);
+	void Action(StateGame& state_game, StateGame& previous_state, UINT32 GameLevel);
+	void Update(StateGame& state_game, UINT32 GameLevel);
+	void Draw(StateGame& state_game, UINT32 GameLevel);
 
 	bool check_lvl();
 

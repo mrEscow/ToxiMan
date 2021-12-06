@@ -11,9 +11,9 @@ Game::Game()
 
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
-	m_GameStates = GameStates(1);
+	m_GameStates = new GameStates(1);
 
-	m_ptr_lvl = new Level(m_number, m_game_settings);
+	m_ptr_lvl = new Level(m_GameStates->GetGameLevel(), m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 
@@ -29,8 +29,9 @@ Game::Game()
 }
 
 
-void Game::LoadNextLevel(LevelNumber number){
+void Game::LoadNextLevel(UINT32 GameLevel){
 
+	m_GameStates->SetGameLevel(++GameLevel);
 }
 
 void Game::GreateLevel() {
@@ -42,7 +43,7 @@ void Game::Update()
 
 
 	if (m_is_next_level) {
-		LoadNextLevel(m_number);
+		LoadNextLevel(m_GameStates->GetGameLevel());
 		m_is_next_level = false;
 	}
 
@@ -68,7 +69,7 @@ void Game::Update()
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
-		m_ptr_lvl->Update(m_state_game,m_number);
+		m_ptr_lvl->Update(m_state_game, m_GameStates->GetGameLevel());
 
 		m_ptr_lvl->check_lvl();
 
@@ -76,7 +77,7 @@ void Game::Update()
 	case StateGame::ON_ARCITECT:
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
-		m_ptr_lvl->Update(m_state_game, m_number);
+		m_ptr_lvl->Update(m_state_game, m_GameStates->GetGameLevel());
 		break;
 	default:
 		break;
@@ -93,10 +94,10 @@ void Game::Draw()
 		m_main_menu->Draw();
 		break;
 	case StateGame::ON_GAME:
-		m_ptr_lvl->Draw(m_state_game, m_number);
+		m_ptr_lvl->Draw(m_state_game, m_GameStates->GetGameLevel());
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_lvl->Draw(m_state_game, m_number);
+		m_ptr_lvl->Draw(m_state_game, m_GameStates->GetGameLevel());
 		break;
 	default:
 		break;
@@ -115,11 +116,11 @@ void Game::Action()
 		previous_state = StateGame::ON_MAIN_MENU;
 		break;
 	case StateGame::ON_GAME:
-		m_ptr_lvl->Action(m_state_game, previous_state, m_number);
+		m_ptr_lvl->Action(m_state_game, previous_state, m_GameStates->GetGameLevel());
 		previous_state = StateGame::ON_GAME;
 		break;
 	case StateGame::ON_ARCITECT:
-		m_ptr_lvl->Action(m_state_game, previous_state, m_number);
+		m_ptr_lvl->Action(m_state_game, previous_state, m_GameStates->GetGameLevel());
 		break;
 	default:
 		break;

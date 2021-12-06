@@ -26,7 +26,11 @@ private:
 
 	StateGame m_state_game = StateGame::ON_MAIN_MENU;
 	//StateGame m_state_game = StateGame::ON_ARCITECT;
-	GameStates m_GameStates;
+
+
+	GameStates *m_GameStates;
+
+
 	StateGame previous_state;
 
 	GameSettings m_game_settings;
@@ -34,7 +38,7 @@ private:
 	unique_ptr<Menu> m_main_menu;
 
 
-	LevelNumber m_number = LevelNumber::zero;
+	//LevelNumber m_number = LevelNumber::zero;
 
 	Map* m_map_ptr;
 	Level *m_ptr_lvl;
@@ -61,7 +65,7 @@ public:
 
 	void GreateLevel();
 
-	void LoadNextLevel(LevelNumber number);
+	void LoadNextLevel(UINT32 GameLevel);
 
 	void NextLevel();
 
