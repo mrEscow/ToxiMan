@@ -1,7 +1,7 @@
 ﻿// ▼
 #pragma once
 
-
+//#include <thread>
 
 #include "Menu.h"
 #include "Level.h"
@@ -17,14 +17,16 @@ private:
 
 	sf::Thread* m_ptr_thread;
 
+	sf::Thread* m_ptr_play;
+
 	//bool m_is_pause = false;
 
 	bool m_is_next_level = true;
 
 
-	StateGame m_state_game = StateGame::ON_GAME;
+	StateGame m_state_game = StateGame::ON_MAIN_MENU;
 	//StateGame m_state_game = StateGame::ON_ARCITECT;
-
+	GameStates m_GameStates;
 	StateGame previous_state;
 
 	GameSettings m_game_settings;

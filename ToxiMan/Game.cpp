@@ -11,12 +11,18 @@ Game::Game()
 
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
+	m_GameStates = GameStates(1);
+
 	m_ptr_lvl = new Level(m_number, m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 
+	m_ptr_play = new sf::Thread(&Game::Play, this);
+	
 	m_ptr_thread->launch();
 
+	m_ptr_play->wait();
+	
 	System::speedGame = 2;
 
 
@@ -125,6 +131,7 @@ void Game::Action()
 void Game::Thread()
 {
 	System::wnd.setActive(false);
+
 	while (System::wnd.isOpen())
 	{
 		System::SystemUpdate();
@@ -133,8 +140,6 @@ void Game::Thread()
 		Update();
 		Draw();
 	}
-
-
 
 	//sf::sleep(sf::milliseconds(1000));
 }

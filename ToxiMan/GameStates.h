@@ -17,7 +17,7 @@ enum class StateMainMenu : uint
 
 enum class LevelNumber : uint
 {
-	zero, one, two, tree, four, five, six, seven, eight, nine, ten
+	zero, one, two
 };
 
 enum class ArcitectVector : uint
@@ -40,4 +40,20 @@ enum class StateLevel : uint
 {
 	ON_PLAYED,
 	ON_PAUSED
+};
+
+
+class GameStates {
+private:
+	UINT32 GameLevel;
+public:
+	GameStates(UINT32 GameLevel)
+	{
+		this->GameLevel = GameLevel;
+	}
+
+	void SetGameLevel(UINT32 GameLevel)
+	{ 
+		this->GameLevel = GameLevel;
+	}
 };

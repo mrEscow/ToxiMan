@@ -18,7 +18,7 @@ void GameSettings::ReadSettings()
 {
 	ifstream in("Settings/Settings.txt");
 	if (in.is_open()) {
-		in >> is_music_on >> music_volume >> is_sound_effect_on >> sound_volume;
+		in >> is_music_on >> music_volume >> is_sound_effect_on >> sound_volume >> GameLevels;
 
 		if (is_music_on != 1 && is_music_on != 0)
 			is_music_on = true;
@@ -41,14 +41,25 @@ void GameSettings::SaveSettings()
 	out << music_volume << endl;
 	out << is_sound_effect_on << endl;
 	out << sound_volume << endl;
+	out << GameLevels << endl;
 	out.close();
+}
+
+//GameLevels
+void GameSettings::SetGameLevels(UINT32 value)
+{
+	GameLevels = value;
+}
+
+const UINT32 GameSettings::GetGemeLevels()
+{
+	return GameLevels;
 }
 
 //music
 void GameSettings::SetMusicVolume(float value)
 {
 	music_volume = value;
-
 }
 
 const float GameSettings::GetMusicVolume()
