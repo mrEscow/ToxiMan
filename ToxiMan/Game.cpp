@@ -17,11 +17,11 @@ Game::Game()
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 
-	m_ptr_play = new sf::Thread(&Game::Play, this);
+	//m_ptr_play = new sf::Thread(&Game::Play, this);
 	
 	m_ptr_thread->launch();
 
-	m_ptr_play->wait();
+	//m_ptr_play->wait();
 	
 	System::speedGame = 2;
 
@@ -31,7 +31,7 @@ Game::Game()
 
 void Game::LoadNextLevel(UINT32 GameLevel){
 
-	m_GameStates->SetGameLevel(++GameLevel);
+	//m_GameStates->SetGameLevel(++GameLevel);
 }
 
 void Game::GreateLevel() {
@@ -40,8 +40,6 @@ void Game::GreateLevel() {
 
 void Game::Update()
 {
-
-
 	if (m_is_next_level) {
 		LoadNextLevel(m_GameStates->GetGameLevel());
 		m_is_next_level = false;

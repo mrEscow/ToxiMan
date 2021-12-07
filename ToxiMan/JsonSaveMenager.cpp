@@ -2,9 +2,14 @@
 
 //#pragma warning(disable : 4996)
 
-void JsonSaveMenager::SaveMap(string name_file, Map& map, UINT32 GameLevel)
+void JsonSaveMenager::SaveMap(string name_file, Map &map, UINT32 GameLevel)
 {
-	m_json["Name"] = map.GetName();				// string
+	m_json.clear();
+
+	if (!map.GetName().empty())
+		m_json["Name"] = map.GetName();			// string
+	else
+		m_json["Name"] = "TEST";
 
 	m_json["MapSizeX"] = map.GetMapSize().x;	// int
 	m_json["MapSizeY"] = map.GetMapSize().y;	// int
@@ -65,6 +70,8 @@ Map JsonSaveMenager::LoadMap(string name_file, UINT32 GameLevel)
 
 void JsonSaveMenager::SaveObject(ObjectManager &obj, string name_file, UINT32 GameLevel)
 {
+	m_json.clear();
+
 	m_json["ID"] = obj.GetObjectID();
 	m_json["Name"] = obj.GetName();
 
@@ -130,8 +137,6 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, UINT32 Ga
 void JsonSaveMenager::DeleteJsonFile(string name_file, UINT32 GameLevel)
 {
 	string str_temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
-	//char* char_temp = new char[str_temp.size()];
-	//strcpy(char_temp, str_temp.c_str());
 	remove(str_temp.c_str());
 	cout << "DeleteJsonFile" << endl;
 }

@@ -25,6 +25,7 @@
 */
 class Architect
 {
+
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
 	ArchtectMenu *m_ptr_menu;

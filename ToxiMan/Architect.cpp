@@ -262,9 +262,37 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 
 	if (is_save_map) {
-		JsonSaveMenager temp;
-		temp.DeleteJsonFile("Save/MAP.json", GameLevel);
-		temp.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
+		is_grid = false;
+
+		jsonSM.DeleteJsonFile("Save/MAP.json", GameLevel);
+		jsonSM.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
+		*m_map_ptr = jsonSM.LoadMap("Save/MAP.json", GameLevel);
+
+		m_cell_vec.clear();
+		m_cell_vec.reserve(m_map_ptr->GetMapSize().y* m_map_ptr->GetMapSize().x);
+
+		for (size_t y = 0; y < m_map_ptr->GetMapSize().y; y++)
+		{
+			for (size_t x = 0; x < m_map_ptr->GetMapSize().x; x++) {
+
+				m_cell = System::CreateShape(
+					v2f(
+						static_cast<float> (x) * m_size_x,
+						static_cast<float> (y) * m_size_y),
+					v2f(
+						static_cast<float> (m_size_x),
+						static_cast<float> (m_size_y)),
+					System::resources.texture.arhitectMouse
+				);
+
+				m_cell.setOutlineColor(Color::Green);
+				m_cell.setOutlineThickness(-2);
+
+				m_cell_vec.push_back(m_cell);
+			}
+		}
+
+		is_grid = true;
 		is_save_map = false;
 		cout << "SaveMap" << endl;
 	}
@@ -358,10 +386,11 @@ void Architect::Draw(StateGame& state_game, Player* player)
 		System::wnd.draw(m_finish);
 
 		player->Draw();
-
-		if(is_grid)
-			for (auto &cell : m_cell_vec)
-				System::wnd.draw(cell);
+		
+		if(is_grid && !is_save_map)
+			if(!m_cell_vec.empty())
+				for (auto &cell : m_cell_vec)
+					System::wnd.draw(cell);
 
 		System::wnd.draw(m_mouse);
 	}		

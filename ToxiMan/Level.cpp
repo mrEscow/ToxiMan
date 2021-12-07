@@ -5,60 +5,34 @@ void Level::LoadLevel(UINT32 GameLevel)
 {
 	m_map_ptr = new Map;
 
-	//m_ptr_number = &number;
+	cout << "GameLevel: " << GameLevel << endl;
 
-	//switch (number)
-	//{
-	//case LevelNumber::zero:
+	// map
+	*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json", GameLevel);
 
-		// from Json
-		//System::resources.texture.LoadLevel_0();
+	m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
+
+	m_StartPos = m_map_ptr->GetStartPos();
+	m_FinishPos = m_map_ptr->GetFinalPos();
 
 
-		//m_map_ptr->SetName("Test");
-		//m_map_ptr->SetMapSize(v2i(80, 30));
-		//m_map_ptr->SetStartPos(v2f(500, 1750));
-		//m_map_ptr->SetFinalPos(v2f(1000, 1750));
+	// objects
+	m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", GameLevel);
+	m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", GameLevel);
+	m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", GameLevel);
 
-		//m_StartPos = v2f(500, 1750);
-		//m_size_map = v2f(80, 30);
+	m_jsonSM.DeleteJsonFile("file_back.json", GameLevel);
+	m_jsonSM.DeleteJsonFile("file_zero.json", GameLevel);
+	m_jsonSM.DeleteJsonFile("file_front.json", GameLevel);
 
-		//m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", number);
-		//m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", number);
-		//m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", number);
-
-		//m_jsonSM.DeleteJsonFile("file_back.json", number);
-		//m_jsonSM.DeleteJsonFile("file_zero.json", number);
-		//m_jsonSM.DeleteJsonFile("file_front.json", number);
-
-	//	break;
-	//case LevelNumber::two:
-
-		*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json", GameLevel);
-
-		m_size_map = static_cast<v2f> (m_map_ptr->GetMapSize());
-
-		m_StartPos = m_map_ptr->GetStartPos();
-		m_FinishPos = m_map_ptr->GetFinalPos();
-
-		m_objectListBack = m_jsonSM.LoadVecObject("Save/file_back.json", GameLevel);
-		m_objectListZero = m_jsonSM.LoadVecObject("Save/file_zero.json", GameLevel);
-		m_objectListFront = m_jsonSM.LoadVecObject("Save/file_front.json", GameLevel);
-
-		m_jsonSM.DeleteJsonFile("file_back.json", GameLevel);
-		m_jsonSM.DeleteJsonFile("file_zero.json", GameLevel);
-		m_jsonSM.DeleteJsonFile("file_front.json", GameLevel);
-
-	//	break;
-	//default:
-	//	break;
-	//}
-
+	// backgraund
 }
 //----------------------------------------------------------------------
 Level::Level(UINT32 GameLevel, GameSettings& game_settings)
 {
+	
 	m_GameLevel = GameLevel;
+
 	System::resources.texture.LoadForArhitect();
 	System::resources.texture.LoadLevel_0();
 
@@ -320,53 +294,6 @@ void Level::Draw(StateGame& state_game, UINT32 GameLevel)
 				object.Draw();
 
 
-		//m_shader_start.setUniform("hasTexture", true);
-
-		//resolution + position
-		//cout << "--POS----------------------------------" << endl;
-		//cout << System::wnd.getSize().x << "    " << System::wnd.getSize().y << endl;
-		//cout << m_s_start.getPosition().x << "    " << m_s_start.getPosition().y << endl;
-		//cout << "---MOUSE-----------------------------------" << endl;
-		//cout << System::cur_p.x << "    " << System::cur_p.y << endl;
-		//cout << System::cur_p_wnd.x << "    " << System::cur_p_wnd.y << endl;
-		//cout << System::cur_for_UI.x << "    " << System::cur_for_UI.y << endl;
-		//cout << "---New-----------------------------------" << endl;
-		//cout << -(System::wnd.mapPixelToCoords(v2i(m_s_start.getPosition().x, -m_s_start.getPosition().y)) - System::cam.getCenter()).x
-		//	 << "   " 
-		//	 << (System::wnd.mapPixelToCoords(v2i(m_s_start.getPosition().x, -m_s_start.getPosition().y)) - System::cam.getCenter()).y << endl;
-		//cout << System::wnd.mapCoordsToPixel(m_s_start.getPosition(), System::cam).x 
-		//	<< "  "
-		//	<< System::wnd.getSize().y - System::wnd.mapCoordsToPixel(m_s_start.getPosition(), System::cam).y
-		//	<< endl;
-
-		//cout << -(System::wnd.mapPixelToCoords(v2i(
-		//		m_s_start.getPosition().x ,
-		//		-m_s_start.getPosition().y))).x 
-		//	 << "   " 
-		//	 << (System::wnd.mapPixelToCoords(v2i(
-		//		 m_s_start.getPosition().x ,
-		//		 -m_s_start.getPosition().y ))).y  
-		//	 << endl;
-		
-
-		//m_shader_start.setUniform("mouse", System::cur_for_UI);
-		//m_shader_start.setUniform("resolution", static_cast<v2f>(System::wnd.getSize()));
-
-		//m_shader_start.setUniform(
-		//	"pos", 
-		//	v2f(
-		//		-(System::wnd.mapPixelToCoords(v2i(
-		//			m_s_start.getPosition().x, 
-		//			-m_s_start.getPosition().y + (System::wnd.getSize().y / 2)))
-		//			).x ,
-		//		(System::wnd.mapPixelToCoords(v2i(
-		//			m_s_start.getPosition().x, 
-		//			-m_s_start.getPosition().y + (System::wnd.getSize().y / 2)))
-		//			).y 
-		//	)
-		//);
-
-		
 
 		m_time = m_time + System::time / 1000;
 
