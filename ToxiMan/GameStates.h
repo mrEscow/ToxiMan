@@ -1,5 +1,6 @@
 #pragma once
-#include"Define.h"
+#include "Define.h"
+#include "GameSettings.h"
 
 enum class StateGame : uint
 {
@@ -15,10 +16,6 @@ enum class StateMainMenu : uint
 	ON_EXIT
 };
 
-//enum class LevelNumber : uint
-//{
-//	zero, one, two
-//};
 
 enum class ArcitectVector : uint
 {
@@ -46,15 +43,21 @@ enum class StateLevel : uint
 class GameStates {
 private:
 	UINT32 GameLevel;
+	
 public:
 	GameStates(UINT32 GameLevel)
 	{
 		this->GameLevel = GameLevel;
 	}
 
-	void SetGameLevel(UINT32 GameLevel)
+	void NextGameLevel()
 	{ 
-		this->GameLevel = GameLevel;
+		if(GameLevel <= GameSettings::GetGemeLevels())
+			GameLevel++;
+		else
+		{
+			//Finish
+		}
 	}
 
 	const UINT32 GetGameLevel()

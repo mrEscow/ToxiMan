@@ -2,16 +2,23 @@
 #include "GameSettings.h"
 
 /*
-isMusic
-volumeMusic
-isSound
-volumeSound
+	isMusic
+	volumeMusic
+	isSound
+	volumeSound
+	GameLevels
 */
 
-GameSettings::GameSettings()
-{
 
-}
+// статические поля
+
+UINT32				GameSettings::GameLevels;
+
+
+
+
+GameSettings::GameSettings(){}
+
 
 // file
 void GameSettings::ReadSettings()

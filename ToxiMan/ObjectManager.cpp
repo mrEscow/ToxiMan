@@ -152,5 +152,7 @@ void ObjectManager::Update(string vecName)
 
 void ObjectManager::Draw()
 {
+	
 	System::wnd.draw(m_shape);
+	
 }

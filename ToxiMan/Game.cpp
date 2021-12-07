@@ -1,7 +1,8 @@
 ﻿// ▼
 #pragma once
 #include "Game.h"
-
+#include <mutex>
+std::mutex Mutex;
 
 Game::Game()
 {
@@ -13,7 +14,7 @@ Game::Game()
 
 	m_GameStates = new GameStates(1);
 
-	m_ptr_lvl = new Level(m_GameStates->GetGameLevel(), m_game_settings);
+	m_ptr_lvl = new Level(*m_GameStates, m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 
@@ -25,25 +26,14 @@ Game::Game()
 	
 	System::speedGame = 2;
 
-
 }
 
 
-void Game::LoadNextLevel(UINT32 GameLevel){
 
-	//m_GameStates->SetGameLevel(++GameLevel);
-}
-
-void Game::GreateLevel() {
-
-}
 
 void Game::Update()
 {
-	if (m_is_next_level) {
-		LoadNextLevel(m_GameStates->GetGameLevel());
-		m_is_next_level = false;
-	}
+
 
 	switch (m_state_game)
 	{
@@ -137,9 +127,11 @@ void Game::Thread()
 		UI::TextBoxEditHelper::Update();
 		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 		Update();
-		Draw();
-	}
 
+		Mutex.lock();
+		Draw();
+		Mutex.unlock();
+	}
 	//sf::sleep(sf::milliseconds(1000));
 }
 

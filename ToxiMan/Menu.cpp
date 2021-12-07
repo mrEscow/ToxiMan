@@ -6,16 +6,21 @@ Menu::Menu(StateGame& state_game, GameSettings& game_settings)
 	System::resources.audio.sound.LoadMenuSound();
 	System::resources.audio.music.LoadMenuMusic();
 	game_settings.ReadSettings();
+
 	m_state_game_ptr = &state_game;
 	m_game_settings_ptr = &game_settings;
+
 	m_state = StateMainMenu::ON_MAIN;
+
 	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr, m_state, *m_game_settings_ptr);
 	m_options_menu = make_unique<OptionsMenu>(m_state, *m_game_settings_ptr);
 	m_exit_menu = make_unique<ExitMenu>(m_state, *m_game_settings_ptr);
-	m_menu_back_ground = System::CreateShape(v2f(0, 0), v2f(B::scr_w, B::scr_h), System::resources.texture.menu_background);
+
+
+	m_menu_back_ground = System::CreateShape(v2f(0.0f, 0.0f), v2f(static_cast<float>(System::scr_w), static_cast<float>(System::scr_h)), System::resources.texture.menu_background);
 }
 
-void audioSettings(GameSettings& m_game_settings)
+void AudioSettings(GameSettings& m_game_settings)
 {
 	System::resources.audio.music.menu_music.setLoop(true);
 	System::resources.audio.music.menu_music.setVolume(m_game_settings.GetMusicVolume());
@@ -31,7 +36,7 @@ void audioSettings(GameSettings& m_game_settings)
 
 void Menu::Update()
 {
-	audioSettings(*m_game_settings_ptr);
+	AudioSettings(*m_game_settings_ptr);
 
 	switch (m_state)
 	{
@@ -68,6 +73,7 @@ void Menu::Action()
 	switch (m_state)
 	{
 	case StateMainMenu::ON_MAIN:
+		m_game_settings_ptr->SaveSettings();
 		m_main_menu->Action();
 		break;
 	case StateMainMenu::ON_OPTIONS:

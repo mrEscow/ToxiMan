@@ -63,11 +63,12 @@ class Architect
 	bool is_new_start;
 	bool is_new_finish;
 	bool is_save_map;
+	bool is_next_level;
 
 public:
 	Architect(Map& map, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
 
-	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, UINT32 GameLevel);
+	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, UINT32 GameLevel, bool& is_Next_Level);
 
 	void Update();
 

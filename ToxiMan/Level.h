@@ -12,6 +12,8 @@ class Level
 {
 private:
 
+
+	GameStates* m_ptr_GS;
 	UINT32 m_GameLevel;
 	//LevelNumber *m_ptr_number;
 
@@ -38,6 +40,8 @@ private:
 	bool is_from_arhitetc;
 
 	bool is_reset;
+
+	bool is_Next_Level;
 //protected:
 	vector<ObjectManager> m_objectListBack;
 	vector<ObjectManager> m_objectListZero;
@@ -84,10 +88,11 @@ public:
 
 	v2f GetPositionPlayer();
 
+	void NextLevel();
 	void LoadLevel(UINT32 GameLevel);
 
 
-	Level(UINT32 GameLevel, GameSettings& game_settings);
+	Level(GameStates&, GameSettings& game_settings);
 
 	void Action(StateGame& state_game, StateGame& previous_state, UINT32 GameLevel);
 	void Update(StateGame& state_game, UINT32 GameLevel);

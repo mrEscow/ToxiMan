@@ -35,8 +35,17 @@ Map JsonSaveMenager::LoadMap(string name_file, UINT32 GameLevel)
 
 	m_fin.open(temp);
 
-	if (!m_fin.is_open())
+	if (!m_fin.is_open()) {
 		cout << "error: " << temp << " not open!" << endl;
+		cout << "Create default map" << endl;
+
+		temp_map.SetName("NEW");		// string
+		// Logic
+		temp_map.SetMapSize(v2i(120,50));	// int
+		// View
+		temp_map.SetStartPos(v2f(0.0f,0.0f));	// S
+		temp_map.SetFinalPos(v2f(0.0f, 0.0f));	// F
+	}
 	else {
 
 		string line;

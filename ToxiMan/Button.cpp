@@ -9,7 +9,7 @@ namespace UI{
 
 		
 		s_button.setBuffer(System::resources.audio.sound.button_sound);
-		text_button = System::CreateText(shape.getPosition(), shape.getSize().y / 2, name_id, System::resources.font.erica_type, Color::Yellow);
+		text_button = System::CreateText(shape.getPosition(), static_cast<uint>(shape.getSize().y) / 2U, name_id, System::resources.font.erica_type, Color::Yellow);
 		System::CenteringText(text_button);
 
 	}
@@ -51,8 +51,8 @@ namespace UI{
 
 
 		if (is_pressed) {
-			text_button.setScale(0.95, 0.95);
-			m_shape.setScale(0.95, 0.95); 
+			text_button.setScale(0.95f, 0.95f);
+			m_shape.setScale(0.95f, 0.95f); 
 		}
 		else {
 			text_button.setScale(1.f, 1.f);

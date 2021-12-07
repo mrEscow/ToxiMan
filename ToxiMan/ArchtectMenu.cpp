@@ -2,13 +2,14 @@
 
 ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec) // 1/4 //
 {
+	ptr_game_settings = &game_settings;
 	m_map_ptr = &map;
 	m_ptr_Z_vec = &Z_vec;
 
-	archMenu.reset(sf::FloatRect(0, 0, System::scr_w, System::scr_h));
-	archMenu.setCenter(-System::scr_w / 4,0);
+	archMenu.reset(sf::FloatRect(0.0f, 0.0f, static_cast<float>(System::scr_w), static_cast<float>(System::scr_h)));
+	archMenu.setCenter(static_cast<float>(-System::scr_w) / 4.0f,0.0f);
 
-	m_menu = System::CreateShape(v2f(0, 0), v2f(System::scr_w / 4,System::scr_h), Color::Yellow);
+	m_menu = System::CreateShape(v2f(0.0f, 0.0f), v2f(static_cast<float>(System::scr_w) / 4.0f, static_cast<float>(System::scr_h)), Color::Yellow);
 	m_menu.setPosition(-m_menu.getSize().x * 2.5f , 0);
 
 	m_main_text = System::CreateText(v2f(m_menu.getPosition().x , -500), 30, "ArchitectMode:", System::resources.font.common, Color::Black);
@@ -78,7 +79,9 @@ void ArchtectMenu::Action(
 	bool& is_new_finish,
 	bool& is_save_map,
 
-	bool& is_back
+	bool& is_back,
+
+	bool& is_Next_Level
 )
 {
 
@@ -110,6 +113,9 @@ void ArchtectMenu::Action(
 
 
 			if (button->GetNameId() == "NextMap") {
+				GameSettings::SetGameLevels(GameSettings::GetGemeLevels() + 1);
+				ptr_game_settings->SaveSettings();
+				is_Next_Level = true;
 				cout << "NextMap" << endl;				
 			}
 

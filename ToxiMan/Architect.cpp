@@ -85,9 +85,10 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 	is_new_start = false;
 	is_new_finish = false;
 	is_save_map = false;
+	is_next_level = false;
 }
 
-void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, UINT32 GameLevel)
+void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, UINT32 GameLevel, bool& is_Next_Level)
 {
 	
 
@@ -224,7 +225,12 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		System::cam.zoom(1.1f); 		
 	}
 	//--------------------------------------------------------  --IS FROM MENU
-
+	if (is_next_level)
+	{
+		is_save_map = true;
+		is_next_level = false;
+	}
+	//-------------------------------------------------------------
 	m_ptr_menu->Action(
 		is_grid, 
 
@@ -232,13 +238,33 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		is_new_finish,
 		is_save_map,
 
-		is_back
+		is_back,
+
+		is_Next_Level
 	);
-
-
+	//-------------------------------------------------------------
+	if (is_Next_Level)
+		is_next_level = is_Next_Level;
 	//-------------------------------------------------------------
 
 	if (is_back) {
+
+
+		is_from_arhitetc = true;
+
+		is_back = false;
+
+		state_game = previous_state;
+	}
+	//-------------------------------------------------------------
+	if (is_save_map) {
+		is_grid = false;
+
+		jsonSM.DeleteJsonFile("Save/MAP.json", GameLevel);
+		jsonSM.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
+		*m_map_ptr = jsonSM.LoadMap("Save/MAP.json", GameLevel);
+
+
 		for (auto& obj : *m_ptr_objectListBack)
 			jsonSM.SaveObject(obj, "file_back.json", GameLevel);
 
@@ -248,25 +274,10 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		for (auto& obj : *m_ptr_objectListFront)
 			jsonSM.SaveObject(obj, "file_front.json", GameLevel);
 
-		cout << "SAVE is_back from menu arch" << endl;
 
 		ObjectManager::ObjectBeckID = 0;
 		ObjectManager::ObjectZeroID = 0;
 		ObjectManager::ObjectFrontID = 0;
-
-		is_from_arhitetc = true;
-
-		is_back = false;
-
-		state_game = previous_state;
-	}
-
-	if (is_save_map) {
-		is_grid = false;
-
-		jsonSM.DeleteJsonFile("Save/MAP.json", GameLevel);
-		jsonSM.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
-		*m_map_ptr = jsonSM.LoadMap("Save/MAP.json", GameLevel);
 
 		m_cell_vec.clear();
 		m_cell_vec.reserve(m_map_ptr->GetMapSize().y* m_map_ptr->GetMapSize().x);
@@ -292,7 +303,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 			}
 		}
 
-		is_grid = true;
+		//is_grid = true;
 		is_save_map = false;
 		cout << "SaveMap" << endl;
 	}
@@ -378,7 +389,7 @@ void Architect::Update()
 
 void Architect::Draw(StateGame& state_game, Player* player)
 {
-	if (state_game == StateGame::ON_ARCITECT) {
+	if (state_game == StateGame::ON_ARCITECT && !is_save_map) {
 
 		m_ptr_menu->Draw();
 

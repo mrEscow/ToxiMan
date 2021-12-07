@@ -11,6 +11,8 @@ private:
 
 	StateGame m_state_game_ptr;
 
+	GameSettings* ptr_game_settings;
+
 	ArcitectVector * m_ptr_Z_vec;
 
 	Map *m_map_ptr;
@@ -42,7 +44,9 @@ public:
 		bool& is_new_finish,
 		bool& is_save_map,
 
-		bool& is_back
+		bool& is_back,
+
+		bool& is_Next_Level
 	);
 	void Update();
 	void Draw();

@@ -10,9 +10,9 @@ namespace UI {
 		m_shape = shape;
 		m_game_settings_ptr = &m_game_settings;
 		s_button.setBuffer(System::resources.audio.sound.button_sound);
-		text_button = System::CreateText(shape.getPosition(), shape.getSize().y, name_id, System::resources.font.erica_type, Color::Red);
+		text_button = System::CreateText(shape.getPosition(), static_cast<uint>(shape.getSize().y), name_id, System::resources.font.erica_type, Color::Red);
 		System::CenteringText(text_button);
-		text_button.setPosition(shape.getPosition().x - (shape.getSize().x * 3.5), shape.getPosition().y - (shape.getSize().y / 1.5));
+		text_button.setPosition(shape.getPosition().x - (shape.getSize().x * 3.5f), shape.getPosition().y - (shape.getSize().y / 1.5f));
 	}
 
 	void CheckBox::Update()
@@ -28,7 +28,7 @@ namespace UI {
 			is_inside = false;
 		}
 
-		if (is_pressed) m_shape.setScale(0.95, 0.95); // Размер зажатой кнопки
+		if (is_pressed) m_shape.setScale(0.95f, 0.95f); // Размер зажатой кнопки
 		else m_shape.setScale(1.f, 1.f); // Изначальный размер кнопки
 	}
 
