@@ -35,6 +35,7 @@ class Architect
 	Map *m_map_ptr;
 
 	Shape	m_mouse;
+
 	Shape	m_start;
 	Shape	m_finish;
 
@@ -54,12 +55,18 @@ class Architect
 
 	Shape m_cell;
 
+	//menu
+	bool is_grid;
 
 	bool is_create;
+
+	bool is_next;
+
 	bool is_delete;
-	bool is_grid;
+
 	bool is_back;
 
+	//map
 	bool is_new_start;
 	bool is_new_finish;
 	bool is_save_map;

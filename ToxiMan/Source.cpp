@@ -1,8 +1,10 @@
 ﻿// ▼
+
 #include "Game.h"
 
 int main()
 {
+
 	System("init");
 	World("init");
 	Game game;

@@ -8,6 +8,8 @@
 
 #include "Timer.h"
 
+using namespace my;
+
 class Game
 {
 private:

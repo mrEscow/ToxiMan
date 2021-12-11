@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +171,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="NameSpace.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Player.h" />
@@ -188,6 +193,7 @@
     <ClCompile Include="ExitMenu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameSettings.cpp" />
+    <ClCompile Include="GameStates.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="JsonSaveMenager.cpp" />
     <ClCompile Include="Level.cpp" />

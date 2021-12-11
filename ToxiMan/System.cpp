@@ -37,16 +37,21 @@ System::System(string init)
 		scr_h = sf::VideoMode::getDesktopMode().height;
 		scr_w = sf::VideoMode::getDesktopMode().width;
 		wnd.create(sf::VideoMode(scr_w, scr_h), "Toxi Man", sf::Style::Default, Settings);
-		cam.reset(sf::FloatRect(0, 0, scr_w, scr_h));
+		cam.reset(sf::FloatRect(
+			0.0f,
+			0.0f,
+			static_cast<float>(scr_w),
+			static_cast<float>(scr_h)
+		));
 		cam.setCenter(0, 0);
 		cam_p = cam.getCenter();
 		cur_p = v2f(0, 0);
 		cur_p_wnd = v2f(0, 0);
 		wnd.setView(cam);
 		wnd.setMouseCursorVisible(true);
-		fps = 120;
-		wnd.setFramerateLimit(fps);
-		srand(::time(0));
+		fps = 120.f;
+		wnd.setFramerateLimit(static_cast<unsigned int>(fps));
+		srand(static_cast<unsigned int>(::time(0)));
 		clock.restart();
 		speedGame = 1;
 		zoom = 1;
@@ -173,7 +178,7 @@ void System::CenteringText(sf::Text& text)
 
 void System::MoveToAngle(Shape& shape, float angle, float speed)
 {
-	const float& A = angle * RAD;
+	const float& A = angle * static_cast<const float>(RAD);
 	shape.move(v2f(cos(A), sin(A)) * (speed * time));
 }
 
@@ -215,13 +220,13 @@ bool System::IsMouseWheelUp(const sf::Mouse::Wheel code)
 
 const v2f System::GetNormalizedPosition(const v2f& pos, float dist, float angle)
 {
-	const float& A = angle * RAD;
+	const float& A = angle * static_cast<const float>(RAD);
 	return pos + v2f(cosf(A), sinf(A)) * dist;
 }
 
 const v2f System::GetNormalizedPosition(Shape& shape, float dist, float angle)
 {
-	const float& A = angle * RAD;
+	const float& A = angle * static_cast<const float>(RAD);
 	return shape.getPosition() + v2f(cosf(A), sinf(A)) * dist;
 }
 
@@ -262,19 +267,19 @@ const float System::GetDistance(Shape& s1, const  v2f& pos)
 
 const float System::GetAngle(const v2f& p1, const v2f& p2)
 {
-	return atan2f(p2.y - p1.y, p2.x - p1.x) * DEG;
+	return atan2f(p2.y - p1.y, p2.x - p1.x) * static_cast<float>(DEG);
 }
 
 const float System::GetAngle(Shape& shp, const v2f& p)
 {
-	return atan2f(p.y - shp.getPosition().y, p.x - shp.getPosition().x) * DEG;
+	return atan2f(p.y - shp.getPosition().y, p.x - shp.getPosition().x) * static_cast<float>(DEG);
 }
 
 const float System::GetAngle(Shape& shp1, Shape& shp2)
 {
 	const v2f& p1 = shp1.getPosition();
 	const v2f& p2 = shp2.getPosition();
-	return atan2f(p2.y - p1.y, p2.x - p1.x) * DEG;
+	return atan2f(p2.y - p1.y, p2.x - p1.x) * static_cast<float>(DEG);
 }
 
 const v2f System::GetPosForShader(Shape& shp)

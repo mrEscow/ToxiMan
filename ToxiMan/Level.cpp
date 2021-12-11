@@ -42,6 +42,19 @@ void Level::LoadLevel(UINT32 GameLevel)
 //----------------------------------------------------------------------
 Level::Level(GameStates& GS, GameSettings& game_settings)
 {
+	
+	for (auto map : Maps) {
+		if (GS.GetGameLevel() == map.first)
+		{
+			map.second.GetFinalPos();
+			map.second.GetMapSize();
+			map.second.GetName();
+			map.second.GetStartPos();
+		}
+	}
+	
+
+
 	is_Next_Level = false;
 	m_ptr_GS = &GS;
 	m_GameLevel = GS.GetGameLevel();

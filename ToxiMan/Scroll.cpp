@@ -25,7 +25,7 @@ namespace UI {
 
 		if (is_pressed)
 		{
-			m_shape_scroll.setScale(1.05, 1.05);
+			m_shape_scroll.setScale(1.05f, 1.05f);
 			m_shape_scroll.setPosition(B::cur_p.x, m_shape_back.getPosition().y);
 
 			m_value = 100 + ((m_shape_scroll.getPosition().x - m_shape_back.getPosition().x) - (m_shape_back.getSize().x / 2)) / m_shape_back.getSize().x * 100;

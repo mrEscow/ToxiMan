@@ -171,6 +171,9 @@
     <ClInclude Include="Timer.h">
       <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
+    <ClInclude Include="NameSpace.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -246,6 +249,9 @@
       <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
+      <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates.cpp">
       <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
   </ItemGroup>

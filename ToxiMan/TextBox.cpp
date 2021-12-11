@@ -21,7 +21,7 @@ namespace UI {
 	void TextBoxEditHelper::Reset(v2f pos, int height)
 	{
 		shape_blink_line.setPosition(pos);
-		shape_blink_line.setSize(v2f(1, height));
+		shape_blink_line.setSize(v2f(1.0f, static_cast<float>(height)));
 		shape_blink_line.setOrigin(shape_blink_line.getSize() / 2.f);
 	}
 

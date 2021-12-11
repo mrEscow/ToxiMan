@@ -12,10 +12,12 @@ class Level
 {
 private:
 
+	std::map<uint32_t, Map> Maps;
 
 	GameStates* m_ptr_GS;
+
 	UINT32 m_GameLevel;
-	//LevelNumber *m_ptr_number;
+
 
 	JsonSaveMenager  m_jsonSM;
 

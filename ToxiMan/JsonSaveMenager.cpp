@@ -22,17 +22,17 @@ void JsonSaveMenager::SaveMap(string name_file, Map &map, UINT32 GameLevel)
 
 	m_serializedString = m_json.dump();
 
-	m_fout.open("Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file, ofstream::app);
+	m_fout.open("Resources/JsonSave/maps" + to_string(GameLevel) + "/" + name_file, ofstream::app);
 	m_fout << m_serializedString << "\n";
 	m_fout.close();
 }
 
 Map JsonSaveMenager::LoadMap(string name_file, UINT32 GameLevel)
 {
-	string temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
+	string temp = "Resources/JsonSave/maps" + to_string(GameLevel);
 
 	Map temp_map;
-
+	
 	m_fin.open(temp);
 
 	if (!m_fin.is_open()) {

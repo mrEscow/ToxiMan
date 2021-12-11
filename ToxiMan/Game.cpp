@@ -14,6 +14,8 @@ Game::Game()
 
 	m_GameStates = new GameStates(1);
 
+	m_GameStates->Set(GameStates::GS::CHECH_MAP);
+
 	m_ptr_lvl = new Level(*m_GameStates, m_game_settings);
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
@@ -25,6 +27,7 @@ Game::Game()
 	//m_ptr_play->wait();
 	
 	System::speedGame = 2;
+	
 
 }
 
@@ -33,7 +36,7 @@ Game::Game()
 
 void Game::Update()
 {
-
+	m_GameStates->Updata();
 
 	switch (m_state_game)
 	{
