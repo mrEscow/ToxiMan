@@ -33,10 +33,22 @@ private:
 
 	MapEditor MAP_EDITOR = MapEditor::SIZY_MAP;
 
+	//	1
+	enum class MapMenu : uint {
+		LOAD,
+		SIZE
+	};
+
+	MapMenu Map_Manu = MapMenu::LOAD;
+
+	Shape	m_Map;
+	Shape	m_MapLoad;
+	Shape	m_MapSize;
+
 	Shape	m_Enemy;
 	Shape	m_Platforms;
 	Shape	m_Player;
-	Shape	m_SizeMap;
+
 	Shape	m_StaticCube;
 
 	vector<unique_ptr<UI::Button>> MP_Buttons;

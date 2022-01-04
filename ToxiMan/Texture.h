@@ -47,10 +47,13 @@ public:
 	PNG menu_skrol_2;
 
 	// Map Editor
+	PNG menu_Map;
+		PNG menu_MapLoad;
+		PNG menu_MapSize;
 	PNG menu_Enemy;
 	PNG menu_Player;
 	PNG menu_Platforms;
-	PNG menu_SizeMap;
+
 	PNG menu_StaticCube;
 
 
@@ -76,9 +79,13 @@ public:
 	// Загрузка для MapEditor
 	void LoadMapEditor()
 	{
+		menu_Map = Load("MapEditor/Map.png");
+		menu_MapLoad = Load("MapEditor/load.png");;
+		menu_MapSize = Load("MapEditor/size.png");;
+
 		menu_Enemy = Load("MapEditor/Enemy.png");
 		menu_Player = Load("MapEditor/Player.png");
-		menu_SizeMap = Load("MapEditor/Size_Map.png");
+
 		menu_StaticCube = Load("MapEditor/Static_Cube.png");
 		menu_Platforms = Load("MapEditor/Platforms.png");
 	}
