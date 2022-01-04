@@ -333,12 +333,15 @@ void ArchtectMenu::Action(
 		switch (Map_Manu)
 		{
 		case ArchtectMenu::MapMenu::LOAD:
+			for (auto& loadbord : LoadBoards)
+				loadbord->Action();
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
 			break;
 		default:
 			break;
 		}
+
 		break;
 	case ArchtectMenu::MapEditor::ENEMY:
 		break;

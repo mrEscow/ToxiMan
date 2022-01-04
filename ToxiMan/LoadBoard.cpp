@@ -42,11 +42,31 @@ LoadBoard::LoadBoard(GameSettings& game_settings, string name, v2f pos)
 	textbox = make_unique <UI::TextBox>(v2f(
 		shape.getPosition().x + 140 + 90, 
 		shape.getPosition().y + 20 + 18),
-		v2f(180, 36), 
+		v2f(150, 36), 
 		name, 
 		name, 
 		10
 	);
+}
+
+void LoadBoard::Action()
+{
+	textbox->Action();
+
+	for (auto& button : buttons)
+	{
+		if (button->IsAction()) {
+			if (button->GetNameId() == "Load") {
+				cout << "Load" << endl;
+			}
+			if (button->GetNameId() == "Save") {
+				cout << "Save" << endl;
+			}
+			if (button->GetNameId() == "Delete") {
+				cout << "Delete" << endl;
+			}
+		}
+	}
 }
 
 void LoadBoard::Update()
@@ -56,6 +76,9 @@ void LoadBoard::Update()
 		shape.getPosition().x + 140 + 90, 
 		shape.getPosition().y + 20 + 18
 	));
+
+	for (auto& button : buttons)
+		button->Update();
 }
 
 void LoadBoard::Draw()
