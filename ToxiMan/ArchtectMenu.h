@@ -20,20 +20,24 @@ private:
 	sf::View archMenu;
 
 	// MapEditor
+	vector<unique_ptr<UI::Button>> MP_Buttons;
+
 	v2f PozMenu;
 	v2f SizeMenu;
 
 	enum class MapEditor : uint {
+		MAP,
 		ENEMY,
 		PLATFORMS,
 		PLAYER,
-		SIZY_MAP,
 		STATIC_CUBE
 	};
 
-	MapEditor MAP_EDITOR = MapEditor::SIZY_MAP;
+	MapEditor MAP_EDITOR = MapEditor::MAP;
 
 	//	1
+	vector<unique_ptr<UI::Button>> MapMenuBattons;
+
 	enum class MapMenu : uint {
 		LOAD,
 		SIZE
@@ -45,13 +49,14 @@ private:
 	Shape	m_MapLoad;
 	Shape	m_MapSize;
 
+	//	2
 	Shape	m_Enemy;
 	Shape	m_Platforms;
 	Shape	m_Player;
 
 	Shape	m_StaticCube;
 
-	vector<unique_ptr<UI::Button>> MP_Buttons;
+
 
 	////////
 

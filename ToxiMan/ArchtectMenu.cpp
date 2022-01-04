@@ -41,14 +41,14 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 	m_Map = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_Map);
 	m_MapLoad = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_MapLoad);
 	m_MapSize = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_MapSize);
-
+	//
 	m_Enemy = System::CreateShape(PozMenu,SizeMenu, System::resources.texture.menu_Enemy);
 	m_Platforms = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_Platforms);
 	m_Player = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_Player);
 
 	m_StaticCube = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_StaticCube);
 
-	//55 158   120 238   65 80
+	//	1   65 80
 	MP_Buttons.push_back(make_unique<UI::Button>(System::CreateShape(
 		v2f(
 			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 15 + 32, 
@@ -59,8 +59,30 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		"Map",
 		game_settings)
 	);
+	// x 100 246 = 146, y 242 270 = !32 = 15
+	MapMenuBattons.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(
+			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 100 + 73,
+			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 242 + 12
+		),
+		v2f(146, 24),
+		System::resources.texture.menu_button),
+		"Load",
+		game_settings)
+	);
+	// x 299 444 = 145, y 242 266 = 24
+	MapMenuBattons.push_back(make_unique<UI::Button>(System::CreateShape(
+		v2f(
+			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 299 + 73,
+			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 242 + 12
+		),
+		v2f(145, 24),
+		System::resources.texture.menu_button),
+		"Size",
+		game_settings)
+	);
 
-	//55 258   120 338   65 80
+	//	2   65 80
 	MP_Buttons.push_back(make_unique<UI::Button>(System::CreateShape(
 		v2f(
 			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 15 + 32,
@@ -247,7 +269,7 @@ void ArchtectMenu::Action(
 	{
 		if (button->IsAction()) {
 			if (button->GetNameId() == "Map") {
-				MAP_EDITOR = MapEditor::SIZY_MAP;
+				MAP_EDITOR = MapEditor::MAP;
 				cout << "SizeMap" << endl;
 				cout << to_string((int)MAP_EDITOR) << endl;
 			}
@@ -282,6 +304,35 @@ void ArchtectMenu::Action(
 		}
 	}
 
+	switch (MAP_EDITOR)
+	{
+	case ArchtectMenu::MapEditor::MAP:
+		for (auto& button : MapMenuBattons)
+		{
+			if (button->IsAction()) {
+				if (button->GetNameId() == "Load") {
+					Map_Manu = MapMenu::LOAD;
+					cout << "Load" << endl;
+				}
+				if (button->GetNameId() == "Size") {
+					Map_Manu = MapMenu::SIZE;
+					cout << "Size" << endl;
+				}
+			}
+		}
+		break;
+	case ArchtectMenu::MapEditor::ENEMY:
+		break;
+	case ArchtectMenu::MapEditor::PLATFORMS:
+		break;
+	case ArchtectMenu::MapEditor::PLAYER:
+		break;
+	case ArchtectMenu::MapEditor::STATIC_CUBE:
+		break;
+	default:
+		break;
+	}
+
 	for (auto& textbox : vec_textbox)
 		textbox->Action();
 	for (auto& textbox : vec_textboxInt)
@@ -294,7 +345,23 @@ void ArchtectMenu::Update()
 
 	for (auto& button : MP_Buttons)
 		button->Update();
-
+	switch (MAP_EDITOR)
+	{
+	case ArchtectMenu::MapEditor::MAP:
+		for (auto& button : MapMenuBattons)
+			button->Update();
+		break;
+	case ArchtectMenu::MapEditor::ENEMY:
+		break;
+	case ArchtectMenu::MapEditor::PLATFORMS:
+		break;
+	case ArchtectMenu::MapEditor::PLAYER:
+		break;
+	case ArchtectMenu::MapEditor::STATIC_CUBE:
+		break;
+	default:
+		break;
+	}
 	for (auto& button : vec_button)
 		button->Update();
 
@@ -330,39 +397,43 @@ void ArchtectMenu::Draw()
 	{
 	case ArchtectMenu::MapEditor::ENEMY:
 		System::wnd.draw(m_Enemy);
-		for (auto& button : MP_Buttons)
-			button->Draw();
+		//for (auto& button : MP_Buttons)
+		//	button->Draw();
 		break;
 	case ArchtectMenu::MapEditor::PLATFORMS:
 		System::wnd.draw(m_Platforms);
-		for (auto& button : MP_Buttons)
-			button->Draw();
+		//for (auto& button : MP_Buttons)
+		//	button->Draw();
 		break;
 	case ArchtectMenu::MapEditor::PLAYER:
 		System::wnd.draw(m_Player);
-		for (auto& button : MP_Buttons)
-			button->Draw();
+		//for (auto& button : MP_Buttons)
+		//	button->Draw();
 		break;
-	case ArchtectMenu::MapEditor::SIZY_MAP:
+	case ArchtectMenu::MapEditor::MAP:
 		System::wnd.draw(m_Map);
 		switch (Map_Manu)
 		{
 		case ArchtectMenu::MapMenu::LOAD:
 			System::wnd.draw(m_MapLoad);
+			//for (auto& button : MapMenuBattons)
+			//	button->Draw();
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
 			System::wnd.draw(m_MapSize);
+			//for (auto& button : MapMenuBattons)
+			//	button->Draw();
 			break;
 		default:
 			break;
 		}
-		for (auto& button : MP_Buttons)
-			button->Draw();
+		//for (auto& button : MP_Buttons)
+		//	button->Draw();
 		break;
 	case ArchtectMenu::MapEditor::STATIC_CUBE:
 		System::wnd.draw(m_StaticCube);
-		for (auto& button : MP_Buttons)
-			button->Draw();
+		//for (auto& button : MP_Buttons)
+		//	button->Draw();
 		break;
 	default:
 		break;
