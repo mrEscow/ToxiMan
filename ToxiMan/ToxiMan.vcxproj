@@ -169,6 +169,7 @@
     <ClInclude Include="JsonSaveMenager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LifeBar.h" />
+    <ClInclude Include="LoadBoard.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="JsonSaveMenager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LifeBar.cpp" />
+    <ClCompile Include="LoadBoard.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />

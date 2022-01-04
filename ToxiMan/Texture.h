@@ -46,6 +46,9 @@ public:
 	PNG menu_skrol_1;
 	PNG menu_skrol_2;
 
+	// LoadBord
+	PNG LoadBord;
+
 	// Map Editor
 	PNG menu_Map;
 		PNG menu_MapLoad;
@@ -62,7 +65,7 @@ public:
 
 	Texture()
 	{
-
+		LoadBord = Load("MapEditor/LOAD_BOARD.png");
 	}
 
 	// Загрузка для мeню
@@ -76,6 +79,11 @@ public:
 		menu_skrol_2;
 	}
 
+	// Загрузка для LoadBoard
+	void LoadLoadBoard()
+	{
+
+	}
 	// Загрузка для MapEditor
 	void LoadMapEditor()
 	{

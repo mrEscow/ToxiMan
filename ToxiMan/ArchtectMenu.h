@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "TextBox.h"
 #include "Map.h"
+#include "LoadBoard.h"
 
 class ArchtectMenu 
 {
@@ -48,6 +49,8 @@ private:
 	Shape	m_Map;
 	Shape	m_MapLoad;
 	Shape	m_MapSize;
+
+	vector<unique_ptr<LoadBoard>> LoadBoards;
 
 	//	2
 	Shape	m_Enemy;

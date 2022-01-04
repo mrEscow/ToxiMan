@@ -38,6 +38,15 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 	System::resources.texture.LoadMapEditor();
 
 	//1
+
+	LoadBoards.push_back(make_unique<LoadBoard>(
+		game_settings,
+		"Testing", v2f(
+			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
+			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350
+		))
+	);
+
 	m_Map = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_Map);
 	m_MapLoad = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_MapLoad);
 	m_MapSize = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_MapSize);
@@ -320,6 +329,16 @@ void ArchtectMenu::Action(
 				}
 			}
 		}
+
+		switch (Map_Manu)
+		{
+		case ArchtectMenu::MapMenu::LOAD:
+			break;
+		case ArchtectMenu::MapMenu::SIZE:
+			break;
+		default:
+			break;
+		}
 		break;
 	case ArchtectMenu::MapEditor::ENEMY:
 		break;
@@ -350,6 +369,19 @@ void ArchtectMenu::Update()
 	case ArchtectMenu::MapEditor::MAP:
 		for (auto& button : MapMenuBattons)
 			button->Update();
+		switch (Map_Manu)
+		{
+		case ArchtectMenu::MapMenu::LOAD:
+			System::wnd.draw(m_MapLoad);
+			for (auto& loadbord : LoadBoards)
+				loadbord->Update();
+
+			break;
+		case ArchtectMenu::MapMenu::SIZE:
+			break;
+		default:
+			break;
+		}
 		break;
 	case ArchtectMenu::MapEditor::ENEMY:
 		break;
@@ -416,6 +448,8 @@ void ArchtectMenu::Draw()
 		{
 		case ArchtectMenu::MapMenu::LOAD:
 			System::wnd.draw(m_MapLoad);
+			for (auto& loadbord : LoadBoards)
+				loadbord->Draw();
 			//for (auto& button : MapMenuBattons)
 			//	button->Draw();
 			break;
