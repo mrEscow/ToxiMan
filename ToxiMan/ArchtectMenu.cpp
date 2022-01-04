@@ -187,12 +187,15 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 
 
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
-		v2f(m_menu.getPosition().x, 400), 
-		v2f(440, 50), 
+	BackButton = make_unique<UI::Button>(System::CreateShape(
+		v2f(
+			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 270,
+			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 1000
+		),
+		v2f(333, 50),
 		System::resources.texture.menu_button), 
 		"BACK", 
-		game_settings));
+		game_settings);
 }
 
 void ArchtectMenu::Action(
@@ -215,13 +218,13 @@ void ArchtectMenu::Action(
 		{
 			bool is_rename = false;
 
-			//if (button->GetNameId() == "V_BACK")										
+			//if (button->GetNameId() == "V_BACK")
 			//	*m_ptr_Z_vec = ArcitectVector::BECK;
 			//
-			//if (button->GetNameId() == "V_ZERO")							
+			//if (button->GetNameId() == "V_ZERO")
 			//	*m_ptr_Z_vec = ArcitectVector::ZERO;
 			//
-			//if (button->GetNameId() == "V_FRONT")							
+			//if (button->GetNameId() == "V_FRONT")
 			//	*m_ptr_Z_vec = ArcitectVector::FRONT;
 			//
 			//if (button->GetNameId() == "enable grid") {
@@ -274,10 +277,7 @@ void ArchtectMenu::Action(
 
 			//}
 
-			if (button->GetNameId() == "BACK") {
-				cout << "BACK_achc_menu!" << endl;
-				is_back = true;
-			}
+
 
 		}
 	}
@@ -372,6 +372,11 @@ void ArchtectMenu::Action(
 		textbox->Action();
 	for (auto& textbox : vec_textboxInt)
 		textbox->Action();
+
+	if (BackButton->IsAction()) {
+		cout << "BACK_achc_menu!" << endl;
+		is_back = true;
+	}
 }
 
 void ArchtectMenu::Update()
@@ -433,7 +438,7 @@ void ArchtectMenu::Update()
 	for (auto& textbox : vec_textboxInt)
 		textbox->Update();
 
-
+	BackButton->Update();
 }
 
 void ArchtectMenu::Draw()
@@ -502,6 +507,7 @@ void ArchtectMenu::Draw()
 	//	textbox->Draw();
 	//for (auto& textbox : vec_textboxInt)
 	//	textbox->Draw();
+	BackButton->Draw();
 
 	System::wnd.setView(System::cam);
 }

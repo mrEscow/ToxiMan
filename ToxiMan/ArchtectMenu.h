@@ -20,6 +20,8 @@ private:
 
 	sf::View archMenu;
 
+	unique_ptr <UI::Button> BackButton;
+
 	// MapEditor
 	vector<unique_ptr<UI::Button>> MP_Buttons;
 
