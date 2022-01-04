@@ -24,4 +24,3 @@ public:
 
 	void DeleteJsonFile(string name_file, UINT32 GameLevel);
 };
-

@@ -8,6 +8,7 @@
 
 #include "Timer.h"
 
+
 using namespace my;
 
 class Game
@@ -48,7 +49,14 @@ private:
 	unique_ptr< Map > m_u_map;
 	unique_ptr<Level> m_u_lvl;
 
-	
+	// alpha test
+	Shape black;
+	bool is_first;
+	bool is_not_first;
+	sf::Uint8 Alpha;
+	Escow::Timer TimerAlha;
+	bool is_balck;
+
 
 public:
 
@@ -58,19 +66,14 @@ public:
 
 	// поток 2
 	void Thread();
+
+	void Action();
 	void Update();
 	void Draw();
 
-
-	void Action();
-
-
 	void GreateLevel();
 
-	void LoadNextLevel(UINT32 GameLevel);
-
 	void NextLevel();
-
 
 	~Game();
 };

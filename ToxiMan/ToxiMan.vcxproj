@@ -155,6 +155,7 @@
     <ClInclude Include="Architect.h" />
     <ClInclude Include="ArchtectMenu.h" />
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="BlackTest.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CheckBox.h" />

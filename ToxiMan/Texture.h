@@ -46,6 +46,13 @@ public:
 	PNG menu_skrol_1;
 	PNG menu_skrol_2;
 
+	// Map Editor
+	PNG menu_Enemy;
+	PNG menu_Player;
+	PNG menu_Platforms;
+	PNG menu_SizeMap;
+	PNG menu_StaticCube;
+
 
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
@@ -55,15 +62,25 @@ public:
 
 	}
 
-	// Загрузка для мкню
+	// Загрузка для мeню
 	void LoadMenu()
 	{
 		menu_background = Load("Menu/back_ground.png");
 		menu_button = Load("Menu/Button_1.png");
 		menu_checkbox_ON = Load("Menu/checkboxON.png");
-		menu_checkbox_OFF = Load("Menu/checkboxOFF.png");;
+		menu_checkbox_OFF = Load("Menu/checkboxOFF.png");
 		menu_skrol_1;
 		menu_skrol_2;
+	}
+
+	// Загрузка для MapEditor
+	void LoadMapEditor()
+	{
+		menu_Enemy = Load("MapEditor/Enemy.png");
+		menu_Player = Load("MapEditor/Player.png");
+		menu_SizeMap = Load("MapEditor/Size_Map.png");
+		menu_StaticCube = Load("MapEditor/Static_Cube.png");
+		menu_Platforms = Load("MapEditor/Platforms.png");
 	}
 
 	// Загрузка для архитектора

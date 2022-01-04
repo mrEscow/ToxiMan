@@ -1,11 +1,21 @@
 ﻿// ▼
 #pragma once
 #include "Game.h"
-#include <mutex>
-std::mutex Mutex;
+#include "BlackTest.h"
 
 Game::Game()
 {
+	is_first = true;
+	is_not_first = false;
+	is_balck = true;
+
+	sf::Uint8 Alpha = 255;
+	black.setSize(v2f(System::wnd.getSize().x, System::wnd.getSize().y));
+	//black.setSize(v2f(500.f, 500.f));
+	black.setFillColor(Color(0, 0, 0, Alpha));
+	black.setOrigin(v2f(System::wnd.getSize().x/2.f, System::wnd.getSize().y /2.f));
+	black.setPosition(System::cam.getCenter());
+
 	//sf::Cursor curcor;
 	//curcor.loadFromSystem(sf::Cursor::Cross);
 	//System::wnd.setMouseCursor(curcor);
@@ -27,8 +37,6 @@ Game::Game()
 	//m_ptr_play->wait();
 	
 	System::speedGame = 2;
-	
-
 }
 
 
@@ -37,6 +45,8 @@ Game::Game()
 void Game::Update()
 {
 	m_GameStates->Updata();
+
+
 
 	switch (m_state_game)
 	{
@@ -55,6 +65,7 @@ void Game::Update()
 		System::zoom /= System::zoom;
 		System::zoom = 1;
 		m_main_menu->Update();
+		
 		break;
 	case StateGame::ON_GAME:
 		System::resources.audio.music.menu_music.stop();
@@ -79,6 +90,38 @@ void Game::Draw()
 {
 	System::wnd.clear();
 
+	if (is_first)
+	{
+		if (TimerAlha.IsTick(0.2f / 255.0f))
+			Alpha--;
+		black.setFillColor(Color(0, 0, 0, Alpha));
+		if (Alpha == 0)
+		{
+			is_first = false;
+			Alpha = 255;
+		}
+	}
+
+	//if (is_balck && !is_first) {
+	//	if (is_not_first) {
+	//		if (TimerAlha.IsTick(0.3f / 255.0f))
+	//			Alpha++;
+	//	}
+	//	else {
+	//		if (TimerAlha.IsTick(0.3f / 255.0f))
+	//			Alpha--;
+	//	}
+
+	//	black.setFillColor(Color(0, 0, 0, Alpha));
+	//	if (Alpha == 255)
+	//		is_not_first = false;
+	//	if (Alpha == 0)
+	//	{
+	//		is_balck = false;
+	//		is_not_first = false;
+	//	}
+	//}
+
 	switch (m_state_game)
 	{
 	case StateGame::ON_MAIN_MENU:
@@ -94,7 +137,7 @@ void Game::Draw()
 		break;
 	}
 
-
+	my::S::wnd.draw(black);
 	System::wnd.display();
 }
 
@@ -131,9 +174,9 @@ void Game::Thread()
 		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 		Update();
 
-		Mutex.lock();
+		//Mutex.lock();
 		Draw();
-		Mutex.unlock();
+		//Mutex.unlock();
 	}
 	//sf::sleep(sf::milliseconds(1000));
 }
