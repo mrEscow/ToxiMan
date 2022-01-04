@@ -38,6 +38,16 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 	System::resources.texture.LoadMapEditor();
 
 	//1
+	CreateNewMapButton = make_unique<UI::Button>(System::CreateShape(
+		v2f(
+			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 270,
+			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 320
+		), 
+		v2f(333, 50), 
+		System::resources.texture.menu_button), 
+		"Create New Map", 
+		game_settings
+	);
 
 	LoadBoards.push_back(make_unique<LoadBoard>(
 		game_settings,
@@ -335,6 +345,9 @@ void ArchtectMenu::Action(
 		case ArchtectMenu::MapMenu::LOAD:
 			for (auto& loadbord : LoadBoards)
 				loadbord->Action();
+			if (CreateNewMapButton->IsAction()) {
+				cout << "CreateNewMapButton" << endl;
+			}
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
 			break;
@@ -378,7 +391,7 @@ void ArchtectMenu::Update()
 			System::wnd.draw(m_MapLoad);
 			for (auto& loadbord : LoadBoards)
 				loadbord->Update();
-
+			CreateNewMapButton->Update();
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
 			break;
@@ -453,6 +466,7 @@ void ArchtectMenu::Draw()
 			System::wnd.draw(m_MapLoad);
 			for (auto& loadbord : LoadBoards)
 				loadbord->Draw();
+			CreateNewMapButton->Draw();
 			//for (auto& button : MapMenuBattons)
 			//	button->Draw();
 			break;

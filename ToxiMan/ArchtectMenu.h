@@ -50,6 +50,8 @@ private:
 	Shape	m_MapLoad;
 	Shape	m_MapSize;
 
+	unique_ptr <UI::Button> CreateNewMapButton;
+
 	vector<unique_ptr<LoadBoard>> LoadBoards;
 
 	//	2
