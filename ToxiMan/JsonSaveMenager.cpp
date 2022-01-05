@@ -146,7 +146,7 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, UINT32 Ga
 
 void JsonSaveMenager::DeleteJsonFile(string name_file, UINT32 GameLevel)
 {
-	string str_temp = "Resources/JsonSave/" + name_file + to_string(GameLevel);
+	string str_temp = "Resources/JsonSave/" + name_file + to_string(GameLevel) + ".json";
 	remove(str_temp.c_str());
 	cout << "DeleteJsonFile" << endl;
 }

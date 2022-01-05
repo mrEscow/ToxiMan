@@ -343,11 +343,20 @@ void ArchtectMenu::Action(
 				}
 				if (is_delete) {
 					LoadBoard::id--;
-					GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
+					if(GameSettings::GetGemeLevels() != 0)
+						GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
 					GameSettings::SaveSettings();
 					id_for_del = loadbord->GetId();
+
 					jsonSM.DeleteJsonFile("maps/map_", id_for_del);
+
+					for (size_t i = id_for_del; (i <= LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
+					{
+						Map tempMap = jsonSM.LoadMap("",id_for_del + 1);
+						jsonSM.SaveMap("", tempMap, id_for_del);
+					}
 					is_delete = false;
+					break;
 				}
 			}
 
@@ -412,14 +421,21 @@ void ArchtectMenu::Action(
 void ArchtectMenu::Update()
 {
 	m_map_ptr->GetName();
-
-	for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
-		auto& loadbord = it;
-		if (loadbord->get()->CheckDel())
-			it = LoadBoards.erase(it);
-		else
-			it++;
+	{
+		for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
+			auto& loadbord = it;
+			if (loadbord->get()->CheckDel()) {
+				it = LoadBoards.erase(it);
+				//dell = true;
+			}
+			else {
+				/*if (dell)
+					it->get()->NewId();*/
+				it++;
+			}
+		}
 	}
+
 
 	for (auto& button : MP_Buttons)
 		button->Update();
