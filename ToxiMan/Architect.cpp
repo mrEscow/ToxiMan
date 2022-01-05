@@ -28,27 +28,27 @@ Architect::Architect(std::map<uint32_t, Map>& Maps,vector<ObjectManager>&objectL
 
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
-	if (!Maps.empty())
-		m_start = System::CreateShape(
-			Maps[0].GetStartPos(),
-			v2f(
-				static_cast<float> (m_size_x),
-				static_cast<float> (m_size_y)
-			),
-			System::resources.texture.arhitectMouse); // cteate texture
-	m_start.setOutlineColor(Color::Cyan);
-	m_start.setOutlineThickness(-50);
+	//if (!Maps.empty())
+	//	m_start = System::CreateShape(
+	//		Maps[0].GetStartPos(),
+	//		v2f(
+	//			static_cast<float> (m_size_x),
+	//			static_cast<float> (m_size_y)
+	//		),
+	//		System::resources.texture.arhitectMouse); // cteate texture
+	//m_start.setOutlineColor(Color::Cyan);
+	//m_start.setOutlineThickness(-50);
 
-	if (!Maps.empty())
-		m_finish = System::CreateShape(
-			Maps[0].GetFinalPos(),
-			v2f(
-				static_cast<float> (m_size_x),
-				static_cast<float> (m_size_y)
-			),
-			System::resources.texture.arhitectMouse); // cteate texture
-	m_finish.setOutlineColor(Color::Yellow);
-	m_finish.setOutlineThickness(-50);
+	//if (!Maps.empty())
+	//	m_finish = System::CreateShape(
+	//		Maps[0].GetFinalPos(),
+	//		v2f(
+	//			static_cast<float> (m_size_x),
+	//			static_cast<float> (m_size_y)
+	//		),
+	//		System::resources.texture.arhitectMouse); // cteate texture
+	//m_finish.setOutlineColor(Color::Yellow);
+	//m_finish.setOutlineThickness(-50);
 
 	//m_zoom = 1.f;
 
@@ -390,16 +390,17 @@ void Architect::Update()
 
 }
 
-void Architect::Draw(StateGame& state_game, Player* player)
+void Architect::Draw(StateGame& state_game)
 {
 	if (state_game == StateGame::ON_ARCITECT && !is_save_map) {
 
 		m_ptr_menu->Draw();
 
-		System::wnd.draw(m_start);
-		System::wnd.draw(m_finish);
+		//System::wnd.draw(m_start);
+		//System::wnd.draw(m_finish);
 
-		player->Draw();
+		//if(player)
+		//	player->Draw();
 		
 		if(is_grid && !is_save_map)
 			if(!m_cell_vec.empty())

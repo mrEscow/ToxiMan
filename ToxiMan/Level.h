@@ -21,14 +21,14 @@ private:
 
 	JsonSaveMenager  m_jsonSM;
 
-	Map *m_map_ptr;
+	//Map *m_map_ptr;
 
 	v2f m_size_map;
 
 	v2f m_StartPos;
 	v2f m_FinishPos;
 	
-	Player* m_ptr_player;
+	//Player* m_ptr_player;
 
 	Architect* m_ptr_arhitevt;
 

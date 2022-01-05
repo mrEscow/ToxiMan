@@ -4,6 +4,8 @@ uint32 LoadBoard::id = 0;
 
 LoadBoard::LoadBoard(string name, v2f pos)
 {
+	TextID.setFont(System::resources.font.common);
+
 	m_id = id;
 
 	System::resources.texture.LoadLoadBoard();
@@ -51,10 +53,19 @@ LoadBoard::LoadBoard(string name, v2f pos)
 		10
 	);
 
+	TextID.setPosition(v2f(
+		shape.getPosition().x + 15,
+		shape.getPosition().y + 3)
+	);
+
+	OstrID << m_id;
+	TextID.setString(OstrID.str());
+	TextID.scale(v2f(0.8, 0.8));
+
 	id++;
 }
 
-void LoadBoard::Action(bool& is_load, bool& is_save, bool& is_delete)
+void LoadBoard::Action(std::map<uint32_t, Map>& Maps, bool& is_load, bool& is_save, bool& is_delete)
 {
 	for (auto& button : buttons)
 	{
@@ -68,35 +79,73 @@ void LoadBoard::Action(bool& is_load, bool& is_save, bool& is_delete)
 				cout << "Save" << endl;
 			}
 			if (button->GetNameId() == "Delete") {
-				is_delete = true;
-				this->is_delete = true;
-				cout << "Delete" << endl;
+
+				if (Maps.size() > 1) {
+					is_delete = true;
+					this->is_delete = true;
+					cout << "Delete" << endl;
+				}
+				else
+					cout << "Non DELETE" << endl;
+
 			}
 		}
 	}
+
+	textbox->Action();
 
 }
 
 void LoadBoard::Update()
 {
+	shape.setPosition(pos);
 
 	textbox->SetPosition(v2f(
 		shape.getPosition().x + 140 + 90, 
 		shape.getPosition().y + 20 + 18
 	));
 
-	for (auto& button : buttons)
+	TextID.setPosition(v2f(
+		shape.getPosition().x + 15,
+		shape.getPosition().y + 3)
+	);
+
+	buttons[0]->SetPosition(v2f(
+		shape.getPosition().x + 15 + 45,
+		shape.getPosition().y + 75 + 16
+	));
+	buttons[1]->SetPosition(v2f(
+		shape.getPosition().x + 115 + 45,
+		shape.getPosition().y + 75 + 16
+	));
+	buttons[2]->SetPosition(v2f(
+		shape.getPosition().x + 215 + 45,
+		shape.getPosition().y + 75 + 16
+	));
+
+
+	for (auto& button : buttons) 
 		button->Update();
+
+	textbox->Update();
+
+	//OstrID << m_id;
+	TextID.setString(to_string(m_id));
+	OstrID.clear();
 }
 
 void LoadBoard::Draw()
 {
 	System::wnd.draw(shape);
+
+
 	textbox->Draw();
 
 
 	for (auto& button : buttons)
 		button->Draw();
+
+	System::wnd.draw(TextID);
 }
 
 uint LoadBoard::GetId()
@@ -104,9 +153,15 @@ uint LoadBoard::GetId()
 	return m_id;
 }
 
-void LoadBoard::NewId()
+void LoadBoard::NewId(uint32 id)
 {
-	m_id--;
+	m_id = id;
+
+}
+
+void LoadBoard::SetPosition(v2f pos)
+{
+	this->pos = pos;
 }
 
 bool LoadBoard::CheckDel()

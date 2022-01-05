@@ -187,6 +187,10 @@ namespace UI {
 	void TextBox::SetPosition(const v2f position)
 	{
 		m_shape_box.setPosition(position);
+		m_text.setPosition(v2f(
+			position.x - (m_shape_box.getSize().x / 2) + 2,
+			position.y - 2)
+		);
 	}
 
 	TextBoxInt::TextBoxInt(v2f pos, v2f siz, string data_id, string value, uint max_value)

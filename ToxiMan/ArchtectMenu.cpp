@@ -149,36 +149,36 @@ ArchtectMenu::ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_sett
 	);
 
 
-	// nameMap
-	vec_textbox.push_back(make_unique<UI::TextBox>(v2f(m_menu.getPosition().x, -250), v2f(200, 30), "MapName", m_map_ptr->GetName()));
-	// sizeMap
-	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x - 100, -200), v2f(100, 50), "sizeMapX", to_string(m_map_ptr->GetMapSize().x)));
-	vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x + 100, -200), v2f(100, 50), "sizeMapY", to_string(m_map_ptr->GetMapSize().y)));
-	// apply map
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
-		v2f(m_menu.getPosition().x, 0),
-		v2f(200, 50),
-		System::resources.texture.menu_button),
-		"NextMap"));
+	//// nameMap
+	//vec_textbox.push_back(make_unique<UI::TextBox>(v2f(m_menu.getPosition().x, -250), v2f(200, 30), "MapName", m_map_ptr->GetName()));
+	//// sizeMap
+	//vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x - 100, -200), v2f(100, 50), "sizeMapX", to_string(m_map_ptr->GetMapSize().x)));
+	//vec_textboxInt.push_back(make_unique<UI::TextBoxInt>(v2f(m_menu.getPosition().x + 100, -200), v2f(100, 50), "sizeMapY", to_string(m_map_ptr->GetMapSize().y)));
+	//// apply map
+	//vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+	//	v2f(m_menu.getPosition().x, 0),
+	//	v2f(200, 50),
+	//	System::resources.texture.menu_button),
+	//	"NextMap"));
 
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
-		v2f(m_menu.getPosition().x, 100), 
-		v2f(200, 50), 
-		System::resources.texture.menu_button), 
-		"CreateStart"));
+	//vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+	//	v2f(m_menu.getPosition().x, 100), 
+	//	v2f(200, 50), 
+	//	System::resources.texture.menu_button), 
+	//	"CreateStart"));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
-		v2f(m_menu.getPosition().x, 200), 
-		v2f(200, 50), 
-		System::resources.texture.menu_button), 
-		"CreateFinish"));
+	//vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+	//	v2f(m_menu.getPosition().x, 200), 
+	//	v2f(200, 50), 
+	//	System::resources.texture.menu_button), 
+	//	"CreateFinish"));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
-		v2f(m_menu.getPosition().x, 300),
-		v2f(200, 50),
-		System::resources.texture.menu_button),
-		"SaveMap"));
+	//vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
+	//	v2f(m_menu.getPosition().x, 300),
+	//	v2f(200, 50),
+	//	System::resources.texture.menu_button),
+	//	"SaveMap"));
 
 
 
@@ -336,36 +336,74 @@ void ArchtectMenu::Action(
 		switch (Map_Manu)
 		{
 		case ArchtectMenu::MapMenu::LOAD:
-			//uint32 id_for_del;
+
 			for (auto& loadbord : LoadBoards) {
-				loadbord->Action(is_load, is_save, is_delete);
+				loadbord->Action(*m_Maps, is_load, is_save, is_delete);
 				if (is_load) {
 
 				}
 				if (is_save) {
 
 				}
-				if (is_delete) {
-					//LoadBoard::id--;
-					//if(GameSettings::GetGemeLevels() != 0)
-					//	GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
-					//GameSettings::SaveSettings();
-					//id_for_del = loadbord->GetId();
+				if (m_Maps->size() > 1)
+				{
+					if (is_delete) {
 
-					//jsonSM.DeleteJsonFile("maps/map_", id_for_del);
-					//cout << "Delete: " << id_for_del << endl;
-					//for (size_t i = id_for_del; (i < LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
-					//{
-					//	Map tempMap = jsonSM.LoadMap("",id_for_del + 1);
-					//	cout << "Load: " << id_for_del << endl;
-					//	jsonSM.SaveMap("", tempMap, id_for_del);
-					//	cout << "Save: " << id_for_del << endl;
-					//}
-					//is_delete = false;
-					//break;
+						LoadBoard::id--;
+						if (GameSettings::GetGemeLevels() != 0)
+							GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
+						GameSettings::SaveSettings();
+						id_for_del = loadbord->GetId();
+
+						jsonSM.DeleteJsonFile("maps/map_", id_for_del);
+						cout << "DELETE: " << id_for_del << endl;
+						for (uint32 i = id_for_del; (i < LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
+						{
+							Map tempMap = jsonSM.LoadMap("", i + 1);
+							cout << "Load: " << i << endl;
+							jsonSM.SaveMap("", tempMap, i);
+							cout << "Save: " << i << endl;
+						}
+
+						cout << "MAPS.SIZE: " << m_Maps->size() << endl;
+
+
+
+						for (uint32 i = id_for_del; i < m_Maps->size() - 1; i++)
+						{
+							cout << "SWAP: " << i << endl;
+							//m_Maps[i].swap(m_Maps[i + 1]);
+							auto it = m_Maps->find(i);
+							it->second = m_Maps->find(i + 1)->second;
+							
+							cout << "SWAP: " << "OK" << endl;
+						}
+
+						cout << "SWAP: " << "  OK" << endl;
+
+						//m_Maps->erase(m_Maps->size() - 1);
+						//cout << "Last.Key: " << m_Maps->end()->first << endl;
+
+						//auto it = m_Maps->end();
+						//it--;
+						//cout << "Last.Key: " << it->first << endl;
+
+						//for (auto& loadbord : *m_Maps)
+						//	cout << "key " << loadbord.first << endl;
+
+						m_Maps->erase(--m_Maps->end());
+
+						cout << "MAPS.SIZE: " << m_Maps->size() << endl;
+
+						for (auto& loadbord : *m_Maps)
+							cout << "key " << loadbord.first << endl;
+
+
+						is_delete = false;
+						break;
+					}
 				}
 			}
-
 			//if (is_delete) {
 			//	auto it = LoadBoards.begin() + id_for_del;
 			//	LoadBoards.erase(it);
@@ -378,7 +416,9 @@ void ArchtectMenu::Action(
 				cout << "CreateNewMapButton" << endl;
 				//GameStates::gs = GameStates::GS::NEW_LEVEL;
 
-				GameSettings::SetGameLevels(GameSettings::GetGemeLevels() + 1);
+
+				if(!m_Maps->empty())
+					GameSettings::SetGameLevels(GameSettings::GetGemeLevels() + 1);
 				GameSettings::SaveSettings();
 
 				Map temp = jsonSM.LoadMap("New", GameSettings::GetGemeLevels());
@@ -394,6 +434,10 @@ void ArchtectMenu::Action(
 				);
 
 				m_Maps->insert(pair<uint32,Map>(GameSettings::GetGemeLevels(),temp));
+
+				cout << "MAPS.SIZE: " << m_Maps->size() << endl;
+				for (auto& loadbord : *m_Maps)
+					cout << "key " << loadbord.first << endl;
 			}
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
@@ -415,10 +459,10 @@ void ArchtectMenu::Action(
 		break;
 	}
 
-	for (auto& textbox : vec_textbox)
-		textbox->Action();
-	for (auto& textbox : vec_textboxInt)
-		textbox->Action();
+	//for (auto& textbox : vec_textbox)
+	//	textbox->Action();
+	//for (auto& textbox : vec_textboxInt)
+	//	textbox->Action();
 
 	if (BackButton->IsAction()) {
 		cout << "BACK_achc_menu!" << endl;
@@ -431,19 +475,19 @@ void ArchtectMenu::Update()
 	m_map_ptr->GetName();
 
 	{
-		//for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
-		//	auto& loadbord = it;
-		//	if (loadbord->get()->CheckDel()) {
-		//		it = LoadBoards.erase(it);
-		//		//dell = true;
-		//	}
-		//	else {
-		//		/*if (dell)
-		//			it->get()->NewId();*/
-		//		it++;
-		//	}
-		//}
+		// delete bord and map
+
+		for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
+			auto& loadbord = it;
+			if (loadbord->get()->CheckDel()) {
+				it = LoadBoards.erase(it);
+			}
+			else {
+				it++;
+			}
+		}
 	}
+
 
 
 	for (auto& button : MP_Buttons)
@@ -457,6 +501,17 @@ void ArchtectMenu::Update()
 		{
 		case ArchtectMenu::MapMenu::LOAD:
 			System::wnd.draw(m_MapLoad);
+
+			for (Uint32 i = 0; i < LoadBoards.size(); i++)
+			{
+				LoadBoards[i]->SetPosition(
+					v2f(
+						m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
+						m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (i * 125)
+					));
+				LoadBoards[i]->NewId(i);
+			}
+
 			for (auto& loadbord : LoadBoards)
 				loadbord->Update();
 			CreateNewMapButton->Update();

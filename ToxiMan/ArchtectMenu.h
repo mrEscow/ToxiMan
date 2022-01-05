@@ -64,6 +64,7 @@ private:
 	bool is_save{ 0 };
 	bool is_load{ 0 };
 	bool is_delete{ 0 };
+	uint32 id_for_del;
 	//	2
 	Shape	m_Enemy;
 	Shape	m_Platforms;

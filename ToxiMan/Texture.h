@@ -65,7 +65,7 @@ public:
 
 	Texture()
 	{
-		LoadBord = Load("MapEditor/LOAD_BOARD.png");
+		LoadBord = Load("MapEditor/LOAD_BOARD2.png");
 	}
 
 	// Загрузка для мeню

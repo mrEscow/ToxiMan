@@ -30,6 +30,7 @@ namespace UI {
 		void SetNameID(string newname);
 		Shape* GetShape();
 		v2f GetPos();
+		void SetPosition(v2f pos);
 		~Button();
 
 	};

@@ -85,6 +85,12 @@ namespace UI{
 		return m_shape.getPosition();
 	}
 
+	void Button::SetPosition(v2f pos)
+	{
+		m_shape.setPosition(pos);
+		text_button.setPosition(m_shape.getPosition());
+	}
+
 	Button::~Button()
 	{
 

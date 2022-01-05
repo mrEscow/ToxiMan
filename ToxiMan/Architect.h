@@ -81,7 +81,7 @@ public:
 
 	void Update();
 
-	void Draw(StateGame& state_game, Player* player);
+	void Draw(StateGame& state_game);
 
 	void CreateObject();
 
