@@ -10,7 +10,7 @@
 class ArchtectMenu 
 {
 private:
-
+	std::map<uint32_t, Map>* m_Maps;
 
 	StateGame m_state_game_ptr;
 
@@ -89,7 +89,7 @@ private:
 	vector<unique_ptr<UI::TextBoxInt>> vec_textboxInt;
 
 public:
-	ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec);
+	ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_settings, ArcitectVector& Z_vec);
 	void Action(
 
 		// Menu buttons

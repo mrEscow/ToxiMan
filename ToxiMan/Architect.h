@@ -25,6 +25,7 @@
 */
 class Architect
 {
+	std::map<uint32_t, Map>* m_Maps;
 
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
@@ -32,7 +33,7 @@ class Architect
 
 	//friend AlgoritmLi;
 
-	Map *m_map_ptr;
+	//Map *m_map_ptr;
 
 	Shape	m_mouse;
 
@@ -74,7 +75,7 @@ class Architect
 	bool is_next_level;
 
 public:
-	Architect(Map& map, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
+	Architect(std::map<uint32_t, Map>& Maps, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
 
 	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, UINT32 GameLevel, bool& is_Next_Level);
 
@@ -94,7 +95,7 @@ public:
 	vector<Shape>& GetVecCell();
 
 
-	Map GetMap();
+	//Map GetMap();
 
 	~Architect();
 };

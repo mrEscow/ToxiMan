@@ -10,7 +10,8 @@ AlgoritmLi::AlgoritmLi(Architect* arch,Player* player)
 
 void AlgoritmLi::CreateMap()
 {
-	m_map_size = m_arch->GetMap().GetMapSize();
+	//m_map_size = m_arch->GetMap().GetMapSize();
+	m_map_size = v2i(1, 1);
 
 	m_vec_i_str.clear();
 	m_vec_map_bool.clear();
@@ -50,7 +51,8 @@ void AlgoritmLi::CreateMap()
 			for (auto& obj : m_arch->GetVecZero()) {
 				if (!is_finish && System::IsContains(
 					m_arch->GetVecCell()[x + (y * m_map_size.x)],
-					m_arch->GetMap().GetFinalPos())
+					//m_arch->GetMap().GetFinalPos())
+					v2f(1,1))
 					//System::cur_p)		
 					//System::cur_for_UI)
 					)

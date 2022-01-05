@@ -2,10 +2,10 @@
 
 
 
-Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
+Architect::Architect(std::map<uint32_t, Map>& Maps,vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
 {
 
-	m_map_ptr = &map;
+	m_Maps = &Maps;
 
 
 
@@ -28,25 +28,25 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 
 	m_mouse.setOutlineColor(Color::Red);
 	m_mouse.setOutlineThickness(-5);
-
-	m_start = System::CreateShape(
-		m_map_ptr->GetStartPos(),
-		v2f(
-			static_cast<float> (m_size_x),
-			static_cast<float> (m_size_y)
-		), 
-		System::resources.texture.arhitectMouse); // cteate texture
+	if (!Maps.empty())
+		m_start = System::CreateShape(
+			Maps[0].GetStartPos(),
+			v2f(
+				static_cast<float> (m_size_x),
+				static_cast<float> (m_size_y)
+			),
+			System::resources.texture.arhitectMouse); // cteate texture
 	m_start.setOutlineColor(Color::Cyan);
 	m_start.setOutlineThickness(-50);
 
-	
-	m_finish = System::CreateShape(
-		m_map_ptr->GetFinalPos(),
-		v2f(
-			static_cast<float> (m_size_x),
-			static_cast<float> (m_size_y)
-		),
-		System::resources.texture.arhitectMouse); // cteate texture
+	if (!Maps.empty())
+		m_finish = System::CreateShape(
+			Maps[0].GetFinalPos(),
+			v2f(
+				static_cast<float> (m_size_x),
+				static_cast<float> (m_size_y)
+			),
+			System::resources.texture.arhitectMouse); // cteate texture
 	m_finish.setOutlineColor(Color::Yellow);
 	m_finish.setOutlineThickness(-50);
 
@@ -73,7 +73,7 @@ Architect::Architect(Map& map,vector<ObjectManager>&objectListBack, vector<Objec
 		}
 	}
 
-	m_ptr_menu = new ArchtectMenu(*m_map_ptr,game_settings, m_Z_vec);
+	m_ptr_menu = new ArchtectMenu(Maps,game_settings, m_Z_vec);
 
 	// 
 	is_create = false;
@@ -258,56 +258,56 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		state_game = previous_state;
 	}
 	//-------------------------------------------------------------
-	if (is_save_map) {
-		is_grid = false;
+	//if (is_save_map) {
+	//	is_grid = false;
 
-		jsonSM.DeleteJsonFile("Save/MAP.json", GameLevel);
-		jsonSM.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
-		*m_map_ptr = jsonSM.LoadMap("Save/MAP.json", GameLevel);
-
-
-		for (auto& obj : *m_ptr_objectListBack)
-			jsonSM.SaveObject(obj, "file_back.json", GameLevel);
-
-		for (auto& obj : *m_ptr_objectListZero)
-			jsonSM.SaveObject(obj, "file_zero.json", GameLevel);
-
-		for (auto& obj : *m_ptr_objectListFront)
-			jsonSM.SaveObject(obj, "file_front.json", GameLevel);
+	//	jsonSM.DeleteJsonFile("Save/MAP.json", GameLevel);
+	//	jsonSM.SaveMap("Save/MAP.json", *m_map_ptr, GameLevel);
+	//	*m_map_ptr = jsonSM.LoadMap("Save/MAP.json", GameLevel);
 
 
-		ObjectManager::ObjectBeckID = 0;
-		ObjectManager::ObjectZeroID = 0;
-		ObjectManager::ObjectFrontID = 0;
+	//	for (auto& obj : *m_ptr_objectListBack)
+	//		jsonSM.SaveObject(obj, "file_back.json", GameLevel);
 
-		m_cell_vec.clear();
-		m_cell_vec.reserve(m_map_ptr->GetMapSize().y* m_map_ptr->GetMapSize().x);
+	//	for (auto& obj : *m_ptr_objectListZero)
+	//		jsonSM.SaveObject(obj, "file_zero.json", GameLevel);
 
-		for (size_t y = 0; y < m_map_ptr->GetMapSize().y; y++)
-		{
-			for (size_t x = 0; x < m_map_ptr->GetMapSize().x; x++) {
+	//	for (auto& obj : *m_ptr_objectListFront)
+	//		jsonSM.SaveObject(obj, "file_front.json", GameLevel);
 
-				m_cell = System::CreateShape(
-					v2f(
-						static_cast<float> (x) * m_size_x,
-						static_cast<float> (y) * m_size_y),
-					v2f(
-						static_cast<float> (m_size_x),
-						static_cast<float> (m_size_y)),
-					System::resources.texture.arhitectMouse
-				);
 
-				m_cell.setOutlineColor(Color::Green);
-				m_cell.setOutlineThickness(-2);
+	//	ObjectManager::ObjectBeckID = 0;
+	//	ObjectManager::ObjectZeroID = 0;
+	//	ObjectManager::ObjectFrontID = 0;
 
-				m_cell_vec.push_back(m_cell);
-			}
-		}
+	//	m_cell_vec.clear();
+	//	m_cell_vec.reserve(m_map_ptr->GetMapSize().y* m_map_ptr->GetMapSize().x);
 
-		//is_grid = true;
-		is_save_map = false;
-		cout << "SaveMap" << endl;
-	}
+	//	for (size_t y = 0; y < m_map_ptr->GetMapSize().y; y++)
+	//	{
+	//		for (size_t x = 0; x < m_map_ptr->GetMapSize().x; x++) {
+
+	//			m_cell = System::CreateShape(
+	//				v2f(
+	//					static_cast<float> (x) * m_size_x,
+	//					static_cast<float> (y) * m_size_y),
+	//				v2f(
+	//					static_cast<float> (m_size_x),
+	//					static_cast<float> (m_size_y)),
+	//				System::resources.texture.arhitectMouse
+	//			);
+
+	//			m_cell.setOutlineColor(Color::Green);
+	//			m_cell.setOutlineThickness(-2);
+
+	//			m_cell_vec.push_back(m_cell);
+	//		}
+	//	}
+
+	//	//is_grid = true;
+	//	is_save_map = false;
+	//	cout << "SaveMap" << endl;
+	//}
 
 	//-------------------------------------------------------------
 
@@ -381,10 +381,10 @@ void Architect::Update()
 
 		}
 
-	if (is_new_start && is_new_finish) {
-		m_start.setPosition(m_map_ptr->GetStartPos());
-		m_finish.setPosition(m_map_ptr->GetFinalPos());
-	}
+	//if (is_new_start && is_new_finish) {
+	//	m_start.setPosition(m_map_ptr->GetStartPos());
+	//	m_finish.setPosition(m_map_ptr->GetFinalPos());
+	//}
 
 	m_ptr_menu->Update();
 
@@ -496,16 +496,16 @@ vector<ObjectManager>& Architect::GetVecZero()
 
 void Architect::CreateStart()
 {
-	m_map_ptr->SetStartPos(m_start.getPosition());
+	//m_map_ptr->SetStartPos(m_start.getPosition());
 
-	is_new_start = false;
+	//is_new_start = false;
 }
 
 void Architect::CreateFinish() 
 {
-	m_map_ptr->SetFinalPos(m_finish.getPosition());
+	//m_map_ptr->SetFinalPos(m_finish.getPosition());
 
-	is_new_finish = false;
+	//is_new_finish = false;
 }
 
 vector<Shape>& Architect::GetVecCell()
@@ -513,10 +513,6 @@ vector<Shape>& Architect::GetVecCell()
 	return m_cell_vec;
 }
 
-Map Architect::GetMap()
-{
-	return *m_map_ptr;
-}
 
 Architect::~Architect()
 {

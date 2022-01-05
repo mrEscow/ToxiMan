@@ -1,9 +1,10 @@
 #include "ArchtectMenu.h"
 
-ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector& Z_vec) // 1/4 //
+ArchtectMenu::ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_settings, ArcitectVector& Z_vec) // 1/4 //
 {
 	ptr_game_settings = &game_settings;
-	m_map_ptr = &map;
+	m_Maps = &Maps;
+	m_map_ptr = &Maps[0];
 	m_ptr_Z_vec = &Z_vec;
 
 	archMenu.reset(sf::FloatRect(0.0f, 0.0f, static_cast<float>(System::scr_w), static_cast<float>(System::scr_h)));
@@ -47,10 +48,13 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		System::resources.texture.menu_button), 
 		"Create New Map" 
 	);
+
+
+
 	for (Uint32 i = 0; i <= GameSettings::GetGemeLevels(); i++)
 	{
 		LoadBoards.push_back(make_unique<LoadBoard>(
-			map.GetName(), 
+			Maps[i].GetName(),
 			v2f(
 				m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
 				m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (i * 125)
@@ -332,7 +336,7 @@ void ArchtectMenu::Action(
 		switch (Map_Manu)
 		{
 		case ArchtectMenu::MapMenu::LOAD:
-			uint32 id_for_del;
+			//uint32 id_for_del;
 			for (auto& loadbord : LoadBoards) {
 				loadbord->Action(is_load, is_save, is_delete);
 				if (is_load) {
@@ -342,21 +346,23 @@ void ArchtectMenu::Action(
 
 				}
 				if (is_delete) {
-					LoadBoard::id--;
-					if(GameSettings::GetGemeLevels() != 0)
-						GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
-					GameSettings::SaveSettings();
-					id_for_del = loadbord->GetId();
+					//LoadBoard::id--;
+					//if(GameSettings::GetGemeLevels() != 0)
+					//	GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
+					//GameSettings::SaveSettings();
+					//id_for_del = loadbord->GetId();
 
-					jsonSM.DeleteJsonFile("maps/map_", id_for_del);
-
-					for (size_t i = id_for_del; (i <= LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
-					{
-						Map tempMap = jsonSM.LoadMap("",id_for_del + 1);
-						jsonSM.SaveMap("", tempMap, id_for_del);
-					}
-					is_delete = false;
-					break;
+					//jsonSM.DeleteJsonFile("maps/map_", id_for_del);
+					//cout << "Delete: " << id_for_del << endl;
+					//for (size_t i = id_for_del; (i < LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
+					//{
+					//	Map tempMap = jsonSM.LoadMap("",id_for_del + 1);
+					//	cout << "Load: " << id_for_del << endl;
+					//	jsonSM.SaveMap("", tempMap, id_for_del);
+					//	cout << "Save: " << id_for_del << endl;
+					//}
+					//is_delete = false;
+					//break;
 				}
 			}
 
@@ -386,6 +392,8 @@ void ArchtectMenu::Action(
 						m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (LoadBoards.size() * 125)
 					))
 				);
+
+				m_Maps->insert(pair<uint32,Map>(GameSettings::GetGemeLevels(),temp));
 			}
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
@@ -421,19 +429,20 @@ void ArchtectMenu::Action(
 void ArchtectMenu::Update()
 {
 	m_map_ptr->GetName();
+
 	{
-		for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
-			auto& loadbord = it;
-			if (loadbord->get()->CheckDel()) {
-				it = LoadBoards.erase(it);
-				//dell = true;
-			}
-			else {
-				/*if (dell)
-					it->get()->NewId();*/
-				it++;
-			}
-		}
+		//for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
+		//	auto& loadbord = it;
+		//	if (loadbord->get()->CheckDel()) {
+		//		it = LoadBoards.erase(it);
+		//		//dell = true;
+		//	}
+		//	else {
+		//		/*if (dell)
+		//			it->get()->NewId();*/
+		//		it++;
+		//	}
+		//}
 	}
 
 

@@ -44,17 +44,25 @@ void Level::LoadLevel(UINT32 GameLevel)
 Level::Level(GameStates& GS, GameSettings& game_settings)
 {
 	
-	for (auto map : Maps) {
-		if (GS.GetGameLevel() == map.first)
-		{
-			map.second.GetFinalPos();
-			map.second.GetMapSize();
-			map.second.GetName();
-			map.second.GetStartPos();
-		}
+	for (uint32_t i = 0; i <= GameSettings::GetGemeLevels(); i++)
+	{
+		std::pair <uint32_t, Map> temp;
+		temp.first = i;
+		temp.second = m_jsonSM.LoadMap("", i);
+		Maps.insert(temp);
 	}
-	
 
+	//for (auto map : Maps) {
+	//	if (GS.GetGameLevel() == map.first)
+	//	{
+	//		map.second.GetFinalPos();
+	//		map.second.GetMapSize();
+	//		map.second.GetName();
+	//		map.second.GetStartPos();
+	//	}
+	//}
+	
+	//m_map_ptr = &Maps[0];
 
 	is_Next_Level = false;
 	m_ptr_GS = &GS;
@@ -69,7 +77,10 @@ Level::Level(GameStates& GS, GameSettings& game_settings)
 
 
 	m_ptr_player = new Player(*m_map_ptr, m_StartPos, m_size_map);
-	m_ptr_arhitevt = new Architect(*m_map_ptr, m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
+
+
+	cout << "TEST MAP: " << Maps[0].GetName() << endl;
+	m_ptr_arhitevt = new Architect(Maps, m_objectListBack, m_objectListZero, m_objectListFront, m_size_map, game_settings);
 
 	m_ptr_Li = new AlgoritmLi(m_ptr_arhitevt, m_ptr_player);
 
