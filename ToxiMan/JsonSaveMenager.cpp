@@ -22,14 +22,15 @@ void JsonSaveMenager::SaveMap(string name_file, Map &map, UINT32 GameLevel)
 
 	m_serializedString = m_json.dump();
 
-	m_fout.open("Resources/JsonSave/maps" + to_string(GameLevel) + "/" + name_file, ofstream::app);
+	//m_fout.open("Resources/JsonSave/maps/" + to_string(GameLevel) + "/" + name_file, ofstream::app);
+	m_fout.open("Resources/JsonSave/maps/map_" + to_string(GameLevel) + ".json", ofstream::app);
 	m_fout << m_serializedString << "\n";
 	m_fout.close();
 }
 
 Map JsonSaveMenager::LoadMap(string name_file, UINT32 GameLevel)
 {
-	string temp = "Resources/JsonSave/maps" + to_string(GameLevel);
+	string temp = "Resources/JsonSave/maps/map_" + to_string(GameLevel) + ".json";
 
 	Map temp_map;
 	
@@ -145,7 +146,7 @@ vector<ObjectManager> JsonSaveMenager::LoadVecObject(string name_file, UINT32 Ga
 
 void JsonSaveMenager::DeleteJsonFile(string name_file, UINT32 GameLevel)
 {
-	string str_temp = "Resources/JsonSave/" + to_string(GameLevel) + "/" + name_file;
+	string str_temp = "Resources/JsonSave/" + name_file + to_string(GameLevel);
 	remove(str_temp.c_str());
 	cout << "DeleteJsonFile" << endl;
 }

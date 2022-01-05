@@ -5,10 +5,12 @@
 #include "TextBox.h"
 #include "Map.h"
 #include "LoadBoard.h"
+#include "JsonSaveMenager.h"
 
 class ArchtectMenu 
 {
 private:
+
 
 	StateGame m_state_game_ptr;
 
@@ -22,7 +24,10 @@ private:
 
 	unique_ptr <UI::Button> BackButton;
 
+	JsonSaveMenager jsonSM;
+
 	// MapEditor
+
 	vector<unique_ptr<UI::Button>> MP_Buttons;
 
 	v2f PozMenu;
@@ -56,6 +61,9 @@ private:
 
 	vector<unique_ptr<LoadBoard>> LoadBoards;
 
+	bool is_save{ 0 };
+	bool is_load{ 0 };
+	bool is_delete{ 0 };
 	//	2
 	Shape	m_Enemy;
 	Shape	m_Platforms;

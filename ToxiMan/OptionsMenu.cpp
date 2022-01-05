@@ -13,7 +13,7 @@ OptionsMenu::OptionsMenu(StateMainMenu& state_main_menu, GameSettings& m_game_se
 	text_options = System::CreateText(v2f(0, -350), 120, "Options", System::resources.font.erica_type, Color::Magenta);
 	System::CenteringText(text_options);
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -225), v2f(200, 50), System::resources.texture.menu_button), "Back", *m_game_settings_ptr));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -225), v2f(200, 50), System::resources.texture.menu_button), "Back"));
 
 	if (m_game_settings_ptr->GetMusicOn()) {
 		t_checkbox = System::resources.texture.menu_checkbox_ON; //cout << "t_checkbox_ON" << endl;

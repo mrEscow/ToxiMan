@@ -232,6 +232,7 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 	}
 	//-------------------------------------------------------------
 	m_ptr_menu->Action(
+
 		is_grid, 
 
 		is_new_start, 
@@ -307,6 +308,8 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		is_save_map = false;
 		cout << "SaveMap" << endl;
 	}
+
+	//-------------------------------------------------------------
 
 	//-------------------------------------------------------------
 }

@@ -1,13 +1,10 @@
 #include "Button.h"
 namespace UI{
-	Button::Button(Shape shape, string name_id ,GameSettings& m_game_settings)
+	Button::Button(Shape shape, string name_id)
 	{
 		m_name_id = name_id;
 		m_shape = shape;
 
-		m_game_settings_ptr = &m_game_settings;
-
-		
 		s_button.setBuffer(System::resources.audio.sound.button_sound);
 		text_button = System::CreateText(shape.getPosition(), static_cast<uint>(shape.getSize().y) / 2U, name_id, System::resources.font.erica_type, Color::Yellow);
 		System::CenteringText(text_button);
@@ -17,8 +14,9 @@ namespace UI{
 	bool Button::IsAction()
 	{
 		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
-			s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
-			if (m_game_settings_ptr->GetSoundOn())s_button.play();
+			s_button.setVolume(GameSettings::GetSoundVolume());
+
+			if (GameSettings::GetSoundOn()) s_button.play();
 			is_pressed = true;
 		}
 

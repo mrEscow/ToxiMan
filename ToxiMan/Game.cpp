@@ -22,9 +22,9 @@ Game::Game()
 
 	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
 
-	m_GameStates = new GameStates(1);
-
-	m_GameStates->Set(GameStates::GS::CHECH_MAP);
+	m_GameStates = new GameStates(0);
+	m_GameStates->Set(GameStates::GS::CHECK_MAP);
+	m_GameStates->Updata();
 
 	m_ptr_lvl = new Level(*m_GameStates, m_game_settings);
 
@@ -45,8 +45,6 @@ Game::Game()
 void Game::Update()
 {
 	m_GameStates->Updata();
-
-
 
 	switch (m_state_game)
 	{

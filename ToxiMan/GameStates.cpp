@@ -8,20 +8,20 @@ void GameStates::Updata()
 {
 	switch (gs)
 	{
-	case GameStates::GS::CHECH_MAP:
-
+	case GameStates::GS::CHECK_MAP:
 	{
-		string path{ "Resources/JsonSave/maps" + to_string(GameLevel) };
+		string path{ "Resources/JsonSave/maps/map_" + to_string(GameLevel) + ".json"};
 		ifstream Stream_IN;
 
 		Stream_IN.open(path);
 
-		if (!Stream_IN.is_open())
+		if (Stream_IN.is_open())
 		{
-			gs = GameStates::GS::NEW_LEVEL;
+			gs = GameStates::GS::START;
 		}
 		else
 		{
+			cout << "NOT_OPEN: " << path << endl;
 			CreateDefaultMap();
 		}
 
@@ -47,7 +47,7 @@ void GameStates::Updata()
 		break;
 	case GameStates::GS::NEW_LEVEL:
 	{
-
+		gs = GameStates::GS::START;
 	}
 	break;
 	case GameStates::GS::BACK_LEVEL:

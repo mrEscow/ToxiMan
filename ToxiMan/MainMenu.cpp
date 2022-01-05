@@ -16,10 +16,10 @@ MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu, GameSe
 
 	PNG& t_button = System::resources.texture.menu_button;
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -225),	v2f(200, 50),		t_button), "Start",		*m_game_settings_ptr));
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150),	v2f(200, 50),		t_button), "MapEditor", *m_game_settings_ptr));
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -75),	v2f(200, 50),		t_button), "Options",	*m_game_settings_ptr));
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 0),		v2f(200, 50),		t_button), "Exit",		*m_game_settings_ptr));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -225),	v2f(200, 50),		t_button), "Start"));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150),	v2f(200, 50),		t_button), "MapEditor"));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -75),	v2f(200, 50),		t_button), "Options"));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 0),		v2f(200, 50),		t_button), "Exit"));
 
 
 	

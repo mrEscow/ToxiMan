@@ -18,6 +18,7 @@ void Level::LoadLevel(UINT32 GameLevel)
 	
 	cout << "GameLevel: " << GameLevel << endl;
 
+
 	// map
 	*m_map_ptr = m_jsonSM.LoadMap("Save/MAP.json", GameLevel);
 

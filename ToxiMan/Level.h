@@ -44,12 +44,11 @@ private:
 	bool is_reset;
 
 	bool is_Next_Level;
-//protected:
+
 	vector<ObjectManager> m_objectListBack;
 	vector<ObjectManager> m_objectListZero;
 	vector<ObjectManager> m_objectListFront;
 
-private:
 	// Shader	
 	sf::Shader m_shader_start;
 	sf::Shader m_shader_stop;
@@ -85,6 +84,7 @@ private:
 	float m_time = 0;
 
 	void LI();
+
 
 public:
 

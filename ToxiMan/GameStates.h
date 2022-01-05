@@ -48,7 +48,7 @@ public:
 
 	enum class GS : uint
 	{
-		CHECH_MAP,
+		CHECK_MAP,
 
 		START,
 		STOP,
@@ -72,7 +72,7 @@ public:
 		MY_NULL,
 		BACK_LEVEL
 	};
-private:
+public:
 	static GS gs;
 
 	void CreateDefaultMap() {
@@ -86,9 +86,7 @@ private:
 
 		Json json;
 
-
 		json["Name"] = Name;	// string
-
 
 		json["MapSizeX"] = Size.x;	// int
 		json["MapSizeY"] = Size.y;	// int
@@ -103,9 +101,12 @@ private:
 		Name += ".json";
 
 		ofstream m_fout;
-		m_fout.open("Resources/JsonSave/maps" + to_string(GameLevel), ofstream::app);
+		m_fout.open("Resources/JsonSave/maps/map_" + to_string(GameLevel) + ".json", ofstream::app);
 		m_fout << m_serializedString << "\n";
 		m_fout.close();
+
+	}
+	void CreateNewMap() {
 
 	}
 public:

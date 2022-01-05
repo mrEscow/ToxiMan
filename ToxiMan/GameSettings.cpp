@@ -11,7 +11,11 @@
 
 
 // статические поля
+bool				GameSettings::is_music_on;
+float				GameSettings::music_volume;
 
+bool				GameSettings::is_sound_effect_on;
+float				GameSettings::sound_volume;
 UINT32				GameSettings::GameLevels;
 
 

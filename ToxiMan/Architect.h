@@ -67,6 +67,7 @@ class Architect
 	bool is_back;
 
 	//map
+
 	bool is_new_start;
 	bool is_new_finish;
 	bool is_save_map;

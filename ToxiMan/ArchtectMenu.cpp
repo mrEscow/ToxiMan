@@ -17,11 +17,11 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 	m_name_vector_text = System::CreateText(v2f(m_menu.getPosition().x, -450), 20, "Vector Zero", System::resources.font.common, Color::Black);
 	System::CenteringText(m_name_vector_text);
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x -150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_BACK", game_settings));
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -400), v2f(120, 50), System::resources.texture.menu_button), "V_ZERO", game_settings));
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x + 150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_FRONT", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x -150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_BACK"));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x, -400), v2f(120, 50), System::resources.texture.menu_button), "V_ZERO"));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x + 150, -400), v2f(120, 50), System::resources.texture.menu_button), "V_FRONT"));
 
-	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x , -325), v2f(440, 50), System::resources.texture.menu_button), "enable grid", game_settings));
+	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(m_menu.getPosition().x , -325), v2f(440, 50), System::resources.texture.menu_button), "enable grid"));
 
 	
 	//	MapEditor
@@ -45,17 +45,19 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		), 
 		v2f(333, 50), 
 		System::resources.texture.menu_button), 
-		"Create New Map", 
-		game_settings
+		"Create New Map" 
 	);
+	for (Uint32 i = 0; i <= GameSettings::GetGemeLevels(); i++)
+	{
+		LoadBoards.push_back(make_unique<LoadBoard>(
+			map.GetName(), 
+			v2f(
+				m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
+				m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (i * 125)
+			))
+		);
+	}
 
-	LoadBoards.push_back(make_unique<LoadBoard>(
-		game_settings,
-		"Testing", v2f(
-			m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
-			m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350
-		))
-	);
 
 	m_Map = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_Map);
 	m_MapLoad = System::CreateShape(PozMenu, SizeMenu, System::resources.texture.menu_MapLoad);
@@ -75,8 +77,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(65, 80),
 		System::resources.texture.menu_button),
-		"Map",
-		game_settings)
+		"Map")
 	);
 	// x 100 246 = 146, y 242 270 = !32 = 15
 	MapMenuBattons.push_back(make_unique<UI::Button>(System::CreateShape(
@@ -86,8 +87,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(146, 24),
 		System::resources.texture.menu_button),
-		"Load",
-		game_settings)
+		"Load")
 	);
 	// x 299 444 = 145, y 242 266 = 24
 	MapMenuBattons.push_back(make_unique<UI::Button>(System::CreateShape(
@@ -97,8 +97,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(145, 24),
 		System::resources.texture.menu_button),
-		"Size",
-		game_settings)
+		"Size")
 	);
 
 	//	2   65 80
@@ -109,8 +108,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(65, 80),
 		System::resources.texture.menu_button),
-		"StaticCube",
-		game_settings)
+		"StaticCube")
 	);
 
 	//55 258   120 338   65 80
@@ -121,8 +119,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(65, 80),
 		System::resources.texture.menu_button),
-		"Platforms",
-		game_settings)
+		"Platforms")
 	);
 
 	//55 258   120 338   65 80
@@ -133,8 +130,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(65, 80),
 		System::resources.texture.menu_button),
-		"Enemy",
-		game_settings)
+		"Enemy")
 	);
 
 	//55 258   120 338   65 80
@@ -145,8 +141,7 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(65, 80),
 		System::resources.texture.menu_button),
-		"Player",
-		game_settings)
+		"Player")
 	);
 
 
@@ -160,30 +155,26 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		v2f(m_menu.getPosition().x, 0),
 		v2f(200, 50),
 		System::resources.texture.menu_button),
-		"NextMap",
-		game_settings));
+		"NextMap"));
 
 
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
 		v2f(m_menu.getPosition().x, 100), 
 		v2f(200, 50), 
 		System::resources.texture.menu_button), 
-		"CreateStart", 
-		game_settings));
+		"CreateStart"));
 
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
 		v2f(m_menu.getPosition().x, 200), 
 		v2f(200, 50), 
 		System::resources.texture.menu_button), 
-		"CreateFinish", 
-		game_settings));
+		"CreateFinish"));
 
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(
 		v2f(m_menu.getPosition().x, 300),
 		v2f(200, 50),
 		System::resources.texture.menu_button),
-		"SaveMap",
-		game_settings));
+		"SaveMap"));
 
 
 
@@ -194,11 +185,11 @@ ArchtectMenu::ArchtectMenu(Map& map,GameSettings& game_settings, ArcitectVector&
 		),
 		v2f(333, 50),
 		System::resources.texture.menu_button), 
-		"BACK", 
-		game_settings);
+		"BACK");
 }
 
 void ArchtectMenu::Action(
+
 
 	bool& is_grid,
 
@@ -293,13 +284,11 @@ void ArchtectMenu::Action(
 				cout << to_string((int)MAP_EDITOR) << endl;
 			}
 
-
 			if (button->GetNameId() == "StaticCube") {
 				MAP_EDITOR = MapEditor::STATIC_CUBE;
 				cout << "StaticCube" << endl;
 				cout << to_string((int)MAP_EDITOR) << endl;
 			}
-
 
 			if (button->GetNameId() == "Platforms"){
 				MAP_EDITOR = MapEditor::PLATFORMS;
@@ -313,13 +302,11 @@ void ArchtectMenu::Action(
 				cout << to_string((int)MAP_EDITOR) << endl;
 			}
 
-
 			if (button->GetNameId() == "Player") {
 				MAP_EDITOR = MapEditor::PLAYER;
 				cout << "Player" << endl;
 				cout << to_string((int)MAP_EDITOR) << endl;
 			}
-
 		}
 	}
 
@@ -340,13 +327,56 @@ void ArchtectMenu::Action(
 			}
 		}
 
+
+
 		switch (Map_Manu)
 		{
 		case ArchtectMenu::MapMenu::LOAD:
-			for (auto& loadbord : LoadBoards)
-				loadbord->Action();
+			uint32 id_for_del;
+			for (auto& loadbord : LoadBoards) {
+				loadbord->Action(is_load, is_save, is_delete);
+				if (is_load) {
+
+				}
+				if (is_save) {
+
+				}
+				if (is_delete) {
+					LoadBoard::id--;
+					GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
+					GameSettings::SaveSettings();
+					id_for_del = loadbord->GetId();
+					jsonSM.DeleteJsonFile("maps/map_", id_for_del);
+					is_delete = false;
+				}
+			}
+
+			//if (is_delete) {
+			//	auto it = LoadBoards.begin() + id_for_del;
+			//	LoadBoards.erase(it);
+			//	for (it; it != LoadBoards.end(); it++)
+			//		it->get()->NewId();
+			//	is_delete = false;
+			//}
+
 			if (CreateNewMapButton->IsAction()) {
 				cout << "CreateNewMapButton" << endl;
+				//GameStates::gs = GameStates::GS::NEW_LEVEL;
+
+				GameSettings::SetGameLevels(GameSettings::GetGemeLevels() + 1);
+				GameSettings::SaveSettings();
+
+				Map temp = jsonSM.LoadMap("New", GameSettings::GetGemeLevels());
+				jsonSM.SaveMap("Save/MAP.json", temp, GameSettings::GetGemeLevels());
+
+
+				LoadBoards.push_back(make_unique<LoadBoard>(
+					temp.GetName(),
+					v2f(
+						m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
+						m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (LoadBoards.size() * 125)
+					))
+				);
 			}
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
@@ -382,6 +412,14 @@ void ArchtectMenu::Action(
 void ArchtectMenu::Update()
 {
 	m_map_ptr->GetName();
+
+	for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
+		auto& loadbord = it;
+		if (loadbord->get()->CheckDel())
+			it = LoadBoards.erase(it);
+		else
+			it++;
+	}
 
 	for (auto& button : MP_Buttons)
 		button->Update();

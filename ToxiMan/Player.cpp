@@ -156,7 +156,7 @@ void Player::Update(bool & is_reset)
 		m_life--;
 		if (m_life <= 0)
 			//is_dead = true;
-			;
+		{ }
 	}
 
 
