@@ -12,7 +12,6 @@
 class Menu
 {
 private:
-	StateGame* m_state_game_ptr;				// Указатель на основное состояние игры
 	unique_ptr<MainMenu> m_main_menu;			// Набор для управления в главном меню
 	unique_ptr<LevelEditor> m_level_editor;		// Создатель уровней
 	unique_ptr<OptionsMenu> m_options_menu;		// Набор управления в меню настроек
@@ -21,7 +20,7 @@ private:
 
 public:
 
-	Menu(StateGame& state_game);
+	Menu();
 	void Update();
 	void Draw();
 	void Action();

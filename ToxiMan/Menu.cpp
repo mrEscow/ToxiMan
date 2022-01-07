@@ -1,12 +1,12 @@
 #include "Menu.h"
 
-Menu::Menu(StateGame& state_game)
+Menu::Menu()
 {
 	System::resources.texture.LoadMenu();
 	System::resources.audio.sound.LoadMenuSound();
 	System::resources.audio.music.LoadMenuMusic();
 
-	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr);
+	m_main_menu = make_unique<MainMenu>();
 	m_level_editor = make_unique<LevelEditor>();
 	m_options_menu = make_unique<OptionsMenu>();
 	m_exit_menu = make_unique<ExitMenu>();
@@ -37,8 +37,6 @@ void Menu::Update()
 {
 	AudioSettings();
 
-	//cout << (int)g_StateMainMenu << endl;
-
 	switch (g_StateMainMenu)
 	{
 	case StateMainMenu::ON_MAIN:
@@ -57,8 +55,6 @@ void Menu::Update()
 		break;
 	default: break;
 	}
-
-	cout << (int)g_StateMainMenu << endl;
 }
 
 void Menu::Draw()

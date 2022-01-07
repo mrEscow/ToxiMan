@@ -22,14 +22,7 @@ private:
 
 	//bool m_is_pause = false;
 
-
-	StateGame m_state_game = StateGame::ON_MAIN_MENU;
-	//StateGame m_state_game = StateGame::ON_ARCITECT;
-
-
 	GameStates *m_GameStates;
-
-	StateGame previous_state;
 
 	unique_ptr<Menu> m_main_menu;
 

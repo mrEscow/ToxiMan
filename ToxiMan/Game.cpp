@@ -31,7 +31,7 @@ Game::Game()
 
 	// Game
 	GameSettings::ReadSettings();
-	m_main_menu = make_unique<Menu>(m_state_game);
+	m_main_menu = make_unique<Menu>();
 
 	m_GameStates = new GameStates(0);
 	m_GameStates->Set(GameStates::GS::CHECK_MAP);
@@ -57,7 +57,7 @@ void Game::Update()
 {
 	m_GameStates->Updata();
 
-	switch (m_state_game)
+	switch (g_StateGame)
 	{
 	case StateGame::ON_MAIN_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
@@ -126,7 +126,7 @@ void Game::Draw()
 	//	}
 	//}
 
-	switch (m_state_game)
+	switch (g_StateGame)
 	{
 	case StateGame::ON_MAIN_MENU:
 		m_main_menu->Draw();
@@ -146,18 +146,13 @@ void Game::Draw()
 
 void Game::Action()
 {
-	switch (m_state_game)
+	switch (g_StateGame)
 	{
 	case StateGame::ON_MAIN_MENU:
 		m_main_menu->Action();
-		previous_state = StateGame::ON_MAIN_MENU;
 		break;
 	case StateGame::ON_GAME:
-
-		previous_state = StateGame::ON_GAME;
 		break;
-	//case StateGame::ON_ARCITECT:
-	//	break;
 	default:
 		break;
 	}

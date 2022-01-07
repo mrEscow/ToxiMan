@@ -10,13 +10,10 @@ class MainMenu
 private:
 
 	vector<unique_ptr<UI::Button>> vec_button;
-
-	StateGame* m_state_game_ptr;			// ”казатель на основное состо€ние игры
-
 	sf::Text HelloText;
 
 public:
-	MainMenu(StateGame&);
+	MainMenu();
 	void Update();
 	void Draw();
 	void Action();

@@ -9,6 +9,7 @@ enum class StateGame : uint
 	ON_MAIN_MENU,
 	ON_GAME,
 };
+inline StateGame g_StateGame;
 
 
 enum class StateMainMenu : uint
@@ -18,8 +19,7 @@ enum class StateMainMenu : uint
 	ON_OPTIONS,
 	ON_EXIT
 };
-
-inline StateMainMenu g_StateMainMenu = StateMainMenu::ON_LEVEL_EDITOR;
+inline StateMainMenu g_StateMainMenu;
 
 
 enum class ArcitectVector : uint
