@@ -1,9 +1,8 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu)
+MainMenu::MainMenu(StateGame& state_game)
 {
 	m_state_game_ptr = &state_game;
-	m_state_main_menu_ptr = &state_main_menu;
 
 	HelloText.setFont(System::resources.font.common);
 	HelloText.setString("TOXIMAN!");
@@ -43,9 +42,10 @@ void MainMenu::Action()
 		{
 			cout << button->GetNameId() << endl;
 			if (button->GetNameId() == "Start") *m_state_game_ptr = StateGame::ON_GAME;
-			if (button->GetNameId() == "MapEditor") *m_state_main_menu_ptr = StateMainMenu::OM_LEVEL_EDITOR;
-			if (button->GetNameId() == "Options") *m_state_main_menu_ptr = StateMainMenu::ON_OPTIONS;
-			if (button->GetNameId() == "Exit") *m_state_main_menu_ptr = StateMainMenu::ON_EXIT;
+
+			if (button->GetNameId() == "MapEditor")	g_StateMainMenu = StateMainMenu::ON_LEVEL_EDITOR;
+			if (button->GetNameId() == "Options")	g_StateMainMenu = StateMainMenu::ON_OPTIONS;
+			if (button->GetNameId() == "Exit")		g_StateMainMenu = StateMainMenu::ON_EXIT;
 		}
 	}
 }

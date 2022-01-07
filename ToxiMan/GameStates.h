@@ -10,13 +10,24 @@ enum class StateGame : uint
 	ON_GAME,
 };
 
+
 enum class StateMainMenu : uint
 {
 	ON_MAIN,
-	OM_LEVEL_EDITOR,
+	ON_LEVEL_EDITOR,
 	ON_OPTIONS,
 	ON_EXIT
 };
+
+inline StateMainMenu g_StateMainMenu = StateMainMenu::ON_LEVEL_EDITOR;
+
+
+
+static void CreateMainMenuStage(StateMainMenu StateMainMenu) {
+	cout << (int)g_StateMainMenu << endl;
+	g_StateMainMenu = StateMainMenu;
+	cout << (int)g_StateMainMenu << endl;
+}
 
 
 enum class ArcitectVector : uint
@@ -41,7 +52,7 @@ enum class StateLevel : uint
 	ON_PAUSED
 };
 
-
+//--------------------------------------------------------
 
 class GameStates {
 private:

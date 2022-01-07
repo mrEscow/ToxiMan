@@ -96,8 +96,6 @@ public:
 	vector<Shape>& GetVecCell();
 
 
-	//Map GetMap();
-
 	~Architect();
 };
 

@@ -12,7 +12,10 @@ Game::Game()
 		is_balck = true;
 
 		sf::Uint8 Alpha = 255;
-		black.setSize(v2f(System::wnd.getSize().x, System::wnd.getSize().y));
+		black.setSize(v2f(
+			static_cast<float>(System::wnd.getSize().x),
+			static_cast<float>(System::wnd.getSize().y))
+		);
 		//black.setSize(v2f(500.f, 500.f));
 		black.setFillColor(Color(0, 0, 0, Alpha));
 		black.setOrigin(v2f(System::wnd.getSize().x / 2.f, System::wnd.getSize().y / 2.f));

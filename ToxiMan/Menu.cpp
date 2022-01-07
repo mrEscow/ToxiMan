@@ -6,14 +6,10 @@ Menu::Menu(StateGame& state_game)
 	System::resources.audio.sound.LoadMenuSound();
 	System::resources.audio.music.LoadMenuMusic();
 
-
-	m_state = StateMainMenu::ON_MAIN;
-
-	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr, m_state);
+	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr);
 	m_level_editor = make_unique<LevelEditor>();
-	m_options_menu = make_unique<OptionsMenu>(m_state);
-	m_exit_menu = make_unique<ExitMenu>(m_state);
-
+	m_options_menu = make_unique<OptionsMenu>();
+	m_exit_menu = make_unique<ExitMenu>();
 
 	m_menu_back_ground = System::CreateShape(
 		v2f(0.0f, 0.0f), 
@@ -41,12 +37,14 @@ void Menu::Update()
 {
 	AudioSettings();
 
-	switch (m_state)
+	//cout << (int)g_StateMainMenu << endl;
+
+	switch (g_StateMainMenu)
 	{
 	case StateMainMenu::ON_MAIN:
 		m_main_menu->Update(); 
 		break;
-	case StateMainMenu::OM_LEVEL_EDITOR:
+	case StateMainMenu::ON_LEVEL_EDITOR:
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
 		m_level_editor->Update();
@@ -59,18 +57,19 @@ void Menu::Update()
 		break;
 	default: break;
 	}
+
+	cout << (int)g_StateMainMenu << endl;
 }
 
 void Menu::Draw()
 {
-
-	switch (m_state)
+	switch (g_StateMainMenu)
 	{
 	case StateMainMenu::ON_MAIN:
 		System::wnd.draw(m_menu_back_ground);
 		m_main_menu->Draw();
 		break;
-	case StateMainMenu::OM_LEVEL_EDITOR:
+	case StateMainMenu::ON_LEVEL_EDITOR:
 		m_level_editor->Draw();
 		break;
 	case StateMainMenu::ON_OPTIONS:
@@ -87,14 +86,19 @@ void Menu::Draw()
 
 void Menu::Action()
 {
-	switch (m_state)
+	switch (g_StateMainMenu)
 	{
 	case StateMainMenu::ON_MAIN:
 		GameSettings::SaveSettings();
 		m_main_menu->Action();
 		break;
-	case StateMainMenu::OM_LEVEL_EDITOR:
+	case StateMainMenu::ON_LEVEL_EDITOR:
 		m_level_editor->Action();
+
+		cout << (int)g_StateMainMenu << endl;
+		cout << (int)g_StateMainMenu << endl;
+		cout << (int)g_StateMainMenu << endl;
+
 		break;
 	case StateMainMenu::ON_OPTIONS:
 		m_options_menu->Action();

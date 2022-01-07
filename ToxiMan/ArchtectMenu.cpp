@@ -465,8 +465,9 @@ void ArchtectMenu::Action(
 	//	textbox->Action();
 
 	if (BackButton->IsAction()) {
-		cout << "BACK_achc_menu!" << endl;
-		is_back = true;
+		g_StateMainMenu = StateMainMenu::ON_MAIN;
+		CreateMainMenuStage(StateMainMenu::ON_MAIN);
+		cout << (int)g_StateMainMenu << endl;
 	}
 }
 

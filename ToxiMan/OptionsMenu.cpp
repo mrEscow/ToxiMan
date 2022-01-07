@@ -4,9 +4,9 @@
 
 
 
-OptionsMenu::OptionsMenu(StateMainMenu& state_main_menu)
+OptionsMenu::OptionsMenu()
 {
-	m_state_main_menu_ptr = &state_main_menu;
+
 
 
 	text_options = System::CreateText(v2f(0, -350), 120, "Options", System::resources.font.erica_type, Color::Magenta);
@@ -47,7 +47,7 @@ void OptionsMenu::Action()
 			cout << button->GetNameId() << endl;
 			if (button->GetNameId() == "Back")
 			{
-				*m_state_main_menu_ptr = StateMainMenu::ON_MAIN;
+				g_StateMainMenu = StateMainMenu::ON_MAIN;
 			}
 		}
 	}

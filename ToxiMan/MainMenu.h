@@ -12,12 +12,11 @@ private:
 	vector<unique_ptr<UI::Button>> vec_button;
 
 	StateGame* m_state_game_ptr;			// ”казатель на основное состо€ние игры
-	StateMainMenu* m_state_main_menu_ptr;	// ”казатель на основное состо€ние главного меню
 
 	sf::Text HelloText;
 
 public:
-	MainMenu(StateGame&, StateMainMenu&);
+	MainMenu(StateGame&);
 	void Update();
 	void Draw();
 	void Action();

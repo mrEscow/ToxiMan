@@ -1,11 +1,8 @@
 #include "ExitMenu.h"
 
-ExitMenu::ExitMenu(StateMainMenu& state_main_menu)
+
+ExitMenu::ExitMenu()
 {
-	//m_state_game_ptr = &state_game;
-	m_state_main_menu_ptr = &state_main_menu;
-
-
 	PNG& t_button = System::resources.texture.menu_button;
 
 	text_exit = System::CreateText(v2f(0, -300), 40, "Are you sure you want to get out?", System::resources.font.erica_type, Color::Black);
@@ -36,7 +33,7 @@ void ExitMenu::Action()
 		{
 			cout << button->GetNameId() << endl;
 			if (button->GetNameId() == "Yes") System::wnd.close();;
-			if (button->GetNameId() == "No") *m_state_main_menu_ptr = StateMainMenu::ON_MAIN;
+			if (button->GetNameId() == "No") g_StateMainMenu = StateMainMenu::ON_MAIN;
 
 		}
 	}

@@ -4,15 +4,11 @@
 
 Architect::Architect(std::map<UINT32, Level>& Levels)
 {
-
 	m_Levels = &Levels;
-
-
 
 	//m_ptr_objectListBack = &objectListBack;
 	//m_ptr_objectListZero = &objectListZero;
 	//m_ptr_objectListFront = &objectListFront;
-
 
 	// размер Shape
 	m_size_x = 64;

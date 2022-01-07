@@ -61,7 +61,7 @@ LoadBoard::LoadBoard(string name, v2f pos)
 
 	OstrID << m_id;
 	TextID.setString(OstrID.str());
-	TextID.scale(v2f(0.8, 0.8));
+	TextID.scale(v2f(0.8f, 0.8f));
 
 	id++;
 }

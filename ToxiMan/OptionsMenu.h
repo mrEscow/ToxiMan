@@ -16,7 +16,6 @@ private:
 	vector<unique_ptr<UI::CheckBox>> vec_checkbox;
 	vector<unique_ptr<UI::Scroll>> vec_scroll;
 
-	StateMainMenu* m_state_main_menu_ptr;		// ”казатель на основное состо€ние главного меню
 
 	PNG t_checkbox;
 
@@ -41,7 +40,7 @@ private:
 
 public:
 
-	OptionsMenu(StateMainMenu&);
+	OptionsMenu();
 	void Update();
 	void Action();
 	void Draw();
