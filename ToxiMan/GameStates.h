@@ -22,14 +22,6 @@ enum class StateMainMenu : uint
 inline StateMainMenu g_StateMainMenu = StateMainMenu::ON_LEVEL_EDITOR;
 
 
-
-static void CreateMainMenuStage(StateMainMenu StateMainMenu) {
-	cout << (int)g_StateMainMenu << endl;
-	g_StateMainMenu = StateMainMenu;
-	cout << (int)g_StateMainMenu << endl;
-}
-
-
 enum class ArcitectVector : uint
 {
 	BECK,

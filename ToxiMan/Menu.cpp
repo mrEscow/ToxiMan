@@ -94,11 +94,6 @@ void Menu::Action()
 		break;
 	case StateMainMenu::ON_LEVEL_EDITOR:
 		m_level_editor->Action();
-
-		cout << (int)g_StateMainMenu << endl;
-		cout << (int)g_StateMainMenu << endl;
-		cout << (int)g_StateMainMenu << endl;
-
 		break;
 	case StateMainMenu::ON_OPTIONS:
 		m_options_menu->Action();

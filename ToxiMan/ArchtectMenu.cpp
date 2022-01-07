@@ -466,8 +466,6 @@ void ArchtectMenu::Action(
 
 	if (BackButton->IsAction()) {
 		g_StateMainMenu = StateMainMenu::ON_MAIN;
-		CreateMainMenuStage(StateMainMenu::ON_MAIN);
-		cout << (int)g_StateMainMenu << endl;
 	}
 }
 
