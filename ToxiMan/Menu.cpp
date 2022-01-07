@@ -1,31 +1,34 @@
 #include "Menu.h"
 
-Menu::Menu(StateGame& state_game, GameSettings& game_settings)
+Menu::Menu(StateGame& state_game)
 {
 	System::resources.texture.LoadMenu();
 	System::resources.audio.sound.LoadMenuSound();
 	System::resources.audio.music.LoadMenuMusic();
-	game_settings.ReadSettings();
 
-	m_state_game_ptr = &state_game;
-	m_game_settings_ptr = &game_settings;
 
 	m_state = StateMainMenu::ON_MAIN;
 
-	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr, m_state, *m_game_settings_ptr);
-	m_options_menu = make_unique<OptionsMenu>(m_state, *m_game_settings_ptr);
-	m_exit_menu = make_unique<ExitMenu>(m_state, *m_game_settings_ptr);
+	m_main_menu = make_unique<MainMenu>(*m_state_game_ptr, m_state);
+	m_level_editor = make_unique<LevelEditor>();
+	m_options_menu = make_unique<OptionsMenu>(m_state);
+	m_exit_menu = make_unique<ExitMenu>(m_state);
 
 
-	m_menu_back_ground = System::CreateShape(v2f(0.0f, 0.0f), v2f(static_cast<float>(System::scr_w), static_cast<float>(System::scr_h)), System::resources.texture.menu_background);
+	m_menu_back_ground = System::CreateShape(
+		v2f(0.0f, 0.0f), 
+		v2f(static_cast<float>(System::scr_w), 
+		static_cast<float>(System::scr_h)), 
+		System::resources.texture.menu_background
+	);
 }
 
-void AudioSettings(GameSettings& m_game_settings)
+void AudioSettings()
 {
 	System::resources.audio.music.menu_music.setLoop(true);
-	System::resources.audio.music.menu_music.setVolume(m_game_settings.GetMusicVolume());
+	System::resources.audio.music.menu_music.setVolume(GameSettings::GetMusicVolume());
 
-	if (m_game_settings.GetMusicOn()) {
+	if (GameSettings::GetMusicOn()) {
 		if (System::resources.audio.music.menu_music.getStatus() == System::resources.audio.music.menu_music.Stopped)
 			System::resources.audio.music.menu_music.play();
 	}
@@ -36,32 +39,46 @@ void AudioSettings(GameSettings& m_game_settings)
 
 void Menu::Update()
 {
-	AudioSettings(*m_game_settings_ptr);
+	AudioSettings();
 
 	switch (m_state)
 	{
 	case StateMainMenu::ON_MAIN:
-		m_main_menu->Update(); break;
+		m_main_menu->Update(); 
+		break;
+	case StateMainMenu::OM_LEVEL_EDITOR:
+		System::resources.audio.music.menu_music.stop();
+		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
+		m_level_editor->Update();
+		break;
 	case StateMainMenu::ON_OPTIONS:
-		m_options_menu->Update(); break;
+		m_options_menu->Update(); 
+		break;
 	case StateMainMenu::ON_EXIT:
-		m_exit_menu->Update(); break;
+		m_exit_menu->Update(); 
+		break;
 	default: break;
 	}
 }
 
 void Menu::Draw()
 {
-	System::wnd.draw(m_menu_back_ground);
+
 	switch (m_state)
 	{
 	case StateMainMenu::ON_MAIN:
+		System::wnd.draw(m_menu_back_ground);
 		m_main_menu->Draw();
 		break;
+	case StateMainMenu::OM_LEVEL_EDITOR:
+		m_level_editor->Draw();
+		break;
 	case StateMainMenu::ON_OPTIONS:
+		System::wnd.draw(m_menu_back_ground);
 		m_options_menu->Draw();
 		break;
 	case StateMainMenu::ON_EXIT:
+		System::wnd.draw(m_menu_back_ground);
 		m_exit_menu->Draw();
 		break;
 	default: break;
@@ -73,12 +90,15 @@ void Menu::Action()
 	switch (m_state)
 	{
 	case StateMainMenu::ON_MAIN:
-		m_game_settings_ptr->SaveSettings();
+		GameSettings::SaveSettings();
 		m_main_menu->Action();
+		break;
+	case StateMainMenu::OM_LEVEL_EDITOR:
+		m_level_editor->Action();
 		break;
 	case StateMainMenu::ON_OPTIONS:
 		m_options_menu->Action();
-		m_game_settings_ptr->SaveSettings();
+		GameSettings::SaveSettings();
 		break;
 	case StateMainMenu::ON_EXIT:
 		m_exit_menu->Action();

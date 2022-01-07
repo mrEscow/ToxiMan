@@ -102,9 +102,9 @@ void Player::Action(StateGame& state_game)
 
 
 
-	if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
-		state_game = StateGame::ON_ARCITECT;
-	}
+	//if (System::IsKeyPressed(Key::F1) || System::IsKeyPressed(Key::F1)) {
+	//	state_game = StateGame::ON_ARCITECT;
+	//}
 
 	if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {	
 		is_button_Left = true;

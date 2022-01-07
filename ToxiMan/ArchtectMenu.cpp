@@ -1,10 +1,10 @@
 #include "ArchtectMenu.h"
 
-ArchtectMenu::ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_settings, ArcitectVector& Z_vec) // 1/4 //
+ArchtectMenu::ArchtectMenu(std::map<UINT32, Level>& Levels, ArcitectVector& Z_vec) // 1/4 //
 {
-	ptr_game_settings = &game_settings;
-	m_Maps = &Maps;
-	m_map_ptr = &Maps[0];
+	m_Levels = &Levels;
+
+
 	m_ptr_Z_vec = &Z_vec;
 
 	archMenu.reset(sf::FloatRect(0.0f, 0.0f, static_cast<float>(System::scr_w), static_cast<float>(System::scr_h)));
@@ -54,7 +54,7 @@ ArchtectMenu::ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_sett
 	for (Uint32 i = 0; i <= GameSettings::GetGemeLevels(); i++)
 	{
 		LoadBoards.push_back(make_unique<LoadBoard>(
-			Maps[i].GetName(),
+			m_Levels->find(i)->second.m_Map.GetName(),
 			v2f(
 				m_menu.getPosition().x - (static_cast<float>(System::scr_w) / 8.0f) + 105,
 				m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (i * 125)
@@ -201,9 +201,8 @@ void ArchtectMenu::Action(
 	bool& is_new_finish,
 	bool& is_save_map,
 
-	bool& is_back,
+	bool& is_back
 
-	bool& is_Next_Level
 )
 {
 
@@ -338,14 +337,14 @@ void ArchtectMenu::Action(
 		case ArchtectMenu::MapMenu::LOAD:
 
 			for (auto& loadbord : LoadBoards) {
-				loadbord->Action(*m_Maps, is_load, is_save, is_delete);
+				loadbord->Action(*m_Levels, is_load, is_save, is_delete);
 				if (is_load) {
 
 				}
 				if (is_save) {
 
 				}
-				if (m_Maps->size() > 1)
+				if (m_Levels->size() > 1)
 				{
 					if (is_delete) {
 
@@ -365,16 +364,16 @@ void ArchtectMenu::Action(
 							cout << "Save: " << i << endl;
 						}
 
-						cout << "MAPS.SIZE: " << m_Maps->size() << endl;
+						cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
 
 
 
-						for (uint32 i = id_for_del; i < m_Maps->size() - 1; i++)
+						for (uint32 i = id_for_del; i < m_Levels->size() - 1; i++)
 						{
 							cout << "SWAP: " << i << endl;
-							//m_Maps[i].swap(m_Maps[i + 1]);
-							auto it = m_Maps->find(i);
-							it->second = m_Maps->find(i + 1)->second;
+
+							auto it = m_Levels->find(i);
+							it->second.m_Map = m_Levels->find(i + 1)->second.m_Map;
 							
 							cout << "SWAP: " << "OK" << endl;
 						}
@@ -391,12 +390,12 @@ void ArchtectMenu::Action(
 						//for (auto& loadbord : *m_Maps)
 						//	cout << "key " << loadbord.first << endl;
 
-						m_Maps->erase(--m_Maps->end());
+						m_Levels->erase(--m_Levels->end());
 
-						cout << "MAPS.SIZE: " << m_Maps->size() << endl;
+						cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
 
-						for (auto& loadbord : *m_Maps)
-							cout << "key " << loadbord.first << endl;
+						for (auto& key : *m_Levels)
+							cout << "key " << key.first << endl;
 
 
 						is_delete = false;
@@ -417,10 +416,11 @@ void ArchtectMenu::Action(
 				//GameStates::gs = GameStates::GS::NEW_LEVEL;
 
 
-				if(!m_Maps->empty())
+				if(!m_Levels->empty())
 					GameSettings::SetGameLevels(GameSettings::GetGemeLevels() + 1);
 				GameSettings::SaveSettings();
 
+				Level tLevel;
 				Map temp = jsonSM.LoadMap("New", GameSettings::GetGemeLevels());
 				jsonSM.SaveMap("Save/MAP.json", temp, GameSettings::GetGemeLevels());
 
@@ -432,12 +432,12 @@ void ArchtectMenu::Action(
 						m_menu.getPosition().y - (static_cast<float>(System::scr_h) / 2.0f) + 350 + (LoadBoards.size() * 125)
 					))
 				);
+				tLevel.m_Map = temp;
+				m_Levels->insert(pair<uint32,Level>(GameSettings::GetGemeLevels(), tLevel));
 
-				m_Maps->insert(pair<uint32,Map>(GameSettings::GetGemeLevels(),temp));
-
-				cout << "MAPS.SIZE: " << m_Maps->size() << endl;
-				for (auto& loadbord : *m_Maps)
-					cout << "key " << loadbord.first << endl;
+				cout << "MAPS.SIZE: " << m_Levels->size() << endl;
+				for (auto& key : *m_Levels)
+					cout << "key " << key.first << endl;
 			}
 			break;
 		case ArchtectMenu::MapMenu::SIZE:
@@ -472,7 +472,6 @@ void ArchtectMenu::Action(
 
 void ArchtectMenu::Update()
 {
-	m_map_ptr->GetName();
 
 	{
 		// delete bord and map

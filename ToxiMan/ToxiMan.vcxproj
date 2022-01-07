@@ -168,6 +168,7 @@
     <ClInclude Include="Gun.h" />
     <ClInclude Include="JsonSaveMenager.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="LifeBar.h" />
     <ClInclude Include="LoadBoard.h" />
     <ClInclude Include="MainMenu.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="JsonSaveMenager.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="LifeBar.cpp" />
     <ClCompile Include="LoadBoard.cpp" />
     <ClCompile Include="MainMenu.cpp" />

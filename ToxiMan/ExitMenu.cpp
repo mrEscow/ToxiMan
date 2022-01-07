@@ -1,10 +1,10 @@
 #include "ExitMenu.h"
 
-ExitMenu::ExitMenu(StateMainMenu& state_main_menu, GameSettings& game_settings)
+ExitMenu::ExitMenu(StateMainMenu& state_main_menu)
 {
 	//m_state_game_ptr = &state_game;
 	m_state_main_menu_ptr = &state_main_menu;
-	m_game_settings_ptr = &game_settings;
+
 
 	PNG& t_button = System::resources.texture.menu_button;
 

@@ -6,19 +6,17 @@
 #include "Map.h"
 #include "LoadBoard.h"
 #include "JsonSaveMenager.h"
+#include "Level.h"
 
 class ArchtectMenu 
 {
 private:
-	std::map<uint32_t, Map>* m_Maps;
+	//std::map<uint32_t, Map>* m_Maps;
+	std::map<UINT32, Level>* m_Levels;
 
 	StateGame m_state_game_ptr;
 
-	GameSettings* ptr_game_settings;
-
 	ArcitectVector * m_ptr_Z_vec;
-
-	Map *m_map_ptr;
 
 	sf::View archMenu;
 
@@ -90,7 +88,7 @@ private:
 	vector<unique_ptr<UI::TextBoxInt>> vec_textboxInt;
 
 public:
-	ArchtectMenu(std::map<uint32_t, Map>& Maps,GameSettings& game_settings, ArcitectVector& Z_vec);
+	ArchtectMenu(std::map<UINT32, Level>& Levels, ArcitectVector& Z_vec);
 	void Action(
 
 		// Menu buttons
@@ -101,9 +99,8 @@ public:
 		bool& is_new_finish,
 		bool& is_save_map,
 
-		bool& is_back,
+		bool& is_back
 
-		bool& is_Next_Level
 	);
 	void Update();
 	void Draw();

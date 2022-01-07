@@ -1,14 +1,14 @@
 #include "CheckBox.h"
 
 namespace UI {
-	CheckBox::CheckBox(Shape shape, string name_id, bool is_on, GameSettings& m_game_settings)
+	CheckBox::CheckBox(Shape shape, string name_id, bool is_on)
 	{
 		is_ON = is_on;
 		if (is_ON) shape.setTexture(&System::resources.texture.menu_checkbox_ON);
 		if (!is_ON) shape.setTexture(&System::resources.texture.menu_checkbox_OFF);
 		m_name_id = name_id;
 		m_shape = shape;
-		m_game_settings_ptr = &m_game_settings;
+
 		s_button.setBuffer(System::resources.audio.sound.button_sound);
 		text_button = System::CreateText(shape.getPosition(), static_cast<uint>(shape.getSize().y), name_id, System::resources.font.erica_type, Color::Red);
 		System::CenteringText(text_button);
@@ -41,8 +41,8 @@ namespace UI {
 	void CheckBox::Action()
 	{
 		if (is_inside && System::IsMousePressed(sf::Mouse::Left)) {
-			s_button.setVolume(m_game_settings_ptr->GetSoundVolume());
-			if (m_game_settings_ptr->GetSoundOn())s_button.play();
+			s_button.setVolume(GameSettings::GetSoundVolume());
+			if (GameSettings::GetSoundOn()) s_button.play();
 			is_pressed = true;
 		}
 

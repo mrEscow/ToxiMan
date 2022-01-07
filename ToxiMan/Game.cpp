@@ -5,28 +5,36 @@
 
 Game::Game()
 {
-	is_first = true;
-	is_not_first = false;
-	is_balck = true;
+	// test black team
+	{
+		is_first = true;
+		is_not_first = false;
+		is_balck = true;
 
-	sf::Uint8 Alpha = 255;
-	black.setSize(v2f(System::wnd.getSize().x, System::wnd.getSize().y));
-	//black.setSize(v2f(500.f, 500.f));
-	black.setFillColor(Color(0, 0, 0, Alpha));
-	black.setOrigin(v2f(System::wnd.getSize().x/2.f, System::wnd.getSize().y /2.f));
-	black.setPosition(System::cam.getCenter());
+		sf::Uint8 Alpha = 255;
+		black.setSize(v2f(System::wnd.getSize().x, System::wnd.getSize().y));
+		//black.setSize(v2f(500.f, 500.f));
+		black.setFillColor(Color(0, 0, 0, Alpha));
+		black.setOrigin(v2f(System::wnd.getSize().x / 2.f, System::wnd.getSize().y / 2.f));
+		black.setPosition(System::cam.getCenter());
+	}
 
-	//sf::Cursor curcor;
-	//curcor.loadFromSystem(sf::Cursor::Cross);
-	//System::wnd.setMouseCursor(curcor);
+	// test cursor
+	{
+		//sf::Cursor curcor;
+		//curcor.loadFromSystem(sf::Cursor::Cross);
+		//System::wnd.setMouseCursor(curcor);
+	}
 
-	m_main_menu = make_unique<Menu>(m_state_game, m_game_settings);
+	// Game
+	GameSettings::ReadSettings();
+	m_main_menu = make_unique<Menu>(m_state_game);
 
 	m_GameStates = new GameStates(0);
 	m_GameStates->Set(GameStates::GS::CHECK_MAP);
 	m_GameStates->Updata();
 
-	m_ptr_lvl = new Level(*m_GameStates, m_game_settings);
+
 
 	m_ptr_thread = new sf::Thread(&Game::Thread, this);
 
@@ -69,16 +77,11 @@ void Game::Update()
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
-		m_ptr_lvl->Update(m_state_game, m_GameStates->GetGameLevel());
-
-		m_ptr_lvl->check_lvl();
-
 		break;
-	case StateGame::ON_ARCITECT:
-		System::resources.audio.music.menu_music.stop();
-		System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
-		m_ptr_lvl->Update(m_state_game, m_GameStates->GetGameLevel());
-		break;
+	//case StateGame::ON_ARCITECT:
+	//	System::resources.audio.music.menu_music.stop();
+	//	System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
+	//	break;
 	default:
 		break;
 	}
@@ -126,11 +129,10 @@ void Game::Draw()
 		m_main_menu->Draw();
 		break;
 	case StateGame::ON_GAME:
-		m_ptr_lvl->Draw(m_state_game, m_GameStates->GetGameLevel());
+
 		break;
-	case StateGame::ON_ARCITECT:
-		m_ptr_lvl->Draw(m_state_game, m_GameStates->GetGameLevel());
-		break;
+	//case StateGame::ON_ARCITECT:
+	//break;
 	default:
 		break;
 	}
@@ -148,12 +150,11 @@ void Game::Action()
 		previous_state = StateGame::ON_MAIN_MENU;
 		break;
 	case StateGame::ON_GAME:
-		m_ptr_lvl->Action(m_state_game, previous_state, m_GameStates->GetGameLevel());
+
 		previous_state = StateGame::ON_GAME;
 		break;
-	case StateGame::ON_ARCITECT:
-		m_ptr_lvl->Action(m_state_game, previous_state, m_GameStates->GetGameLevel());
-		break;
+	//case StateGame::ON_ARCITECT:
+	//	break;
 	default:
 		break;
 	}
@@ -168,7 +169,7 @@ void Game::Thread()
 	while (System::wnd.isOpen())
 	{
 		System::SystemUpdate();
-		UI::TextBoxEditHelper::Update();
+
 		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 		Update();
 
@@ -196,7 +197,5 @@ void Game::Play()
 
 Game::~Game()
 {
-	//m_ptr_thread->wait();
-	delete m_ptr_lvl;
 	delete m_ptr_thread;
 }

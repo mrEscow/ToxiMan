@@ -1,5 +1,6 @@
 #include "LoadBoard.h"
 
+
 uint32 LoadBoard::id = 0;
 
 LoadBoard::LoadBoard(string name, v2f pos)
@@ -65,7 +66,7 @@ LoadBoard::LoadBoard(string name, v2f pos)
 	id++;
 }
 
-void LoadBoard::Action(std::map<uint32_t, Map>& Maps, bool& is_load, bool& is_save, bool& is_delete)
+void LoadBoard::Action(std::map<UINT32, Level>& Levels, bool& is_load, bool& is_save, bool& is_delete)
 {
 	for (auto& button : buttons)
 	{
@@ -80,7 +81,7 @@ void LoadBoard::Action(std::map<uint32_t, Map>& Maps, bool& is_load, bool& is_sa
 			}
 			if (button->GetNameId() == "Delete") {
 
-				if (Maps.size() > 1) {
+				if (Levels.size() > 1) {
 					is_delete = true;
 					this->is_delete = true;
 					cout << "Delete" << endl;

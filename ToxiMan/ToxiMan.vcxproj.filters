@@ -34,18 +34,6 @@
     <Filter Include="Файлы заголовков\Player">
       <UniqueIdentifier>{bc64c1f4-51cc-40cc-81a0-8be11990873e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\MapEditor">
-      <UniqueIdentifier>{3244c4d8-de7e-4d4b-a498-63c2ca12f8b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\MapEditor">
-      <UniqueIdentifier>{b15a558f-738b-4cbb-bf62-b0c1f740f6f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Levels">
-      <UniqueIdentifier>{3c9a671a-075c-49bf-9930-8c7b7fd51472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Levels">
-      <UniqueIdentifier>{01dd1833-ce47-4734-95ee-91fc19443b49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\UI">
       <UniqueIdentifier>{8b55c884-216d-4692-a034-40003a67595e}</UniqueIdentifier>
     </Filter>
@@ -60,6 +48,12 @@
     </Filter>
     <Filter Include="Файлы заголовков\Core\Shaders">
       <UniqueIdentifier>{77762711-9621-43d6-9605-8b57ba1b15f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\LevelEditor">
+      <UniqueIdentifier>{b15a558f-738b-4cbb-bf62-b0c1f740f6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\LevelEditor">
+      <UniqueIdentifier>{3244c4d8-de7e-4d4b-a498-63c2ca12f8b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -118,16 +112,10 @@
       <Filter>Файлы заголовков\Player</Filter>
     </ClInclude>
     <ClInclude Include="Architect.h">
-      <Filter>Файлы заголовков\MapEditor</Filter>
+      <Filter>Файлы заголовков\LevelEditor</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>Файлы заголовков\MapEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonSaveMenager.h">
-      <Filter>Файлы заголовков\Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Файлы заголовков\Levels</Filter>
+      <Filter>Файлы заголовков\LevelEditor</Filter>
     </ClInclude>
     <ClInclude Include="GameSettings.h">
       <Filter>Файлы заголовков\Core</Filter>
@@ -157,7 +145,7 @@
       <Filter>Файлы заголовков\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Файлы заголовков\MapEditor</Filter>
+      <Filter>Файлы заголовков\LevelEditor</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
       <Filter>Файлы заголовков\UI</Filter>
@@ -175,9 +163,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LoadBoard.h">
-      <Filter>Файлы заголовков\MapEditor</Filter>
+      <Filter>Файлы заголовков\LevelEditor</Filter>
     </ClInclude>
     <ClInclude Include="NameSpace.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditor.h">
+      <Filter>Файлы заголовков\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Файлы заголовков\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonSaveMenager.h">
       <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -201,16 +198,10 @@
       <Filter>Исходные файлы\Player</Filter>
     </ClCompile>
     <ClCompile Include="Architect.cpp">
-      <Filter>Исходные файлы\MapEditor</Filter>
+      <Filter>Исходные файлы\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Исходные файлы\MapEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonSaveMenager.cpp">
-      <Filter>Исходные файлы\Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Исходные файлы\Levels</Filter>
+      <Filter>Исходные файлы\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="GameSettings.cpp">
       <Filter>Исходные файлы\Core</Filter>
@@ -243,7 +234,7 @@
       <Filter>Исходные файлы\Player</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Исходные файлы\MapEditor</Filter>
+      <Filter>Исходные файлы\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="TextBox.cpp">
       <Filter>Исходные файлы\UI</Filter>
@@ -261,7 +252,16 @@
       <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="LoadBoard.cpp">
-      <Filter>Исходные файлы\MapEditor</Filter>
+      <Filter>Исходные файлы\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditor.cpp">
+      <Filter>Исходные файлы\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Исходные файлы\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonSaveMenager.cpp">
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

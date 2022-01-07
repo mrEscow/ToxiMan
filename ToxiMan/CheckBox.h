@@ -14,8 +14,6 @@ namespace UI {
 		Shape m_shape;
 		string m_name_id;
 
-		GameSettings* m_game_settings_ptr;
-
 		Text text_button;
 		sf::Sound s_button;
 
@@ -26,7 +24,7 @@ namespace UI {
 
 	public:
 
-		CheckBox(Shape shape, string name_id, bool is_value, GameSettings& m_game_settings);
+		CheckBox(Shape shape, string name_id, bool is_value);
 		void Update();
 		void Draw();
 		void Action();

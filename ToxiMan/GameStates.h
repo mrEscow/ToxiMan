@@ -3,16 +3,17 @@
 #include "System.h"
 #include "GameSettings.h"
 
+
 enum class StateGame : uint
 {
 	ON_MAIN_MENU,
 	ON_GAME,
-	ON_ARCITECT
 };
 
 enum class StateMainMenu : uint
 {
 	ON_MAIN,
+	OM_LEVEL_EDITOR,
 	ON_OPTIONS,
 	ON_EXIT
 };
@@ -39,6 +40,7 @@ enum class StateLevel : uint
 	ON_PLAYED,
 	ON_PAUSED
 };
+
 
 
 class GameStates {
@@ -136,19 +138,9 @@ public:
 		return GameLevel;
 	}
 private:
-	bool b1;
-	bool b2;
-	bool b3;
-	bool b4;
-	bool b5;
-	bool b6;
-	bool b7;
-	bool b8;
-	bool b9;
-	bool b10;
+
 public:
 	void Updata();
 	
-
 };
 

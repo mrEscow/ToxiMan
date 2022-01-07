@@ -1,10 +1,10 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu, GameSettings& game_settings)
+MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu)
 {
 	m_state_game_ptr = &state_game;
 	m_state_main_menu_ptr = &state_main_menu;
-	m_game_settings_ptr = &game_settings;
+
 	HelloText.setFont(System::resources.font.common);
 	HelloText.setString("TOXIMAN!");
 	HelloText.setCharacterSize(120);
@@ -20,18 +20,12 @@ MainMenu::MainMenu(StateGame& state_game, StateMainMenu& state_main_menu, GameSe
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -150),	v2f(200, 50),		t_button), "MapEditor"));
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, -75),	v2f(200, 50),		t_button), "Options"));
 	vec_button.push_back(make_unique<UI::Button>(System::CreateShape(v2f(0, 0),		v2f(200, 50),		t_button), "Exit"));
-
-
-	
-
-
 }
 
 void MainMenu::Update()
 {
 	for (auto& button : vec_button)
 		button->Update();
-
 }
 
 void MainMenu::Draw()
@@ -39,7 +33,6 @@ void MainMenu::Draw()
 	System::wnd.draw(HelloText);
 	for (auto& button : vec_button)
 		button->Draw();
-
 }
 
 void MainMenu::Action()
@@ -50,14 +43,11 @@ void MainMenu::Action()
 		{
 			cout << button->GetNameId() << endl;
 			if (button->GetNameId() == "Start") *m_state_game_ptr = StateGame::ON_GAME;
-			if (button->GetNameId() == "MapEditor") *m_state_game_ptr = StateGame::ON_ARCITECT;
+			if (button->GetNameId() == "MapEditor") *m_state_main_menu_ptr = StateMainMenu::OM_LEVEL_EDITOR;
 			if (button->GetNameId() == "Options") *m_state_main_menu_ptr = StateMainMenu::ON_OPTIONS;
 			if (button->GetNameId() == "Exit") *m_state_main_menu_ptr = StateMainMenu::ON_EXIT;
-
 		}
 	}
-
-
 }
 
 MainMenu::~MainMenu()

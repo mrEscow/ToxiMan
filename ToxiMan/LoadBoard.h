@@ -3,7 +3,7 @@
 #include "Button.h"
 #include "TextBox.h"
 #include "System.h"
-#include "Map.h"
+#include "Level.h"
 
 class LoadBoard
 {
@@ -20,7 +20,7 @@ class LoadBoard
 public:
 	static uint32 id;
 	LoadBoard(string name, v2f pos);
-	void Action(std::map<uint32_t, Map>& Maps, bool& is_load, bool& is_save, bool& is_delete);
+	void Action(std::map<UINT32, Level>& Levels, bool& is_load, bool& is_save, bool& is_delete);
 	void Update();
 	void Draw();
 

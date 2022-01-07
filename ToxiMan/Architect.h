@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "JsonSaveMenager.h"
 #include "ArchtectMenu.h"
+#include "Level.h"
 
 /*
 	”правление:
@@ -25,7 +26,7 @@
 */
 class Architect
 {
-	std::map<uint32_t, Map>* m_Maps;
+	std::map<UINT32,Level>*m_Levels;
 
 	ArcitectVector m_Z_vec = ArcitectVector::ZERO;
 
@@ -75,13 +76,13 @@ class Architect
 	bool is_next_level;
 
 public:
-	Architect(std::map<uint32_t, Map>& Maps, vector<ObjectManager>& objectListBack, vector<ObjectManager>& objectListZero, vector<ObjectManager>& objectListFront, v2f size_map, GameSettings& game_settings);
+	Architect(std::map<UINT32, Level>& Levels);
 
-	void Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc,JsonSaveMenager &jsonSM, UINT32 GameLevel, bool& is_Next_Level);
+	void Action();
 
 	void Update();
 
-	void Draw(StateGame& state_game);
+	void Draw();
 
 	void CreateObject();
 

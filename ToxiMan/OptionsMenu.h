@@ -18,7 +18,6 @@ private:
 
 	StateMainMenu* m_state_main_menu_ptr;		// ”казатель на основное состо€ние главного меню
 
-	GameSettings* m_game_settings_ptr;
 	PNG t_checkbox;
 
 	sf::Text text_options;
@@ -42,7 +41,7 @@ private:
 
 public:
 
-	OptionsMenu(StateMainMenu&, GameSettings& m_game_settings);
+	OptionsMenu(StateMainMenu&);
 	void Update();
 	void Action();
 	void Draw();

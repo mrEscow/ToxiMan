@@ -13,21 +13,15 @@ private:
 
 	StateGame* m_state_game_ptr;			// ”казатель на основное состо€ние игры
 	StateMainMenu* m_state_main_menu_ptr;	// ”казатель на основное состо€ние главного меню
-	GameSettings* m_game_settings_ptr;
 
 	sf::Text HelloText;
 
-
-
 public:
-
-	MainMenu(StateGame&, StateMainMenu&, GameSettings&);
+	MainMenu(StateGame&, StateMainMenu&);
 	void Update();
 	void Draw();
 	void Action();
 	~MainMenu();
-
-
 };
 
 

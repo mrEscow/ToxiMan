@@ -2,16 +2,16 @@
 
 
 
-Architect::Architect(std::map<uint32_t, Map>& Maps,vector<ObjectManager>&objectListBack, vector<ObjectManager>&objectListZero, vector<ObjectManager>&objectListFront, v2f size_map, GameSettings& game_settings)
+Architect::Architect(std::map<UINT32, Level>& Levels)
 {
 
-	m_Maps = &Maps;
+	m_Levels = &Levels;
 
 
 
-	m_ptr_objectListBack = &objectListBack;
-	m_ptr_objectListZero = &objectListZero;
-	m_ptr_objectListFront = &objectListFront;
+	//m_ptr_objectListBack = &objectListBack;
+	//m_ptr_objectListZero = &objectListZero;
+	//m_ptr_objectListFront = &objectListFront;
 
 
 	// размер Shape
@@ -52,28 +52,28 @@ Architect::Architect(std::map<uint32_t, Map>& Maps,vector<ObjectManager>&objectL
 
 	//m_zoom = 1.f;
 
-	for (size_t y = 0; y < size_map.y; y++)
-	{
-		for (size_t x = 0; x < size_map.x; x++) {
-			
-			m_cell = System::CreateShape(
-				v2f(
-					static_cast<float> (x) * m_size_x, 
-					static_cast<float> (y) * m_size_y),
-				v2f(
-					static_cast<float> (m_size_x),
-					static_cast<float> (m_size_y)),
-				System::resources.texture.arhitectMouse
-			);
-				
-			m_cell.setOutlineColor(Color::Green);
-			m_cell.setOutlineThickness(-2);
+	//for (size_t y = 0; y < size_map.y; y++)
+	//{
+	//	for (size_t x = 0; x < size_map.x; x++) {
+	//		
+	//		m_cell = System::CreateShape(
+	//			v2f(
+	//				static_cast<float> (x) * m_size_x, 
+	//				static_cast<float> (y) * m_size_y),
+	//			v2f(
+	//				static_cast<float> (m_size_x),
+	//				static_cast<float> (m_size_y)),
+	//			System::resources.texture.arhitectMouse
+	//		);
+	//			
+	//		m_cell.setOutlineColor(Color::Green);
+	//		m_cell.setOutlineThickness(-2);
 
-			m_cell_vec.push_back(m_cell);
-		}
-	}
+	//		m_cell_vec.push_back(m_cell);
+	//	}
+	//}
 
-	m_ptr_menu = new ArchtectMenu(Maps,game_settings, m_Z_vec);
+	m_ptr_menu = new ArchtectMenu(Levels, m_Z_vec);
 
 	// 
 	is_create = false;
@@ -88,7 +88,7 @@ Architect::Architect(std::map<uint32_t, Map>& Maps,vector<ObjectManager>&objectL
 	is_next_level = false;
 }
 
-void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& is_from_arhitetc, JsonSaveMenager &jsonSM, UINT32 GameLevel, bool& is_Next_Level)
+void Architect::Action()
 {
 	
 
@@ -239,24 +239,11 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 		is_new_finish,
 		is_save_map,
 
-		is_back,
+		is_back
 
-		is_Next_Level
 	);
-	//-------------------------------------------------------------
-	if (is_Next_Level)
-		is_next_level = is_Next_Level;
-	//-------------------------------------------------------------
-
-	if (is_back) {
 
 
-		is_from_arhitetc = true;
-
-		is_back = false;
-
-		state_game = previous_state;
-	}
 	//-------------------------------------------------------------
 	//if (is_save_map) {
 	//	is_grid = false;
@@ -319,33 +306,34 @@ void Architect::Action(StateGame& state_game, StateGame& previous_state, bool& i
 
 void Architect::Update()
 {
-
-
-	for (auto it = m_ptr_objectListBack->begin(); it != m_ptr_objectListBack->end(); ) {
-		auto& object = it;
-		if (object->Check_is_delete())
-			it = m_ptr_objectListBack->erase(it);
-		else
-			it++;
-	}
-
-	for (auto it = m_ptr_objectListZero->begin(); it != m_ptr_objectListZero->end(); ) {
-		auto& object = it;
-		if (object->Check_is_delete()) {
-			World::world->DestroyBody(it->GetBoby());
-			it = m_ptr_objectListZero->erase(it);
+	if(m_ptr_objectListBack)
+		for (auto it = m_ptr_objectListBack->begin(); it != m_ptr_objectListBack->end(); ) {
+			auto& object = it;
+			if (object->Check_is_delete())
+				it = m_ptr_objectListBack->erase(it);
+			else
+				it++;
 		}
-		else
-			it++;
-	}
 
-	for (auto it = m_ptr_objectListFront->begin(); it != m_ptr_objectListFront->end(); ) {
-		auto& object = it;
-		if (object->Check_is_delete()) 
-			it = m_ptr_objectListFront->erase(it);		
-		else 
-			it++;		
-	}
+	if (m_ptr_objectListZero)
+		for (auto it = m_ptr_objectListZero->begin(); it != m_ptr_objectListZero->end(); ) {
+			auto& object = it;
+			if (object->Check_is_delete()) {
+				World::world->DestroyBody(it->GetBoby());
+				it = m_ptr_objectListZero->erase(it);
+			}
+			else
+				it++;
+		}
+
+	if (m_ptr_objectListFront)
+		for (auto it = m_ptr_objectListFront->begin(); it != m_ptr_objectListFront->end(); ) {
+			auto& object = it;
+			if (object->Check_is_delete()) 
+				it = m_ptr_objectListFront->erase(it);
+			else 
+				it++;
+		}
 
 	if (is_create)
 		CreateObject();
@@ -390,9 +378,8 @@ void Architect::Update()
 
 }
 
-void Architect::Draw(StateGame& state_game)
+void Architect::Draw()
 {
-	if (state_game == StateGame::ON_ARCITECT && !is_save_map) {
 
 		m_ptr_menu->Draw();
 
@@ -408,7 +395,7 @@ void Architect::Draw(StateGame& state_game)
 					System::wnd.draw(cell);
 
 		System::wnd.draw(m_mouse);
-	}		
+
 }
 
 void Architect::CreateObject()
