@@ -344,63 +344,9 @@ void ArchtectMenu::Action(
 				if (is_save) {
 
 				}
-				if (m_Levels->size() > 1)
-				{
-					if (is_delete) {
-
-						LoadBoard::id--;
-						if (GameSettings::GetGemeLevels() != 0)
-							GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
-						GameSettings::SaveSettings();
-						id_for_del = loadbord->GetId();
-
-						jsonSM.DeleteJsonFile("maps/map_", id_for_del);
-						cout << "DELETE: " << id_for_del << endl;
-						for (uint32 i = id_for_del; (i < LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
-						{
-							Map tempMap = jsonSM.LoadMap("", i + 1);
-							cout << "Load: " << i << endl;
-							jsonSM.SaveMap("", tempMap, i);
-							cout << "Save: " << i << endl;
-						}
-
-						cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
-
-
-
-						for (uint32 i = id_for_del; i < m_Levels->size() - 1; i++)
-						{
-							cout << "SWAP: " << i << endl;
-
-							auto it = m_Levels->find(i);
-							it->second.m_Map = m_Levels->find(i + 1)->second.m_Map;
-							
-							cout << "SWAP: " << "OK" << endl;
-						}
-
-						cout << "SWAP: " << "  OK" << endl;
-
-						//m_Maps->erase(m_Maps->size() - 1);
-						//cout << "Last.Key: " << m_Maps->end()->first << endl;
-
-						//auto it = m_Maps->end();
-						//it--;
-						//cout << "Last.Key: " << it->first << endl;
-
-						//for (auto& loadbord : *m_Maps)
-						//	cout << "key " << loadbord.first << endl;
-
-						m_Levels->erase(--m_Levels->end());
-
-						cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
-
-						for (auto& key : *m_Levels)
-							cout << "key " << key.first << endl;
-
-
-						is_delete = false;
-						break;
-					}
+				if (is_delete) {
+					id_for_del = loadbord->GetId();
+					//break;
 				}
 			}
 			//if (is_delete) {
@@ -472,19 +418,66 @@ void ArchtectMenu::Action(
 void ArchtectMenu::Update()
 {
 
-	{
-		// delete bord and map
 
-		for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
-			auto& loadbord = it;
-			if (loadbord->get()->CheckDel()) {
-				it = LoadBoards.erase(it);
-			}
-			else {
-				it++;
-			}
+	for (auto it = LoadBoards.begin(); it != LoadBoards.end(); ) {
+		auto& loadbord = it;
+		if (loadbord->get()->CheckDel()) {
+			it = LoadBoards.erase(it);
+		}
+		else {
+			it++;
 		}
 	}
+
+	if (is_delete)
+	{
+		LoadBoard::id--;
+		if (GameSettings::GetGemeLevels() != 0)
+			GameSettings::SetGameLevels(GameSettings::GetGemeLevels() - 1);
+		GameSettings::SaveSettings();
+
+
+
+		jsonSM.DeleteJsonFile("maps/map_", id_for_del);
+		cout << "DELETE: " << id_for_del << endl;
+
+		for (uint32 i = id_for_del; (i < LoadBoards.size() - 1) && !LoadBoards.empty(); i++)
+		{
+			Map tempMap = jsonSM.LoadMap("", i + 1);
+			cout << "Load: " << i << endl;
+			jsonSM.SaveMap("", tempMap, i);
+			cout << "Save: " << i << endl;
+			jsonSM.DeleteJsonFile("maps/map_", i + 1);
+		}
+
+		//jsonSM.DeleteJsonFile("maps/map_", LoadBoards.size());
+		//cout << "DELETE: " << LoadBoards.size() << endl;
+
+		cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
+
+		for (uint32 i = id_for_del; i < m_Levels->size() - 1; i++)
+		{
+			cout << "SWAP: " << i << endl;
+
+			auto it = m_Levels->find(i);
+
+			it->second.m_Map = m_Levels->find(i + 1)->second.m_Map;
+
+			cout << "SWAP: " << "OK" << endl;
+		}
+
+		cout << "SWAP: " << "  OK" << endl;
+
+		m_Levels->erase(--m_Levels->end());
+
+		cout << "m_Levels.SIZE: " << m_Levels->size() << endl;
+
+		for (auto& key : *m_Levels)
+			cout << "key " << key.first << endl;
+
+		is_delete = false;
+	}
+
 
 
 
@@ -559,8 +552,10 @@ void ArchtectMenu::Update()
 
 void ArchtectMenu::Draw()
 {
-	System::wnd.setView(archMenu);
+	if (!m_Levels->empty())
+		System::wnd.draw(System::CreateShape(v2f(0, 0), v2f(500, 500)));
 
+	System::wnd.setView(archMenu);
 
 	switch (MAP_EDITOR)
 	{

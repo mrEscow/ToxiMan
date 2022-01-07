@@ -80,20 +80,14 @@ void LoadBoard::Action(std::map<UINT32, Level>& Levels, bool& is_load, bool& is_
 				cout << "Save" << endl;
 			}
 			if (button->GetNameId() == "Delete") {
-
-				if (Levels.size() > 1) {
 					is_delete = true;
 					this->is_delete = true;
 					cout << "Delete" << endl;
-				}
-				else
-					cout << "Non DELETE" << endl;
-
 			}
 		}
 	}
 
-	textbox->Action();
+	//textbox->Action();
 
 }
 

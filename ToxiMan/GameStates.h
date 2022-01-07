@@ -6,7 +6,7 @@
 
 enum class StateGame : uint
 {
-	ON_MAIN_MENU,
+	ON_MENU,
 	ON_GAME,
 };
 inline StateGame g_StateGame;

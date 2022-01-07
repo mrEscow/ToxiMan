@@ -59,7 +59,7 @@ void Game::Update()
 
 	switch (g_StateGame)
 	{
-	case StateGame::ON_MAIN_MENU:
+	case StateGame::ON_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		System::cam.reset(
 			sf::FloatRect(
@@ -79,12 +79,7 @@ void Game::Update()
 	case StateGame::ON_GAME:
 		System::resources.audio.music.menu_music.stop();
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-
 		break;
-	//case StateGame::ON_ARCITECT:
-	//	System::resources.audio.music.menu_music.stop();
-	//	System::cam.setViewport(sf::FloatRect(0.25f, 0.f, 1.f, 1.f));
-	//	break;
 	default:
 		break;
 	}
@@ -128,14 +123,11 @@ void Game::Draw()
 
 	switch (g_StateGame)
 	{
-	case StateGame::ON_MAIN_MENU:
+	case StateGame::ON_MENU:
 		m_main_menu->Draw();
 		break;
 	case StateGame::ON_GAME:
-
 		break;
-	//case StateGame::ON_ARCITECT:
-	//break;
 	default:
 		break;
 	}
@@ -148,16 +140,21 @@ void Game::Action()
 {
 	switch (g_StateGame)
 	{
-	case StateGame::ON_MAIN_MENU:
+	case StateGame::ON_MENU:
 		m_main_menu->Action();
+		System::CloseEvent();
 		break;
 	case StateGame::ON_GAME:
+		if (System::IsKeyPressed(Key::Escape))
+		{
+			g_StateGame = StateGame::ON_MENU;
+		}
 		break;
 	default:
 		break;
 	}
 
-	System::CloseEvent();
+
 }
 
 void Game::Thread()
