@@ -177,6 +177,9 @@
     <ClInclude Include="JsonSaveMenager.h">
       <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -262,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="JsonSaveMenager.cpp">
       <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

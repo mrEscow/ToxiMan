@@ -7,6 +7,7 @@ class LevelEditor
 {
 	std::map<UINT32, Level> Levels;
 	unique_ptr<Architect> m_Architect;
+
 public:
 	LevelEditor();
 
