@@ -26,11 +26,10 @@ private:
 };
 
 class Controller {
-	Controller() {
-		IButton* W = new Button;
-		IButton* S = new Button;
-		vecButtonLogic.push_back(W);
-	}
+public:
+	IButton* W;
+	IButton* S;
+
 	static vector<IButton*> vecButtonLogic;
 
 	enum class Buttons
@@ -42,21 +41,20 @@ class Controller {
 	Buttons e;
 
 	void Update() {
-		if (System::IsKeyPressed(Key::Left) || System::IsKeyPressed(Key::A)) {
-			is_button_Left = true;
+		if (System::IsKeyPressed(Key::W) || System::IsKeyPressed(Key::Up)) {
+			W->Set(true);
 		}
 
-		if (System::IsKeyReleased(Key::Left) || System::IsKeyReleased(Key::A)) {
-			is_button_Left = false;
+		if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
+			W->Set(false);
 		}
 
-		if (System::IsKeyPressed(Key::Right) || System::IsKeyPressed(Key::D)) {
-			is_button_Righr = true;
+		if (System::IsKeyPressed(Key::S) || System::IsKeyPressed(Key::Down)) {
+			S->Set(true);
 		}
 
-		if (System::IsKeyReleased(Key::Right) || System::IsKeyReleased(Key::D)) {
-			is_button_Righr = false;
-
+		if (System::IsKeyReleased(Key::S) || System::IsKeyReleased(Key::Down)) {
+			S->Set(false);
 		}
 	}
 	
@@ -64,16 +62,36 @@ class Controller {
 
 class Plane : public DynamicObject
 {
+	Controller x;
 
-	Plane();
+	Plane(DynamicObject obj): DynamicObject(obj) {
+
+	};
 
 	void fly() {
 		m_position.x++;
 		this->SetPosition(m_position);
 	}
 
-	void chendyY() {
-		if(controller)
+	void W() {
+		if (x.W->ON()) {
+			m_position.y++;
+		}
+		else
+		{
+
+		}
 	}
+	void S() {
+		if (x.S->ON()) {
+			m_position.y--;
+		}
+		else
+		{
+
+		}
+	}
+
+
 };
 
