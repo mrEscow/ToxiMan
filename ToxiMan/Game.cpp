@@ -5,15 +5,13 @@
 
 Game::Game()
 {
+
+	sf::RectangleShape rectangle = System::CreateShape(v2f(100, 100), v2f(100, 100));
+	plane = new Plane(&rectangle);
+	//vGemeObjects.push_back(plane);
+
 	sf::RectangleShape square = System::CreateShape(v2f(100, 100), v2f(100, 100));
-
-
-	sf::RectangleShape plane = System::CreateShape(v2f(100, 100), v2f(100, 100));
-
-	Plane pPlan;
-
-	BigSquare* bigSquare = new BigSquare(&square);
-	
+	BigSquare* bigSquare = new BigSquare(&square);	
 	vGemeObjects.push_back(bigSquare);
 
 	// test black team
@@ -146,6 +144,7 @@ void Game::Draw()
 
 	for (auto& object : vGemeObjects)
 		object->Draw();
+
 	my::S::wnd.draw(black);
 	System::wnd.display();
 

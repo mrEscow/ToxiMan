@@ -7,6 +7,7 @@
 #include "Level.h"
 #include "Timer.h"
 #include "GameObject.h"
+#include "Plane.h"
 
 
 
@@ -19,6 +20,8 @@ class Game
 private:
 
 	vector<IGameObject*> vGemeObjects;
+
+	Plane* plane;
 
 	sf::Thread* m_ptr_thread;
 

@@ -12,9 +12,9 @@ class Button : public IButton
 public:
 	string name;
 	bool stage;
-	bool ON{ false };
+public:
 	virtual bool ON() override {
-		return ON;
+		return stage;
 	}
 	virtual void Set(bool stage) override {
 		this->stage = stage;
@@ -64,10 +64,6 @@ class Plane : public DynamicObject
 {
 	Controller x;
 
-	Plane(DynamicObject obj): DynamicObject(obj) {
-
-	};
-
 	void fly() {
 		m_position.x++;
 		this->SetPosition(m_position);
@@ -91,7 +87,15 @@ class Plane : public DynamicObject
 
 		}
 	}
+public:
 
+	Plane(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
 
+	};
+
+	void Controller() {
+		W();
+		S();
+	}
 };
 
