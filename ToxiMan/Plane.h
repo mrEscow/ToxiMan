@@ -24,14 +24,22 @@ public:
 private:
 };
 
-class Controller {
+class AController {
 public:
 	IButton* W = new Button;
 	IButton* S = new Button;
+public:
+	virtual void Action() = 0;
+	virtual ~AController() {
+		delete W;
+		delete S;
+	};
+};
 
-	static vector<IButton*> vecButtonLogic;
-
-	void Action() {
+class Controller: public AController {
+public:
+	Controller() {};
+	virtual void Action() override{
 		if (System::IsKeyPressed(Key::W) || System::IsKeyPressed(Key::Up)) {
 			W->Set(true);
 		}
@@ -53,7 +61,8 @@ public:
 
 class Plane : public DynamicObject
 {
-	Controller x;
+	Controller ix;
+	AController* x = &ix;
 
 	void fly() {
 		m_position.x++;
@@ -62,27 +71,12 @@ class Plane : public DynamicObject
 	}
 
 	void Controller() {
-		W();
-		S();
-	}
 
-	void W() { 
-		cout << x.W->ON() << endl;
-		if (x.W->ON()) {
+		if (x->W->ON()) {
 			m_position.y++;
 		}
-		else
-		{
-
-		}
-	}
-	void S() {
-		if (x.S->ON()) {
+		if (x->S->ON()) {
 			m_position.y--;
-
-		}
-		else
-		{
 
 		}
 	}
@@ -98,7 +92,7 @@ public:
 	};
 
 	void action() {
-		x.Action();
+		x->Action();
 	}
 
 

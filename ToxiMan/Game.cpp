@@ -10,10 +10,14 @@ Game::Game()
 
 
 	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
-	bigSquare = new BigSquare(rectangle);
+	rectangle->setFillColor(Color::Green);
 	plane = new Plane(rectangle);
 	vGemeObjects.push_back(plane);
-	//vGemeObjects.push_back(bigSquare);
+
+	sf::RectangleShape* rectangle2 = new sf::RectangleShape(v2f(100, 50));
+	rectangle2->setFillColor(Color::Green);
+	bigSquare = new BigSquare(rectangle2);
+	vGemeObjects.push_back(bigSquare);
 
 	// test black team
 	{
