@@ -7,6 +7,8 @@ public:
 	//virtual void SetPosition(v2f position) = 0;
 };
 
+inline 	vector<IGameObject*> vGemeObjects;
+
 class GameObject :public IGameObject {
 protected:
 	v2f m_size{ 0,0 };
@@ -37,6 +39,9 @@ public:
 	virtual void SetSpeed(float speed) = 0;
 	virtual void SetDirection(v2f direction) = 0;
 };
+
+inline vector<IDynamicObject*> vDynamicObjects;
+
 class DynamicObject :public GameObject, public IDynamicObject {
 protected:
 	
@@ -76,6 +81,8 @@ public:
 	virtual void SetPozition(v2f pos)=0;
 	virtual void SetSize(v2f size)=0;
 };
+
+inline 	vector<IStaticObject*> vStaticObjects;
 
 class StaticObject : public GameObject, public IStaticObject {
 protected:

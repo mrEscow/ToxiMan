@@ -19,9 +19,7 @@ class Game
 {
 private:
 
-	vector<IGameObject*> vGemeObjects;
-	vector<IDynamicObject*> vDynamicObjects;
-	vector<IStaticObject*> vStaticObjects;
+
 	BackGround* backGround;
 	BigSquare* bigSquare;
 	Plane* plane;

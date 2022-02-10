@@ -85,26 +85,53 @@ public:
 	
 };
 
+class Bullet : public DynamicObject {
+public:
+
+	Bullet(sf::RectangleShape* rectangle,v2f pos): DynamicObject(rectangle){
+		rectangle->setPosition(pos);
+		SetSpeed(10000);
+
+		//cout << (System::cur_p_wnd.x - System::scr_w / 2) << endl;
+		//cout << cos(System::cur_p_wnd.x - System::scr_w / 2) << endl;
+		//int x, y{0};
+		//if (System::cur_p_wnd.x - System::scr_w / 2 < 0)
+		//	x = -1;
+		//else
+		//	x = 1;
+		//cout << tan(x) << endl;;
+		//SetDirection(v2f(x, y));
+
+		SetDirection(v2f((System::cur_p_wnd.x - System::scr_w/2)/1920, (System::cur_p_wnd.y - System::scr_h/2)/1080));
+	};
+};
+
 class IGun {
 public:
+	virtual void SetPozition(v2f position) = 0;
 	virtual void fire(v2f direction, float speed) = 0;
 };
 
 class Gun: public DynamicObject, public IGun{
 protected:
 	//v2f m_size{ 0,0 };
-	bool isFire{ 0 };
+
+	//vector<IDynamicObject*> vBullets;
 public:
 
 	Gun(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
 
 	// Унаследовано через IGun
 	virtual void fire(v2f direction, float speed = 1000) override {
-		if (!isFire) {
-			this->SetSpeed(speed);
-			this->SetDirection(direction);
-		}
+
+			Bullet* pBullet = new Bullet(new sf::RectangleShape(v2f(10, 10)), this->pShape_->getPosition());
+			vDynamicObjects.push_back(pBullet);
+			vGemeObjects.push_back(pBullet);
+
 	}
+	virtual void SetPozition(v2f position) override {
+		this->pShape_->setPosition(position);
+	};
 	virtual ~Gun() {};
 };
 
@@ -127,8 +154,9 @@ class Plane : public DynamicObject, public Iplane
 	Controller ix;
 	AController* xyu = &ix;
 
-	IDynamicObject* slot_1 = new MyGun(new sf::RectangleShape(v2f(30,30)));
-	vector<IDynamicObject*> vSlots;
+	IDynamicObject* slot_1;
+	IDynamicObject* slot_2;
+	IDynamicObject* slot_3;
 
 	int x{ 0 }, y{ 0 };
 
@@ -140,6 +168,8 @@ class Plane : public DynamicObject, public Iplane
 
 	void fire() {
 		dynamic_cast<IGun*>(slot_1)->fire(System::cur_p, 100);
+		dynamic_cast<IGun*>(slot_2)->fire(System::cur_p, 100);
+		dynamic_cast<IGun*>(slot_3)->fire(System::cur_p, 100);
 	}
 
 	void Controller() {
@@ -167,8 +197,9 @@ class Plane : public DynamicObject, public Iplane
 			//this->SetDirection(v2f(1, 0));
 		}
 		if (xyu->LKM->ON()) {
-			this->SetSpeed(1);
-			this->SetDirection(System::cur_p);
+			fire();
+			//this->SetSpeed(1);
+			//this->SetDirection(System::cur_p);
 			//slot_1->fire(System::cur_p,100);
 		}
 	}
@@ -178,7 +209,18 @@ public:
 	Plane(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
 		m_rectangle = rectangle;
 		m_size = rectangle->getSize();
-		vSlots.push_back(slot_1);
+
+		slot_1 = new MyGun(new sf::RectangleShape(v2f(30, 30)));
+		vDynamicObjects.push_back(slot_1);
+		vGemeObjects.push_back(dynamic_cast<IGameObject*>(slot_1));
+
+		slot_2 = new MyGun(new sf::RectangleShape(v2f(30, 30)));
+		vDynamicObjects.push_back(slot_2);
+		vGemeObjects.push_back(dynamic_cast<IGameObject*>(slot_2));
+
+		slot_3 = new MyGun(new sf::RectangleShape(v2f(30, 30)));
+		vDynamicObjects.push_back(slot_3);
+		vGemeObjects.push_back(dynamic_cast<IGameObject*>(slot_3));
 	};
 
 	virtual void SetSize(v2f size = v2f(10,10)) override {
@@ -189,12 +231,16 @@ public:
 
 
 	void Update() {
-		fly();
-		fire();
 
+		dynamic_cast<IGun*>(slot_1)->SetPozition(v2f(m_rectangle->getPosition().x, m_rectangle->getPosition().y - 30));
+		dynamic_cast<IGun*>(slot_2)->SetPozition(v2f(m_rectangle->getPosition().x, m_rectangle->getPosition().y + 50 ));
+		dynamic_cast<IGun*>(slot_3)->SetPozition(v2f(m_rectangle->getPosition().x+100, m_rectangle->getPosition().y+10));
+		fly();
 		System::cam.move(m_rectangle->getPosition());
 		System::wnd.setView(System::cam);
 
+		SetSpeed(800);
+		SetDirection(v2f((System::cur_p_wnd.x - System::scr_w / 2) / 1920, (System::cur_p_wnd.y - System::scr_h / 2) / 1080));
 	};
 
 	void action() {
