@@ -10,8 +10,7 @@ public:
 class Button : public IButton
 {
 public:
-	string name;
-	bool stage;
+	bool stage{false};
 public:
 	virtual bool ON() override {
 		return stage;
@@ -19,42 +18,41 @@ public:
 	virtual void Set(bool stage) override {
 		this->stage = stage;
 	}
-	Button();
-	~Button();
+	//Button();
+	//~Button();
 
 private:
 };
 
 class Controller {
 public:
-	IButton* W;
-	IButton* S;
+	IButton* W = new Button;
+	IButton* S = new Button;
 
 	static vector<IButton*> vecButtonLogic;
-
-	enum class Buttons
-	{
-		Button_W,
-		Button_S
-	};
-
-	Buttons e;
 
 	void Update() {
 		if (System::IsKeyPressed(Key::W) || System::IsKeyPressed(Key::Up)) {
 			W->Set(true);
 		}
-
-		if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
+		else {
 			W->Set(false);
 		}
+
+		//if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
+
+		//}
 
 		if (System::IsKeyPressed(Key::S) || System::IsKeyPressed(Key::Down)) {
 			S->Set(true);
 		}
+		else
+		{
+			S->Set(false);
+		}
 
 		if (System::IsKeyReleased(Key::S) || System::IsKeyReleased(Key::Down)) {
-			S->Set(false);
+			//S->Set(false);
 		}
 	}
 	
@@ -66,10 +64,17 @@ class Plane : public DynamicObject
 
 	void fly() {
 		m_position.x++;
-		this->SetPosition(m_position);
+		Controller();
+		//this->SetPosition(m_position);
 	}
 
-	void W() {
+	void Controller() {
+		W();
+		S();
+	}
+
+	void W() { 
+		cout << x.W->ON() << endl;
 		if (x.W->ON()) {
 			m_position.y++;
 		}
@@ -81,21 +86,31 @@ class Plane : public DynamicObject
 	void S() {
 		if (x.S->ON()) {
 			m_position.y--;
+
 		}
 		else
 		{
 
 		}
 	}
+
 public:
 
 	Plane(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
 
 	};
 
-	void Controller() {
-		W();
-		S();
+	void update() {
+		this->SetPosition(m_position);
+		x.Update();
+		fly();
+		Controller();
+	};
+
+	void action() {
+		//Controller();
 	}
+
+
 };
 

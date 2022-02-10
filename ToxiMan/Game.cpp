@@ -7,12 +7,13 @@ Game::Game()
 {
 
 	//sf::RectangleShape rectangle = System::CreateShape(v2f(100, 100), v2f(100, 100));
-	//plane = new Plane(&rectangle);
-	//vGemeObjects.push_back(plane);
 
-	sf::RectangleShape square = System::CreateShape(v2f(100, 100), v2f(100, 100));
-	bigSquare = new BigSquare(&square);	
-	vGemeObjects.push_back(bigSquare);
+
+	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
+	bigSquare = new BigSquare(rectangle);
+	plane = new Plane(rectangle);
+	vGemeObjects.push_back(plane);
+	//vGemeObjects.push_back(bigSquare);
 
 	// test black team
 	{
@@ -38,13 +39,13 @@ Game::Game()
 		//System::wnd.setMouseCursor(curcor);
 	}
 
-	// Game
-	GameSettings::ReadSettings();
-	m_main_menu = make_unique<Menu>();
+	//// Game
+	//GameSettings::ReadSettings();
+	////m_main_menu = make_unique<Menu>();
 
-	m_GameStates = new GameStates(0);
-	m_GameStates->Set(GameStates::GS::CHECK_MAP);
-	m_GameStates->Updata();
+	//m_GameStates = new GameStates(0);
+	//m_GameStates->Set(GameStates::GS::CHECK_MAP);
+	//m_GameStates->Updata();
 
 
 
@@ -64,17 +65,17 @@ Game::Game()
 
 void Game::Update()
 {
-	m_GameStates->Updata();
+	//m_GameStates->Updata();
 
-	switch (g_StateGame)
+	//switch (g_StateGame)
 	{
-	case StateGame::ON_MENU:
+		//case StateGame::ON_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 		System::cam.reset(
 			sf::FloatRect(
-				0, 
-				0, 
-				static_cast<float>(System::scr_w), 
+				0,
+				0,
+				static_cast<float>(System::scr_w),
 				static_cast<float>(System::scr_h)
 			)
 		);
@@ -82,15 +83,17 @@ void Game::Update()
 		System::wnd.setView(System::cam);
 		System::zoom /= System::zoom;
 		System::zoom = 1;
-		m_main_menu->Update();
-		
-		break;
-	case StateGame::ON_GAME:
-		System::resources.audio.music.menu_music.stop();
-		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-		break;
-	default:
-		break;
+		//m_main_menu->Update();
+
+	//	break;
+	//case StateGame::ON_GAME:
+	//	System::resources.audio.music.menu_music.stop();
+	//	System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	//	break;
+	//default:
+	//	break;
+	//}
+		plane->update();
 	}
 }
 
@@ -152,23 +155,23 @@ void Game::Draw()
 
 void Game::Action()
 {
-	switch (g_StateGame)
+	//switch (g_StateGame)
 	{
-	case StateGame::ON_MENU:
-		m_main_menu->Action();
+	//case StateGame::ON_MENU:
+		//m_main_menu->Action();
 		System::CloseEvent();
-		break;
-	case StateGame::ON_GAME:
+		//break;
+	//case StateGame::ON_GAME:
 		if (System::IsKeyPressed(Key::Escape))
 		{
-			g_StateGame = StateGame::ON_MENU;
+			//g_StateGame = StateGame::ON_MENU;
 		}
-		break;
-	default:
-		break;
+		//break;
+	//default:
+		//break;
 	}
 
-
+	plane->action();
 }
 
 void Game::Thread()
@@ -179,7 +182,7 @@ void Game::Thread()
 	{
 		System::SystemUpdate();
 
-		World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
+		//World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 		Update();
 
 		//Mutex.lock();

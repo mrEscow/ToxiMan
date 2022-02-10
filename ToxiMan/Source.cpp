@@ -6,7 +6,7 @@ int main()
 {
 
 	System("init");
-	World("init");
+	//World("init");
 	Game game;
 	game.Play();
 

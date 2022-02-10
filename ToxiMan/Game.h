@@ -3,8 +3,8 @@
 
 //#include <thread>
 
-#include "Menu.h"
-#include "Level.h"
+//#include "Menu.h"
+//#include "Level.h"
 #include "Timer.h"
 #include "GameObject.h"
 #include "Plane.h"
@@ -29,9 +29,9 @@ private:
 
 	//bool m_is_pause = false;
 
-	GameStates *m_GameStates;
+	//GameStates *m_GameStates;
 
-	unique_ptr<Menu> m_main_menu;
+	//unique_ptr<Menu> m_main_menu;
 
 	// black team test
 	Shape black;
