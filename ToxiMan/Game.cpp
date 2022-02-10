@@ -5,6 +5,12 @@
 
 Game::Game()
 {
+	sf::RectangleShape square = System::CreateShape(v2f(100, 100), v2f(100, 100));
+	
+	BigSquare* bigSquare = new BigSquare(&square);
+	
+	vGemeObjects.push_back(bigSquare);
+
 	// test black team
 	{
 		is_first = true;
@@ -132,8 +138,12 @@ void Game::Draw()
 		break;
 	}
 
+
+	for (auto& object : vGemeObjects)
+		object->Draw();
 	my::S::wnd.draw(black);
 	System::wnd.display();
+
 }
 
 void Game::Action()

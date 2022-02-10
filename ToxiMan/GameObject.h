@@ -8,8 +8,8 @@ public:
 };
 
 class GameObject :public IGameObject {
+protected:
 	sf::Shape* pShape_ = nullptr;
-	// Shader
 	v2f m_direction{ 0,0 };
 	v2f m_position{ 0,0 };
 public:
@@ -18,7 +18,7 @@ public:
 	};
 	virtual void Draw() override {
 		if (pShape_)
-			System::wnd.draw(*pShape_/*Shader*/);
+			System::wnd.draw(*pShape_);
 	};
 	virtual void SetPosition(v2f position) override {
 		m_position = position;
@@ -33,7 +33,7 @@ public:
 
 class DynamicObject :public GameObject {
 	float m_speed;
-	sf::Shape* pShape_;
+	//sf::Shape* pShape_;
 public:
 	DynamicObject(sf::Shape* shape):GameObject(shape){
 		pShape_ = shape;
@@ -41,13 +41,21 @@ public:
 	void SetSpeed(float speed) {
 		m_speed = speed;
 	}
-	virtual void Move(v2f direction){
-		if (pShape_)
-			pShape_->move(direction * m_speed);
+	virtual void SetDirection(v2f direction) {
+		m_direction = direction;
 	};
+	virtual void Move(float time){
+		if (pShape_)
+			pShape_->move(m_direction * m_speed * time);
+	};
+
 };
 
 class BigSquare :public DynamicObject {
+protected:
+	v2f m_size{ 0,0 };
 public:
-	BigSquare(sf::RectangleShape* shape):DynamicObject(shape) {};
+	BigSquare(sf::RectangleShape* rectangle) :DynamicObject(rectangle) {
+		m_size = rectangle->getSize();
+	}
 };

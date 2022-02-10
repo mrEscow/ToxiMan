@@ -56,7 +56,7 @@ void Map::SetFinalPos(v2f f_pos)
 	m_final_pos = f_pos;
 }
 
-IMap* Map::GetMap()
-{
-	return LoadMap();
-}
+//IMap* Map::GetMap()
+//{
+//	return LoadMap();
+//}

@@ -2,18 +2,18 @@
 #include "System.h"
 #include "GameStates.h"
 
-class IMap {
-public:
-	virtual IMap* GetMap() = 0;
-	virtual IMap* LoadMap() = 0;
-};
+//class IMap {
+//public:
+//	virtual IMap* GetMap() = 0;
+//	virtual IMap* LoadMap() = 0;
+//};
 
-class Map : public IMap
+class Map// : public IMap
 {
 private:
 
 	vector<v2f> points;
-	vector<IGameObject*> GameObjects;
+	//vector<IGameObject*> GameObjects;
 
 	string m_name;
 	//uint m_id;
@@ -41,9 +41,9 @@ public:
 	void SetFinalPos(v2f f_pos);
 
 	// Унаследовано через IMap
-public:
-	virtual IMap* GetMap() override;
-private:
-	virtual IMap* LoadMap() override;
+//public:
+//	virtual IMap* GetMap() override;
+//private:
+//	virtual IMap* LoadMap() override;
 };
 

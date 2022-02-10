@@ -6,6 +6,8 @@
 #include "Menu.h"
 #include "Level.h"
 #include "Timer.h"
+#include "GameObject.h"
+
 
 
 using namespace my;
@@ -15,6 +17,8 @@ using namespace my;
 class Game
 {
 private:
+
+	vector<IGameObject*> vGemeObjects;
 
 	sf::Thread* m_ptr_thread;
 
