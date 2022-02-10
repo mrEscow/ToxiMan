@@ -1,5 +1,7 @@
 #include "Level.h"
 
+
+
 //void Level::NextLevel()
 //{
 //	m_ptr_GS->NextGameLevel();

@@ -163,6 +163,7 @@
     <ClInclude Include="ExitMenu.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSettings.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="Gun.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="NameSpace.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourcesManager.h" />
     <ClInclude Include="Scroll.h" />
@@ -195,6 +197,7 @@
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="ExitMenu.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSettings.cpp" />
     <ClCompile Include="GameStates.cpp" />
     <ClCompile Include="Gun.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Source.cpp" />

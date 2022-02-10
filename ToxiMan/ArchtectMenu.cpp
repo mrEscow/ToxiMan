@@ -336,19 +336,20 @@ void ArchtectMenu::Action(
 		{
 		case ArchtectMenu::MapMenu::LOAD:
 
-			for (auto& loadbord : LoadBoards) {
-				loadbord->Action(*m_Levels, is_load, is_save, is_delete);
-				if (is_load) {
+			if(!is_delete)
+				for (auto& loadbord : LoadBoards) {
+					loadbord->Action(*m_Levels, is_load, is_save, is_delete);
+					if (is_load) {
 
-				}
-				if (is_save) {
+					}
+					if (is_save) {
 
+					}
+					if (is_delete) {
+						id_for_del = loadbord->GetId();
+						//break;
+					}
 				}
-				if (is_delete) {
-					id_for_del = loadbord->GetId();
-					//break;
-				}
-			}
 			//if (is_delete) {
 			//	auto it = LoadBoards.begin() + id_for_del;
 			//	LoadBoards.erase(it);
