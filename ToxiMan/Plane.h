@@ -31,28 +31,21 @@ public:
 
 	static vector<IButton*> vecButtonLogic;
 
-	void Update() {
+	void Action() {
 		if (System::IsKeyPressed(Key::W) || System::IsKeyPressed(Key::Up)) {
 			W->Set(true);
 		}
-		else {
+
+		if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
 			W->Set(false);
 		}
-
-		//if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
-
-		//}
 
 		if (System::IsKeyPressed(Key::S) || System::IsKeyPressed(Key::Down)) {
 			S->Set(true);
 		}
-		else
-		{
-			S->Set(false);
-		}
 
 		if (System::IsKeyReleased(Key::S) || System::IsKeyReleased(Key::Down)) {
-			//S->Set(false);
+			S->Set(false);
 		}
 	}
 	
@@ -65,7 +58,7 @@ class Plane : public DynamicObject
 	void fly() {
 		m_position.x++;
 		Controller();
-		//this->SetPosition(m_position);
+		this->SetPosition(m_position);
 	}
 
 	void Controller() {
@@ -101,14 +94,11 @@ public:
 	};
 
 	void update() {
-		this->SetPosition(m_position);
-		x.Update();
 		fly();
-		Controller();
 	};
 
 	void action() {
-		//Controller();
+		x.Action();
 	}
 
 
