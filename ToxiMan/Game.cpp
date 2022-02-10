@@ -6,12 +6,12 @@
 Game::Game()
 {
 
-	sf::RectangleShape rectangle = System::CreateShape(v2f(100, 100), v2f(100, 100));
-	plane = new Plane(&rectangle);
+	//sf::RectangleShape rectangle = System::CreateShape(v2f(100, 100), v2f(100, 100));
+	//plane = new Plane(&rectangle);
 	//vGemeObjects.push_back(plane);
 
 	sf::RectangleShape square = System::CreateShape(v2f(100, 100), v2f(100, 100));
-	BigSquare* bigSquare = new BigSquare(&square);	
+	bigSquare = new BigSquare(&square);	
 	vGemeObjects.push_back(bigSquare);
 
 	// test black team
@@ -130,20 +130,20 @@ void Game::Draw()
 	//	}
 	//}
 
-	switch (g_StateGame)
-	{
-	case StateGame::ON_MENU:
-		m_main_menu->Draw();
-		break;
-	case StateGame::ON_GAME:
-		break;
-	default:
-		break;
-	}
-
+	//switch (g_StateGame)
+	//{
+	//case StateGame::ON_MENU:
+	//	m_main_menu->Draw();
+	//	break;
+	//case StateGame::ON_GAME:
+	//	break;
+	//default:
+	//	break;
+	//}
 
 	for (auto& object : vGemeObjects)
-		object->Draw();
+		if(object)
+			object->Draw();
 
 	my::S::wnd.draw(black);
 	System::wnd.display();

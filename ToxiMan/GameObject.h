@@ -17,7 +17,7 @@ public:
 		pShape_ = shape;
 	};
 	virtual void Draw() override {
-		if (pShape_)
+		if (pShape_){}
 			System::wnd.draw(*pShape_);
 	};
 	virtual void SetPosition(v2f position) override {

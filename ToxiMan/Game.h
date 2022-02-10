@@ -20,7 +20,7 @@ class Game
 private:
 
 	vector<IGameObject*> vGemeObjects;
-
+	BigSquare* bigSquare;
 	Plane* plane;
 
 	sf::Thread* m_ptr_thread;
