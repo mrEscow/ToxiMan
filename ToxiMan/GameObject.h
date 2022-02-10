@@ -4,58 +4,99 @@
 class IGameObject {
 public:
 	virtual void Draw() = 0;
-	virtual void SetPosition(v2f position) = 0;
+	//virtual void SetPosition(v2f position) = 0;
 };
 
 class GameObject :public IGameObject {
 protected:
+	v2f m_size{ 0,0 };
+	//v2f m_position{ 0,0 };
 	sf::Shape* pShape_ = nullptr;
-	v2f m_direction{ 0,0 };
-	v2f m_position{ 0,0 };
+
 public:
 	GameObject(sf::Shape* shape) {
 		pShape_ = shape;
+	};
+	GameObject(sf::Shape* shape, v2f pos) {
+		pShape_ = shape;
+		//SetPosition(pos);
 	};
 	virtual void Draw() override {
 		if (pShape_){}
 			System::wnd.draw(*pShape_);
 	};
-	virtual void SetPosition(v2f position) override {
-		m_position = position;
-		if (pShape_)
-			pShape_->setPosition(m_position);
-	};
+
 	virtual ~GameObject() {
 		delete pShape_;
 	}
 
 };
+class IDynamicObject {
+public:
+	virtual void Move() = 0;
+	virtual void SetSpeed(float speed) = 0;
+	virtual void SetDirection(v2f direction) = 0;
+};
+class DynamicObject :public GameObject, public IDynamicObject {
+protected:
+	
+	v2f m_direction{ 1,1 };
+	float m_speed{ 100 };
 
-class DynamicObject :public GameObject {
-	float m_speed;
-	//sf::Shape* pShape_;
 public:
 	DynamicObject(sf::Shape* shape):GameObject(shape){
 		pShape_ = shape;
+
 	};
-	void SetSpeed(float speed) {
+	virtual void SetSpeed(float speed) {
 		m_speed = speed;
 	}
 	virtual void SetDirection(v2f direction) {
 		m_direction = direction;
 	};
-	virtual void Move(float time){
+
+	virtual void Move() override{
 		if (pShape_)
-			pShape_->move(m_direction * m_speed * time);
+			pShape_->move(m_direction * m_speed * (System::time/1000));
 	};
 
 };
 
 class BigSquare :public DynamicObject {
 protected:
-	v2f m_size{ 0,0 };
+	sf::RectangleShape* m_rectangle;
 public:
 	BigSquare(sf::RectangleShape* rectangle) :DynamicObject(rectangle) {
+		m_rectangle = rectangle;
+		m_size = rectangle->getSize();
+	}
+};
+class IStaticObject {
+public:
+	virtual void SetPozition(v2f pos)=0;
+	virtual void SetSize(v2f size)=0;
+};
+
+class StaticObject : public GameObject, public IStaticObject {
+protected:
+	sf::RectangleShape* m_rectangle;
+public:
+	StaticObject(sf::RectangleShape* rectangle) :GameObject(rectangle) {
+		m_size = rectangle->getSize();
+	}
+
+	// Унаследовано через IStaticObject
+	virtual void SetPozition(v2f pos) override {
+		this->SetPozition(pos);
+	};
+	virtual void SetSize(v2f size) override {
+		this->SetSize(size);
+	};
+};
+
+class BackGround :public StaticObject {
+public:
+	BackGround(sf::RectangleShape* rectangle) :StaticObject(rectangle) {
 		m_size = rectangle->getSize();
 	}
 };

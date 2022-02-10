@@ -6,18 +6,31 @@
 Game::Game()
 {
 
-	//sf::RectangleShape rectangle = System::CreateShape(v2f(100, 100), v2f(100, 100));
+	//Static
+	sf::RectangleShape* rectangle3 = new sf::RectangleShape(v2f(1000, 1500));
+	rectangle3->setFillColor(Color::Cyan);
+	backGround = new BackGround(rectangle3);
+	vGemeObjects.push_back(backGround);
 
+	vStaticObjects.push_back(backGround);
 
+	//Dynamic
 	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
 	rectangle->setFillColor(Color::Green);
 	plane = new Plane(rectangle);
 	vGemeObjects.push_back(plane);
 
-	sf::RectangleShape* rectangle2 = new sf::RectangleShape(v2f(100, 50));
-	rectangle2->setFillColor(Color::Green);
-	bigSquare = new BigSquare(rectangle2);
+	vDynamicObjects.push_back(plane);
+
+	sf::RectangleShape* Square = new sf::RectangleShape(v2f(500, 500));
+	Square->setFillColor(Color::Magenta);
+	bigSquare = new BigSquare(Square);
 	vGemeObjects.push_back(bigSquare);
+
+	vDynamicObjects.push_back(bigSquare);
+
+
+
 
 	// test black team
 	{
@@ -97,7 +110,12 @@ void Game::Update()
 	//default:
 	//	break;
 	//}
-		plane->update();
+		for (auto& obl : vDynamicObjects) {
+
+			obl->Move();
+		}
+
+		plane->Update();
 	}
 }
 
