@@ -6,7 +6,12 @@
 Game::Game()
 {
 	sf::RectangleShape square = System::CreateShape(v2f(100, 100), v2f(100, 100));
-	
+
+
+	sf::RectangleShape plane = System::CreateShape(v2f(100, 100), v2f(100, 100));
+
+	Plane pPlan;
+
 	BigSquare* bigSquare = new BigSquare(&square);
 	
 	vGemeObjects.push_back(bigSquare);

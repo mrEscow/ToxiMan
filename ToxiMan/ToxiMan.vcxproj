@@ -178,6 +178,7 @@
     <ClInclude Include="NameSpace.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourcesManager.h" />
     <ClInclude Include="Scroll.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Source.cpp" />
