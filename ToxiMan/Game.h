@@ -14,7 +14,39 @@
 
 using namespace my;
 
+class Player: public DynamicObject {
+public:
+	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
+};
 
+class UTILITA {
+public:
+	static Player* WherePlayer() {
+		for (auto& gameObject : vGemeObjects) {
+			Player* p = dynamic_cast<Player*>(gameObject);
+			if (p != nullptr)
+				return p;
+		}
+		return nullptr;
+	};
+	static Plane* WherePlane() {
+		for (auto& gameObject : vGemeObjects) {
+			Plane* p = dynamic_cast<Plane*>(gameObject);
+			if (p != nullptr)
+				return p;
+		}
+		return nullptr;
+	};
+	static vector<IGameObject*> AllWhereTanks() {
+		vector<IGameObject*> AllTanks;
+		for (auto& gameObject : vGemeObjects) {
+			Tank* p = dynamic_cast<Tank*>(gameObject);
+			if (p != nullptr)
+				AllTanks.push_back(gameObject);
+		}
+		return AllTanks;
+	};
+};
 
 class Game
 {
@@ -43,7 +75,7 @@ private:
 	bool is_not_first;
 	sf::Uint8 Alpha;
 	Escow::Timer TimerAlha;
-	bool is_balck;
+	bool is_black;
 
 
 public:
