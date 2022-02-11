@@ -43,7 +43,7 @@ Game::Game()
 	{
 		is_first = true;
 		is_not_first = false;
-		is_balck = true;
+		is_black = true;
 
 		sf::Uint8 Alpha = 255;
 		black.setSize(v2f(
