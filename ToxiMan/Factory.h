@@ -16,12 +16,13 @@ public:
 class Product :public DynamicObject {
 public:
 	Product(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
-	virtual ~Product() {}
+	virtual ~Product() {};
 	//virtual GameObject* Operation() const = 0;
 };
 
 class DynamicTank : public Tank {
 public:
+	//SetDirection()
 };
 
 class ConcreteProductPlane : public Product {

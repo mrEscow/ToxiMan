@@ -132,7 +132,11 @@ void Game::Update()
 		for (auto& obj : vDynamicObjects) {
 			Tank* p = dynamic_cast<Tank*>(obj);
 			if (p != nullptr) {
-				// need direction
+				int x{ 0 }, y{ 0 };
+				//x = plane->GetPosition().x - p->m_rectangle->getPosition().x;
+				//cout << "============" << endl;
+				//cout << p->m_rectangle->getPosition().x << endl;
+				//cout << x << endl;
 				obj->SetDirection(v2f(plane->GetPosition().x/19200, plane->GetPosition().y / 10800));
 				obj->Move();
 			}
