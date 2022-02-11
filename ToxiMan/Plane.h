@@ -143,6 +143,7 @@ public:
 class Iplane {
 	virtual void fly() = 0;
 	virtual void SetSize(v2f size = v2f(10, 10)) = 0;
+	virtual v2f GetPosition() = 0;
 };
 // plane как и гаме тоже фасад или как паттерн посредник
 class Plane : public DynamicObject, public Iplane
@@ -245,6 +246,10 @@ public:
 
 	void action() {
 		xyu->Action();
+	}
+
+	virtual v2f GetPosition() override {
+		return m_rectangle->getPosition();
 	}
 };
 

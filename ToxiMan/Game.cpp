@@ -29,6 +29,13 @@ Game::Game()
 
 	vDynamicObjects.push_back(bigSquare);
 
+	//FactoryMetod
+	pCreator = new CreateDynamicTank;
+
+	for (size_t i = 0; i < 5; i++)
+	{
+		pCreator->CreateGameObject();
+	}
 
 
 
@@ -110,14 +117,34 @@ void Game::Update()
 	//default:
 	//	break;
 	//}
-		for (auto& obl : vDynamicObjects) {
 
-			obl->Move();
+
+		//Cool faund
+		//for (size_t i = 0; i < vDynamicObjects.size(); i++)
+		//{
+		//	Tank* p = dynamic_cast<Tank*>(vDynamicObjects[i]);
+		//	if (p != nullptr)
+		//	{
+		//		p->SetDirection(plane->GetPosition());
+		//	}
+		//}
+
+		for (auto& obj : vDynamicObjects) {
+			Tank* p = dynamic_cast<Tank*>(obj);
+			if (p != nullptr) {
+				// need direction
+				obj->SetDirection(v2f(plane->GetPosition().x/19200, plane->GetPosition().y / 10800));
+				obj->Move();
+			}
+			else
+				obj->Move();
 		}
 
 		plane->Update();
 	}
 }
+
+
 
 void Game::Draw()
 {

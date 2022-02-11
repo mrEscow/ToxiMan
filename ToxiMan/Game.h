@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include "GameObject.h"
 #include "Plane.h"
+#include "Factory.h"
 
 
 
@@ -23,6 +24,8 @@ private:
 	BackGround* backGround;
 	BigSquare* bigSquare;
 	Plane* plane;
+
+	Creator* pCreator;
 
 	sf::Thread* m_ptr_thread;
 
