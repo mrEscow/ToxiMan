@@ -46,6 +46,15 @@ public:
 		}
 		return AllTanks;
 	};
+	static vector<IGameObject*> AllWhereBullets() {
+		vector<IGameObject*> AllBullets;
+		for (auto& gameObject : vGemeObjects) {
+			Bullet* p = dynamic_cast<Bullet*>(gameObject);
+			if (p != nullptr)
+				AllBullets.push_back(gameObject);
+		}
+		return AllBullets;
+	};
 };
 
 class Game
