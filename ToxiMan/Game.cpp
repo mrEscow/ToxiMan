@@ -272,7 +272,7 @@ void Game::Action()
 	player->Controller();
 	plane->action();
 }
-
+// public metods
 void Game::Thread()
 {
 	System::wnd.setActive(false);
@@ -280,28 +280,17 @@ void Game::Thread()
 	while (System::wnd.isOpen())
 	{
 		System::SystemUpdate();
-
-		//World::world->Step(1 / System::fps * (System::speedGame + (World::world->GetBodyCount() / 1000)) , 8, 3);
 		Update();
-
-		//Mutex.lock();
 		Draw();
-		//Mutex.unlock();
 	}
-	//sf::sleep(sf::milliseconds(1000));
-}
 
-void Game::NextLevel()
-{
 }
-
 void Game::Play()
 {
 	System::wnd.setActive(false);
 
 	while (System::wnd.isOpen())	
 		while (System::wnd.pollEvent(System::event)) Action();	
-
 
 	sf::sleep(sf::milliseconds(1000));
 }

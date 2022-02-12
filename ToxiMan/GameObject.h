@@ -4,7 +4,6 @@
 class IGameObject {
 public:
 	virtual void Draw() = 0;
-	//virtual void SetPosition(v2f position) = 0;
 };
 
 inline 	vector<IGameObject*> vGemeObjects;
@@ -32,17 +31,19 @@ inline 	vector<pair<Uint32, vector<IGameObject*>>> vGemeObjectsV01;
 
 class GameObject :public IGameObject {
 protected:
-	v2f m_size{ 0,0 };
-	//v2f m_position{ 0,0 };
+
 	sf::Shape* pShape_ = nullptr;
 
+	v2f m_size{ 0,0 };
+
 public:
+
 	GameObject(sf::Shape* shape) {
 		pShape_ = shape;
 	};
 	GameObject(sf::Shape* shape, v2f pos) {
 		pShape_ = shape;
-		//SetPosition(pos);
+		pShape_->setPosition(pos);
 	};
 	virtual void Draw() override {
 		if (pShape_ != nullptr){}
@@ -128,4 +129,21 @@ public:
 	BackGround(sf::RectangleShape* rectangle) :StaticObject(rectangle) {
 		m_size = rectangle->getSize();
 	}
+};
+
+
+class GUI :public GameObject {
+	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
+	//Controller;
+public:
+	GUI() : GameObject(pGUI){
+		pGUI->setOrigin(v2f(pGUI->getSize().x, pGUI->getSize().y));
+		pGUI->setFillColor(sf::Color::Color(0, 0, 0, 0));
+	};
+
+	void Update() {
+		pGUI->setPosition(System::cam.getCenter());
+	}
+
+
 };
