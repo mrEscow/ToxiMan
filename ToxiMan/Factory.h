@@ -6,6 +6,7 @@ class Factory
 };
 
 class Tank : public DynamicObject{
+
 public:
 	sf::RectangleShape* m_rectangle;
 	Tank(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {

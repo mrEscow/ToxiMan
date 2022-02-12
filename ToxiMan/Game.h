@@ -10,7 +10,37 @@
 #include "Plane.h"
 #include "Factory.h"
 
+class AIController :public Controller {
+	virtual void Action() override {
+		for (auto& tank : vAllTanks) {
+			v2f PlayerPos = dynamic_cast<Plane*>(vAllPlayers[0])->GetPosition();
+			v2f tankPos = dynamic_cast<Tank*>(tank)->m_rectangle->getPosition();
+			v2f result = tankPos - PlayerPos;
+			while ((result.x > 1 || result.x < -1) && (result.y > 1 || result.y < -1))
+			{
+				result.x / 2;
+				result.y / 2;
+			}
+			cout << "===========" << endl;
+			cout << result.x << endl;
+			cout << result.y << endl;
 
+			dynamic_cast<Tank*>(tank)->SetDirection(result);
+		}
+		for (auto& plane : vAllTanks) {
+			v2f PlayerPos = dynamic_cast<Plane*>(vAllPlayers[0])->GetPosition();
+			v2f planePos = dynamic_cast<APlane*>(plane)->m_rectangle->getPosition();
+			v2f result = planePos - PlayerPos;
+			while ((result.x > 1 || result.x < -1) && (result.y > 1 || result.y < -1))
+			{
+				result.x / 2;
+				result.y / 2;
+			}
+			dynamic_cast<Tank*>(plane)->SetDirection(result);
+		}
+	};
+private:
+};
 
 using namespace my;
 class GUI :public GameObject {
@@ -80,7 +110,7 @@ public:
 		}
 		return nullptr;
 	};
-	static vector<IGameObject*> AllWhereTanks() {
+	static vector<IGameObject*> WhereAllTanks() {
 		vector<IGameObject*> AllTanks;
 		for (auto& gameObject : vGemeObjects) {
 			Tank* p = dynamic_cast<Tank*>(gameObject);
@@ -89,7 +119,7 @@ public:
 		}
 		return AllTanks;
 	};
-	static vector<IGameObject*> AllWhereBullets() {
+	static vector<IGameObject*> WhereAllBullets() {
 		vector<IGameObject*> AllBullets;
 		for (auto& gameObject : vGemeObjects) {
 			Bullet* p = dynamic_cast<Bullet*>(gameObject);
@@ -97,6 +127,15 @@ public:
 				AllBullets.push_back(gameObject);
 		}
 		return AllBullets;
+	};
+	static vector<APlane*> WhereAllPlans() {
+		vector<APlane*> AllPlans;
+		for (auto& gameObject : vAllPlans) {
+			APlane* p = dynamic_cast<APlane*>(gameObject);
+			if (p != nullptr)
+				AllPlans.push_back(p);
+		}
+		return AllPlans;
 	};
 };
 
@@ -107,11 +146,16 @@ private:
 
 	BackGround* backGround;
 	BigSquare* bigSquare;
+
 	Plane* plane;
 
 	Creator* pCreator;
 
 	Player* player = new Player(nullptr);
+
+	//Controller* pController = new AIController;
+
+	
 
 	sf::Thread* m_ptr_thread;
 

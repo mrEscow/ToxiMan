@@ -71,8 +71,7 @@ class Plane : public DynamicObject, public Iplane
 
 	//v2f m_size{ 0,0 };
 
-	PlayerController ix;
-	Controller* xyu = &ix;
+	Controller* xyu = new PlayerController;
 
 	IDynamicObject* slot_1;
 	IDynamicObject* slot_2;
@@ -141,6 +140,8 @@ public:
 		slot_3 = new MyGun(new sf::RectangleShape(v2f(30, 30)));
 		vDynamicObjects.push_back(slot_3);
 		vGemeObjects.push_back(dynamic_cast<IGameObject*>(slot_3));
+
+		vAllControllers.push_back(xyu);
 	};
 
 	virtual void SetSize(v2f size = v2f(10,10)) override {
@@ -164,7 +165,7 @@ public:
 	};
 
 	void action() {
-		xyu->Action();
+		//xyu->Action();
 	}
 
 	virtual v2f GetPosition() override {
@@ -187,8 +188,6 @@ private:
 
 	GameObject* destination; // место назначения
 
-	Controller* vibrator = new AIController;
-
 
 	void Controller() {
 		//захватить цель
@@ -198,7 +197,7 @@ private:
 	}
 
 protected:
-	sf::RectangleShape* m_rectangle{ nullptr };
+
 
 
 	APlane(sf::RectangleShape* rectangle) : GameObject(rectangle){
@@ -206,7 +205,7 @@ protected:
 	}
 	
 public:
-
+	sf::RectangleShape* m_rectangle{ nullptr };
 	virtual void Move() override {
 		if (pShape_) {};
 			pShape_->move(m_direction * m_speed * (System::time / 1000));

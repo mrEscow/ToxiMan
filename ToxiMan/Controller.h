@@ -1,5 +1,6 @@
 #pragma once
 #include"System.h"
+
 class IButton {
 public:
 	virtual bool ON() = 0;
@@ -113,8 +114,6 @@ public:
 	}
 };
 
-class AIController :public Controller {
-	virtual void Action() override {
 
-	};
-};
+
+

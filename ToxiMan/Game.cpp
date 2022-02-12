@@ -17,8 +17,10 @@ Game::Game()
 	//Dynamic
 	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
 	rectangle->setFillColor(Color::Green);
+	//playerPlan
 	plane = new Plane(rectangle);
-	vGemeObjects.push_back(plane);
+	vAllPlayers.push_back(plane);
+	//vGemeObjects.push_back(plane);
 
 	vDynamicObjects.push_back(plane);
 
@@ -29,13 +31,13 @@ Game::Game()
 
 	vDynamicObjects.push_back(bigSquare);
 
-	//FactoryMetod
-	pCreator = new CreateDynamicTank;
+	////FactoryMetod
+	//pCreator = new CreateDynamicTank;
 
-	for (size_t i = 0; i < 5; i++)
-	{
-		pCreator->CreateGameObject();
-	}
+	//for (size_t i = 0; i < 5; i++)
+	//{
+	//	pCreator->CreateGameObject();
+	//}
 
 
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Grounds, vAllGrounds));
@@ -48,6 +50,9 @@ Game::Game()
 
 	FactoryPlans factoryPlans;
 	factoryPlans.CreateTrheeFighter();
+
+	//vAllControllers.push_back(pController);
+
 
 
 	// test black team
@@ -140,15 +145,25 @@ void Game::Update()
 		//	}
 		//}
 
+
+		v2f PlayerPos = dynamic_cast<Plane*>(vAllPlayers[0])->GetPosition();
+
 		for (auto& obj : vDynamicObjects) {
 			Tank* p = dynamic_cast<Tank*>(obj);
 			if (p != nullptr) {
 				int x{ 0 }, y{ 0 };
-				//x = plane->GetPosition().x - p->m_rectangle->getPosition().x;
-				//cout << "============" << endl;
-				//cout << p->m_rectangle->getPosition().x << endl;
-				//cout << x << endl;
-				obj->SetDirection(v2f(plane->GetPosition().x/19200, plane->GetPosition().y / 10800));
+				//v2f PlayerPos = dynamic_cast<Plane*>(vAllPlayers[0])->GetPosition();
+				v2f tankPos = dynamic_cast<Tank*>(p)->m_rectangle->getPosition();
+				v2f result = tankPos - PlayerPos;
+				
+				while ((result.x > 1 || result.x < -1) && (result.y > 1 || result.y < -1))
+				{
+					//cout << result.x << endl;;
+					//cout << result.y << endl;;
+					result.x /= 2.;
+					result.y /= 2.;
+				}
+				obj->SetDirection(result);
 				obj->Move();
 			}
 			else
@@ -157,6 +172,28 @@ void Game::Update()
 					obj->Move();
 			}
 				
+		}
+
+		cout << "result:" << UTILITA::WhereAllPlans().size() << endl;
+		for (auto& plane : UTILITA::WhereAllPlans()) {
+			APlane* pP = dynamic_cast<APlane*>(plane);// ->m_rectangle->getPosition();
+			if (pP != nullptr) {
+				v2f planePos = pP->m_rectangle->getPosition();
+				v2f result = planePos - PlayerPos;
+				while ((result.x > 1 || result.x < -1) || (result.y > 1 || result.y < -1))
+				{
+					result.x /= 2.;
+					result.y /= 2.;
+				}
+
+				cout << "result:" << UTILITA::WhereAllPlans().size() << endl;
+				//cout << result.x << endl;;
+				//cout << result.y << endl;;
+
+				pP->SetDirection(v2f(-result.x, -result.y));
+				//dynamic_cast<APlane*>(plane)->SetDirection(result);
+			}
+
 		}
 
 
