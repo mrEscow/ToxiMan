@@ -135,21 +135,3 @@ public:
 		m_size = rectangle->getSize();
 	}
 };
-
-
-class GUI :public GameObject {
-	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
-	Controller* pController = new GuiController;
-public:
-	GUI() : GameObject(pGUI){
-		pGUI->setOrigin(v2f(pGUI->getSize().x, pGUI->getSize().y));
-		pGUI->setFillColor(sf::Color::Color(0, 0, 0, 0));
-	};
-
-	void Update() {
-
-		pGUI->setPosition(System::cam.getCenter());
-	}
-
-
-};

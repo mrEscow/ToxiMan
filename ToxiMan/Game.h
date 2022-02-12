@@ -13,28 +13,46 @@
 
 
 using namespace my;
+class GUI :public GameObject {
+	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
+	Controller* pController = new GuiController;
+public:
+	GUI() : GameObject(pGUI) {
+		pGUI->setOrigin(v2f(pGUI->getSize().x, pGUI->getSize().y));
+		pGUI->setFillColor(sf::Color::Color(0, 0, 0, 0));
+	};
+
+	void Update() {
+
+		pGUI->setPosition(System::cam.getCenter());
+	}
+
+
+};
 
 class Player: public DynamicObject {
-	GuiController PC;
+	Controller* PC = new GuiController;
 	Escow::Timer Timer;
 public:
-	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
+	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
+		vAllControllers.push_back(PC);
+	};
 	void Controller() {
-		PC.Action();
+		
 		if (Timer.IsReset(0.5)) {
-			if (PC.NUM1->ON()) {
+			if (PC->NUM1->ON()) {
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateTrheeFighter();
 				cout << "Cteate Tree Fighters" << endl;
 			}
-			if (PC.NUM2->ON()) {
+			if (PC->NUM2->ON()) {
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateTwoInterceptors();
 				cout << "Cteate Two Interceptors" << endl;
 			}
-			if (PC.NUM3->ON()) {
+			if (PC->NUM3->ON()) {
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateOneBomber();

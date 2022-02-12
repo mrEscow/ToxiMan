@@ -268,6 +268,8 @@ void Game::Action()
 	//default:
 		//break;
 	}
+	for (auto& Controller : vAllControllers)
+		Controller->Action();
 
 	player->Controller();
 	plane->action();

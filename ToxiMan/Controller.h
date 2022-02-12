@@ -49,6 +49,8 @@ public:
 	};
 };
 
+inline vector<Controller*> vAllControllers;
+
 class PlayerController: public Controller {
 public:
 	PlayerController() {};
