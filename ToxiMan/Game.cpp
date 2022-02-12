@@ -38,6 +38,17 @@ Game::Game()
 	}
 
 
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Grounds, vAllGrounds));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Houses, vAllHouses));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Tanks, vAllTanks));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Players, vAllPlayers));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Tanks, vAllTanks));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Plans, vAllPlans));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Guis, vAllGuis));
+
+	FactoryPlans factoryPlans;
+	factoryPlans.CreateTrheeFighter();
+
 
 	// test black team
 	{
@@ -141,8 +152,14 @@ void Game::Update()
 				obj->Move();
 			}
 			else
-				obj->Move();
+			{
+				if(obj)
+					obj->Move();
+			}
+				
 		}
+
+
 
 		plane->Update();
 	}
@@ -197,9 +214,37 @@ void Game::Draw()
 	//	break;
 	//}
 
-	for (auto& object : vGemeObjects)
-		if(object)
-			object->Draw();
+	//for (auto& object : vGemeObjects)
+	//	if(object)
+	//		object->Draw();
+
+	for (auto& [key, objects] : vGemeObjectsV01) {
+		if (key == Grounds)
+			objects = vAllGrounds;
+		if (key == Houses)
+			objects = vAllHouses;
+		if (key == Tanks)
+			objects = vAllTanks;
+		if (key == Plans)
+			objects = vAllPlans;
+		if (key == Players)
+			objects = vAllPlayers;
+		if(key == Plans)
+			objects = vAllPlans;
+
+		for (auto& obj : objects)
+			obj->Draw();
+	}
+
+	[&]() { // DELETER OBJECTS
+
+		my::Alg::for_each(vAllPlans.begin(), vAllPlans.end(), [](IGameObject* obj) {
+			if (dynamic_cast<APlane*>(obj)->isDaed())
+				vAllPlans.erase(vAllPlans.begin());
+			});
+
+	};
+
 
 	my::S::wnd.draw(black);
 	System::wnd.display();
@@ -224,6 +269,7 @@ void Game::Action()
 		//break;
 	}
 
+	player->Controller();
 	plane->action();
 }
 

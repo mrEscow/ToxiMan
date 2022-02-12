@@ -48,4 +48,27 @@ namespace Escow {
 			return false;
 	}
 
+	bool Timer::IsReset(float seconds)
+	{
+		if (m_time_start != seconds * 1000) {
+			m_time_start = seconds * 1000;
+			m_time_stop = seconds * 1000;
+		}
+
+		m_time_stop = m_time_stop - System::time;
+
+		if (m_time_stop <= 0)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
+	void Timer::Reset()
+	{
+		m_time_stop = m_time_start;
+		collbek = true;
+	}
+
 }

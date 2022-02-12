@@ -9,6 +9,27 @@ public:
 
 inline 	vector<IGameObject*> vGemeObjects;
 
+const Uint Grounds = 0;
+inline 	vector<IGameObject*> vAllGrounds;
+const Uint Houses = 25;
+inline 	vector<IGameObject*> vAllHouses;
+const Uint Tanks = 50;
+inline 	vector<IGameObject*> vAllTanks;
+const Uint Players = 75;
+inline 	vector<IGameObject*> vAllPlayers;
+const Uint Plans = 100;
+inline 	vector<IGameObject*> vAllPlans;
+const Uint Guis = 125;
+inline 	vector<IGameObject*> vAllGuis;
+
+
+inline 	vector<pair<Uint32, vector<IGameObject*>>> vGemeObjectsV01;
+
+
+
+
+
+
 class GameObject :public IGameObject {
 protected:
 	v2f m_size{ 0,0 };
@@ -24,7 +45,7 @@ public:
 		//SetPosition(pos);
 	};
 	virtual void Draw() override {
-		if (pShape_){}
+		if (pShape_ != nullptr){}
 			System::wnd.draw(*pShape_);
 	};
 
@@ -33,6 +54,7 @@ public:
 	}
 
 };
+
 class IDynamicObject {
 public:
 	virtual void Move() = 0;

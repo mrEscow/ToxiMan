@@ -15,8 +15,33 @@
 using namespace my;
 
 class Player: public DynamicObject {
+	PlayerController PC;
+	Escow::Timer Timer;
 public:
 	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
+	void Controller() {
+		PC.Action();
+		if (Timer.IsReset(0.5)) {
+			if (PC.NUM1->ON()) {
+				Timer.Reset();
+				FactoryPlans factoryPlans;
+				factoryPlans.CreateTrheeFighter();
+				cout << "Cteate Tree Fighters" << endl;
+			}
+			if (PC.NUM2->ON()) {
+				Timer.Reset();
+				FactoryPlans factoryPlans;
+				factoryPlans.CreateTwoInterceptors();
+				cout << "Cteate Two Interceptors" << endl;
+			}
+			if (PC.NUM3->ON()) {
+				Timer.Reset();
+				FactoryPlans factoryPlans;
+				factoryPlans.CreateOneBomber();
+				cout << "Cteate One Bomber" << endl;
+			}
+		}
+	}
 };
 
 class UTILITA {
@@ -67,6 +92,8 @@ private:
 	Plane* plane;
 
 	Creator* pCreator;
+
+	Player* player = new Player(nullptr);
 
 	sf::Thread* m_ptr_thread;
 

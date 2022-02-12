@@ -31,12 +31,21 @@ public:
 	IButton* A = new Button;
 	IButton* D = new Button;
 	IButton* LKM = new Button;
+	IButton* NUM1 = new Button;
+	IButton* NUM2 = new Button;
+	IButton* NUM3 = new Button;
+
 public:
 	virtual void Action() = 0;
 	virtual ~AController() {
 		delete W;
 		delete S;
+		delete A;
+		delete D;
 		delete LKM;
+		delete NUM1;
+		delete NUM2;
+		delete NUM3;
 	};
 };
 
@@ -253,3 +262,139 @@ public:
 	}
 };
 
+class AIController :public AController {
+	virtual void Action() override {
+		
+	};
+};
+
+class PlayerController : public AController {
+public:
+	virtual void Action() override {
+		if (System::IsKeyPressed(Key::Num1)) {
+			NUM1->Set(true);
+		}
+		if (System::IsKeyReleased(Key::Num1)) {
+			NUM1->Set(false);
+		}
+		if (System::IsKeyPressed(Key::Num2)) {
+			NUM2->Set(true);
+		}
+		if (System::IsKeyReleased(Key::Num2)) {
+			NUM2->Set(false);
+		}
+		if (System::IsKeyPressed(Key::Num3)) {
+			NUM3->Set(true);
+		}
+		if (System::IsKeyReleased(Key::Num3)) {
+			NUM3->Set(false);
+		}
+	}
+};
+
+// Абстракция 
+class APlane : public GameObject, public IDynamicObject, public Iplane {
+private:
+	bool isDead{ false };
+
+	float m_speed{ 0 };
+
+	v2f m_direction{0,0};
+
+	float distance{ 0 };
+
+	GameObject* destination; // место назначения
+
+	AController* vibrator = new AIController;
+
+
+	void Controller() {
+		//захватить цель
+		//установить направление к цели
+		//проверить росстояние до цели
+		//открыть огонь
+	}
+
+protected:
+	sf::RectangleShape* m_rectangle{ nullptr };
+
+
+	APlane(sf::RectangleShape* rectangle) : GameObject(rectangle){
+		m_rectangle = rectangle;
+	}
+	
+public:
+
+	virtual void Move() override {
+		if (pShape_) {};
+			pShape_->move(m_direction * m_speed * (System::time / 1000));
+	};
+
+	virtual void SetSize(v2f size = v2f(10, 10)) override {
+		m_size = size;
+	};
+	virtual void SetSpeed(float speed) override {
+		m_speed = speed;
+	};
+	virtual void SetDirection(v2f direction) override {
+		m_direction = direction;
+	};
+	virtual void fly() override {
+		Controller();
+		this->SetDirection(v2f(m_direction));
+	};
+
+	virtual v2f GetPosition() override {
+		return pShape_->getPosition();
+	};
+	void Daed() {
+		isDead = true;
+	}
+
+	bool isDaed() {
+		return isDead;
+	}
+
+};
+
+class PlaneFighter : public APlane {
+public:
+	PlaneFighter(sf::RectangleShape* rectangle) : APlane(rectangle) {
+		m_rectangle = rectangle;
+	}
+	virtual void SetShape(sf::RectangleShape* rectangle) {
+		m_rectangle = rectangle;
+	};
+
+	virtual void SetTexture(sf::Texture* textura) {
+		m_rectangle->setTexture(textura);
+	};
+};
+
+class PlaneInterceptor : public APlane {
+public:
+	PlaneInterceptor(sf::RectangleShape* rectangle) : APlane(rectangle) {
+		m_rectangle = rectangle;
+	}
+	virtual void SetShape(sf::RectangleShape* rectangle) {
+		m_rectangle = rectangle;
+	};
+
+	virtual void SetTexture(sf::Texture* textura) {
+		m_rectangle->setTexture(textura);
+	};
+};
+
+class PlaneBomber : public APlane {
+public:
+	PlaneBomber(sf::RectangleShape* rectangle) : APlane(rectangle) {
+		m_rectangle = rectangle;
+	}
+	virtual void SetShape(sf::RectangleShape* rectangle) {
+		m_rectangle = rectangle;
+	};
+
+	virtual void SetTexture(sf::Texture* textura) {
+		m_rectangle->setTexture(textura);
+	};
+};

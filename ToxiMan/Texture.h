@@ -59,6 +59,10 @@ public:
 
 	PNG menu_StaticCube;
 
+	//Plans
+	IMG Figter;
+	IMG Interceptor;
+	IMG Bomber;
 
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
@@ -66,6 +70,13 @@ public:
 	Texture()
 	{
 		LoadBord = Load("MapEditor/LOAD_BOARD2.png");
+	}
+
+	void LoadPlans() {
+
+		Figter = Load("Plans/Faite.png");
+		Interceptor = Load("Plans/Interceptor.png");
+		Bomber = Load("Plans/Bomber.png");
 	}
 
 	// Загрузка для мeню
