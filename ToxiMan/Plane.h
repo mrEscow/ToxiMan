@@ -1,98 +1,8 @@
 #pragma once
 #include "GameObject.h" // Super class
+#include "Controller.h"
 
-class IButton {
-public:
-	virtual bool ON() = 0;
-	virtual void Set(bool) = 0;
-};
 
-class Button : public IButton
-{
-public:
-	bool stage{false};
-public:
-	virtual bool ON() override {
-		return stage;
-	}
-	virtual void Set(bool stage) override {
-		this->stage = stage;
-	}
-	//Button();
-	//~Button();
-
-private:
-};
-
-class AController {
-public:
-	IButton* W = new Button;
-	IButton* S = new Button;
-	IButton* A = new Button;
-	IButton* D = new Button;
-	IButton* LKM = new Button;
-	IButton* NUM1 = new Button;
-	IButton* NUM2 = new Button;
-	IButton* NUM3 = new Button;
-
-public:
-	virtual void Action() = 0;
-	virtual ~AController() {
-		delete W;
-		delete S;
-		delete A;
-		delete D;
-		delete LKM;
-		delete NUM1;
-		delete NUM2;
-		delete NUM3;
-	};
-};
-
-class Controller: public AController {
-public:
-	Controller() {};
-	virtual void Action() override{
-		if (System::IsKeyPressed(Key::W) || System::IsKeyPressed(Key::Up)) {
-			W->Set(true);
-		}
-
-		if (System::IsKeyReleased(Key::W) || System::IsKeyReleased(Key::Up)) {
-			W->Set(false);
-		}
-
-		if (System::IsKeyPressed(Key::S) || System::IsKeyPressed(Key::Down)) {
-			S->Set(true);
-		}
-
-		if (System::IsKeyReleased(Key::S) || System::IsKeyReleased(Key::Down)) {
-			S->Set(false);
-		}
-
-		if (System::IsKeyPressed(Key::A) || System::IsKeyPressed(Key::Left)) {
-			A->Set(true);
-		}
-
-		if (System::IsKeyReleased(Key::A) || System::IsKeyReleased(Key::Left)) {
-			A->Set(false);
-		}
-
-		if (System::IsKeyPressed(Key::D) || System::IsKeyPressed(Key::Right)) {
-			D->Set(true);
-		}
-
-		if (System::IsKeyReleased(Key::D) || System::IsKeyReleased(Key::Right)) {
-			D->Set(false);
-		}
-		if (System::IsMousePressed(MouseButton::Left)) {
-			LKM->Set(true);
-		}
-		if (System::IsMouseReleased(MouseButton::Left)) {
-			LKM->Set(false);
-		}
-	}
-	
-};
 
 class Bullet : public DynamicObject {
 public:
@@ -161,8 +71,8 @@ class Plane : public DynamicObject, public Iplane
 
 	//v2f m_size{ 0,0 };
 
-	Controller ix;
-	AController* xyu = &ix;
+	PlayerController ix;
+	Controller* xyu = &ix;
 
 	IDynamicObject* slot_1;
 	IDynamicObject* slot_2;
@@ -262,35 +172,7 @@ public:
 	}
 };
 
-class AIController :public AController {
-	virtual void Action() override {
-		
-	};
-};
 
-class PlayerController : public AController {
-public:
-	virtual void Action() override {
-		if (System::IsKeyPressed(Key::Num1)) {
-			NUM1->Set(true);
-		}
-		if (System::IsKeyReleased(Key::Num1)) {
-			NUM1->Set(false);
-		}
-		if (System::IsKeyPressed(Key::Num2)) {
-			NUM2->Set(true);
-		}
-		if (System::IsKeyReleased(Key::Num2)) {
-			NUM2->Set(false);
-		}
-		if (System::IsKeyPressed(Key::Num3)) {
-			NUM3->Set(true);
-		}
-		if (System::IsKeyReleased(Key::Num3)) {
-			NUM3->Set(false);
-		}
-	}
-};
 
 // Абстракция 
 class APlane : public GameObject, public IDynamicObject, public Iplane {
@@ -305,7 +187,7 @@ private:
 
 	GameObject* destination; // место назначения
 
-	AController* vibrator = new AIController;
+	Controller* vibrator = new AIController;
 
 
 	void Controller() {

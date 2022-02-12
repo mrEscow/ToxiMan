@@ -159,6 +159,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CheckBox.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="ExitMenu.h" />
     <ClInclude Include="Factory.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CheckBox.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="ExitMenu.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Game.cpp" />

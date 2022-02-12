@@ -15,7 +15,7 @@
 using namespace my;
 
 class Player: public DynamicObject {
-	PlayerController PC;
+	GuiController PC;
 	Escow::Timer Timer;
 public:
 	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {};
