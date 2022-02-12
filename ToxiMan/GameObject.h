@@ -55,12 +55,14 @@ public:
 	}
 
 };
-
+/// <summary>
+/// /////////////////////////////////////////////////////////////
+/// </summary>
 class IDynamicObject {
 public:
 	virtual void Move() = 0;
-	virtual void SetSpeed(float speed) = 0;
 	virtual void SetDirection(v2f direction) = 0;
+	virtual void SetSpeed(float speed) = 0;
 };
 
 inline vector<IDynamicObject*> vDynamicObjects;
@@ -99,6 +101,9 @@ public:
 		m_size = rectangle->getSize();
 	}
 };
+
+
+
 class IStaticObject {
 public:
 	virtual void SetPozition(v2f pos)=0;
@@ -134,7 +139,7 @@ public:
 
 class GUI :public GameObject {
 	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
-	//Controller;
+	Controller* pController = new GuiController;
 public:
 	GUI() : GameObject(pGUI){
 		pGUI->setOrigin(v2f(pGUI->getSize().x, pGUI->getSize().y));
@@ -142,6 +147,7 @@ public:
 	};
 
 	void Update() {
+
 		pGUI->setPosition(System::cam.getCenter());
 	}
 
