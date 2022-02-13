@@ -55,6 +55,9 @@ Game::Game()
 	//vAllGuis.push_back(&sdrTest);
 
 
+	CreateMegaMonster();
+
+
 	// test black team
 	{
 		is_first = true;
@@ -296,6 +299,37 @@ void Game::Draw()
 	System::wnd.display();
 
 }
+
+class NewObject : IGameObject {
+public:
+	// Унаследовано через IGameObject
+	virtual void Draw() override
+	{
+		System::wnd.draw(*Shape, &MainShader);
+	}
+protected:
+	v2f uniform_Size;
+	sf::Shader MainShader;
+	Shape* MainShape;
+public:
+
+	NewObject() {
+		MainShape = new sf::RectangleShape(v2f(0, 0));
+		MainShape->setSize(v2f(500, 500));
+		uniform_Size = v2f(500, 500);
+		MainShape->setOrigin(250, 250);
+		MainShape->setFillColor(sf::Color::Color(255, 255, 255, 255));
+	}
+
+};
+
+
+void Game::CreateMegaMonster()
+{
+	
+}
+
+
 
 void Game::Action()
 {

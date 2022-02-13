@@ -251,7 +251,7 @@ public:
 	void Update();
 	void Draw();
 
-	void GreateLevel();
+	void CreateMegaMonster();
 
 	void NextLevel();
 
