@@ -63,6 +63,7 @@ public:
 	virtual void Move() = 0;
 	virtual void SetDirection(v2f direction) = 0;
 	virtual void SetSpeed(float speed) = 0;
+	virtual void SetAngle(float angle) = 0;
 };
 
 inline vector<IDynamicObject*> vDynamicObjects;
@@ -70,13 +71,12 @@ inline vector<IDynamicObject*> vDynamicObjects;
 class DynamicObject :public GameObject, public IDynamicObject {
 protected:
 	
-	v2f m_direction{ 1,1 };
+	v2f m_direction{ 0,0 };
 	float m_speed{ 100 };
 
 public:
 	DynamicObject(sf::Shape* shape):GameObject(shape){
 		pShape_ = shape;
-
 	};
 	virtual void SetSpeed(float speed) {
 		m_speed = speed;
@@ -89,6 +89,10 @@ public:
 		if (pShape_)
 			pShape_->move(m_direction * m_speed * (System::time/1000));
 	};
+public:
+	virtual void SetAngle(float angle) override {
+		pShape_->setRotation(angle);
+	}
 
 };
 

@@ -18,11 +18,11 @@ Game::Game()
 	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
 	rectangle->setFillColor(Color::Green);
 	//playerPlan
-	plane = new Plane(rectangle);
-	vAllPlayers.push_back(plane);
+	playerPlane = new Plane(rectangle);
+	vAllPlayers.push_back(playerPlane);
 	//vGemeObjects.push_back(plane);
 
-	vDynamicObjects.push_back(plane);
+	vDynamicObjects.push_back(playerPlane);
 
 	sf::RectangleShape* Square = new sf::RectangleShape(v2f(500, 500));
 	Square->setFillColor(Color::Magenta);
@@ -52,7 +52,7 @@ Game::Game()
 	factoryPlans.CreateTrheeFighter();
 
 	//vAllControllers.push_back(pController);
-
+	//vAllGuis.push_back(&sdrTest);
 
 
 	// test black team
@@ -146,7 +146,7 @@ void Game::Update()
 		//}
 
 
-		v2f PlayerPos = dynamic_cast<Plane*>(vAllPlayers[0])->GetPosition();
+		v2f PlayerPos = playerPlane->GetPosition();
 
 		for (auto& obj : vDynamicObjects) {
 			Tank* p = dynamic_cast<Tank*>(obj);
@@ -174,9 +174,8 @@ void Game::Update()
 				
 		}
 
-		cout << "result:" << UTILITA::WhereAllPlans().size() << endl;
 		for (auto& plane : UTILITA::WhereAllPlans()) {
-			APlane* pP = dynamic_cast<APlane*>(plane);// ->m_rectangle->getPosition();
+			APlane* pP = dynamic_cast<APlane*>(plane);
 			if (pP != nullptr) {
 				v2f planePos = pP->m_rectangle->getPosition();
 				v2f result = planePos - PlayerPos;
@@ -185,20 +184,35 @@ void Game::Update()
 					result.x /= 2.;
 					result.y /= 2.;
 				}
-
-				cout << "result:" << UTILITA::WhereAllPlans().size() << endl;
-				//cout << result.x << endl;;
-				//cout << result.y << endl;;
-
+				if (System::GetCollisionRect(*pP->m_rectangle, *playerPlane->m_rectangle))
+					pP->Daed();
+				pP->SetAngle(System::GetAngle(planePos, PlayerPos));
 				pP->SetDirection(v2f(-result.x, -result.y));
-				//dynamic_cast<APlane*>(plane)->SetDirection(result);
 			}
-
 		}
+		playerPlane->Update();
 
 
 
-		plane->Update();
+		//auto it = vAllPlans.begin();
+		//vector<std::vector<IGameObject*>::iterator*> deads;
+		//my::Alg::for_each(it, vAllPlans.end(), [&](IGameObject* obj) {
+		//	if (dynamic_cast<APlane*>(obj)->isDaed()) {
+		//		deads.push_back(&it);
+		//	}
+		//});
+		//for (size_t i = 0; i < deads.size(); i++)
+		//{
+		//	vAllPlans.erase(*deads[i]);
+		//}
+		for (auto it = vAllPlans.begin(); it != vAllPlans.end(); ) {
+			auto& object = it;
+			if (dynamic_cast<APlane*>(*object)->isDaed())
+				it = vAllPlans.erase(it);
+			else
+				it++;
+		}
+		//deads.clear();
 	}
 }
 
@@ -273,14 +287,7 @@ void Game::Draw()
 			obj->Draw();
 	}
 
-	[&]() { // DELETER OBJECTS
 
-		my::Alg::for_each(vAllPlans.begin(), vAllPlans.end(), [](IGameObject* obj) {
-			if (dynamic_cast<APlane*>(obj)->isDaed())
-				vAllPlans.erase(vAllPlans.begin());
-			});
-
-	};
 
 
 	my::S::wnd.draw(black);
@@ -309,7 +316,7 @@ void Game::Action()
 		Controller->Action();
 
 	player->Controller();
-	plane->action();
+	playerPlane->action();
 }
 // public metods
 void Game::Thread()
@@ -319,7 +326,11 @@ void Game::Thread()
 	while (System::wnd.isOpen())
 	{
 		System::SystemUpdate();
+
+		sdrTest.Update();
 		Update();
+
+		//sdrTest.Draw();
 		Draw();
 	}
 

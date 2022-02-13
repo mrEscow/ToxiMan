@@ -2,8 +2,13 @@ precision mediump float;
 uniform float time;
 //uniform vec2  mouse;
 //uniform vec2  resolution;
-uniform vec2  pos;
-uniform vec2  size;
+
+uniform vec2 pos;
+
+uniform const int mySize = 3;
+//uniform vec2[mySize] positions;
+
+uniform vec2 size;
 uniform sampler2D texture;
 
 #define PI 3.14159265359
@@ -19,19 +24,34 @@ void main(void){
 	//vec2 wnd = vec2(1920,1080);
 	//vec2 mypos = (resolution / 2.) + vec2(mouse.x,-mouse.y);
 	//vec2 mypos = (resolution / 2.) + vec2(pos.x,pos.y);
+
 	vec2 mypos = pos;
+	
+	//positions[0] = pos;
+	//positions[1] = vec2(100,1000);
+	//positions[2] = vec2(500,300);
 
-	vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
-	//vec2 p = 1 / 10;
+	//int it = 0;
 
-	p = rotate2d((time * 1.0) * PI) * p;
+	for(int i = 0; i < mySize;)
+	{
+		//vec2 mypos = positions[i];
 
-	float thickness = 0.256;
+		vec2 p = (gl_FragCoord.xy * 1.0 - pos) / min(size.x / 2.5 , size.y / 2.5 );
 
-	float t = thickness / abs(abs(sin(time)) - length(p));
-	float t2 = thickness / abs(abs(sin(time)) - length(p));
+		//vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
+		//vec2 p = 1 / 10;
 
-	vec4 mayvec4 = vec4(vec3(t),t2);
+		p = rotate2d((time * 1.0) * PI) * p;
 
-    gl_FragColor = vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+		float thickness = 0.256;
+
+		float t = thickness / abs(abs(sin(time)) - length(p));
+		float t2 = thickness / abs(abs(sin(time)) - length(p));
+
+		vec4 mayvec4 = vec4(vec3(t),t2);
+
+		gl_FragColor = vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+	}
+
 }

@@ -43,21 +43,36 @@ private:
 };
 
 using namespace my;
-class GUI :public GameObject {
+class SHR :public IGameObject {
+	float m_time{ 1 };
+	sf::Shader shader;
 	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
 	Controller* pController = new GuiController;
 public:
-	GUI() : GameObject(pGUI) {
-		pGUI->setOrigin(v2f(pGUI->getSize().x, pGUI->getSize().y));
-		pGUI->setFillColor(sf::Color::Color(0, 0, 0, 0));
+	SHR() {
+		pGUI->setOrigin(v2f(pGUI->getSize().x/2, pGUI->getSize().y/2));
+		pGUI->setFillColor(sf::Color::Red);
+		//pGUI->setFillColor(sf::Color::Color(123, 123, 123, 123));
+
+		shader.loadFromFile("vertex_shader.vert", "inet2.frag");
+		vAllGuis.push_back(this);
 	};
 
 	void Update() {
-
 		pGUI->setPosition(System::cam.getCenter());
 	}
 
+	virtual void Draw() override {
 
+		m_time = m_time + System::time / 1000;
+
+		shader.setUniform("time", m_time);
+		shader.setUniform("pos", System::GetPosForShader(*pGUI));
+		shader.setUniform("size", pGUI->getSize());
+
+		System::wnd.draw(*pGUI, &shader);
+		//System::wnd.draw(*pGUI);
+	}
 };
 
 class Player: public DynamicObject {
@@ -142,12 +157,12 @@ public:
 class Game
 {
 private:
-
+	SHR sdrTest;
 
 	BackGround* backGround;
 	BigSquare* bigSquare;
 
-	Plane* plane;
+	Plane* playerPlane;
 
 	Creator* pCreator;
 

@@ -67,7 +67,7 @@ class Iplane {
 // plane как и гаме тоже фасад или как паттерн посредник
 class Plane : public DynamicObject, public Iplane
 {
-	sf::RectangleShape* m_rectangle;
+
 
 	//v2f m_size{ 0,0 };
 
@@ -122,11 +122,14 @@ class Plane : public DynamicObject, public Iplane
 			//slot_1->fire(System::cur_p,100);
 		}
 	}
+public:
+	sf::RectangleShape* m_rectangle;
 
 public:
 
 	Plane(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
 		m_rectangle = rectangle;
+
 		m_size = rectangle->getSize();
 
 		slot_1 = new MyGun(new sf::RectangleShape(v2f(30, 30)));
@@ -147,6 +150,7 @@ public:
 	virtual void SetSize(v2f size = v2f(10,10)) override {
 		m_size = size;
 		m_rectangle->setSize(m_size);
+		m_rectangle->setOrigin(size.x / 2, size.y / 2);
 	}
 
 
@@ -197,9 +201,6 @@ private:
 	}
 
 protected:
-
-
-
 	APlane(sf::RectangleShape* rectangle) : GameObject(rectangle){
 		m_rectangle = rectangle;
 	}
@@ -213,6 +214,8 @@ public:
 
 	virtual void SetSize(v2f size = v2f(10, 10)) override {
 		m_size = size;
+		m_rectangle->setSize(size);
+		m_rectangle->setOrigin(size.x / 2, size.y / 2);
 	};
 	virtual void SetSpeed(float speed) override {
 		m_speed = speed;
@@ -220,6 +223,11 @@ public:
 	virtual void SetDirection(v2f direction) override {
 		m_direction = direction;
 	};
+
+	virtual void SetAngle(float angle) override {
+		pShape_->setRotation(angle);
+	}
+
 	virtual void fly() override {
 		Controller();
 		this->SetDirection(v2f(m_direction));
