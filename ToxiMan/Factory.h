@@ -68,6 +68,7 @@ public:
 
 		sf::RectangleShape* rectangle = new sf::RectangleShape;
 		rectangle->setSize(v2f(200, 200));
+		rectangle->setOrigin(100, 100);
 		rectangle->setTexture(&System::resources.texture.Figter);
 		PlaneFighter* Plane = new PlaneFighter(rectangle);
 		Plane->SetSpeed(rand() % 1500);
@@ -82,6 +83,7 @@ public:
 	GameObject* FactoryMethod() const override {
 		sf::RectangleShape* rectangle = new sf::RectangleShape;
 		rectangle->setSize(v2f(250, 250));
+		rectangle->setOrigin(125, 125);
 		rectangle->setTexture(&System::resources.texture.Interceptor);
 		PlaneInterceptor* Plane = new PlaneInterceptor(rectangle);
 		Plane->SetSpeed(rand() % 1000 );
@@ -96,6 +98,7 @@ public:
 	GameObject* FactoryMethod() const override {
 		sf::RectangleShape* rectangle = new sf::RectangleShape;
 		rectangle->setSize(v2f(300, 300));
+		rectangle->setOrigin(150, 150);
 		rectangle->setTexture(&System::resources.texture.Bomber);
 		PlaneBomber* Plane = new PlaneBomber(rectangle);
 		Plane->SetSpeed(rand() % 700);

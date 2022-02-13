@@ -42,8 +42,56 @@ class AIController :public Controller {
 private:
 };
 
+class UTILITA {
+public:
+	//static Player* WherePlayer() {
+	//	for (auto& gameObject : vGemeObjects) {
+	//		Player* p = dynamic_cast<Player*>(gameObject);
+	//		if (p != nullptr)
+	//			return p;
+	//	}
+	//	return nullptr;
+	//};
+	static Plane* WherePlane() {
+		for (auto& gameObject : vGemeObjects) {
+			Plane* p = dynamic_cast<Plane*>(gameObject);
+			if (p != nullptr)
+				return p;
+		}
+		return nullptr;
+	};
+	static vector<IGameObject*> WhereAllTanks() {
+		vector<IGameObject*> AllTanks;
+		for (auto& gameObject : vGemeObjects) {
+			Tank* p = dynamic_cast<Tank*>(gameObject);
+			if (p != nullptr)
+				AllTanks.push_back(gameObject);
+		}
+		return AllTanks;
+	};
+	static vector<IGameObject*> WhereAllBullets() {
+		vector<IGameObject*> AllBullets;
+		for (auto& gameObject : vGemeObjects) {
+			Bullet* p = dynamic_cast<Bullet*>(gameObject);
+			if (p != nullptr)
+				AllBullets.push_back(gameObject);
+		}
+		return AllBullets;
+	};
+	static vector<APlane*> WhereAllPlans() {
+		vector<APlane*> AllPlans;
+		for (auto& gameObject : vAllPlans) {
+			APlane* p = dynamic_cast<APlane*>(gameObject);
+			if (p != nullptr)
+				AllPlans.push_back(p);
+		}
+		return AllPlans;
+	};
+};
+
 using namespace my;
 class SHR :public IGameObject {
+	sf::Vector2f V2positions[1000];
 	float m_time{ 1 };
 	sf::Shader shader;
 	sf::RectangleShape* pGUI = new sf::RectangleShape((v2f)System::wnd.getSize());
@@ -66,6 +114,48 @@ public:
 
 		m_time = m_time + System::time / 1000;
 
+		//V2positions
+
+		for (int i = 0; i < UTILITA::WhereAllPlans().size() /* && i < 1000*/; i++)
+		{
+			V2positions[i] = v2f(0, 0);
+
+			APlane* p = UTILITA::WhereAllPlans()[i];
+
+			if (p != nullptr) {
+
+				V2positions[i] = v2f(
+					(p->GetPosition() -
+						System::cam.getCenter() +
+						v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).x,
+					(p->GetPosition() -
+						System::cam.getCenter() -
+						v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).y
+				);
+
+
+
+				//cout << "********" << endl;
+				//cout << (
+				//	p->GetPosition() -
+				//	System::cam.getCenter() +
+				//	v2f(System::wnd.getSize().x / 2, (System::wnd.getSize().y / 2))
+				//	).x << endl;
+				//cout << (
+				//	p->GetPosition() - 
+				//	System::cam.getCenter() +
+				//	v2f(System::wnd.getSize().x / 2, (System::wnd.getSize().y / 2))
+				//	).y << endl;
+			}
+				
+		}
+
+
+
+		shader.setUniformArray("V2positions", V2positions, 1000);
+		// x y z
+		//sf::Vector3f(1, 1, 1);
+		//shader.setUniform("V2positions", V2positions);
 		shader.setUniform("time", m_time);
 		shader.setUniform("pos", System::GetPosForShader(*pGUI));
 		shader.setUniform("size", pGUI->getSize());
@@ -107,52 +197,7 @@ public:
 	}
 };
 
-class UTILITA {
-public:
-	static Player* WherePlayer() {
-		for (auto& gameObject : vGemeObjects) {
-			Player* p = dynamic_cast<Player*>(gameObject);
-			if (p != nullptr)
-				return p;
-		}
-		return nullptr;
-	};
-	static Plane* WherePlane() {
-		for (auto& gameObject : vGemeObjects) {
-			Plane* p = dynamic_cast<Plane*>(gameObject);
-			if (p != nullptr)
-				return p;
-		}
-		return nullptr;
-	};
-	static vector<IGameObject*> WhereAllTanks() {
-		vector<IGameObject*> AllTanks;
-		for (auto& gameObject : vGemeObjects) {
-			Tank* p = dynamic_cast<Tank*>(gameObject);
-			if (p != nullptr)
-				AllTanks.push_back(gameObject);
-		}
-		return AllTanks;
-	};
-	static vector<IGameObject*> WhereAllBullets() {
-		vector<IGameObject*> AllBullets;
-		for (auto& gameObject : vGemeObjects) {
-			Bullet* p = dynamic_cast<Bullet*>(gameObject);
-			if (p != nullptr)
-				AllBullets.push_back(gameObject);
-		}
-		return AllBullets;
-	};
-	static vector<APlane*> WhereAllPlans() {
-		vector<APlane*> AllPlans;
-		for (auto& gameObject : vAllPlans) {
-			APlane* p = dynamic_cast<APlane*>(gameObject);
-			if (p != nullptr)
-				AllPlans.push_back(p);
-		}
-		return AllPlans;
-	};
-};
+
 
 class Game
 {

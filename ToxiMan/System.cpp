@@ -68,7 +68,7 @@ void System::SystemUpdate()
 	cur_for_UI = cur_p / zoom - cam.getCenter() / zoom;
 	cam_p = cam.getCenter();
 
-	
+
 }
 
 void System::CloseEvent()

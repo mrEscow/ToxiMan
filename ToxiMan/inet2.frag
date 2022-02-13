@@ -9,7 +9,10 @@ uniform vec2 pos;
 uniform int myContSize = 3;
 
 const int mySize = 1000; // static_cast<const int>(myContSize);
-uniform vec2[mySize] positions;
+
+uniform vec2 positions[mySize];// = new vec2[mySize];
+
+uniform vec2 V2positions[mySize];
 
 uniform vec2 size;
 uniform sampler2D texture;
@@ -21,6 +24,19 @@ mat2 rotate2d(float angle){
 }
 
 void main(void){
+
+	vec2 clear = vec2(10000,10000);
+	vec2 clear2 = vec2(0,0);
+
+	for(int i = 0; i < mySize;i++)
+	{
+		positions[i]=clear;
+	}
+
+	positions = V2positions;
+
+
+
     //vec4 pixel = texture2D(texture, gl_TexCoord[0].xy); 
 
 
@@ -41,14 +57,13 @@ void main(void){
 	vec4[mySize] myGiperVecMatrix;
 
 
-	vec2 test = vec2(0,0);
 
 	for(int i = 0; i < mySize;i++)
 	{
-		if(positions[i] != test)
+		if(positions[i] != clear && positions[i] != clear2)
 		{
 			vec2 mypos = positions[i];
-			vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
+			vec2 p = (gl_FragCoord.xy * 1.0 - vec2(mypos.x , -mypos.y)) / min(size.x / 2.5 , size.y / 2.5 );
 			p = rotate2d((time * 1.0) * PI) * p;
 			float thickness = 0.256;
 			float t = thickness / abs(abs(sin(time)) - length(p));
