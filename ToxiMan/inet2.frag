@@ -63,7 +63,7 @@ void main(void){
 		if(positions[i] != clear && positions[i] != clear2)
 		{
 			vec2 mypos = positions[i];
-			vec2 p = (gl_FragCoord.xy * 1.0 - vec2(mypos.x , -mypos.y)) / min(size.x / 2.5 , size.y / 2.5 );
+			vec2 p = (gl_FragCoord.xy * 1.0 - vec2(mypos.x , -mypos.y)) / min(size.x / 5 , size.y / 5 );
 			p = rotate2d((time * 1.0) * PI) * p;
 			float thickness = 0.256;
 			float t = thickness / abs(abs(sin(time)) - length(p));

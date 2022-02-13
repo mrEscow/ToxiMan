@@ -103,7 +103,7 @@ public:
 		//pGUI->setFillColor(sf::Color::Color(123, 123, 123, 123));
 
 		shader.loadFromFile("vertex_shader.vert", "inet2.frag");
-		vAllGuis.push_back(this);
+		vAllSHR.push_back(this);
 	};
 
 	void Update() {
@@ -114,11 +114,13 @@ public:
 
 		m_time = m_time + System::time / 1000;
 
-		//V2positions
+		for (int i = 0; i < 1000; ++i) {
+			V2positions[i] = v2f(0, 0);
+		}
 
 		for (int i = 0; i < UTILITA::WhereAllPlans().size() /* && i < 1000*/; i++)
 		{
-			V2positions[i] = v2f(0, 0);
+			
 
 			APlane* p = UTILITA::WhereAllPlans()[i];
 

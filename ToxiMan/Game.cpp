@@ -43,8 +43,8 @@ Game::Game()
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Grounds, vAllGrounds));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Houses, vAllHouses));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Tanks, vAllTanks));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Shaders, vAllSHR));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Players, vAllPlayers));
-	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Tanks, vAllTanks));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Plans, vAllPlans));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Guis, vAllGuis));
 
@@ -278,6 +278,8 @@ void Game::Draw()
 			objects = vAllTanks;
 		if (key == Plans)
 			objects = vAllPlans;
+		if (key == Shaders)
+			objects = vAllSHR;
 		if (key == Players)
 			objects = vAllPlayers;
 		if(key == Plans)
