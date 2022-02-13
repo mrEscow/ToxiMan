@@ -5,8 +5,11 @@ uniform float time;
 
 uniform vec2 pos;
 
-uniform const int mySize = 3;
-//uniform vec2[mySize] positions;
+
+uniform int myContSize = 3;
+
+const int mySize = 1000; // static_cast<const int>(myContSize);
+uniform vec2[mySize] positions;
 
 uniform vec2 size;
 uniform sampler2D texture;
@@ -29,29 +32,77 @@ void main(void){
 	
 	//positions[0] = pos;
 	//positions[1] = vec2(100,1000);
-	//positions[2] = vec2(500,300);
+	//positions[2] = vec2(1000,1000);
 
-	//int it = 0;
+	int it = 0;
 
-	for(int i = 0; i < mySize;)
+	vec4 myGiperVec = vec4(0); //  = gl_FragColor(0);
+
+	vec4[mySize] myGiperVecMatrix;
+
+
+	vec2 test = vec2(0,0);
+
+	for(int i = 0; i < mySize;i++)
 	{
-		//vec2 mypos = positions[i];
-
-		vec2 p = (gl_FragCoord.xy * 1.0 - pos) / min(size.x / 2.5 , size.y / 2.5 );
-
-		//vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
-		//vec2 p = 1 / 10;
-
-		p = rotate2d((time * 1.0) * PI) * p;
-
-		float thickness = 0.256;
-
-		float t = thickness / abs(abs(sin(time)) - length(p));
-		float t2 = thickness / abs(abs(sin(time)) - length(p));
-
-		vec4 mayvec4 = vec4(vec3(t),t2);
-
-		gl_FragColor = vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+		if(positions[i] != test)
+		{
+			vec2 mypos = positions[i];
+			vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
+			p = rotate2d((time * 1.0) * PI) * p;
+			float thickness = 0.256;
+			float t = thickness / abs(abs(sin(time)) - length(p));
+			float t2 = thickness / abs(abs(sin(time)) - length(p));
+			vec4 mayvec4 = vec4(vec3(t),t2);
+			myGiperVec += (vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color);
+		}
 	}
 
+	//for(int i = 0; i < mySize;i++)
+	{
+		{
+			//vec2 mypos = positions[0];
+
+			//vec2 p = (gl_FragCoord.xy * 1.0 - positions[0]) / min(size.x / 2.5 , size.y / 2.5 );
+
+			//vec2 p = (gl_FragCoord.xy * 1.0 - mypos) / min(size.x / 2.5 , size.y / 2.5 );
+			//vec2 p = 1 / 10;
+
+			//p = rotate2d((time * 1.0) * PI) * p;
+
+			//float thickness = 0.256;
+
+			//float t = thickness / abs(abs(sin(time)) - length(p));
+			//float t2 = thickness / abs(abs(sin(time)) - length(p));
+
+			//vec4 mayvec4 = vec4(vec3(t),t2);
+
+			//myGiperVec += vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+		}
+
+		////////////////////////////////
+		{
+			//vec2 p = (gl_FragCoord.xy * 1.0 - positions[1]) / min(size.x / 2.5 , size.y / 2.5 );
+			//p = rotate2d((time * 1.0) * PI) * p;
+			//float thickness = 0.256;
+			//float t = thickness / abs(abs(sin(time)) - length(p));
+			//float t2 = thickness / abs(abs(sin(time)) - length(p));
+			//vec4 mayvec4 = vec4(vec3(t),t2);
+			//myGiperVec += vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color ;
+		}
+
+		/////////////////////////////
+	}
+
+	//gl_FragColor = vec4(0);
+
+	//for(int i = 0; i < mySize; i++)
+	//{
+		//myGiperVec += myGiperVecMatrix[i];
+	//}
+
+
+
+
+	gl_FragColor = myGiperVec;
 }
