@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "Plane.h"
 #include "Factory.h"
+#include "NewObject.h"
 
 class AIController :public Controller {
 	virtual void Action() override {
@@ -167,11 +168,15 @@ public:
 	}
 };
 
-class Player: public DynamicObject {
+class Player {
 	Controller* PC = new GuiController;
+	Controller* PC2 = new PlayerController;
 	Escow::Timer Timer;
+
+	NewObject transport_;
 public:
-	Player(sf::RectangleShape* rectangle) : DynamicObject(rectangle) {
+	Player(const NewObject& transport) {
+
 		vAllControllers.push_back(PC);
 	};
 	void Controller() {
@@ -196,7 +201,19 @@ public:
 				cout << "Cteate One Bomber" << endl;
 			}
 		}
+
+		if (PC2->LKM->ON()) {
+			fire();
+		}
+
 	}
+
+
+private:
+	IDynamicObject* slot_1;
+	void fire() {
+		dynamic_cast<IGun*>(slot_1)->fire(System::cur_p, 100);
+	};
 };
 
 
@@ -213,7 +230,8 @@ private:
 
 	Creator* pCreator;
 
-	Player* player = new Player(nullptr);
+	NewObject monster;
+	Player* player = new Player(monster);
 
 	//Controller* pController = new AIController;
 

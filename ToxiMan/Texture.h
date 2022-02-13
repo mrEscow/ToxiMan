@@ -64,12 +64,27 @@ public:
 	IMG Interceptor;
 	IMG Bomber;
 
+	//Monster
+	IMG BigCyrkl;
+	IMG MidlCyrkl;
+	IMG LittleCyrkl;
+	IMG Treugol;
+	IMG Gan;
+
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
 
 	Texture()
 	{
 		LoadBord = Load("MapEditor/LOAD_BOARD2.png");
+	}
+
+	void LoadMonster() {
+		BigCyrkl = Load("Player/Monster/BigCyrkl.png");
+		MidlCyrkl = Load("Player/Monster/MidlCyrkl.png");
+		LittleCyrkl = Load("Player/Monster/LittleCyrkl.png");
+		Treugol = Load("Player/Monster/Treugol.png");
+		Gan = Load("Player/Monster/Gan.png");
 	}
 
 	void LoadPlans() {

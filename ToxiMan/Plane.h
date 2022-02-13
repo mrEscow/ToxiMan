@@ -45,7 +45,7 @@ public:
 
 			Bullet* pBullet = new Bullet(new sf::RectangleShape(v2f(10, 10)), this->pShape_->getPosition());
 			vDynamicObjects.push_back(pBullet);
-			vGemeObjects.push_back(pBullet);
+			vAllBullets.push_back(pBullet);
 
 	}
 	virtual void SetPozition(v2f position) override {

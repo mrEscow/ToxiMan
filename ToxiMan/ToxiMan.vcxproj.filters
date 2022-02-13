@@ -189,6 +189,9 @@
     <ClInclude Include="Controller.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="NewObject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -285,6 +288,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="NewObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

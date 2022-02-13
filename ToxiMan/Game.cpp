@@ -46,6 +46,7 @@ Game::Game()
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Shaders, vAllSHR));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Players, vAllPlayers));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Plans, vAllPlans));
+	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Bullets, vAllBullets));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Guis, vAllGuis));
 
 	FactoryPlans factoryPlans;
@@ -279,14 +280,14 @@ void Game::Draw()
 			objects = vAllHouses;
 		if (key == Tanks)
 			objects = vAllTanks;
-		if (key == Plans)
-			objects = vAllPlans;
 		if (key == Shaders)
-			objects = vAllSHR;
+			objects = vAllSHR;//?
 		if (key == Players)
 			objects = vAllPlayers;
 		if(key == Plans)
 			objects = vAllPlans;
+		if (key == Bullets)
+			objects = vAllBullets;
 
 		for (auto& obj : objects)
 			obj->Draw();
@@ -300,28 +301,7 @@ void Game::Draw()
 
 }
 
-class NewObject : IGameObject {
-public:
-	// Унаследовано через IGameObject
-	virtual void Draw() override
-	{
-		System::wnd.draw(*Shape, &MainShader);
-	}
-protected:
-	v2f uniform_Size;
-	sf::Shader MainShader;
-	Shape* MainShape;
-public:
 
-	NewObject() {
-		MainShape = new sf::RectangleShape(v2f(0, 0));
-		MainShape->setSize(v2f(500, 500));
-		uniform_Size = v2f(500, 500);
-		MainShape->setOrigin(250, 250);
-		MainShape->setFillColor(sf::Color::Color(255, 255, 255, 255));
-	}
-
-};
 
 
 void Game::CreateMegaMonster()

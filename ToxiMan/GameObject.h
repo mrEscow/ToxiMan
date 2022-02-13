@@ -14,12 +14,14 @@ const Uint Houses = 25;
 inline 	vector<IGameObject*> vAllHouses;
 const Uint Tanks = 50;
 inline 	vector<IGameObject*> vAllTanks;
-const Uint Shaders = 111;
+const Uint Shaders = 62;
 inline 	vector<IGameObject*>vAllSHR;
 const Uint Players = 75;
 inline 	vector<IGameObject*> vAllPlayers;
 const Uint Plans = 100;
 inline 	vector<IGameObject*> vAllPlans;
+const Uint Bullets = 111;
+inline 	vector<IGameObject*> vAllBullets;
 const Uint Guis = 125;
 inline 	vector<IGameObject*> vAllGuis;
 
