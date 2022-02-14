@@ -121,6 +121,10 @@ public:
 			V2positions[i] = v2f(0, 0);
 		}
 
+
+
+
+
 		for (int i = 0; i < UTILITA::WhereAllPlans().size() /* && i < 1000*/; i++)
 		{
 			
@@ -130,15 +134,35 @@ public:
 			if (p != nullptr) {
 
 				V2positions[i] = v2f(
-					(p->GetPosition() -
-						System::cam.getCenter() +
-						v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).x,
-					(p->GetPosition() -
-						System::cam.getCenter() -
-						v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).y
+					((p->GetPosition() -
+						System::cam.getCenter()).x / System::zoom) + 1920 / 2,
+					((p->GetPosition() -
+						System::cam.getCenter()).y/ System::zoom) - 1080 / 2
 				);
 
+				//V2positions[i] = v2f(
+				//	(p->GetPosition().x) -System::cam.getCenter().x ,
+				//	p->GetPosition().y -System::cam.getCenter().y
+				//);
 
+
+				//cout << "//////////////////////////0" << endl;
+				//cout << V2positions[i].x << endl;
+				//cout << V2positions[i].y << endl;
+
+				//V2positions[500] = v2f(System::cam.getCenter()) - v2f(System::cam.getSize());
+				//V2positions[i] = v2f(
+				//	(p->GetPosition() -
+				//		System::cam.getCenter() +
+				//		(v2f(System::cam.getSize().x / 1, System::cam.getSize().y / 1) -
+				//		v2f(System::wnd.getSize().x / 1, System::wnd.getSize().y / 1))- 
+				//		v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).x,
+				//	(p->GetPosition() -
+				//		System::cam.getCenter() -
+				//		(v2f(System::cam.getSize().x / 1, System::cam.getSize().y / 1) -
+				//		v2f(System::wnd.getSize().x / 1, System::wnd.getSize().y / 1)) -
+				//		v2f(System::wnd.getSize().x / 2, System::wnd.getSize().y / 2)).y
+				//);
 
 				//cout << "********" << endl;
 				//cout << (
@@ -192,24 +216,31 @@ public:
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateTrheeFighter();
-				cout << "Cteate Tree Fighters" << endl;
+				//cout << "Cteate Tree Fighters" << endl;
 			}
 			if (PC->NUM2->ON()) {
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateTwoInterceptors();
-				cout << "Cteate Two Interceptors" << endl;
+				//cout << "Cteate Two Interceptors" << endl;
 			}
 			if (PC->NUM3->ON()) {
 				Timer.Reset();
 				FactoryPlans factoryPlans;
 				factoryPlans.CreateOneBomber();
-				cout << "Cteate One Bomber" << endl;
+				//cout << "Cteate One Bomber" << endl;
 			}
 		}
 		if (PC2->LKM->ON()) {
 			fire();
 		}
+		if (PC2->PKM->ON()) {
+			transport_->SetSpeed(10000);
+		}
+		else {
+			//transport_->SetSpeed(2000);
+		}
+			
 	}
 
 	// Player public

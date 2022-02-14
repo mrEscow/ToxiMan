@@ -203,6 +203,7 @@ private:
 protected:
 	APlane(sf::RectangleShape* rectangle) : GameObject(rectangle){
 		m_rectangle = rectangle;
+		m_rectangle->setPosition(rand(),rand());
 	}
 	
 public:

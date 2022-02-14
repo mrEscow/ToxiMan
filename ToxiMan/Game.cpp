@@ -8,8 +8,9 @@ Game::Game()
 	// tect
 
 
-	System::cam.zoom(2);
-	System::cam.setSize(System::scr_w*4, System::scr_h * 4);
+	System::zoom = 7;
+	System::cam.zoom(System::zoom);
+	System::cam.setSize(System::scr_w * System::zoom, System::scr_h * System::zoom);
 
 
 
@@ -116,7 +117,12 @@ Game::Game()
 
 void Game::Update()
 {
-	
+	v2f PlayerPos = player->GetPosition();
+
+	//cout << "//////////////////////////0" << endl;
+	//cout << PlayerPos.x - System::cam.getCenter().x  << endl;
+	//cout << PlayerPos.y - System::cam.getCenter().y  << endl;
+
 	//m_GameStates->Updata();
 
 	//switch (g_StateGame)
@@ -162,7 +168,7 @@ void Game::Update()
 		//	<< endl;
 		//monster.Move();
 
-		v2f PlayerPos = player->GetPosition();
+
 
 		for (auto& obj : vDynamicObjects) {
 			Tank* p = dynamic_cast<Tank*>(obj);
@@ -350,15 +356,42 @@ void Game::Action()
 // public metods
 void Game::Thread()
 {
-	System::wnd.setActive(false);
+	//System::wnd.setActive(false);
+
+	//while (System::wnd.isOpen())
+	//{
+	//	System::SystemUpdate();
+
+	//	sdrTest.Update();
+
+	//	Update();
+
+	//	//sdrTest.Draw();
+	//	Draw();
+	//}
+
+}
+//void Game::Play()
+//{
+//	System::wnd.setActive(false);
+//
+//	while (System::wnd.isOpen())	
+//		while (System::wnd.pollEvent(System::event)) Action();	
+//
+//	sf::sleep(sf::milliseconds(1000));
+//}
+void Game::Play()
+{
+	//System::wnd.setActive(false);
+
+	//while (System::wnd.isOpen())
+
+
 
 	while (System::wnd.isOpen())
 	{
+		while (System::wnd.pollEvent(System::event)) Action();
 		System::SystemUpdate();
-
-
-
-
 
 		sdrTest.Update();
 
@@ -367,18 +400,8 @@ void Game::Thread()
 		//sdrTest.Draw();
 		Draw();
 	}
-
+	//sf::sleep(sf::milliseconds(1000));
 }
-void Game::Play()
-{
-	System::wnd.setActive(false);
-
-	while (System::wnd.isOpen())	
-		while (System::wnd.pollEvent(System::event)) Action();	
-
-	sf::sleep(sf::milliseconds(1000));
-}
-
 Game::~Game()
 {
 	delete m_ptr_thread;

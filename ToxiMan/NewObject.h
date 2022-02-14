@@ -21,7 +21,7 @@ public:
 	virtual void Move() override {
 
 
-		m_direction = v2f((System::cur_p_wnd.x - System::scr_w / 2) / 1920, (System::cur_p_wnd.y - System::scr_h / 2) / 1080);
+		m_direction = v2f((System::cur_p_wnd.x - System::scr_w / 2) / System::cam.getSize().x, (System::cur_p_wnd.y - System::scr_h / 2) / System::cam.getSize().y);
 
 		TreygolShape->setRotation(System::GetAngle(*TreygolShape, v2f(-System::cur_p.x, -System::cur_p.y)) - 45.f);
 
@@ -29,6 +29,10 @@ public:
 		System::wnd.setView(System::cam);
 
 		v2f go = m_direction * m_speed * (System::time / 1000);
+
+		//System::cam.move();
+		System::wnd.setView(System::cam);
+
 
 		MainShape->move(go);
 		MidlShape->move(go);
@@ -39,7 +43,7 @@ public:
 
 	};
 	virtual void SetDirection(v2f direction) override {
-		m_direction = v2f((System::cur_p_wnd.x - System::scr_w / 2) / 1920, (System::cur_p_wnd.y - System::scr_h / 2) / 1080);
+		//m_direction = v2f((System::cur_p_wnd.x - System::scr_w / 2) / 1920, (System::cur_p_wnd.y - System::scr_h / 2) / 1080);
 	};
 	virtual void SetSpeed(float speed) override {
 		m_speed = speed;
@@ -74,7 +78,7 @@ public:
 
 
 
-		m_speed = 1500.f;
+		m_speed = 3500.f;
 
 		Uniform_Cam = v2f(System::cam.getSize());
 
@@ -113,7 +117,7 @@ public:
 	public:
 		void Fire() {
 			for (auto& ganShape : GanShapes)
-				ganShape->fire(m_direction, 2000);
+				ganShape->fire(m_direction, 5000);
 		}
 };
 

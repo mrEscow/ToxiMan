@@ -56,14 +56,14 @@ void main(void){
 
 	vec4[mySize] myGiperVecMatrix;
 
-
+	vec2 mySizeEfect = vec2(200,200);
 
 	for(int i = 0; i < mySize;i++)
 	{
 		if(positions[i] != clear && positions[i] != clear2)
 		{
 			vec2 mypos = positions[i];
-			vec2 p = (gl_FragCoord.xy * 1.0 - vec2(mypos.x , -mypos.y)) / min(size.x / 5 , size.y / 5 );
+			vec2 p = (gl_FragCoord.xy * 1.0 - vec2(mypos.x , -mypos.y)) / min(mySizeEfect.x / 5 , mySizeEfect.y / 5 );
 			p = rotate2d((time * 1.0) * PI) * p;
 			float thickness = 0.256;
 			float t = thickness / abs(abs(sin(time)) - length(p));
@@ -72,6 +72,8 @@ void main(void){
 			myGiperVec += (vec4( vec3(p.x,p.y,1.0) , 1.) * mayvec4 - gl_Color);
 		}
 	}
+
+
 
 	//for(int i = 0; i < mySize;i++)
 	{

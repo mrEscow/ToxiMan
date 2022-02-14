@@ -74,6 +74,10 @@ public:
 	vector<IMG> test_texture_set;
 	static constexpr uint NUM_TEST_TEXTURE_SET = 10;
 
+
+
+
+
 	Texture()
 	{
 		LoadBord = Load("MapEditor/LOAD_BOARD2.png");

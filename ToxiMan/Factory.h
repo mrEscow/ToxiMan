@@ -41,7 +41,7 @@ public:
 		// Вызываем фабричный метод, чтобы получить объект-продукт.
 		GameObject* product = this->FactoryMethod();
 		// Далее, работаем с этим продуктом.
-		//vGemeObjects.push_back(dynamic_cast<IGameObject*>(product));
+
 		vDynamicObjects.push_back(dynamic_cast<DynamicObject*>(product));
 		vDynamicObjects.push_back(dynamic_cast<IDynamicObject*>(product));
 		//std::string result = "Creator: The same creator's code has just worked with " + product->Operation();
