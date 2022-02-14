@@ -169,15 +169,19 @@ public:
 };
 
 class Player {
-	Controller* PC = new GuiController;
-	Controller* PC2 = new PlayerController;
+
 	Escow::Timer Timer;
 
-	NewObject transport_;
-public:
-	Player(const NewObject& transport) {
+	Controller* PC = new GuiController; // temp
+	Controller* PC2 = new PlayerController;
 
+	NewObject* transport_;
+
+public:
+	Player(NewObject* transport) {
+		transport_ = transport;
 		vAllControllers.push_back(PC);
+		vAllControllers.push_back(PC2);
 	};
 	void Controller() {
 		
@@ -201,16 +205,22 @@ public:
 				cout << "Cteate One Bomber" << endl;
 			}
 		}
-
 		if (PC2->LKM->ON()) {
 			fire();
 		}
-
 	}
 
+	// Player public
+	v2f GetPosition() {
+		return transport_->GetPosition();
+	}
+
+	Shape* GetShape() const{
+		return transport_->GetShape();
+	}
 
 private:
-	IDynamicObject* slot_1;
+	IDynamicObject* slot_1 = new MyGun(new sf::RectangleShape(v2f(10,10)));
 	void fire() {
 		dynamic_cast<IGun*>(slot_1)->fire(System::cur_p, 100);
 	};
@@ -226,12 +236,12 @@ private:
 	BackGround* backGround;
 	BigSquare* bigSquare;
 
-	Plane* playerPlane;
+	//Plane* playerPlane;
 
 	Creator* pCreator;
 
 	NewObject monster;
-	Player* player = new Player(monster);
+	Player* player = new Player(&monster);
 
 	//Controller* pController = new AIController;
 

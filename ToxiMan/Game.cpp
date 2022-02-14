@@ -15,14 +15,14 @@ Game::Game()
 	vStaticObjects.push_back(backGround);
 
 	//Dynamic
-	sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
-	rectangle->setFillColor(Color::Green);
+	//sf::RectangleShape* rectangle = new sf::RectangleShape(v2f(100,50));
+	//rectangle->setFillColor(Color::Green);
 	//playerPlan
-	playerPlane = new Plane(rectangle);
-	vAllPlayers.push_back(playerPlane);
+	//playerPlane = new Plane(rectangle);
+	//vAllPlayers.push_back(playerPlane);
 	//vGemeObjects.push_back(plane);
 
-	vDynamicObjects.push_back(playerPlane);
+	//vDynamicObjects.push_back(playerPlane);
 
 	sf::RectangleShape* Square = new sf::RectangleShape(v2f(500, 500));
 	Square->setFillColor(Color::Magenta);
@@ -150,7 +150,7 @@ void Game::Update()
 		//}
 
 
-		v2f PlayerPos = playerPlane->GetPosition();
+		v2f PlayerPos = player->GetPosition();
 
 		for (auto& obj : vDynamicObjects) {
 			Tank* p = dynamic_cast<Tank*>(obj);
@@ -188,13 +188,13 @@ void Game::Update()
 					result.x /= 2.;
 					result.y /= 2.;
 				}
-				if (System::GetCollisionRect(*pP->m_rectangle, *playerPlane->m_rectangle))
+				if (System::GetCollisionRect(*pP->m_rectangle, *player->GetShape()))
 					pP->Daed();
 				pP->SetAngle(System::GetAngle(planePos, PlayerPos));
 				pP->SetDirection(v2f(-result.x, -result.y));
 			}
 		}
-		playerPlane->Update();
+		//playerPlane->Update();
 
 
 
@@ -306,7 +306,8 @@ void Game::Draw()
 
 void Game::CreateMegaMonster()
 {
-	
+
+	//player = new Player(monster);
 }
 
 
@@ -332,7 +333,7 @@ void Game::Action()
 		Controller->Action();
 
 	player->Controller();
-	playerPlane->action();
+	//playerPlane->action();
 }
 // public metods
 void Game::Thread()
