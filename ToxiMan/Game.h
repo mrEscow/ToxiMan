@@ -109,6 +109,8 @@ public:
 
 	void Update() {
 		pGUI->setPosition(System::cam.getCenter());
+		pGUI->setSize(System::cam.getSize());
+		pGUI->setOrigin(System::cam.getSize().x / 2, System::cam.getSize().y / 2);
 	}
 
 	virtual void Draw() override {
@@ -220,9 +222,9 @@ public:
 	}
 
 private:
-	IDynamicObject* slot_1 = new MyGun(new sf::RectangleShape(v2f(10,10)));
+
 	void fire() {
-		dynamic_cast<IGun*>(slot_1)->fire(System::cur_p, 100);
+		transport_->Fire();
 	};
 };
 

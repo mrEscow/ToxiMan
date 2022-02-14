@@ -5,6 +5,13 @@
 
 Game::Game()
 {
+	// tect
+
+
+	System::cam.zoom(2);
+	System::cam.setSize(System::scr_w*4, System::scr_h * 4);
+
+
 
 	//Static
 	sf::RectangleShape* rectangle3 = new sf::RectangleShape(v2f(1000, 1500));
@@ -109,24 +116,25 @@ Game::Game()
 
 void Game::Update()
 {
+	
 	//m_GameStates->Updata();
 
 	//switch (g_StateGame)
 	{
 		//case StateGame::ON_MENU:
 		System::cam.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-		System::cam.reset(
-			sf::FloatRect(
-				0,
-				0,
-				static_cast<float>(System::scr_w),
-				static_cast<float>(System::scr_h)
-			)
-		);
+		//System::cam.reset(
+		//	sf::FloatRect(
+		//		0,
+		//		0,
+		//		static_cast<float>(System::scr_w),
+		//		static_cast<float>(System::scr_h)
+		//	)
+		//);
 		System::cam.setCenter(0, 0);
 		System::wnd.setView(System::cam);
-		System::zoom /= System::zoom;
-		System::zoom = 1;
+		//System::zoom /= System::zoom;
+		//System::zoom = 1;
 		//m_main_menu->Update();
 
 	//	break;
@@ -149,6 +157,10 @@ void Game::Update()
 		//	}
 		//}
 
+		//cout <<
+		//	monster.GetPosition().x
+		//	<< endl;
+		//monster.Move();
 
 		v2f PlayerPos = player->GetPosition();
 
@@ -344,7 +356,12 @@ void Game::Thread()
 	{
 		System::SystemUpdate();
 
+
+
+
+
 		sdrTest.Update();
+
 		Update();
 
 		//sdrTest.Draw();

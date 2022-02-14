@@ -62,12 +62,12 @@ System::System(void) { }
 
 void System::SystemUpdate()
 {
+	//cam.zoom(zoom);
 	time = float(clock.getElapsedTime().asMicroseconds()) / 1000.f, clock.restart();
 	cur_p = wnd.mapPixelToCoords(sf::Mouse::getPosition(wnd));
 	cur_p_wnd = v2f(sf::Mouse::getPosition(wnd));
 	cur_for_UI = cur_p / zoom - cam.getCenter() / zoom;
 	cam_p = cam.getCenter();
-
 
 }
 
