@@ -78,7 +78,7 @@ public:
 
 
 
-		m_speed = 3500.f;
+		m_speed = 1500.f;
 
 		Uniform_Cam = v2f(System::cam.getSize());
 

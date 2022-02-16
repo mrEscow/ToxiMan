@@ -193,6 +193,44 @@ public:
 		//System::wnd.draw(*pGUI);
 	}
 };
+class AAAAAAA
+{
+
+private:
+	float angle = 0;
+	Shape* snape = new Shape(v2f(640, 640));
+	IGameObject* obj = new GameObject(snape);
+public:
+	void draw() {
+		//if(snape)
+		obj->Draw();
+			//System::wnd.draw(*snape);
+	}
+
+	void updata() {
+		angle += 3.f;
+		v2f position = System::GetNormalizedPosition(System::cam_p, 500, angle);
+		snape->setPosition(position);
+
+	}
+
+	AAAAAAA()
+	{
+
+		snape->setFillColor(sf::Color(250, 150, 200, 250));
+		//System::wnd.setFramerateLimit(System::fps);
+		//vAllPlans.push_back(obj);
+
+	}
+
+	~AAAAAAA()
+	{
+		delete snape;
+		delete obj;
+	}
+};
+
+
 
 class Player {
 
@@ -235,10 +273,10 @@ public:
 			fire();
 		}
 		if (PC2->PKM->ON()) {
-			transport_->SetSpeed(10000);
+			transport_->SetSpeed(100000);
 		}
 		else {
-			//transport_->SetSpeed(2000);
+			transport_->SetSpeed(2000);
 		}
 			
 	}
@@ -264,6 +302,7 @@ private:
 class Game
 {
 private:
+	AAAAAAA mymymy;
 	SHR sdrTest;
 
 	BackGround* backGround;

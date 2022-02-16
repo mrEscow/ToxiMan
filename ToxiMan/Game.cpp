@@ -3,13 +3,20 @@
 #include "Game.h"
 #include "BlackTest.h"
 
+
+
+
+
 Game::Game()
 {
 	// tect
+	
+
+	System::zoom =4;
 
 
-	System::zoom = 7;
 	System::cam.zoom(System::zoom);
+
 	System::cam.setSize(System::scr_w * System::zoom, System::scr_h * System::zoom);
 
 
@@ -57,8 +64,22 @@ Game::Game()
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Bullets, vAllBullets));
 	vGemeObjectsV01.push_back(pair<uint32, vector<IGameObject*>>(Guis, vAllGuis));
 
+
+
+
 	FactoryPlans factoryPlans;
-	factoryPlans.CreateTrheeFighter();
+
+	for (size_t i = 0; i < 30; i++)
+	{
+		factoryPlans.CreateTrheeFighter();
+
+		factoryPlans.CreateTwoInterceptors();
+
+		factoryPlans.CreateOneBomber();
+
+	}
+
+
 
 	//vAllControllers.push_back(pController);
 	//vAllGuis.push_back(&sdrTest);
@@ -117,6 +138,7 @@ Game::Game()
 
 void Game::Update()
 {
+	//mymymy.updata();
 	v2f PlayerPos = player->GetPosition();
 
 	//cout << "//////////////////////////0" << endl;
@@ -396,6 +418,10 @@ void Game::Play()
 		sdrTest.Update();
 
 		Update();
+
+		mymymy.updata();
+
+		mymymy.draw();
 
 		//sdrTest.Draw();
 		Draw();

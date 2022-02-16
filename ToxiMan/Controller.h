@@ -86,6 +86,12 @@ public:
 		if (System::IsMouseReleased(MouseButton::Left)) {
 			LKM->Set(false);
 		}
+		if (System::IsMousePressed(MouseButton::Right)) {
+			PKM->Set(true);
+		}
+		if (System::IsMouseReleased(MouseButton::Right)) {
+			PKM->Set(false);
+		}
 	}
 };
 
