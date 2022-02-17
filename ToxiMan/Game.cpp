@@ -333,10 +333,10 @@ void Game::Draw()
 			obj->Draw();
 	}
 
+	mymymy.draw();
 
 
-
-	my::S::wnd.draw(black);
+	//my::S::wnd.draw(black);
 	System::wnd.display();
 
 }
@@ -421,7 +421,7 @@ void Game::Play()
 
 		mymymy.updata();
 
-		mymymy.draw();
+
 
 		//sdrTest.Draw();
 		Draw();

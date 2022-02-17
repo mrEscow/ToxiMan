@@ -198,28 +198,46 @@ class AAAAAAA
 
 private:
 	float angle = 0;
-	Shape* snape = new Shape(v2f(640, 640));
+	v2f size{ 100,100 };
+	Shape* snape = new Shape(size);
 	IGameObject* obj = new GameObject(snape);
+	Shape* snape1 = new Shape(size);
+	IGameObject* obj1 = new GameObject(snape1);
+	Shape* snape2 = new Shape(size);
+	IGameObject* obj2 = new GameObject(snape2);
 public:
 	void draw() {
-		//if(snape)
+
 		obj->Draw();
-			//System::wnd.draw(*snape);
+		obj1->Draw();
+		obj2->Draw();
 	}
 
 	void updata() {
 		angle += 3.f;
-		v2f position = System::GetNormalizedPosition(System::cam_p, 500, angle);
-		snape->setPosition(position);
 
+		v2f position = System::GetNormalizedPosition(System::cam.getCenter(), 500, angle);
+		snape->setPosition(position);
+		//snape->move(position);
+		v2f position1 = System::GetNormalizedPosition(System::cam.getCenter(), 500, angle + 120);
+		snape1->setPosition(position1);
+		//snape1->move(position);
+		v2f position2 = System::GetNormalizedPosition(System::cam.getCenter(), 500, angle + 240);
+		snape2->setPosition(position2);
+		//snape2->move(position);
 	}
 
 	AAAAAAA()
 	{
 
 		snape->setFillColor(sf::Color(250, 150, 200, 250));
+		snape1->setFillColor(sf::Color(250, 150, 200, 250));
+		snape2->setFillColor(sf::Color(250, 150, 200, 250));
 		//System::wnd.setFramerateLimit(System::fps);
 		//vAllPlans.push_back(obj);
+		snape->setOrigin(size.x / 2, size.y / 2);
+		snape1->setOrigin(size.x / 2, size.y / 2);
+		snape2->setOrigin(size.x / 2, size.y / 2);
 
 	}
 
